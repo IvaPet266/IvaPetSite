@@ -7,7 +7,7 @@ export const colorThemeSlice = createSlice({
         fill_inactive: "#DBC1FF",
         fill_active: "#5E3F89",
         stroke_inactive: "#5E3F89",
-        stroke_active: "white"
+        stroke_active: "white",
     },
     reducers: {
         // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -36,7 +36,7 @@ export const userData = createSlice({
     initialState: {
         userId: null,
         userName: "username",
-        userBio: "bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio"
+        userBio: "bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio",
     },
     reducers: {
         giveUID: ( state, parameter ) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BaseScreen from '../Components/BaseScreen';
 import { useSelector } from 'react-redux';
 
@@ -6,23 +6,68 @@ export default function ScreenProfile( props ) {
 
   const userName = useSelector( ( state ) => state.userData.userName );
   const userBio = useSelector ( ( state ) => state.userData.userBio );
+  const menuBg = useSelector ( ( state ) => state.colorTheme.fill_inactive );
+  const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
+  const bioTextColor = useSelector( ( state ) => state.colorTheme.stroke_active );
 
-  let text;
-  if ( userBio.length > 30 ) text = `${ userBio.slice( 0, 30 ) }...`
-  else text = userBio;
+  const [ textColor, setTextColor ] = useState( "white" );
+  const [ fontSize, setFontSize ] = useState( "12px" );
+  const [ text, setText ] = useState( '' );
+  const [ placeholder, setPlaceholder ] = useState( '' );
+
+  let placeholderState = false;
+  useEffect(() => {
+  if ( userBio.length > 60 ) {
+    setText( userBio.slice( 0, 56 ) );
+    setPlaceholder( '...' );
+    placeholderState = true;
+  }
+  else {
+    setText( userBio )
+  }}, [])
 
   return (
     <BaseScreen>
       { props.children }
-      <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", margin: "5px" }}>
-        <img style={{ 
-                    height: "70px", width: "70px", background: "transparent", 
-                    backgroundColor: "black", borderRadius: "50%" }}/>
-        <p style={{ margin: "5px" }}>@{ userName }</p>
-        <p style={{ margin: "5px" }}>{ text }</p>
-      </div>
       <div style={{ background: "white" }}>ScreenProfile</div>
-      
+      <div className='CormorantInfant-serif' style={{ display: "flex", flexDirection: "row" }}>
+        <div style={{ width: "80%", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", margin: "5px" }}>
+          <img style={{ height: "100px", width: "100px", background: "transparent", backgroundColor: "black", borderRadius: "50%" }}/>
+          <p style={{ margin: "5px", color: bioTextColor }}>@{ userName }</p>
+          <div className='CormorantInfant-serif' style={{ padding: "0px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <p style={{ margin: "0px", width: "180px", textAlign: "center", color: bioTextColor }}>{ text }</p>
+            <button style={{ background: "transparent", border: "none", margin: "0px", fontSize: fontSize, transition: "all 300ms ease-out", color: textColor }}
+              onMouseEnter={ () => {
+                setTextColor( "grey" );
+                // setFontSize( "14px" );
+                if ( placeholder == '...' ) setPlaceholder( "show more" );
+              }}
+              onMouseLeave={ () => { 
+                setTextColor( "white" );
+                // setFontSize( "12px" );
+                if ( placeholder == 'show more' ) setPlaceholder( "..." );
+              }}
+              onClick={ () => {
+                if ( placeholderState ) {
+                  console.log('show');
+                  if ( placeholder == 'show more' ) {
+                    console.log('more');
+                    setText( userBio );
+                    setPlaceholder( 'show less' );
+                  } else {
+                    console.log('less');
+                    setText( userBio.slice( 0, 56 ) );
+                    setPlaceholder( 'show more' );
+                  }
+               };
+              }}
+            >{ placeholder }</button>
+          </div>
+        </div>
+        <div style={{ width: "20%", height: "100vh", background: menuBg, display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <h5 style={{ fontSize: "25px", margin: "0px", color: menuTextColor }}><u>Contents</u></h5>
+        </div>
+      </div>
     </BaseScreen>
   )
 }

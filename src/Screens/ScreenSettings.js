@@ -15,3 +15,4 @@ export default function ScreenSettings() {
         </BaseScreen>
     )
 }
+// 8225398 -- разница м/у цветами (десятичный результат вычитания fill_active из fill_inactive)

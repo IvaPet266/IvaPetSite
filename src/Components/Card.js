@@ -50,7 +50,7 @@ export default function Container( props ) {
                     display: "flex",
                     flexDirection: "row",
                 }}>
-                <div style={{ display: "flex", flexDirection: "column", padding: "3px" }}>
+                <div  className='CormorantInfant-serif' style={{ display: "flex", flexDirection: "column", padding: "3px" }}>
                     <h5 style={{ position: "absolute", bottom: "10px", color: "white" }}>{ props.title }</h5>
                     <span style={{ color: "white" }}>{ props.author }</span>
                     <button></button>
