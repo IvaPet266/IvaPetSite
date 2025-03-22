@@ -5,7 +5,7 @@ import Scroll from '../Components/Scroll'
 export default function ScreenMain( props ) {
 
   return (
-    <BaseScreen background={ "wheat" }>
+    <BaseScreen>
       { props.children }
       <div style={{ background:"wheat" }}>ScreenMain</div>
       <Scroll/>

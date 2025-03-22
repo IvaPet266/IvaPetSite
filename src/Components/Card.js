@@ -75,8 +75,12 @@ export default function Container( props ) {
                         }} 
                         src={ props.img }/>
                 } else {
+                    let textLimit;
+                    if ( props.category == "PROSE" ) textLimit = 340
+                    else textLimit = 237
+
                     let text;
-                    if ( props.text_content.length > 310 ) text = `${ props.text_content.slice( 0, 307 ) }...`
+                    if ( props.text_content.length > textLimit ) text = `${ props.text_content.slice( 0, textLimit-3 ) }...`
                     else text = props.text_content;
                     return <div style={{ width: "90%",
                         height: "100%",
@@ -85,12 +89,16 @@ export default function Container( props ) {
                         padding: "5px",
                         opacity: 1,
                         pointerEvents: 'none',  
-                        alignContent: "center",     
+                        display: "flex",
+                        alignContent: "center",  
+                        whiteSpace: "pre-line",  
+                        textAlign: "center",
                         filter: textFilter}}>
                             <span style={{ 
                                 transition: "all 300ms ease-out", 
                                 ...textStyle }}>{ text }</span>
-                        </div>}
+                        </div>
+                } 
             })() }
         </div>
     )

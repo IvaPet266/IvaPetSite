@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
-import useSelector from 'react-redux';   //!
+import { useDispatch, useSelector } from 'react-redux';   //!
 import Container from './Card';
 import cat from  '../imgs/cards/cat.jpg';
 import cat1 from '../imgs/cards/cat1.jpg';
 import cat2 from '../imgs/cards/cat2.jpg';
 import dog from '../imgs/cards/dog.jpg';
 import dog1 from '../imgs/cards/dog1.jpg';
+import { changeColorTheme } from '../app/store';
 
 
 
@@ -15,7 +16,8 @@ export default function Scroll( props ) {
     const [ CARDS, setCARDS ] = useState( null );
     const ref = useRef( null );
 
-    // const textColor = useSelector( ( state ) => state.colorTheme.fill_inactive ); //!
+    const textColor = useSelector( ( state ) => state.colorTheme.fill_inactive ); //!
+    const dispatcher = useDispatch()
 
     const zoomHandle = () => {
         const { width } = ref.current.getBoundingClientRect();
@@ -42,6 +44,7 @@ export default function Scroll( props ) {
             }
             catch ( error ) { console.warn( error ); }
         })().then( data => {
+            console.log(data);
             setCARDS( Object.values( data ) );
         }
         )}, []
@@ -58,13 +61,15 @@ export default function Scroll( props ) {
                         flexWrap: "wrap",
                         justifyContent: "center"
                     }}>
+                    <button onClick={() => dispatcher(changeColorTheme({'name': "fill_inactive", "value": "red"}), {} )}/>
                     { CARDS.map( ( value, index ) => <Container 
                                 key={ index } img={ value[ "image" ] } 
                                 title={ value[ "title" ] } author={ value[ "author" ] }
                                 category={ value[ "category" ] }
                                 text_content={ value[ "text_content" ] }/> ) }
+                    
                 </div>
         default:
-            return <p style={{ color: "whitesmoke" /*textColor*/ }}>Wait a minute!</p> //!
+            return <p style={{ color: textColor }}>Wait a minute!</p> //!
     }
 };

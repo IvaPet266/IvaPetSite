@@ -4,7 +4,7 @@ import BaseScreen from '../Components/BaseScreen';
 export default function ScreenSearch( props ) {
 
   return (
-    <BaseScreen background={ "midnightblue" }>
+    <BaseScreen>
     { props.children }
     <div style={{ background: "midnightblue" }}>ScreenSearch</div>
     </BaseScreen>

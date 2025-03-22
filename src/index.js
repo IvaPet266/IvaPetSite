@@ -16,7 +16,7 @@ import ScreenProfile from "./Screens/ScreenProfile";
 
 
 
-const {screen, setScreen} = useScreen();
+// const {screen, setScreen} = useScreen();
 
 ReactDOM.createRoot( document.getElementById( "app" ) ).render( 
     <ErrorBoundary>
@@ -24,13 +24,13 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
             <ProviderScreen>
                 <BrowserRouter> 
                     <Routes>
-                        <Route element={ <App/> }>
-                            <Route index element={ <ScreenMain><Menu setScreen={ setScreen }/></ScreenMain> } />
-                            <Route path="contests" element={ <ScreenContests><Menu setScreen={ setScreen }/></ScreenContests> } />
+                        <Route index element={ <App/> }>
+                            {/* <Route index element={ <ScreenMain><Menu setScreen={ setScreen }/></ScreenMain> } /> */}
+                            {/* <Route path="contests" element={ <ScreenContests><Menu setScreen={ setScreen }/></ScreenContests> } />
                             <Route path="discussion" element={ <ScreenDiscussion><Menu setScreen={ setScreen }/></ScreenDiscussion> } />
                             <Route path="newpost" element={ <ScreenNewPost><Menu setScreen={ setScreen }/></ScreenNewPost> } />
                             <Route path="search" element={ <ScreenSearch><Menu setScreen={ setScreen }/></ScreenSearch> } />
-                            <Route path="profile" element={ <ScreenProfile><Menu setScreen={ setScreen }/></ScreenProfile> } />
+                            <Route path="profile" element={ <ScreenProfile><Menu setScreen={ setScreen }/></ScreenProfile> } /> */}
                         </Route>
                     </Routes>
                 </BrowserRouter>

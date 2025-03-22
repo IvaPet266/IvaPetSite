@@ -16,10 +16,10 @@ export const colorThemeSlice = createSlice({
         // immutable state based off those changes.
         // Also, no return statement is required from these functions.
         
-        change: ( state, parameter ) => {
+        changeColorTheme: ( state, parameter ) => {
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
         },
-        back2default: ( state ) => {
+        back2defaultColorTheme: ( state ) => {
             state.fill_inactive = "#DBC1FF";
             state.fill_active = "#5E3F89";
             state.stroke_inactive = "#5E3F89";
@@ -29,12 +29,31 @@ export const colorThemeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { change, back2default } = colorThemeSlice.actions
+export const { changeColorTheme, back2defaultColorTheme } = colorThemeSlice.actions;
 
+export const userData = createSlice({
+    name: 'userData',
+    initialState: {
+        userId: null,
+        userName: "username",
+        userBio: "bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio bio"
+    },
+    reducers: {
+        giveUID: ( state, parameter ) => {
+            state.userId = parameter.payload
+        },
+        changeUserName: ( state, parameter ) => {
+            state.userName = parameter.payload
+        }
+    }
+})
+
+export const { giveUID, changeUserName } = userData.actions;
 
 
 export default configureStore({
     reducer: {
         colorTheme: colorThemeSlice.reducer,
+        userData: userData.reducer,
     },
 })
