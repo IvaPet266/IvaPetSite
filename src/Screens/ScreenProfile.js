@@ -98,7 +98,7 @@ export default function ScreenProfile( props ) {
               <hr style={{ border: "none", margin: "2.5px", width: "100%", backgroundColor: bioTextColor }} size="3"/>
               <hr style={{ border: "none", margin: "2.5px", width: "100%", backgroundColor: bioTextColor }} size="3"/>
             </div>
-            <h5 style={{ width: "20%", color: bioTextColor, fontSize: "25px", textAlign: "center", lineHeight: "35px", margin: "2px 0px" }}>
+            <h5 style={{ width: "20%", color: bioTextColor, fontSize: "25px", textAlign: "center", lineHeight: "35px", margin: "0px 0px 0px 3px" }}>
               { menuSection }
             </h5>
             <div style={{ width: "40%", display: "flex", flexDirection: "column" }}>
@@ -179,7 +179,7 @@ export default function ScreenProfile( props ) {
             </button>
             <p style={{ pointerEvents: "none", margin: "0px", paddingLeft: "10px" }}>j</p>
           </div>
-          <hr style={{ border: "none", width: "100%", backgroundColor: "black", marginTop: "22px" }} size="3"/>
+          <hr style={{ border: "none", width: "100%", backgroundColor: "black", marginTop: "26px" }} size="3"/>
         </div>
       </div>
     </BaseScreen>

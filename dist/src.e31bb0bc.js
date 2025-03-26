@@ -21997,7 +21997,7 @@ function ScreenProfile(props) {
       fontSize: "25px",
       textAlign: "center",
       lineHeight: "35px",
-      margin: "2px 0px"
+      margin: "0px 0px 0px 3px"
     }
   }, menuSection), /*#__PURE__*/_react.default.createElement("div", {
     style: {
@@ -22206,7 +22206,7 @@ function ScreenProfile(props) {
       border: "none",
       width: "100%",
       backgroundColor: "black",
-      marginTop: "22px"
+      marginTop: "26px"
     },
     size: "3"
   }))));
