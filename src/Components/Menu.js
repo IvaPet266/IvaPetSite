@@ -23,7 +23,7 @@ export default function Menu( props ) {
   return (
     <div id="menu" style={{
       display: "flex", background: "#DBC1FF", 
-      padding: "", alignItems: "center", height: "100px" 
+      padding: "", alignItems: "center", height: "100px", border: "solid black 1px" 
       }}>
       <Button id="main" style_={ false }>Main</Button>
       <Button id="contests" style_={ false }>Contests</Button>

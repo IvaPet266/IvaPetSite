@@ -21835,6 +21835,22 @@ function ScreenProfile(props) {
     _useState10 = _slicedToArray(_useState9, 2),
     menuSection = _useState10[0],
     setMenuSection = _useState10[1];
+  var _useState11 = (0, _react.useState)(menuTextColor),
+    _useState12 = _slicedToArray(_useState11, 2),
+    collectionsColor = _useState12[0],
+    setCollectionsColor = _useState12[1];
+  var _useState13 = (0, _react.useState)(menuTextColor),
+    _useState14 = _slicedToArray(_useState13, 2),
+    savedColor = _useState14[0],
+    setSavedColor = _useState14[1];
+  var _useState15 = (0, _react.useState)(menuTextColor),
+    _useState16 = _slicedToArray(_useState15, 2),
+    likedColor = _useState16[0],
+    setLikedColor = _useState16[1];
+  var _useState17 = (0, _react.useState)(menuTextColor),
+    _useState18 = _slicedToArray(_useState17, 2),
+    repostedColor = _useState18[0],
+    setRepostedColor = _useState18[1];
   var placeholderState = false;
   (0, _react.useEffect)(function () {
     if (userBio.length > 60) {
@@ -21845,11 +21861,30 @@ function ScreenProfile(props) {
       setText(userBio);
     }
   }, []);
-  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      background: "white"
+  (0, _react.useEffect)(function () {
+    if (menuSection == "Collections") {
+      setCollectionsColor("#FFF600");
+      setSavedColor(menuTextColor);
+      setLikedColor(menuTextColor);
+      setRepostedColor(menuTextColor);
+    } else if (menuSection == "Saved") {
+      setCollectionsColor(menuTextColor);
+      setSavedColor("#00BC13");
+      setLikedColor(menuTextColor);
+      setRepostedColor(menuTextColor);
+    } else if (menuSection == "Liked") {
+      setCollectionsColor(menuTextColor);
+      setSavedColor(menuTextColor);
+      setLikedColor("#B90000");
+      setRepostedColor(menuTextColor);
+    } else if (menuSection == "Reposted") {
+      setCollectionsColor(menuTextColor);
+      setSavedColor(menuTextColor);
+      setLikedColor(menuTextColor);
+      setRepostedColor("#4700AA");
     }
-  }, "ScreenProfile"), /*#__PURE__*/_react.default.createElement("div", {
+  }, [menuSection]);
+  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
     className: "CormorantInfant-serif",
     style: {
       display: "flex",
@@ -21862,7 +21897,7 @@ function ScreenProfile(props) {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      margin: "5px"
+      marginTop: "5px"
     }
   }, /*#__PURE__*/_react.default.createElement("img", {
     style: {
@@ -21941,25 +21976,27 @@ function ScreenProfile(props) {
     }
   }, /*#__PURE__*/_react.default.createElement("hr", {
     style: {
+      border: "none",
       margin: "2.5px",
       width: "100%",
       backgroundColor: bioTextColor
     },
-    size: "2"
+    size: "3"
   }), /*#__PURE__*/_react.default.createElement("hr", {
     style: {
+      border: "none",
       margin: "2.5px",
       width: "100%",
       backgroundColor: bioTextColor
     },
-    size: "2"
+    size: "3"
   })), /*#__PURE__*/_react.default.createElement("h5", {
     style: {
       width: "20%",
       color: bioTextColor,
       fontSize: "25px",
       textAlign: "center",
-      lineHeight: "30px",
+      lineHeight: "35px",
       margin: "2px 0px"
     }
   }, menuSection), /*#__PURE__*/_react.default.createElement("div", {
@@ -21970,35 +22007,48 @@ function ScreenProfile(props) {
     }
   }, /*#__PURE__*/_react.default.createElement("hr", {
     style: {
+      border: "none",
       margin: "2.5px",
       width: "100%",
       backgroundColor: bioTextColor
     },
-    size: "2"
+    size: "3"
   }), /*#__PURE__*/_react.default.createElement("hr", {
     style: {
+      border: "none",
       margin: "2.5px",
       width: "100%",
       backgroundColor: bioTextColor
     },
-    size: "2"
+    size: "3"
   })))), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       width: "20%",
       height: "100vh",
       background: menuBg,
+      border: "solid black 2px",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center",
-      padding: "5px"
+      alignItems: "center"
     }
   }, /*#__PURE__*/_react.default.createElement("h5", {
     style: {
-      fontSize: "25px",
+      fontSize: "35px",
       margin: "0px",
       color: menuTextColor
     }
   }, /*#__PURE__*/_react.default.createElement("u", null, "Contents")), /*#__PURE__*/_react.default.createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      setCollectionsColor("#FFF600");
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (menuSection != "Collections") {
+        setCollectionsColor(menuTextColor);
+      }
+    },
+    onClick: function onClick() {
+      setMenuSection("Collections");
+    },
     style: {
       width: "100%",
       display: "flex",
@@ -22016,16 +22066,30 @@ function ScreenProfile(props) {
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "CormorantInfant-serif",
     style: {
+      pointerEvents: "none",
+      transition: "color 300ms ease-out",
       fontWeight: "bold",
-      color: menuTextColor,
-      fontSize: "23px"
+      color: collectionsColor,
+      fontSize: "25px"
     }
   }, "Collections")), /*#__PURE__*/_react.default.createElement("p", {
     style: {
+      pointerEvents: "none",
       margin: "0px",
       paddingLeft: "10px"
     }
   }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      setSavedColor("#00BC13");
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (menuSection != "Saved") {
+        setSavedColor(menuTextColor);
+      }
+    },
+    onClick: function onClick() {
+      setMenuSection("Saved");
+    },
     style: {
       width: "100%",
       display: "flex",
@@ -22043,16 +22107,30 @@ function ScreenProfile(props) {
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "CormorantInfant-serif",
     style: {
+      pointerEvents: "none",
+      transition: "color 300ms ease-out",
       fontWeight: "bold",
-      color: menuTextColor,
-      fontSize: "23px"
+      color: savedColor,
+      fontSize: "25px"
     }
   }, "Saved")), /*#__PURE__*/_react.default.createElement("p", {
     style: {
+      pointerEvents: "none",
       margin: "0px",
       paddingLeft: "10px"
     }
   }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      setLikedColor("#B90000");
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (menuSection != "Liked") {
+        setLikedColor(menuTextColor);
+      }
+    },
+    onClick: function onClick() {
+      setMenuSection("Liked");
+    },
     style: {
       width: "100%",
       display: "flex",
@@ -22070,16 +22148,30 @@ function ScreenProfile(props) {
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "CormorantInfant-serif",
     style: {
+      pointerEvents: "none",
+      transition: "color 300ms ease-out",
       fontWeight: "bold",
-      color: menuTextColor,
-      fontSize: "23px"
+      color: likedColor,
+      fontSize: "25px"
     }
   }, "Liked")), /*#__PURE__*/_react.default.createElement("p", {
     style: {
+      pointerEvents: "none",
       margin: "0px",
       paddingLeft: "10px"
     }
   }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      setRepostedColor("#4700AA");
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (menuSection != "Reposted") {
+        setRepostedColor(menuTextColor);
+      }
+    },
+    onClick: function onClick() {
+      setMenuSection("Reposted");
+    },
     style: {
       width: "100%",
       display: "flex",
@@ -22097,16 +22189,27 @@ function ScreenProfile(props) {
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "CormorantInfant-serif",
     style: {
+      pointerEvents: "none",
+      transition: "color 300ms ease-out",
       fontWeight: "bold",
-      color: menuTextColor,
-      fontSize: "23px"
+      color: repostedColor,
+      fontSize: "25px"
     }
   }, "Reposted")), /*#__PURE__*/_react.default.createElement("p", {
     style: {
+      pointerEvents: "none",
       margin: "0px",
       paddingLeft: "10px"
     }
-  }, "j")))));
+  }, "j")), /*#__PURE__*/_react.default.createElement("hr", {
+    style: {
+      border: "none",
+      width: "100%",
+      backgroundColor: "black",
+      marginTop: "22px"
+    },
+    size: "3"
+  }))));
 }
 },{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"Screens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
@@ -22378,7 +22481,8 @@ function Menu(props) {
       background: "#DBC1FF",
       padding: "",
       alignItems: "center",
-      height: "100px"
+      height: "100px",
+      border: "solid black 1px"
     }
   }, /*#__PURE__*/_react.default.createElement(Button, {
     id: "main",
@@ -37272,7 +37376,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58123" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50430" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
