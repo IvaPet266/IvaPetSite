@@ -14,6 +14,7 @@ export default function ScreenProfile( props ) {
   const [ fontSize, setFontSize ] = useState( "12px" );
   const [ text, setText ] = useState( '' );
   const [ placeholder, setPlaceholder ] = useState( '' );
+  const [ menuSection, setMenuSection ] = useState( "Collections" );
 
   let placeholderState = false;
   useEffect(() => {
@@ -63,9 +64,54 @@ export default function ScreenProfile( props ) {
               }}
             >{ placeholder }</button>
           </div>
+          <div style={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center" }}>
+            <div style={{ width: "40%", display: "flex", flexDirection: "column" }}>
+              <hr style={{ margin: "2.5px",  width: "100%", backgroundColor: bioTextColor }} size="2"/>
+              <hr style={{ margin: "2.5px",  width: "100%", backgroundColor: bioTextColor }} size="2"/>
+            </div>
+            <h5 style={{ width: "20%", color: bioTextColor, fontSize: "25px", textAlign: "center", lineHeight: "30px", margin: "2px 0px" }}>
+              { menuSection }
+            </h5>
+            <div style={{ width: "40%", display: "flex", flexDirection: "column" }}>
+              <hr style={{ margin: "2.5px",  width: "100%", backgroundColor: bioTextColor }} size="2"/>
+              <hr style={{ margin: "2.5px",  width: "100%", backgroundColor: bioTextColor }} size="2"/>
+            </div>
+          </div>
         </div>
-        <div style={{ width: "20%", height: "100vh", background: menuBg, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ width: "20%", height: "100vh", background: menuBg, display: "flex", flexDirection: "column", alignItems: "center", padding: "5px" }}>
           <h5 style={{ fontSize: "25px", margin: "0px", color: menuTextColor }}><u>Contents</u></h5>
+          <div style={{ width: "100%", display: "flex", flexDirection: "row", padding: "0px", justifyContent: "space-between" }}>
+              <button style={{ background: "transparent", border: "none", margin: "0px", padding: "2px" }}>
+                <span className='CormorantInfant-serif' style={{ fontWeight: "bold", color: menuTextColor, fontSize: "23px" }}>
+                  Collections
+                </span>
+              </button>
+              <p style={{ margin: "0px", paddingLeft: "10px" }}>j</p>
+          </div>
+          <div style={{ width: "100%", display: "flex", flexDirection: "row", padding: "0px", justifyContent: "space-between" }}>
+              <button style={{ background: "transparent", border: "none", margin: "0px", padding: "2px" }}>
+                <span className='CormorantInfant-serif' style={{ fontWeight: "bold", color: menuTextColor, fontSize: "23px" }}>
+                  Saved
+                </span>
+              </button>
+              <p style={{ margin: "0px", paddingLeft: "10px" }}>j</p>
+          </div>
+          <div style={{ width: "100%", display: "flex", flexDirection: "row", padding: "0px", justifyContent: "space-between" }}>
+              <button style={{ background: "transparent", border: "none", margin: "0px", padding: "2px" }}>
+                <span className='CormorantInfant-serif' style={{ fontWeight: "bold", color: menuTextColor, fontSize: "23px" }}>
+                  Liked
+                </span>
+              </button>
+              <p style={{ margin: "0px", paddingLeft: "10px" }}>j</p>
+          </div>
+          <div style={{ width: "100%", display: "flex", flexDirection: "row", padding: "0px", justifyContent: "space-between" }}>
+              <button style={{ background: "transparent", border: "none", margin: "0px", padding: "2px" }}>
+                <span className='CormorantInfant-serif' style={{ fontWeight: "bold", color: menuTextColor, fontSize: "23px" }}>
+                  Reposted
+                </span>
+              </button>
+              <p style={{ margin: "0px", paddingLeft: "10px" }}>j</p>
+          </div>
         </div>
       </div>
     </BaseScreen>

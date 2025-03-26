@@ -21831,6 +21831,10 @@ function ScreenProfile(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     placeholder = _useState8[0],
     setPlaceholder = _useState8[1];
+  var _useState9 = (0, _react.useState)("Collections"),
+    _useState10 = _slicedToArray(_useState9, 2),
+    menuSection = _useState10[0],
+    setMenuSection = _useState10[1];
   var placeholderState = false;
   (0, _react.useEffect)(function () {
     if (userBio.length > 60) {
@@ -21922,14 +21926,71 @@ function ScreenProfile(props) {
       }
       ;
     }
-  }, placeholder))), /*#__PURE__*/_react.default.createElement("div", {
+  }, placeholder)), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "40%",
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, /*#__PURE__*/_react.default.createElement("hr", {
+    style: {
+      margin: "2.5px",
+      width: "100%",
+      backgroundColor: bioTextColor
+    },
+    size: "2"
+  }), /*#__PURE__*/_react.default.createElement("hr", {
+    style: {
+      margin: "2.5px",
+      width: "100%",
+      backgroundColor: bioTextColor
+    },
+    size: "2"
+  })), /*#__PURE__*/_react.default.createElement("h5", {
+    style: {
+      width: "20%",
+      color: bioTextColor,
+      fontSize: "25px",
+      textAlign: "center",
+      lineHeight: "30px",
+      margin: "2px 0px"
+    }
+  }, menuSection), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "40%",
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, /*#__PURE__*/_react.default.createElement("hr", {
+    style: {
+      margin: "2.5px",
+      width: "100%",
+      backgroundColor: bioTextColor
+    },
+    size: "2"
+  }), /*#__PURE__*/_react.default.createElement("hr", {
+    style: {
+      margin: "2.5px",
+      width: "100%",
+      backgroundColor: bioTextColor
+    },
+    size: "2"
+  })))), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       width: "20%",
       height: "100vh",
       background: menuBg,
       display: "flex",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      padding: "5px"
     }
   }, /*#__PURE__*/_react.default.createElement("h5", {
     style: {
@@ -21937,7 +21998,115 @@ function ScreenProfile(props) {
       margin: "0px",
       color: menuTextColor
     }
-  }, /*#__PURE__*/_react.default.createElement("u", null, "Contents")))));
+  }, /*#__PURE__*/_react.default.createElement("u", null, "Contents")), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      background: "transparent",
+      border: "none",
+      margin: "0px",
+      padding: "2px"
+    }
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "CormorantInfant-serif",
+    style: {
+      fontWeight: "bold",
+      color: menuTextColor,
+      fontSize: "23px"
+    }
+  }, "Collections")), /*#__PURE__*/_react.default.createElement("p", {
+    style: {
+      margin: "0px",
+      paddingLeft: "10px"
+    }
+  }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      background: "transparent",
+      border: "none",
+      margin: "0px",
+      padding: "2px"
+    }
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "CormorantInfant-serif",
+    style: {
+      fontWeight: "bold",
+      color: menuTextColor,
+      fontSize: "23px"
+    }
+  }, "Saved")), /*#__PURE__*/_react.default.createElement("p", {
+    style: {
+      margin: "0px",
+      paddingLeft: "10px"
+    }
+  }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      background: "transparent",
+      border: "none",
+      margin: "0px",
+      padding: "2px"
+    }
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "CormorantInfant-serif",
+    style: {
+      fontWeight: "bold",
+      color: menuTextColor,
+      fontSize: "23px"
+    }
+  }, "Liked")), /*#__PURE__*/_react.default.createElement("p", {
+    style: {
+      margin: "0px",
+      paddingLeft: "10px"
+    }
+  }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      background: "transparent",
+      border: "none",
+      margin: "0px",
+      padding: "2px"
+    }
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "CormorantInfant-serif",
+    style: {
+      fontWeight: "bold",
+      color: menuTextColor,
+      fontSize: "23px"
+    }
+  }, "Reposted")), /*#__PURE__*/_react.default.createElement("p", {
+    style: {
+      margin: "0px",
+      paddingLeft: "10px"
+    }
+  }, "j")))));
 }
 },{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"Screens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
@@ -37103,7 +37272,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53123" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58123" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
