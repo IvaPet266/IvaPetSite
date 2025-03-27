@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux';
 
 export const colorThemeSlice = createSlice({
     name: 'colorTheme',
@@ -8,6 +9,7 @@ export const colorThemeSlice = createSlice({
         fill_active: "#5E3F89",
         stroke_inactive: "#5E3F89",
         stroke_active: "white",
+        lines: "black"
     },
     reducers: {
         // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -18,12 +20,14 @@ export const colorThemeSlice = createSlice({
         
         changeColorTheme: ( state, parameter ) => {
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
+            console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
         },
         back2defaultColorTheme: ( state ) => {
             state.fill_inactive = "#DBC1FF";
             state.fill_active = "#5E3F89";
             state.stroke_inactive = "#5E3F89";
             state.stroke_active = "white";
+            state.lines = "black";
         }
     },
 })

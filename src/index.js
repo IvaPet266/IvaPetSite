@@ -6,17 +6,8 @@ import { Provider } from 'react-redux'
 import ProviderScreen, { useScreen } from "./Screens/ProviderScreen";
 import ErrorBoundary from "./Components/ErrorBoundry";
 import { BrowserRouter, Route, Routes } from "react-router";
-import ScreenMain from "./Screens/ScreenMain";
-import ScreenContests from "./Screens/ScreenContests";
-import Menu from "./Components/Menu";
-import ScreenDiscussion from "./Screens/ScreenDiscussion";
-import ScreenNewPost from "./Screens/ScreenNewPost";
-import ScreenSearch from "./Screens/ScreenSearch";
-import ScreenProfile from "./Screens/ScreenProfile";
 
 
-
-// const {screen, setScreen} = useScreen();
 
 ReactDOM.createRoot( document.getElementById( "app" ) ).render( 
     <ErrorBoundary>

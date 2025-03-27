@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useScreen } from '../Screens/ProviderScreen';
 import SVGButton, { SVGButton2Paths } from './SVGButtons';
+import { useSelector } from 'react-redux';
 
 
 export default function Menu( props ) {
@@ -47,17 +48,39 @@ export default function Menu( props ) {
 export function Button( props ) {
 
   const { screen, setScreen } = useScreen();
+  const menuBg = useSelector ( ( state ) => state.colorTheme.fill_inactive );
+  const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
+  const bioTextColor = useSelector( ( state ) => state.colorTheme.stroke_active );
 
-  let className;
+  const [ backgroundColorInactive, setBackgroundColorInactive ] = useState( menuBg );
+  const [ textColorInactive, setTextColorInactive ] = useState( menuTextColor );
+  
+  let style;
 
   switch ( screen ) {
-    case props.id: className = "btn-dark"; break;
-    default: className = "btn-normal"; break;
+    case props.id: style={
+      background: menuTextColor, color: bioTextColor, height: "50px", width: "160px", textAlign: "center",
+      fontFamily: "Cormorant Infant, serif", margin: "8px"}; break;
+    default: style={
+      background: backgroundColorInactive, color: textColorInactive, borderColor: backgroundColorInactive, 
+      height: "50px", width: "160px", textAlign: "center", fontFamily: "Cormorant Infant, serif", fontWeight: "bold",
+      margin: "8px", transition: "all 300ms ease-out"
+    }; break;
   };
-  
-  if ( props.style_ == true ) { className = "icon-btn-normal" };
-  
+
   return (
-    <button onClick={ () => setScreen( props.id ) } className={ className }>{ props.children }</button>
+    <button onClick={ () => setScreen( props.id ) } 
+      onMouseEnter={() => {
+        if ( props.id != screen ) {
+          setBackgroundColorInactive( menuTextColor );
+          setTextColorInactive( bioTextColor );
+        }
+      }} onMouseLeave={() => {
+        if ( props.id != screen ) {
+          setBackgroundColorInactive( menuBg );
+          setTextColorInactive( menuTextColor );
+        }
+      }}
+      style={ style }>{ props.children }</button>
   )
 };

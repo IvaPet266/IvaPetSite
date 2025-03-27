@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function Container( props ) {
     
@@ -6,6 +7,7 @@ export default function Container( props ) {
     const [ filter, setFilter ] = useState( "none" );
     const [ textFilter, setTextFilter ] = useState( "none" );
     const [ textStyle, setTextStyle ] = useState( { color: "black", background: "transparent" } );
+    const lines = useSelector( ( state ) => state.colorTheme.lines );
 
     const margin = 10;
 
@@ -20,6 +22,7 @@ export default function Container( props ) {
                 maxHeight: "250px",
                 maxWidth: "200px",
                 position: "relative",
+                border: `solid 1px ${ lines }`,
                 borderRadius: "20px",
             }}    
             onMouseEnter={ () => {

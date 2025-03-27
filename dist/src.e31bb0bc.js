@@ -16610,7 +16610,7 @@ function BaseScreen(props) {
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       minHeight: "100vh",
-      background: bg_color
+      backgroundColor: bg_color
     }
   }, props.children);
 }
@@ -16641,6 +16641,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Container;
 var _react = _interopRequireWildcard(require("react"));
+var _reactRedux = require("react-redux");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -16675,6 +16676,9 @@ function Container(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     textStyle = _useState8[0],
     setTextStyle = _useState8[1];
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
   var margin = 10;
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
@@ -16687,6 +16691,7 @@ function Container(props) {
       maxHeight: "250px",
       maxWidth: "200px",
       position: "relative",
+      border: "solid 1px ".concat(lines),
       borderRadius: "20px"
     },
     onMouseEnter: function onMouseEnter() {
@@ -16794,7 +16799,7 @@ function Container(props) {
   }());
 }
 ;
-},{"react":"../node_modules/react/index.js"}],"imgs/cards/cat.jpg":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"imgs/cards/cat.jpg":[function(require,module,exports) {
 module.exports = "/cat.2d468355.jpg";
 },{}],"imgs/cards/cat1.jpg":[function(require,module,exports) {
 module.exports = "/cat1.2ce78888.jpg";
@@ -21542,13 +21547,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.userData = exports.giveUID = exports.default = exports.colorThemeSlice = exports.changeUserName = exports.changeColorTheme = exports.back2defaultColorTheme = void 0;
 var _toolkit = require("@reduxjs/toolkit");
+var _reactRedux = require("react-redux");
 var colorThemeSlice = exports.colorThemeSlice = (0, _toolkit.createSlice)({
   name: 'colorTheme',
   initialState: {
     fill_inactive: "#DBC1FF",
     fill_active: "#5E3F89",
     stroke_inactive: "#5E3F89",
-    stroke_active: "white"
+    stroke_active: "white",
+    lines: "black"
   },
   reducers: {
     // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -21559,12 +21566,14 @@ var colorThemeSlice = exports.colorThemeSlice = (0, _toolkit.createSlice)({
 
     changeColorTheme: function changeColorTheme(state, parameter) {
       state[parameter.payload["name"]] = parameter.payload["value"];
+      console.log(parameter.payload["name"], '->', state[parameter.payload["name"]]);
     },
     back2defaultColorTheme: function back2defaultColorTheme(state) {
       state.fill_inactive = "#DBC1FF";
       state.fill_active = "#5E3F89";
       state.stroke_inactive = "#5E3F89";
       state.stroke_active = "white";
+      state.lines = "black";
     }
   }
 });
@@ -21598,7 +21607,7 @@ var _default = exports.default = (0, _toolkit.configureStore)({
     userData: userData.reducer
   }
 });
-},{"@reduxjs/toolkit":"../node_modules/@reduxjs/toolkit/dist/redux-toolkit.legacy-esm.js"}],"Components/Scroll.js":[function(require,module,exports) {
+},{"@reduxjs/toolkit":"../node_modules/@reduxjs/toolkit/dist/redux-toolkit.legacy-esm.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"Components/Scroll.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21698,14 +21707,7 @@ function Scroll(props) {
           flexWrap: "wrap",
           justifyContent: "center"
         }
-      }, /*#__PURE__*/_react.default.createElement("button", {
-        onClick: function onClick() {
-          return dispatcher((0, _store.changeColorTheme)({
-            'name': "fill_inactive",
-            "value": "red"
-          }), {});
-        } /*! ПРИМЕР. удалить после применения в другом месте !*/
-      }), CARDS.map(function (value, index) {
+      }, CARDS.map(function (value, index) {
         return /*#__PURE__*/_react.default.createElement(_Card.default, {
           key: index,
           img: value["image"],
@@ -21786,10 +21788,12 @@ function ScreenNewPost(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.MainProfileDiv = MainProfileDiv;
 exports.default = ScreenProfile;
 var _react = _interopRequireWildcard(require("react"));
 var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
 var _reactRedux = require("react-redux");
+var _store = require("../app/store");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -21800,12 +21804,6 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function ScreenProfile(props) {
-  var userName = (0, _reactRedux.useSelector)(function (state) {
-    return state.userData.userName;
-  });
-  var userBio = (0, _reactRedux.useSelector)(function (state) {
-    return state.userData.userBio;
-  });
   var menuBg = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
   });
@@ -21815,73 +21813,127 @@ function ScreenProfile(props) {
   var bioTextColor = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
-  var _useState = (0, _react.useState)("white"),
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  var _useState = (0, _react.useState)("Collections"),
     _useState2 = _slicedToArray(_useState, 2),
-    textColor = _useState2[0],
-    setTextColor = _useState2[1];
-  var _useState3 = (0, _react.useState)("12px"),
+    menuSection = _useState2[0],
+    setMenuSection = _useState2[1];
+  var _useState3 = (0, _react.useState)(menuTextColor),
     _useState4 = _slicedToArray(_useState3, 2),
-    fontSize = _useState4[0],
-    setFontSize = _useState4[1];
-  var _useState5 = (0, _react.useState)(''),
+    collectionsColor = _useState4[0],
+    setCollectionsColor = _useState4[1];
+  var _useState5 = (0, _react.useState)(menuTextColor),
     _useState6 = _slicedToArray(_useState5, 2),
-    text = _useState6[0],
-    setText = _useState6[1];
-  var _useState7 = (0, _react.useState)(''),
+    collectionsStrokeSVG = _useState6[0],
+    setCollectionsStrokeSVG = _useState6[1];
+  var _useState7 = (0, _react.useState)("none"),
     _useState8 = _slicedToArray(_useState7, 2),
-    placeholder = _useState8[0],
-    setPlaceholder = _useState8[1];
-  var _useState9 = (0, _react.useState)("Collections"),
+    collectionsFillSVG = _useState8[0],
+    setCollectionsFillSVG = _useState8[1];
+  var _useState9 = (0, _react.useState)(menuTextColor),
     _useState10 = _slicedToArray(_useState9, 2),
-    menuSection = _useState10[0],
-    setMenuSection = _useState10[1];
+    savedColor = _useState10[0],
+    setSavedColor = _useState10[1];
   var _useState11 = (0, _react.useState)(menuTextColor),
     _useState12 = _slicedToArray(_useState11, 2),
-    collectionsColor = _useState12[0],
-    setCollectionsColor = _useState12[1];
+    savedStrokeSVG = _useState12[0],
+    setSavedStrokeSVG = _useState12[1];
   var _useState13 = (0, _react.useState)(menuTextColor),
     _useState14 = _slicedToArray(_useState13, 2),
-    savedColor = _useState14[0],
-    setSavedColor = _useState14[1];
+    likedColor = _useState14[0],
+    setLikedColor = _useState14[1];
   var _useState15 = (0, _react.useState)(menuTextColor),
     _useState16 = _slicedToArray(_useState15, 2),
-    likedColor = _useState16[0],
-    setLikedColor = _useState16[1];
-  var _useState17 = (0, _react.useState)(menuTextColor),
+    likedStrokeSVG = _useState16[0],
+    setLikedStrokeSVG = _useState16[1];
+  var _useState17 = (0, _react.useState)("none"),
     _useState18 = _slicedToArray(_useState17, 2),
-    repostedColor = _useState18[0],
-    setRepostedColor = _useState18[1];
-  var placeholderState = false;
-  (0, _react.useEffect)(function () {
-    if (userBio.length > 60) {
-      setText(userBio.slice(0, 56));
-      setPlaceholder('...');
-      placeholderState = true;
-    } else {
-      setText(userBio);
-    }
-  }, []);
+    likedFillSVG = _useState18[0],
+    setLikedFillSVG = _useState18[1];
+  var _useState19 = (0, _react.useState)(menuTextColor),
+    _useState20 = _slicedToArray(_useState19, 2),
+    repostedColor = _useState20[0],
+    setRepostedColor = _useState20[1];
+  var _useState21 = (0, _react.useState)(menuTextColor),
+    _useState22 = _slicedToArray(_useState21, 2),
+    repostedStrokeSVG = _useState22[0],
+    setRepostedStrokeSVG = _useState22[1];
+  var _useState23 = (0, _react.useState)(menuTextColor),
+    _useState24 = _slicedToArray(_useState23, 2),
+    settingsColor = _useState24[0],
+    setSettingsColor = _useState24[1];
+  var _useState25 = (0, _react.useState)(menuTextColor),
+    _useState26 = _slicedToArray(_useState25, 2),
+    settingsStrokeSVG = _useState26[0],
+    setSettingsStrokeSVG = _useState26[1];
   (0, _react.useEffect)(function () {
     if (menuSection == "Collections") {
       setCollectionsColor("#FFF600");
+      setCollectionsStrokeSVG(lines);
+      setCollectionsFillSVG("#FFF600");
       setSavedColor(menuTextColor);
+      setSavedStrokeSVG(menuTextColor);
       setLikedColor(menuTextColor);
+      setLikedFillSVG("none");
+      setLikedStrokeSVG(menuTextColor);
       setRepostedColor(menuTextColor);
+      setRepostedStrokeSVG(menuTextColor);
+      setSettingsColor(menuTextColor);
+      setSettingsStrokeSVG(menuTextColor);
     } else if (menuSection == "Saved") {
       setCollectionsColor(menuTextColor);
+      setCollectionsStrokeSVG(menuTextColor);
+      setCollectionsFillSVG("none");
       setSavedColor("#00BC13");
+      setSavedStrokeSVG("#00BC13");
       setLikedColor(menuTextColor);
+      setLikedFillSVG("none");
+      setLikedStrokeSVG(menuTextColor);
       setRepostedColor(menuTextColor);
+      setRepostedStrokeSVG(menuTextColor);
+      setSettingsColor(menuTextColor);
+      setSettingsStrokeSVG(menuTextColor);
     } else if (menuSection == "Liked") {
       setCollectionsColor(menuTextColor);
+      setCollectionsStrokeSVG(menuTextColor);
+      setCollectionsFillSVG("none");
       setSavedColor(menuTextColor);
+      setSavedStrokeSVG(menuTextColor);
       setLikedColor("#B90000");
+      setLikedFillSVG("#B90000");
+      setLikedStrokeSVG(lines);
       setRepostedColor(menuTextColor);
+      setRepostedStrokeSVG(menuTextColor);
+      setSettingsColor(menuTextColor);
+      setSettingsStrokeSVG(menuTextColor);
     } else if (menuSection == "Reposted") {
       setCollectionsColor(menuTextColor);
+      setCollectionsStrokeSVG(menuTextColor);
+      setCollectionsFillSVG("none");
       setSavedColor(menuTextColor);
+      setSavedStrokeSVG(menuTextColor);
       setLikedColor(menuTextColor);
+      setLikedFillSVG("none");
+      setLikedStrokeSVG(menuTextColor);
       setRepostedColor("#4700AA");
+      setRepostedStrokeSVG("#4700AA");
+      setSettingsColor(menuTextColor);
+      setSettingsStrokeSVG(menuTextColor);
+    } else if (menuSection == "Settings") {
+      setCollectionsColor(menuTextColor);
+      setCollectionsStrokeSVG(menuTextColor);
+      setCollectionsFillSVG("none");
+      setSavedColor(menuTextColor);
+      setSavedStrokeSVG(menuTextColor);
+      setLikedColor(menuTextColor);
+      setLikedFillSVG("none");
+      setLikedStrokeSVG(menuTextColor);
+      setRepostedColor(menuTextColor);
+      setRepostedStrokeSVG(menuTextColor);
+      setSettingsColor(bioTextColor);
+      setSettingsStrokeSVG(bioTextColor);
     }
   }, [menuSection]);
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
@@ -21890,138 +21942,9 @@ function ScreenProfile(props) {
       display: "flex",
       flexDirection: "row"
     }
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "80%",
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      marginTop: "5px"
-    }
-  }, /*#__PURE__*/_react.default.createElement("img", {
-    style: {
-      height: "100px",
-      width: "100px",
-      background: "transparent",
-      backgroundColor: "black",
-      borderRadius: "50%"
-    }
-  }), /*#__PURE__*/_react.default.createElement("p", {
-    style: {
-      margin: "5px",
-      color: bioTextColor
-    }
-  }, "@", userName), /*#__PURE__*/_react.default.createElement("div", {
-    className: "CormorantInfant-serif",
-    style: {
-      padding: "0px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/_react.default.createElement("p", {
-    style: {
-      margin: "0px",
-      width: "180px",
-      textAlign: "center",
-      color: bioTextColor
-    }
-  }, text), /*#__PURE__*/_react.default.createElement("button", {
-    style: {
-      background: "transparent",
-      border: "none",
-      margin: "0px",
-      fontSize: fontSize,
-      transition: "all 300ms ease-out",
-      color: textColor
-    },
-    onMouseEnter: function onMouseEnter() {
-      setTextColor("grey");
-      // setFontSize( "14px" );
-      if (placeholder == '...') setPlaceholder("show more");
-    },
-    onMouseLeave: function onMouseLeave() {
-      setTextColor("white");
-      // setFontSize( "12px" );
-      if (placeholder == 'show more') setPlaceholder("...");
-    },
-    onClick: function onClick() {
-      if (placeholderState) {
-        console.log('show');
-        if (placeholder == 'show more') {
-          console.log('more');
-          setText(userBio);
-          setPlaceholder('show less');
-        } else {
-          console.log('less');
-          setText(userBio.slice(0, 56));
-          setPlaceholder('show more');
-        }
-      }
-      ;
-    }
-  }, placeholder)), /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "40%",
-      display: "flex",
-      flexDirection: "column"
-    }
-  }, /*#__PURE__*/_react.default.createElement("hr", {
-    style: {
-      border: "none",
-      margin: "2.5px",
-      width: "100%",
-      backgroundColor: bioTextColor
-    },
-    size: "3"
-  }), /*#__PURE__*/_react.default.createElement("hr", {
-    style: {
-      border: "none",
-      margin: "2.5px",
-      width: "100%",
-      backgroundColor: bioTextColor
-    },
-    size: "3"
-  })), /*#__PURE__*/_react.default.createElement("h5", {
-    style: {
-      width: "20%",
-      color: bioTextColor,
-      fontSize: "25px",
-      textAlign: "center",
-      lineHeight: "35px",
-      margin: "0px 0px 0px 3px"
-    }
-  }, menuSection), /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "40%",
-      display: "flex",
-      flexDirection: "column"
-    }
-  }, /*#__PURE__*/_react.default.createElement("hr", {
-    style: {
-      border: "none",
-      margin: "2.5px",
-      width: "100%",
-      backgroundColor: bioTextColor
-    },
-    size: "3"
-  }), /*#__PURE__*/_react.default.createElement("hr", {
-    style: {
-      border: "none",
-      margin: "2.5px",
-      width: "100%",
-      backgroundColor: bioTextColor
-    },
-    size: "3"
-  })))), /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement(MainProfileDiv, {
+    instance: menuSection
+  }), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       width: "20%",
       height: "100vh",
@@ -22040,10 +21963,14 @@ function ScreenProfile(props) {
   }, /*#__PURE__*/_react.default.createElement("u", null, "Contents")), /*#__PURE__*/_react.default.createElement("div", {
     onMouseEnter: function onMouseEnter() {
       setCollectionsColor("#FFF600");
+      setCollectionsStrokeSVG(lines);
+      setCollectionsFillSVG("#FFF600");
     },
     onMouseLeave: function onMouseLeave() {
       if (menuSection != "Collections") {
         setCollectionsColor(menuTextColor);
+        setCollectionsStrokeSVG(menuTextColor);
+        setCollectionsFillSVG("none");
       }
     },
     onClick: function onClick() {
@@ -22072,19 +21999,37 @@ function ScreenProfile(props) {
       color: collectionsColor,
       fontSize: "25px"
     }
-  }, "Collections")), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Collections")), /*#__PURE__*/_react.default.createElement("svg", {
     style: {
+      transition: "fill 300ms ease-out",
       pointerEvents: "none",
       margin: "0px",
-      paddingLeft: "10px"
-    }
-  }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+      paddingRight: "5px",
+      alignSelf: "center"
+    },
+    width: "31",
+    height: "31",
+    viewBox: "0 0 31 31",
+    fill: collectionsFillSVG,
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: collectionsStrokeSVG,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: "M15.4997 2.58325L19.4909 10.6691L28.4163 11.9737L21.958 18.2641L23.4822 27.1508L15.4997 22.9528L7.51717 27.1508L9.04134 18.2641L2.58301 11.9737L11.5084 10.6691L15.4997 2.58325Z"
+  }))), /*#__PURE__*/_react.default.createElement("div", {
     onMouseEnter: function onMouseEnter() {
       setSavedColor("#00BC13");
+      setSavedStrokeSVG("#00BC13");
     },
     onMouseLeave: function onMouseLeave() {
       if (menuSection != "Saved") {
         setSavedColor(menuTextColor);
+        setSavedStrokeSVG(menuTextColor);
       }
     },
     onClick: function onClick() {
@@ -22113,19 +22058,39 @@ function ScreenProfile(props) {
       color: savedColor,
       fontSize: "25px"
     }
-  }, "Saved")), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Saved")), /*#__PURE__*/_react.default.createElement("svg", {
     style: {
+      transition: "all 300ms ease-out",
       pointerEvents: "none",
       margin: "0px",
-      paddingLeft: "10px"
-    }
-  }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+      paddingRight: "5px",
+      alignSelf: "center"
+    },
+    width: "28",
+    height: "28",
+    viewBox: "0 0 28 28",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: savedStrokeSVG,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: "M24.5 17.5V22.1667C24.5 22.7855 24.2542 23.379 23.8166 23.8166C23.379 24.2542 22.7855 24.5 22.1667 24.5H5.83333C5.21449 24.5 4.621 24.2542 4.18342 23.8166C3.74583 23.379 3.5 22.7855 3.5 22.1667V17.5M8.16667 11.6667L14 17.5M14 17.5L19.8333 11.6667M14 17.5V3.5"
+  }))), /*#__PURE__*/_react.default.createElement("div", {
     onMouseEnter: function onMouseEnter() {
       setLikedColor("#B90000");
+      setLikedFillSVG("#B90000");
+      setLikedStrokeSVG(lines);
     },
     onMouseLeave: function onMouseLeave() {
       if (menuSection != "Liked") {
         setLikedColor(menuTextColor);
+        setLikedFillSVG("none");
+        setLikedStrokeSVG(menuTextColor);
       }
     },
     onClick: function onClick() {
@@ -22154,19 +22119,37 @@ function ScreenProfile(props) {
       color: likedColor,
       fontSize: "25px"
     }
-  }, "Liked")), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Liked")), /*#__PURE__*/_react.default.createElement("svg", {
     style: {
+      transition: "fill 300ms ease-out",
       pointerEvents: "none",
       margin: "0px",
-      paddingLeft: "10px"
-    }
-  }, "j")), /*#__PURE__*/_react.default.createElement("div", {
+      paddingRight: "5px",
+      alignSelf: "center"
+    },
+    width: "28",
+    height: "28",
+    viewBox: "0 0 28 28",
+    fill: likedFillSVG,
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: likedStrokeSVG,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: "M24.3131 5.37827C23.7173 4.7821 23.0098 4.30919 22.2311 3.98653C21.4524 3.66387 20.6177 3.4978 19.7748 3.4978C18.9319 3.4978 18.0973 3.66387 17.3186 3.98653C16.5399 4.30919 15.8324 4.7821 15.2365 5.37827L13.9998 6.61493L12.7631 5.37827C11.5595 4.17463 9.92702 3.49843 8.22481 3.49843C6.52261 3.49843 4.89012 4.17463 3.68648 5.37827C2.48284 6.58191 1.80664 8.21439 1.80664 9.9166C1.80664 11.6188 2.48284 13.2513 3.68648 14.4549L13.9998 24.7683L24.3131 14.4549C24.9093 13.8591 25.3822 13.1515 25.7049 12.3728C26.0275 11.5941 26.1936 10.7595 26.1936 9.9166C26.1936 9.0737 26.0275 8.23905 25.7049 7.46035C25.3822 6.68165 24.9093 5.97415 24.3131 5.37827Z"
+  }))), /*#__PURE__*/_react.default.createElement("div", {
     onMouseEnter: function onMouseEnter() {
       setRepostedColor("#4700AA");
+      setRepostedStrokeSVG("#4700AA");
     },
     onMouseLeave: function onMouseLeave() {
       if (menuSection != "Reposted") {
         setRepostedColor(menuTextColor);
+        setRepostedStrokeSVG(menuTextColor);
       }
     },
     onClick: function onClick() {
@@ -22195,23 +22178,378 @@ function ScreenProfile(props) {
       color: repostedColor,
       fontSize: "25px"
     }
-  }, "Reposted")), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Reposted")), /*#__PURE__*/_react.default.createElement("svg", {
     style: {
+      transition: "all 300ms ease-out",
       pointerEvents: "none",
       margin: "0px",
-      paddingLeft: "10px"
-    }
-  }, "j")), /*#__PURE__*/_react.default.createElement("hr", {
+      paddingRight: "5px",
+      alignSelf: "center"
+    },
+    width: "24",
+    height: "28",
+    viewBox: "0 0 24 28",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: repostedStrokeSVG,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: "M17.8333 1.16675L22.5 5.83342M22.5 5.83342L17.8333 10.5001M22.5 5.83342H6.16667C4.92899 5.83342 3.742 6.32508 2.86683 7.20025C1.99167 8.07542 1.5 9.2624 1.5 10.5001V12.8334M6.16667 26.8334L1.5 22.1667M1.5 22.1667L6.16667 17.5001M1.5 22.1667H17.8333C19.071 22.1667 20.258 21.6751 21.1332 20.7999C22.0083 19.9247 22.5 18.7378 22.5 17.5001V15.1667"
+  }))), /*#__PURE__*/_react.default.createElement("hr", {
     style: {
       border: "none",
       width: "100%",
-      backgroundColor: "black",
+      backgroundColor: lines,
       marginTop: "26px"
     },
     size: "3"
-  }))));
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    onMouseEnter: function onMouseEnter() {
+      setSettingsColor(bioTextColor);
+      setSettingsStrokeSVG(bioTextColor);
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (menuSection != "Settings") {
+        setSettingsColor(menuTextColor);
+        setSettingsStrokeSVG(menuTextColor);
+      }
+    },
+    onClick: function onClick() {
+      setMenuSection("Settings");
+    },
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      background: "transparent",
+      border: "none",
+      margin: "0px",
+      padding: "2px"
+    }
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "CormorantInfant-serif",
+    style: {
+      pointerEvents: "none",
+      transition: "color 300ms ease-out",
+      fontWeight: "bold",
+      color: settingsColor,
+      fontSize: "25px"
+    }
+  }, "Settings")), /*#__PURE__*/_react.default.createElement("svg", {
+    style: {
+      transition: "all 300ms ease-out",
+      pointerEvents: "none",
+      margin: "0px",
+      paddingRight: "5px",
+      alignSelf: "center"
+    },
+    width: "27",
+    height: "27",
+    viewBox: "0 0 27 27",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: settingsStrokeSVG,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: "M13.5 16.875C15.364 16.875 16.875 15.364 16.875 13.5C16.875 11.636 15.364 10.125 13.5 10.125C11.636 10.125 10.125 11.636 10.125 13.5C10.125 15.364 11.636 16.875 13.5 16.875Z"
+  }), /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: settingsStrokeSVG,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: "M21.825 16.875C21.6752 17.2143 21.6306 17.5907 21.6967 17.9557C21.7629 18.3206 21.9369 18.6574 22.1962 18.9225L22.2638 18.99C22.4729 19.199 22.6389 19.4471 22.7521 19.7203C22.8654 19.9934 22.9236 20.2862 22.9236 20.5819C22.9236 20.8776 22.8654 21.1703 22.7521 21.4435C22.6389 21.7166 22.4729 21.9648 22.2638 22.1737C22.0548 22.3829 21.8066 22.5489 21.5335 22.6621C21.2603 22.7754 20.9676 22.8336 20.6719 22.8336C20.3762 22.8336 20.0834 22.7754 19.8103 22.6621C19.5371 22.5489 19.289 22.3829 19.08 22.1737L19.0125 22.1062C18.7474 21.8469 18.4106 21.6729 18.0457 21.6067C17.6807 21.5406 17.3043 21.5852 16.965 21.735C16.6323 21.8776 16.3485 22.1144 16.1486 22.4162C15.9487 22.7181 15.8414 23.0717 15.84 23.4337V23.625C15.84 24.2217 15.6029 24.794 15.181 25.216C14.759 25.6379 14.1867 25.875 13.59 25.875C12.9933 25.875 12.421 25.6379 11.999 25.216C11.5771 24.794 11.34 24.2217 11.34 23.625V23.5237C11.3313 23.1514 11.2108 22.7902 10.9941 22.4873C10.7774 22.1843 10.4746 21.9536 10.125 21.825C9.78568 21.6752 9.40928 21.6306 9.04434 21.6967C8.67939 21.7629 8.34264 21.9369 8.0775 22.1962L8.01 22.2638C7.80104 22.4729 7.55289 22.6389 7.27974 22.7521C7.00659 22.8654 6.71381 22.9236 6.41812 22.9236C6.12244 22.9236 5.82965 22.8654 5.55651 22.7521C5.28336 22.6389 5.03521 22.4729 4.82625 22.2638C4.61705 22.0548 4.4511 21.8066 4.33787 21.5335C4.22464 21.2603 4.16635 20.9676 4.16635 20.6719C4.16635 20.3762 4.22464 20.0834 4.33787 19.8103C4.4511 19.5371 4.61705 19.289 4.82625 19.08L4.89375 19.0125C5.1531 18.7474 5.32708 18.4106 5.39325 18.0457C5.45943 17.6807 5.41475 17.3043 5.265 16.965C5.12239 16.6323 4.8856 16.3485 4.58377 16.1486C4.28195 15.9487 3.92826 15.8414 3.56625 15.84H3.375C2.77826 15.84 2.20597 15.6029 1.78401 15.181C1.36205 14.759 1.125 14.1867 1.125 13.59C1.125 12.9933 1.36205 12.421 1.78401 11.999C2.20597 11.5771 2.77826 11.34 3.375 11.34H3.47625C3.84862 11.3313 4.20976 11.2108 4.51271 10.9941C4.81567 10.7774 5.04643 10.4746 5.175 10.125C5.32475 9.78568 5.36943 9.40928 5.30326 9.04434C5.23708 8.67939 5.0631 8.34264 4.80375 8.0775L4.73625 8.01C4.52705 7.80104 4.3611 7.55289 4.24787 7.27974C4.13464 7.00659 4.07636 6.71381 4.07636 6.41812C4.07636 6.12244 4.13464 5.82965 4.24787 5.55651C4.3611 5.28336 4.52705 5.03521 4.73625 4.82625C4.94521 4.61705 5.19336 4.4511 5.46651 4.33787C5.73966 4.22464 6.03244 4.16635 6.32812 4.16635C6.62381 4.16635 6.91659 4.22464 7.18974 4.33787C7.46289 4.4511 7.71104 4.61705 7.92 4.82625L7.9875 4.89375C8.25264 5.1531 8.58939 5.32708 8.95434 5.39325C9.31928 5.45943 9.69568 5.41475 10.035 5.265H10.125C10.4577 5.12239 10.7415 4.8856 10.9414 4.58377C11.1413 4.28195 11.2486 3.92826 11.25 3.56625V3.375C11.25 2.77826 11.4871 2.20597 11.909 1.78401C12.331 1.36205 12.9033 1.125 13.5 1.125C14.0967 1.125 14.669 1.36205 15.091 1.78401C15.5129 2.20597 15.75 2.77826 15.75 3.375V3.47625C15.7514 3.83826 15.8587 4.19195 16.0586 4.49377C16.2585 4.7956 16.5423 5.03239 16.875 5.175C17.2143 5.32475 17.5907 5.36943 17.9557 5.30326C18.3206 5.23708 18.6574 5.0631 18.9225 4.80375L18.99 4.73625C19.199 4.52705 19.4471 4.3611 19.7203 4.24787C19.9934 4.13464 20.2862 4.07636 20.5819 4.07636C20.8776 4.07636 21.1703 4.13464 21.4435 4.24787C21.7166 4.3611 21.9648 4.52705 22.1737 4.73625C22.3829 4.94521 22.5489 5.19336 22.6621 5.46651C22.7754 5.73966 22.8336 6.03244 22.8336 6.32812C22.8336 6.62381 22.7754 6.91659 22.6621 7.18974C22.5489 7.46289 22.3829 7.71104 22.1737 7.92L22.1062 7.9875C21.8469 8.25264 21.6729 8.58939 21.6067 8.95434C21.5406 9.31928 21.5852 9.69568 21.735 10.035V10.125C21.8776 10.4577 22.1144 10.7415 22.4162 10.9414C22.7181 11.1413 23.0717 11.2486 23.4337 11.25H23.625C24.2217 11.25 24.794 11.4871 25.216 11.909C25.6379 12.331 25.875 12.9033 25.875 13.5C25.875 14.0967 25.6379 14.669 25.216 15.091C24.794 15.5129 24.2217 15.75 23.625 15.75H23.5237C23.1617 15.7514 22.8081 15.8587 22.5062 16.0586C22.2044 16.2585 21.9676 16.5423 21.825 16.875Z"
+  }))))));
 }
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"Screens/ScreenSearch.js":[function(require,module,exports) {
+function MainProfileDiv(props) {
+  var userName = (0, _reactRedux.useSelector)(function (state) {
+    return state.userData.userName;
+  });
+  var userBio = (0, _reactRedux.useSelector)(function (state) {
+    return state.userData.userBio;
+  });
+  var menuBg = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var bioTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_active;
+  });
+  var _useState27 = (0, _react.useState)("white"),
+    _useState28 = _slicedToArray(_useState27, 2),
+    textColor = _useState28[0],
+    setTextColor = _useState28[1];
+  var _useState29 = (0, _react.useState)("12px"),
+    _useState30 = _slicedToArray(_useState29, 2),
+    fontSize = _useState30[0],
+    setFontSize = _useState30[1];
+  var _useState31 = (0, _react.useState)(''),
+    _useState32 = _slicedToArray(_useState31, 2),
+    text = _useState32[0],
+    setText = _useState32[1];
+  var _useState33 = (0, _react.useState)(''),
+    _useState34 = _slicedToArray(_useState33, 2),
+    placeholder = _useState34[0],
+    setPlaceholder = _useState34[1];
+  var _useState35 = (0, _react.useState)(menuBg),
+    _useState36 = _slicedToArray(_useState35, 2),
+    confirmColor = _useState36[0],
+    setConfirmColor = _useState36[1];
+  var _useState37 = (0, _react.useState)('#aaaacc'),
+    _useState38 = _slicedToArray(_useState37, 2),
+    inputValue = _useState38[0],
+    setInputValue = _useState38[1]; // Начальное значение цвета
+  var dispatcher = (0, _reactRedux.useDispatch)();
+  var handleColorChange = function handleColorChange(event) {
+    setInputValue(event.target.value);
+    console.log(inputValue, "event.target.value");
+  };
+  var handleConfirmClick = function handleConfirmClick() {
+    console.log("changeTheme");
+    dispatcher((0, _store.changeColorTheme)({
+      "name": "fill_inactive",
+      "value": "#".concat(inputValue.slice(1))
+    }), {});
+    var value = "#".concat(Math.abs(parseInt(inputValue.replace('#', '0x'), 16) - parseInt("#7D8276".replace('#', '0x'), 16)).toString(16));
+    dispatcher((0, _store.changeColorTheme)({
+      "name": "fill_active",
+      "value": value
+    }), {});
+    dispatcher((0, _store.changeColorTheme)({
+      "name": "stroke_inactive",
+      "value": value
+    }), {});
+  };
+  var placeholderState = false;
+  (0, _react.useEffect)(function () {
+    if (userBio.length > 60) {
+      setText(userBio.slice(0, 56));
+      setPlaceholder('...');
+      placeholderState = true;
+    } else {
+      setText(userBio);
+    }
+  }, []);
+  switch (props.instance) {
+    case "Settings":
+      {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "80%",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "5px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("h2", {
+          style: {
+            color: menuBg,
+            fontSize: "35px",
+            margin: "0px",
+            textAlign: "center"
+          }
+        }, "Settings"), /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "80%",
+            display: "flex",
+            flexDirection: "row",
+            padding: "0px",
+            justifyContent: "space-between"
+          }
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "grid",
+            placeItems: "center"
+          }
+        }, /*#__PURE__*/_react.default.createElement("h5", {
+          style: {
+            color: menuBg,
+            fontSize: "25px",
+            margin: "0px",
+            textAlign: "center",
+            lineHeight: "35px"
+          }
+        }, "Color Theme")), /*#__PURE__*/_react.default.createElement("input", {
+          id: "colorThemeInput",
+          type: "color",
+          value: inputValue,
+          onChange: handleColorChange,
+          style: {
+            border: "solid 1px black",
+            backgroundColor: "transparent",
+            width: "80px",
+            height: "50px"
+          }
+        })), /*#__PURE__*/_react.default.createElement("button", {
+          style: {
+            transition: "all 300ms ease-out",
+            border: "none",
+            backgroundColor: "transparent",
+            color: confirmColor
+          },
+          onMouseEnter: function onMouseEnter() {
+            setConfirmColor(bioTextColor);
+          },
+          onMouseLeave: function onMouseLeave() {
+            setConfirmColor(menuBg);
+          },
+          onClick: handleConfirmClick
+        }, "Confirm"));
+      }
+    default:
+      {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "80%",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "5px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          style: {
+            height: "100px",
+            width: "100px",
+            background: "transparent",
+            backgroundColor: "black",
+            borderRadius: "50%"
+          }
+        }), /*#__PURE__*/_react.default.createElement("p", {
+          style: {
+            margin: "5px",
+            color: bioTextColor
+          }
+        }, "@", userName), /*#__PURE__*/_react.default.createElement("div", {
+          className: "CormorantInfant-serif",
+          style: {
+            padding: "0px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }
+        }, /*#__PURE__*/_react.default.createElement("p", {
+          style: {
+            margin: "0px",
+            width: "180px",
+            textAlign: "center",
+            color: bioTextColor
+          }
+        }, text), /*#__PURE__*/_react.default.createElement("button", {
+          style: {
+            background: "transparent",
+            border: "none",
+            margin: "0px",
+            fontSize: fontSize,
+            transition: "all 300ms ease-out",
+            color: textColor
+          },
+          onMouseEnter: function onMouseEnter() {
+            setTextColor("grey");
+            // setFontSize( "14px" );
+            if (placeholder == '...') setPlaceholder("show more");
+          },
+          onMouseLeave: function onMouseLeave() {
+            setTextColor("white");
+            // setFontSize( "12px" );
+            if (placeholder == 'show more') setPlaceholder("...");
+          },
+          onClick: function onClick() {
+            if (placeholderState) {
+              console.log('show');
+              if (placeholder == 'show more') {
+                console.log('more');
+                setText(userBio);
+                setPlaceholder('show less');
+              } else {
+                console.log('less');
+                setText(userBio.slice(0, 56));
+                setPlaceholder('show more');
+              }
+            }
+          }
+        }, placeholder)), /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center"
+          }
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "40%",
+            display: "flex",
+            flexDirection: "column"
+          }
+        }, /*#__PURE__*/_react.default.createElement("hr", {
+          style: {
+            border: "none",
+            margin: "2.5px",
+            width: "100%",
+            backgroundColor: bioTextColor
+          },
+          size: "3"
+        }), /*#__PURE__*/_react.default.createElement("hr", {
+          style: {
+            border: "none",
+            margin: "2.5px",
+            width: "100%",
+            backgroundColor: bioTextColor
+          },
+          size: "3"
+        })), /*#__PURE__*/_react.default.createElement("h5", {
+          style: {
+            width: "20%",
+            color: bioTextColor,
+            fontSize: "25px",
+            textAlign: "center",
+            lineHeight: "35px",
+            margin: "0px 0px 0px 3px"
+          }
+        }, props.instance), /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "40%",
+            display: "flex",
+            flexDirection: "column"
+          }
+        }, /*#__PURE__*/_react.default.createElement("hr", {
+          style: {
+            border: "none",
+            margin: "2.5px",
+            width: "100%",
+            backgroundColor: bioTextColor
+          },
+          size: "3"
+        }), /*#__PURE__*/_react.default.createElement("hr", {
+          style: {
+            border: "none",
+            margin: "2.5px",
+            width: "100%",
+            backgroundColor: bioTextColor
+          },
+          size: "3"
+        }))));
+      }
+  }
+}
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js"}],"Screens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22457,8 +22795,15 @@ exports.default = Menu;
 var _react = _interopRequireWildcard(require("react"));
 var _ProviderScreen = require("../Screens/ProviderScreen");
 var _SVGButtons = _interopRequireWildcard(require("./SVGButtons"));
+var _reactRedux = require("react-redux");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function Menu(props) {
   var text = {
     "eng": {
@@ -22510,29 +22855,73 @@ function Button(props) {
   var _useScreen = (0, _ProviderScreen.useScreen)(),
     screen = _useScreen.screen,
     setScreen = _useScreen.setScreen;
-  var className;
+  var menuBg = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var menuTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_inactive;
+  });
+  var bioTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_active;
+  });
+  var _useState = (0, _react.useState)(menuBg),
+    _useState2 = _slicedToArray(_useState, 2),
+    backgroundColorInactive = _useState2[0],
+    setBackgroundColorInactive = _useState2[1];
+  var _useState3 = (0, _react.useState)(menuTextColor),
+    _useState4 = _slicedToArray(_useState3, 2),
+    textColorInactive = _useState4[0],
+    setTextColorInactive = _useState4[1];
+  var style;
   switch (screen) {
     case props.id:
-      className = "btn-dark";
+      style = {
+        background: menuTextColor,
+        color: bioTextColor,
+        height: "50px",
+        width: "160px",
+        textAlign: "center",
+        fontFamily: "Cormorant Infant, serif",
+        margin: "8px"
+      };
       break;
     default:
-      className = "btn-normal";
+      style = {
+        background: backgroundColorInactive,
+        color: textColorInactive,
+        borderColor: backgroundColorInactive,
+        height: "50px",
+        width: "160px",
+        textAlign: "center",
+        fontFamily: "Cormorant Infant, serif",
+        fontWeight: "bold",
+        margin: "8px",
+        transition: "all 300ms ease-out"
+      };
       break;
-  }
-  ;
-  if (props.style_ == true) {
-    className = "icon-btn-normal";
   }
   ;
   return /*#__PURE__*/_react.default.createElement("button", {
     onClick: function onClick() {
       return setScreen(props.id);
     },
-    className: className
+    onMouseEnter: function onMouseEnter() {
+      if (props.id != screen) {
+        setBackgroundColorInactive(menuTextColor);
+        setTextColorInactive(bioTextColor);
+      }
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (props.id != screen) {
+        setBackgroundColorInactive(menuBg);
+        setTextColorInactive(menuTextColor);
+      }
+    },
+    style: style
   }, props.children);
 }
 ;
-},{"react":"../node_modules/react/index.js","../Screens/ProviderScreen":"Screens/ProviderScreen.js","./SVGButtons":"Components/SVGButtons.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Screens/ProviderScreen":"Screens/ProviderScreen.js","./SVGButtons":"Components/SVGButtons.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37333,25 +37722,16 @@ var _reactRedux = require("react-redux");
 var _ProviderScreen = _interopRequireWildcard(require("./Screens/ProviderScreen"));
 var _ErrorBoundry = _interopRequireDefault(require("./Components/ErrorBoundry"));
 var _reactRouter = require("react-router");
-var _ScreenMain = _interopRequireDefault(require("./Screens/ScreenMain"));
-var _ScreenContests = _interopRequireDefault(require("./Screens/ScreenContests"));
-var _Menu = _interopRequireDefault(require("./Components/Menu"));
-var _ScreenDiscussion = _interopRequireDefault(require("./Screens/ScreenDiscussion"));
-var _ScreenNewPost = _interopRequireDefault(require("./Screens/ScreenNewPost"));
-var _ScreenSearch = _interopRequireDefault(require("./Screens/ScreenSearch"));
-var _ScreenProfile = _interopRequireDefault(require("./Screens/ScreenProfile"));
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-// const {screen, setScreen} = useScreen();
-
 _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_react.default.createElement(_ErrorBoundry.default, null, /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
 }, /*#__PURE__*/_react.default.createElement(_ProviderScreen.default, null, /*#__PURE__*/_react.default.createElement(_reactRouter.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouter.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   index: true,
   element: /*#__PURE__*/_react.default.createElement(_App.default, null)
 })))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Screens/ProviderScreen":"Screens/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenContests":"Screens/ScreenContests.js","./Components/Menu":"Components/Menu.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Screens/ProviderScreen":"Screens/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -37376,7 +37756,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50430" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60216" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

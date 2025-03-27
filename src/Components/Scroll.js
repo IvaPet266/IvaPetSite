@@ -60,7 +60,6 @@ export default function Scroll( props ) {
                         flexWrap: "wrap",
                         justifyContent: "center"
                     }}>
-                    <button onClick={() => dispatcher(changeColorTheme({'name': "fill_inactive", "value": "red"}), {} )} /*! ПРИМЕР. удалить после применения в другом месте !*//> 
                     { CARDS.map( ( value, index ) => <Container 
                                 key={ index } img={ value[ "image" ] } 
                                 title={ value[ "title" ] } author={ value[ "author" ] }
