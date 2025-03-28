@@ -21545,7 +21545,7 @@ function formatProdErrorMessage(code) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userData = exports.giveUID = exports.filters = exports.default = exports.colorThemeSlice = exports.changeUserName = exports.changeFilter = exports.changeColorTheme = exports.back2defaultFilters = exports.back2defaultColorTheme = void 0;
+exports.userData = exports.giveUID = exports.filters = exports.default = exports.configParams = exports.colorThemeSlice = exports.changeUserName = exports.changeParameter = exports.changeFilter = exports.changeColorTheme = exports.back2defaultParamters = exports.back2defaultFilters = exports.back2defaultColorTheme = void 0;
 var _toolkit = require("@reduxjs/toolkit");
 var colorThemeSlice = exports.colorThemeSlice = (0, _toolkit.createSlice)({
   name: 'colorTheme',
@@ -21625,11 +21625,30 @@ var filters = exports.filters = (0, _toolkit.createSlice)({
 var _filters$actions = filters.actions,
   changeFilter = exports.changeFilter = _filters$actions.changeFilter,
   back2defaultFilters = exports.back2defaultFilters = _filters$actions.back2defaultFilters;
+var configParams = exports.configParams = (0, _toolkit.createSlice)({
+  name: "configParams",
+  initialState: {
+    filters: false
+  },
+  reducers: {
+    changeParameter: function changeParameter(state, parameter) {
+      state[parameter.payload["name"]] = parameter.payload["value"];
+      console.log(parameter.payload["name"], '->', state[parameter.payload["name"]]);
+    },
+    back2defaultParamters: function back2defaultParamters(state) {
+      state.filters = false;
+    }
+  }
+});
+var _configParams$actions = configParams.actions,
+  changeParameter = exports.changeParameter = _configParams$actions.changeParameter,
+  back2defaultParamters = exports.back2defaultParamters = _configParams$actions.back2defaultParamters;
 var _default = exports.default = (0, _toolkit.configureStore)({
   reducer: {
     colorTheme: colorThemeSlice.reducer,
     userData: userData.reducer,
-    filters: filters.reducer
+    filters: filters.reducer,
+    configParams: configParams.reducer
   }
 });
 },{"@reduxjs/toolkit":"../node_modules/@reduxjs/toolkit/dist/redux-toolkit.legacy-esm.js"}],"Components/Scroll.js":[function(require,module,exports) {
@@ -21638,6 +21657,7 @@ var _default = exports.default = (0, _toolkit.configureStore)({
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.FilterDiv = FilterDiv;
 exports.Filters = Filters;
 exports.default = Scroll;
 var _react = _interopRequireWildcard(require("react"));
@@ -21678,8 +21698,7 @@ function Scroll(props) {
   var ref = (0, _react.useRef)(null);
   var textColor = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
-  }); //!
-
+  });
   var zoomHandle = function zoomHandle() {
     var _ref$current$getBound = ref.current.getBoundingClientRect(),
       width = _ref$current$getBound.width;
@@ -21725,7 +21744,7 @@ function Scroll(props) {
   switch (CARDS !== null) {
     case true:
       console.log("cards");
-      return /*#__PURE__*/_react.default.createElement("div", {
+      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(Filters, null), /*#__PURE__*/_react.default.createElement("div", {
         ref: ref,
         style: {
           padding: "0 ".concat(padding),
@@ -21742,7 +21761,7 @@ function Scroll(props) {
           category: value["category"],
           text_content: value["text_content"]
         });
-      }));
+      })));
     default:
       return /*#__PURE__*/_react.default.createElement("p", {
         style: {
@@ -21754,6 +21773,19 @@ function Scroll(props) {
 }
 ;
 function Filters() {
+  var filtersBg = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var menuBg = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_active;
+  });
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  var filters = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.filters;
+  });
+  var dispatch = (0, _reactRedux.useDispatch)();
   var likesFilter = (0, _reactRedux.useSelector)(function (state) {
     return state.filters.likes;
   });
@@ -21769,22 +21801,123 @@ function Filters() {
   var hashtagsFilter = (0, _reactRedux.useSelector)(function (state) {
     return state.filters.hashtags;
   });
+  var _useState7 = (0, _react.useState)('>>'),
+    _useState8 = _slicedToArray(_useState7, 2),
+    filtersBtnText = _useState8[0],
+    setFiltersBtnText = _useState8[1];
+  var _useState9 = (0, _react.useState)(filtersBg),
+    _useState10 = _slicedToArray(_useState9, 2),
+    filtersBtnColor = _useState10[0],
+    setFiltersBtnColor = _useState10[1];
+  var _useState11 = (0, _react.useState)("none"),
+    _useState12 = _slicedToArray(_useState11, 2),
+    filtersBorder = _useState12[0],
+    setFiltersBorder = _useState12[1];
+  var _useState13 = (0, _react.useState)(menuBg),
+    _useState14 = _slicedToArray(_useState13, 2),
+    filtersBtnTextColor = _useState14[0],
+    setFiltersBtnTextColor = _useState14[1];
+  switch (filters) {
+    case true:
+      return /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          height: "60px",
+          width: "100%",
+          background: filtersBg,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          border: "solid 1px ".concat(lines)
+        }
+      }, /*#__PURE__*/_react.default.createElement(FilterDiv, {
+        name: "Likes",
+        type: "number"
+      }), /*#__PURE__*/_react.default.createElement(FilterDiv, {
+        name: "Reposts",
+        type: "number"
+      }), /*#__PURE__*/_react.default.createElement(FilterDiv, {
+        name: "Saves",
+        type: "number"
+      }), /*#__PURE__*/_react.default.createElement(FilterDiv, {
+        name: "Author",
+        type: "number"
+      }), /*#__PURE__*/_react.default.createElement(FilterDiv, {
+        name: "Hashtags",
+        type: "text"
+      }), /*#__PURE__*/_react.default.createElement("button", {
+        style: {
+          transition: "all 300ms ease-out",
+          background: filtersBtnColor,
+          border: filtersBorder,
+          color: filtersBtnTextColor
+        },
+        onMouseEnter: function onMouseEnter() {
+          setFiltersBtnColor(filtersBg);
+          setFiltersBorder("solid 1px ".concat(menuBg));
+          setFiltersBtnTextColor(menuBg);
+        },
+        onMouseLeave: function onMouseLeave() {
+          setFiltersBtnColor(menuBg);
+          setFiltersBorder("none");
+          setFiltersBtnTextColor(filtersBg);
+        },
+        onClick: function onClick() {
+          console.log("dispatch");
+          dispatch((0, _store.changeParameter)({
+            "name": "filters",
+            "value": !filters
+          }));
+          setFiltersBtnText("<<");
+        }
+      }, filtersBtnText));
+    default:
+      {
+        return /*#__PURE__*/_react.default.createElement("button", {
+          style: {
+            height: "60px",
+            transition: "all 300ms ease-out",
+            background: filtersBtnColor,
+            border: filtersBorder,
+            color: filtersBtnTextColor
+          },
+          onMouseEnter: function onMouseEnter() {
+            setFiltersBtnColor(menuBg);
+            setFiltersBorder("solid 1px ".concat(filtersBg));
+            setFiltersBtnTextColor(filtersBg);
+          },
+          onMouseLeave: function onMouseLeave() {
+            setFiltersBtnColor(filtersBg);
+            setFiltersBorder("none");
+            setFiltersBtnTextColor(menuBg);
+          },
+          onClick: function onClick() {
+            console.log("dispatch");
+            dispatch((0, _store.changeParameter)({
+              "name": "filters",
+              "value": !filters
+            }));
+            setFiltersBtnText("<<");
+          }
+        }, filtersBtnText);
+      }
+  }
+}
+function FilterDiv(props) {
   return /*#__PURE__*/_react.default.createElement("div", {
+    id: "".concat(props.name, "Filter"),
     style: {
-      width: "100%",
-      background: "white",
+      background: "transparent",
       display: "flex",
-      flexDirection: "row"
+      flexDirection: "row",
+      alignItems: "center"
     }
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("h5", null, props.name), /*#__PURE__*/_react.default.createElement("input", {
     style: {
-      background: "red",
-      display: "flex",
-      flexDirection: "row"
-    }
-  }, /*#__PURE__*/_react.default.createElement("h5", null, "Likes"), /*#__PURE__*/_react.default.createElement("input", {
-    type: "number"
-  })));
+      height: "60%",
+      margin: "5px"
+    },
+    type: props.type
+  }));
 }
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Card":"Components/Card.js","../imgs/cards/cat.jpg":"imgs/cards/cat.jpg","../imgs/cards/cat1.jpg":"imgs/cards/cat1.jpg","../imgs/cards/cat2.jpg":"imgs/cards/cat2.jpg","../imgs/cards/dog.jpg":"imgs/cards/dog.jpg","../imgs/cards/dog1.jpg":"imgs/cards/dog1.jpg","../app/store":"app/store.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
 "use strict";
@@ -21795,12 +21928,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = ScreenMain;
 var _react = _interopRequireDefault(require("react"));
 var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
-var _Scroll = _interopRequireWildcard(require("../Components/Scroll"));
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+var _Scroll = _interopRequireDefault(require("../Components/Scroll"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function ScreenMain(props) {
-  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.Filters, null), /*#__PURE__*/_react.default.createElement(_Scroll.default, null));
+  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.default, null));
 }
 ;
 },{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","../Components/Scroll":"Components/Scroll.js"}],"Screens/ScreenDiscussion.js":[function(require,module,exports) {
@@ -22880,13 +23011,15 @@ function Menu(props) {
     id: "menu",
     style: {
       display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
       background: "#DBC1FF",
       padding: "",
       alignItems: "center",
       height: "100px",
       border: "solid black 1px"
     }
-  }, /*#__PURE__*/_react.default.createElement(Button, {
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(Button, {
     id: "main",
     style_: false
   }, "Main"), /*#__PURE__*/_react.default.createElement(Button, {
@@ -22899,13 +23032,13 @@ function Menu(props) {
     id: "newPost",
     d1: "M35 67.5C52.9493 67.5 67.5 52.9493 67.5 35C67.5 17.0507 52.9493 2.5 35 2.5C17.0507 2.5 2.5 17.0507 2.5 35C2.5 52.9493 17.0507 67.5 35 67.5Z",
     d2: "M35 22V48M22 35H48M67.5 35C67.5 52.9493 52.9493 67.5 35 67.5C17.0507 67.5 2.5 52.9493 2.5 35C2.5 17.0507 17.0507 2.5 35 2.5C52.9493 2.5 67.5 17.0507 67.5 35Z"
-  }), /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
+  })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
     id: "search",
     d: "M55.25 55.25L42.5625 42.5625M49.4167 26.0833C49.4167 38.97 38.97 49.4167 26.0833 49.4167C13.1967 49.4167 2.75 38.97 2.75 26.0833C2.75 13.1967 13.1967 2.75 26.0833 2.75C38.97 2.75 49.4167 13.1967 49.4167 26.0833Z"
   }), /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
     id: "profile",
     d: "M49.3337 55.25V49.4167C49.3337 46.3225 48.1045 43.355 45.9166 41.1671C43.7286 38.9792 40.7612 37.75 37.667 37.75H14.3337C11.2395 37.75 8.272 38.9792 6.08408 41.1671C3.89615 43.355 2.66699 46.3225 2.66699 49.4167V55.25M37.667 14.4167C37.667 20.86 32.4436 26.0833 26.0003 26.0833C19.557 26.0833 14.3337 20.86 14.3337 14.4167C14.3337 7.97334 19.557 2.75 26.0003 2.75C32.4436 2.75 37.667 7.97334 37.667 14.4167Z"
-  }));
+  })));
 }
 ;
 function Button(props) {
@@ -37768,7 +37901,7 @@ Object.defineProperty(exports, "useViewTransitionState", {
   }
 });
 var _chunkGNGMS2XR = require("./chunk-GNGMS2XR.mjs");
-},{"./chunk-GNGMS2XR.mjs":"../node_modules/react-router/dist/development/chunk-GNGMS2XR.mjs"}],"index.js":[function(require,module,exports) {
+},{"./chunk-GNGMS2XR.mjs":"../node_modules/react-router/dist/development/chunk-GNGMS2XR.mjs"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -37813,7 +37946,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52792" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54576" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
@@ -37957,5 +38090,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/src.e31bb0bc.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
+//# sourceMappingURL=/src.78399e21.js.map

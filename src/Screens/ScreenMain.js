@@ -7,7 +7,6 @@ export default function ScreenMain( props ) {
   return (
     <BaseScreen>
       { props.children }
-      <div style={{ background:"wheat" }}>ScreenMain</div>
       <Scroll/>
     </BaseScreen>
   )

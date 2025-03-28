@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux';
 
 export const colorThemeSlice = createSlice({
     name: 'colorTheme',
@@ -55,9 +54,55 @@ export const userData = createSlice({
 export const { giveUID, changeUserName } = userData.actions;
 
 
+export const filters = createSlice({
+    name: "filters",
+    initialState: {
+        likes: null,
+        reposts: null, 
+        saves: null,
+        author: null,
+        hashtags: [],
+    },
+    reducers: {
+        changeFilter: ( state, parameter ) => {
+            state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
+        },
+        back2defaultFilters: ( state ) => {
+            state.likes = null;
+            state.reposts = null; 
+            state.saves = null;
+            state.author = null;
+            state.hashtags = [];
+       }
+    }
+})
+
+export const { changeFilter, back2defaultFilters } = filters.actions;
+
+export const configParams = createSlice({
+    name: "configParams",
+    initialState: {
+        filters: false,
+    },
+    reducers: {
+        changeParameter: ( state, parameter ) => {
+            state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
+            console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
+        },
+        back2defaultParamters: ( state ) => {
+            state.filters = false;
+       }
+    }
+})
+
+export const { changeParameter, back2defaultParamters } = configParams.actions
+
+
 export default configureStore({
     reducer: {
         colorTheme: colorThemeSlice.reducer,
         userData: userData.reducer,
+        filters: filters.reducer,
+        configParams: configParams.reducer,
     },
 })
