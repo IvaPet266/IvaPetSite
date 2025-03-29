@@ -14,9 +14,6 @@ export default function SVGButton( props ) {
     const bg = useRef( props.id == screen? bg_active: bg_inactive )                       //!
     const stroke = useRef( props.id == screen? stroke_active: stroke_inactive )           //!
 
-    // const bg = useRef( props.id == screen? "#5E3F89": "#DBC1FF" );                      //!
-    // const stroke = useRef( props.id == screen? "white": "#5E3F89" );                    //!
-
     const [ defaultBg, setDefaultBg ] = useState( bg.current );
     const [ defaultStroke, setDefaultStroke ] = useState( stroke.current );
 
@@ -79,7 +76,7 @@ export function SVGButton2Paths ( props ) {
                 margin: "8px",
                 transition: "all 300ms ease-out",
                 border: "none",
-                
+                alignSelf: "center"
             }}>
             <svg 
                 onMouseOver={() => { setBgColor( defaultStroke ); setStrokeColor( "white" ) }}

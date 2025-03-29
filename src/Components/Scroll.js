@@ -6,9 +6,17 @@ import cat1 from '../imgs/cards/cat1.jpg';
 import cat2 from '../imgs/cards/cat2.jpg';
 import dog from '../imgs/cards/dog.jpg';
 import dog1 from '../imgs/cards/dog1.jpg';
-import { changeColorTheme, changeParameter } from '../app/store';
+import { changeColorTheme, changeParameter, changeFilter } from '../app/store';
 
 
+const filters = {
+    likes : null,
+    reposts : null,
+    saves : null,
+    author : null,
+    category: null,
+    hashtags : [],
+}
 
 export default function Scroll( props ) {
     const [ cardWidth, setCardWidth ] = useState( "200px" );
@@ -17,6 +25,13 @@ export default function Scroll( props ) {
     const ref = useRef( null );
 
     const textColor = useSelector( ( state ) => state.colorTheme.fill_inactive );
+
+    const likesFilter = useSelector( ( state ) => state.filters.likes );
+    const repostsFilter = useSelector( ( state ) => state.filters.reposts );
+    const savesFilter = useSelector( ( state ) => state.filters.saves );
+    const authorFilter = useSelector( ( state ) => state.filters.author );
+    const categoryFilter = useSelector( ( state ) => state.filters.category );
+    const hashtagsFilter = useSelector( ( state ) => state.filters.hashtags );
 
     const zoomHandle = () => {
         const { width } = ref.current.getBoundingClientRect();
@@ -50,64 +65,114 @@ export default function Scroll( props ) {
 
     switch ( CARDS !== null ) {
         case true:
-            console.log("cards");
             return (
                 <>
                     <Filters/>
-                    
                     <div
                         ref={ ref }
                         style={{
-                            padding: `0 ${ padding }`,
+                            padding: `0px ${ padding }px`,
                             display: "flex",
                             flexWrap: "wrap",
                             justifyContent: "center"
                         }}>
                         
-                        { CARDS.map( ( value, index ) => <Container 
-                                    key={ index } img={ value[ "image" ] } 
-                                    title={ value[ "title" ] } author={ value[ "author" ] }
-                                    category={ value[ "category" ] }
-                                    text_content={ value[ "text_content" ] }/> ) }
-                        
+                        { CARDS.map( ( value, index ) => {
+                            const author = checkFilters( authorFilter, value[ "author" ] );
+                            const category = checkFilters( categoryFilter, value[ "category" ] );
+                            if ( value[ "likes_amount" ] >= likesFilter && author && category )
+                                return (
+                                    <Container 
+                                        key={ index } img={ value[ "image" ] } 
+                                        title={ value[ "title" ] } author={ value[ "author" ] }
+                                        category={ value[ "category" ] }
+                                        text_content={ value[ "text_content" ] }/> 
+                                )})}
                     </div>
                 </>
-                )
+            )
         default:
             return <p style={{ color: textColor }}>Wait a minute!</p> //!
     }
 };
 
+function checkFilters( a, a1 ) {
+    let ax;
+    if ( a !== null ) ax = a == a1
+    else ax = true;
+
+    return ax
+}
+
 export function Filters() {
     const filtersBg = useSelector( ( state ) => state.colorTheme.fill_inactive ); 
     const menuBg = useSelector( ( state ) => state.colorTheme.fill_active );
     const lines = useSelector( ( state ) => state.colorTheme.lines ); 
-    const filters = useSelector( ( state ) => state.configParams.filters ); 
+    const storeFilters = useSelector( ( state ) => state.configParams.filters ); 
     const dispatch = useDispatch();
-
-    const likesFilter = useSelector( ( state ) => state.filters.likes );
-    const repostsFilter = useSelector( ( state ) => state.filters.reposts );
-    const savesFilter = useSelector( ( state ) => state.filters.saves );
-    const authorFilter = useSelector( ( state ) => state.filters.author );
-    const hashtagsFilter = useSelector( ( state ) => state.filters.hashtags );
 
     const [ filtersBtnText, setFiltersBtnText ] = useState( '>>' );
     const [ filtersBtnColor, setFiltersBtnColor ] = useState( filtersBg );
     const [ filtersBorder, setFiltersBorder ] = useState( "none" );
     const [ filtersBtnTextColor, setFiltersBtnTextColor ] = useState( menuBg );
+
+    const [ resetBgColor, setResetBgColor ] = useState( menuBg );
+    const [ resetColor, setResetColor ] = useState( filtersBg );
+    const [ resetBorder, setResetBorder ] = useState( "none" );
+
+    const [ confirmColor, setConfirmColor ] = useState( menuBg );
+    const [ confirmBgColor, setConfirmBgColor ] = useState( filtersBg );
+    const [ confirmBorder, setConfirmBorder ] = useState( "none" );
     
-    switch ( filters ) {
+    switch ( storeFilters ) {
         case true: 
             return (
                 <div style={{
-                    height: "60px", width: "100%", background: filtersBg, display: "flex", 
-                    flexDirection: "row", justifyContent: "space-between", border: `solid 1px ${ lines }`
+                    height: "60px", width: "100%", padding: "5px", background: filtersBg, display: "flex", flexDirection: "row", 
+                    justifyContent: "space-between", border: `solid 1px ${ lines }` 
                 }}>
                     <FilterDiv name="Likes" type="number"/>
                     <FilterDiv name="Reposts" type="number"/>
                     <FilterDiv name="Saves" type="number"/>
-                    <FilterDiv name="Author" type="number"/>
+                    <FilterDiv name="Author" type="text"/>
                     <FilterDiv name="Hashtags" type="text"/>
+                    <FilterDiv name="Category" type=""/>
+                    <input style={{ 
+                        transition: "all 300ms ease-out", backgroundColor: resetBgColor, 
+                        color: resetColor, border: resetBorder 
+                        }} 
+                        type="reset" onClick={() => {
+                            filters.likes = null;
+                            filters.reposts = null;
+                            filters.saves = null;
+                            filters.author = null;
+                            filters.category = null;
+                            filters.hashtags = [];
+                        }} onMouseEnter={() => {
+                            setResetBgColor( filtersBg );
+                            setResetColor( menuBg );
+                            setResetBorder( `solid 1px ${ menuBg }`);
+                        }} onMouseLeave={() => {
+                            setResetBgColor( menuBg );
+                            setResetColor( filtersBg );
+                            setResetBorder( "none" );
+                        }} value="Reset"/>
+                    <button style={{ 
+                            transition: "all 300ms ease-out", backgroundColor: confirmBgColor, 
+                            color: confirmColor, border: confirmBorder 
+                        }} onMouseEnter={() => {
+                            setConfirmBgColor( filtersBg );
+                            setConfirmColor( menuBg );
+                            setConfirmBorder( `solid 1px ${ menuBg }`);
+                        }} onMouseLeave={() => {
+                            setConfirmBgColor( menuBg );
+                            setConfirmColor( filtersBg );
+                            setConfirmBorder( "none" );
+                        }} onClick={() => {
+                            for ( const filter of [ "likes", "repostsFilter", "saves", "author", "category", "hashtags" ] ) {
+                                dispatch( changeFilter( { name: filter, value: filters[ filter ] } ))
+                            }
+                        }}>Confirm</button>
                     <button style={{ transition: "all 300ms ease-out", background: filtersBtnColor, border: filtersBorder, color: filtersBtnTextColor }} 
                         onMouseEnter={() => {
                             setFiltersBtnColor( filtersBg );
@@ -120,9 +185,8 @@ export function Filters() {
                             setFiltersBtnTextColor( filtersBg );
                         }}
                         onClick={() => {
-                            console.log("dispatch");
-                            dispatch( changeParameter( { "name": "filters", "value": !filters }) );
-                            setFiltersBtnText( "<<" )
+                            dispatch( changeParameter( { "name": "filters", "value": !storeFilters }) );
+                            setFiltersBtnText( ">>" )
                             }}>{ filtersBtnText }
                     </button> 
                 </div>
@@ -143,8 +207,7 @@ export function Filters() {
                         setFiltersBtnTextColor( menuBg );
                     }}
                     onClick={() => {
-                        console.log("dispatch");
-                        dispatch( changeParameter( { "name": "filters", "value": !filters }) );
+                        dispatch( changeParameter( { "name": "filters", "value": !storeFilters }) );
                         setFiltersBtnText( "<<" )
                         }}>{ filtersBtnText }
                 </button> 
@@ -154,12 +217,16 @@ export function Filters() {
 }
 
 export function FilterDiv( props ) {
-  return (
-    <div id={`${ props.name }Filter`} 
-        style={{background: "transparent", display: "flex", 
-        flexDirection: "row", alignItems: "center" }}>
-        <h5>{ props.name }</h5>
-        <input style={{ height: "60%", margin: "5px" }} type={ props.type }></input>
-    </div>
-  )
-}
+    
+    return (
+        <div id={`${ props.name }Filter`} 
+            style={{background: "transparent", display: "flex", 
+            flexDirection: "row", alignItems: "center" }}>
+            <h5>{ props.name }</h5>
+            <input style={{ height: "60%", width: "50px", margin: "5px" }}  type={ props.type }
+                onChange={( state ) => {
+                    filters[ props.name.toLowerCase() ] =  state.target.value ;
+                }}/>
+        </div>
+    )
+    }

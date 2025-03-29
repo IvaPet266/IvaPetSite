@@ -61,6 +61,7 @@ export const filters = createSlice({
         reposts: null, 
         saves: null,
         author: null,
+        category: null,
         hashtags: [],
     },
     reducers: {
@@ -72,6 +73,7 @@ export const filters = createSlice({
             state.reposts = null; 
             state.saves = null;
             state.author = null;
+            state.category = null;
             state.hashtags = [];
        }
     }

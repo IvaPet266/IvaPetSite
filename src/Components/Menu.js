@@ -23,19 +23,20 @@ export default function Menu( props ) {
 
   return (
     <div id="menu" style={{
-      display: "flex", flexDirection: "row", justifyContent: "space-between", background: "#DBC1FF", 
-      padding: "", alignItems: "center", height: "100px", border: "solid black 1px" 
+        display: "flex", flexDirection: "row", justifyContent: "space-between", flexWrap: "nowrap",
+        background: "#DBC1FF", padding: "", alignItems: "center", height: "100px", border: "solid black 1px" 
       }}>
       <div>
         <Button id="main" style_={ false }>Main</Button>
         <Button id="contests" style_={ false }>Contests</Button>
         <Button id="discussion" style_={ false }>Discussion</Button>
-        <SVGButton2Paths id="newPost" 
-          d1="M35 67.5C52.9493 67.5 67.5 52.9493 67.5 35C67.5 17.0507 52.9493 2.5 35 2.5C17.0507 2.5 2.5 17.0507 2.5 35C2.5 52.9493 17.0507 67.5 35 67.5Z"
-          d2="M35 22V48M22 35H48M67.5 35C67.5 52.9493 52.9493 67.5 35 67.5C17.0507 67.5 2.5 52.9493 2.5 35C2.5 17.0507 17.0507 2.5 35 2.5C52.9493 2.5 67.5 17.0507 67.5 35Z"
-        />
-      </div>
-      <div>
+      </div>  
+
+      <SVGButton2Paths id="newPost" 
+        d1="M35 67.5C52.9493 67.5 67.5 52.9493 67.5 35C67.5 17.0507 52.9493 2.5 35 2.5C17.0507 2.5 2.5 17.0507 2.5 35C2.5 52.9493 17.0507 67.5 35 67.5Z"
+        d2="M35 22V48M22 35H48M67.5 35C67.5 52.9493 52.9493 67.5 35 67.5C17.0507 67.5 2.5 52.9493 2.5 35C2.5 17.0507 17.0507 2.5 35 2.5C52.9493 2.5 67.5 17.0507 67.5 35Z"
+      />
+      <div>  
         <SVGButton id="search" 
           d="M55.25 55.25L42.5625 42.5625M49.4167 26.0833C49.4167 38.97 38.97 49.4167 26.0833 49.4167C13.1967 49.4167 2.75 38.97 2.75 26.0833C2.75 13.1967 13.1967 2.75 26.0833 2.75C38.97 2.75 49.4167 13.1967 49.4167 26.0833Z"
         />
@@ -63,13 +64,14 @@ export function Button( props ) {
 
   switch ( screen ) {
     case props.id: style={
-      background: menuTextColor, color: bioTextColor, height: "50px", width: "160px", textAlign: "center",
-      fontFamily: "Cormorant Infant, serif", margin: "8px"}; break;
+        background: menuTextColor, color: bioTextColor, height: "50px", width: "160px", textAlign: "center",
+        fontFamily: "Cormorant Infant, serif", margin: "8px", whiteSpace: "nowrap"
+      }; break;
     default: style={
-      background: backgroundColorInactive, color: textColorInactive, borderColor: backgroundColorInactive, 
-      height: "50px", width: "160px", textAlign: "center", fontFamily: "Cormorant Infant, serif", fontWeight: "bold",
-      margin: "8px", transition: "all 300ms ease-out"
-    }; break;
+        background: backgroundColorInactive, color: textColorInactive, borderColor: backgroundColorInactive, 
+        height: "50px", width: "160px", textAlign: "center", fontFamily: "Cormorant Infant, serif", fontWeight: "bold",
+        margin: "8px", transition: "all 300ms ease-out", whiteSpace: "nowrap"
+      }; break;
   };
 
   return (

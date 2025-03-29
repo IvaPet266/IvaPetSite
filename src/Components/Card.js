@@ -30,14 +30,12 @@ export default function Container( props ) {
                     setFilter( "brightness(30%) saturate(40%)" );
                     setTextFilter( "brightness(30%) contrast(30%)" );                       
                     setTextStyle( { color: "lightgrey"})
-                    console.log( 'enter' );
                 }}
             onMouseOut={ () => {
                     setFocused( false );
                     setFilter( "none" );
                     setTextFilter( "none" );                                    
                     setTextStyle( { color: "black" } );
-                    console.log( 'leave' );
                 }}
             onClick={() => {console.log("card")}}>            
             <div 
