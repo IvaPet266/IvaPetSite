@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ScreenContests from './Screens/ScreenContests'
 import ScreenMain from './Screens/ScreenMain'
 import ScreenDiscussion from './Screens/ScreenDiscussion'
@@ -7,10 +7,20 @@ import ScreenProfile from './Screens/ScreenProfile'
 import ScreenSearch from './Screens/ScreenSearch'
 import { useScreen } from './Components/ProviderScreen'
 import Menu from './Components/Menu'
+import { useSelector } from 'react-redux'
+// import { useNavigate } from 'react-router'
 
 
 export default function App() {
     const { screen, setScreen } = useScreen();
+
+    // const routes = useSelector( ( state ) => state.routes.routes );
+    // const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     console.log(screen);
+    //     navigate( `/${ routes[ screen ] }` )
+    // }, [ screen ])
 
     switch ( screen ) {
         case "contests":   return <ScreenContests><Menu setScreen={ setScreen }/></ScreenContests>

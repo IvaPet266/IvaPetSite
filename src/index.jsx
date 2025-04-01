@@ -22,8 +22,8 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
             <ProviderScreen>
                 <BrowserRouter> 
                     <Routes>
-                        <Route element={ <App/> }>
-                            <Route index element={ <ScreenMain/> }/>
+                        <Route path="/" element={ <App/> }>
+                            {/* <Route index element={ <ScreenMain/> }/>
                             <Route path="contests" element={ <ScreenContests/> }/>
                             <Route path="discussion" element={ <ScreenDiscussion/> }/>
                             <Route path="newpost" element={ <ScreenNewPost/> }/>
@@ -34,8 +34,8 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                                 <Route path="liked"/>
                                 <Route path="reposted"/>
                                 <Route path="settings"/>
-                                <Route path="support_service"/>
-                            </Route>
+                                <Route path="supportservice"/>
+                            </Route> */}
                         </Route>
                     </Routes>
                 </BrowserRouter>

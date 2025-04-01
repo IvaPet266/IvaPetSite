@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { changeColorTheme } from "../app/store"
-import { Link } from "react-router"
+import SVGButton from "./SVGButtons"
+// import { Link } from "react-router"
 
 
 export function ProfileLink( props ) {
     switch ( props.link ){
         case true: return (
-            <Link to={`/profile/${ props.text.replace( " ", "_" ).toLowerCase() }`}>
+            // <Link to={`/profile/${ props.text.replace( " ", "_" ).toLowerCase() }`}>
                 <button style={{ 
                     background: "transparent", border: "none", 
                     margin: "0px", padding: "2px", cursor: "pointer" 
@@ -18,7 +19,7 @@ export function ProfileLink( props ) {
                         { props.text }
                     </span>
                 </button>
-            </Link>
+            // </Link>
         )
         default: return (
             <button style={{ 
@@ -36,7 +37,7 @@ export function ProfileLink( props ) {
 }
 
 
-export function ProfileContents ( props ){
+export function ProfileContents ( props ) {
     return (
         <div 
             style={{ 
@@ -51,13 +52,14 @@ export function ProfileContents ( props ){
                 props.setObjStrokeSVG( props.inactiveContentsColor )
             }}} onClick={() => {
                 if ( props.text == "Privacy Policy" ) window.open( "https://2048game.com/ru/", "_blank" )
-                else if ( props.text == "Log Out" ) console.log("Log Out")
+                else if ( props.text == "Log Out" ) console.log( "Log Out" )
                 else {
                     props.setMenuSection( props.text );
-                    props.setScreen( props.text.replace( " ", "_" ).toLowerCase() )
+                    // if ( props.text == "Support Service" ) props.setScreen( "supportservice" )
+                    // else props.setScreen( props.text.toLowerCase() )
                 }
             }}>
-            <ProfileLink link={ props.link } text={ props.text } objColor={ props.objColor }/>
+            <ProfileLink /* link={ props.link } */ link={ false } text={ props.text } objColor={ props.objColor }/>
             <svg 
                 style={{ 
                     transition: "all 300ms ease-out", pointerEvents: "none", margin: "0px", 
@@ -77,7 +79,7 @@ export function ProfileContents ( props ){
             </svg>
         </div>
     )
-  }
+}
   
 export function ProfileContentsFill( props ) {
     return (
@@ -97,7 +99,7 @@ export function ProfileContentsFill( props ) {
             }}} onClick={() => {
                 props.setMenuSection( props.text )
             }}>
-            <Link to={`/profile/${ props.text.toLowerCase() }`}>
+            {/* <Link to={`/profile/${ props.text.toLowerCase() }`}> */}
                 <button style={{ 
                     background: "transparent", border: "none", 
                     margin: "0px", padding: "2px", cursor: "pointer" 
@@ -109,7 +111,7 @@ export function ProfileContentsFill( props ) {
                         { props.text }
                     </span>
                 </button>
-            </Link>
+            {/* </Link> */}
             <svg 
                 style={{ 
                     transition: "all 300ms ease-out", pointerEvents: "none", margin: "0px",
@@ -131,13 +133,14 @@ export function ProfileContentsFill( props ) {
             </svg>
         </div>
     )
-  }
+}
   
-  export function MainProfileDiv ( props ) {
+export function MainProfileDiv ( props ) {
     
     const userName = useSelector( ( state ) => state.userData.userName );
     const userBio = useSelector ( ( state ) => state.userData.userBio );
     const menuBg = useSelector ( ( state ) => state.colorTheme.fill_inactive );
+    const divBg = useSelector ( ( state ) => state.colorTheme.fill_active );
     const bioTextColor = useSelector( ( state ) => state.colorTheme.stroke_active );
     const lines = useSelector( ( state ) => state.colorTheme.lines );
     
@@ -199,6 +202,27 @@ export function ProfileContentsFill( props ) {
                 </div>
             )
         }
+        case "Support Service": return (
+            <div style={{ 
+                width: "80%", height: "100vh", display: "flex", backgroundColor: menuBg, flexDirection: "column", 
+                alignItems: "center", marginTop: "5px", justifyContent: "space-between" }}>
+                <div style={{ backgroundColor: divBg, width: "100%", border: `solid 2px ${ lines }`, borderTop: "none" }}>
+                    <h1 style={{
+                        textAlign: "center", // Это добавлено для центрирования текста
+                        color: menuBg,
+                        margin: "0px",
+                        fontSize: "40px"
+                    }}>Support Service</h1>
+                </div>
+                <div style={{ display: "flex", flexDirection: "row"}}>
+                    <input style={{ 
+                        boxSizing: "border-box", marginLeft: "5px", fontSize: "30px",
+                        marginBottom: "5px", width: "68vw", color: divBg 
+                        }} type="text"/>
+                    <SVGButton border={ true } w="48" h="48" d="M10 24H38M38 24L24 10M38 24L24 38"/>
+                </div>
+            </div>
+        )
         default: {
             return (
                 <div style={{ 

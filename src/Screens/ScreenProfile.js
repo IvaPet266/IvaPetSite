@@ -208,7 +208,7 @@ export default function ScreenProfile( props ) {
       <div className='CormorantInfant-serif' style={{ display: "flex", flexDirection: "row" }}>
         <MainProfileDiv instance={ menuSection }/>
         <div style={{ 
-          width: "20%", height: "100vh", background: menuBg, border: "solid black 2px", 
+          width: "20%", height: "100vh", background: menuBg, border: `solid ${ lines } 2px`, 
           display: "flex", flexDirection: "column", alignItems: "center" }}>
           <h5 style={{ fontSize: "35px", margin: "0px", color: menuTextColor }}>
             <u>Contents</u>
