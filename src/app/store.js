@@ -101,13 +101,36 @@ export const configParams = createSlice({
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
             console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
         },
-        back2defaultParamters: ( state ) => {
+        back2defaultConfigParamters: ( state ) => {
             state.filters = false;
        }
     }
 })
 
-export const { changeParameter, back2defaultParamters } = configParams.actions
+export const { changeParameter, back2defaultConfigParamters } = configParams.actions;
+
+export const routes = createSlice({
+    name: "routes",
+    initialState: {
+        routes: {
+            main: "",
+            contests: "contests",
+            discussion: "discussion",
+            newpost: "newpost",
+            search: "search",
+            profile: "profile",
+            profile_collections: "profile/collections",
+            profile_saved: "profile/saved",
+            profile_liked: "profile/liked",
+            profile_reposted: "profile/reposted",
+            profile_settings: "profile/settings",
+            profile_support_service: "profile/support_service",
+            
+        }
+    },
+    reducers: {
+    }  
+})
 
 
 export default configureStore({
@@ -116,5 +139,6 @@ export default configureStore({
         userData: userData.reducer,
         filters: filters.reducer,
         configParams: configParams.reducer,
+        routes: routes.reducer
     },
 })

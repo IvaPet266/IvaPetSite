@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { useScreen } from '../Screens/ProviderScreen';
+import { useScreen } from './ProviderScreen';
 import { useSelector } from 'react-redux';                                                   //!
+import { Link } from 'react-router';
 
 export default function SVGButton( props ) {
 
@@ -22,31 +23,33 @@ export default function SVGButton( props ) {
     
 
     return (
-        <button
-            onClick={ () => setScreen( props.id ) }
-            style={{
-                backgroundColor: 'transparent',
-                margin: "8px",
-                transition: "all 300ms ease-out",
-                border: "none",
-                alignItems: "center",
-                alignSelf: "center",
-                cursor: "pointer"
-            }}>
-            <svg 
-                onMouseOver={() => { setBgColor( defaultStroke ); setStrokeColor( "white" ) }}
-                onMouseOut={() => { setBgColor( defaultBg ); setStrokeColor( defaultStroke ) }}
-                style={{ transition: "all 300ms ease-out" }} 
-                width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path style={{ 
-                        transition: "all 300ms ease-out", 
-                        stroke: strokeColor, fill: bgColor, pointerEvents: "none", strokeWidth:"4", 
-                        strokeLinecap:"round", strokeLinejoin:"round" }}
-                        d={props.d}
-                    />
-                    { props.children }
-            </svg>
-        </button>
+        <Link to={`/${ props.id }`}>
+            <button
+                onClick={ () => setScreen( props.id ) }
+                style={{
+                    backgroundColor: 'transparent',
+                    margin: "8px",
+                    transition: "all 300ms ease-out",
+                    border: "none",
+                    alignItems: "center",
+                    alignSelf: "center",
+                    cursor: "pointer"
+                }}>
+                <svg 
+                    onMouseOver={() => { setBgColor( defaultStroke ); setStrokeColor( "white" ) }}
+                    onMouseOut={() => { setBgColor( defaultBg ); setStrokeColor( defaultStroke ) }}
+                    style={{ transition: "all 300ms ease-out" }} 
+                    width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path style={{ 
+                            transition: "all 300ms ease-out", 
+                            stroke: strokeColor, fill: bgColor, pointerEvents: "none", strokeWidth:"4", 
+                            strokeLinecap:"round", strokeLinejoin:"round" }}
+                            d={ props.d }
+                        />
+                        { props.children }
+                </svg>
+            </button>
+        </Link>
     )
 }
 
@@ -68,36 +71,37 @@ export function SVGButton2Paths ( props ) {
     const [ bgColor, setBgColor ] = useState( defaultBg );
     const [ strokeColor, setStrokeColor ] = useState( defaultStroke );
     
-
     return (
-        <button
-            onClick={ () => setScreen( props.id ) }
-            style={{
-                background: "transparent",
-                margin: "8px",
-                transition: "all 300ms ease-out",
-                border: "none",
-                alignSelf: "center",
-                cursor: "pointer"
-            }}>
-            <svg 
-                onMouseOver={() => { setBgColor( defaultStroke ); setStrokeColor( "white" ) }}
-                onMouseOut={() => { setBgColor( defaultBg ); setStrokeColor( defaultStroke ) }}
-                style={{ transition: "all 300ms ease-out" }} 
-                width="70" height="70" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path style={{
-                        transition: "all 300ms ease-out", 
-                        fill: bgColor, pointerEvents: "none"
-                        }}
-                        d={ props.d1 }/>
-                    <path style={{ 
-                        transition: "all 300ms ease-out", 
-                        stroke: strokeColor, 
-                        pointerEvents: "none", strokeWidth:"4", 
-                        strokeLinecap:"round", strokeLinejoin:"round" 
-                        }}
-                        d={ props.d2 }/>
-            </svg>
-        </button>
+        <Link to={`/${ props.id }`}>
+            <button
+                onClick={ () => setScreen( props.id ) }
+                style={{
+                    background: "transparent",
+                    margin: "8px",
+                    transition: "all 300ms ease-out",
+                    border: "none",
+                    alignSelf: "center",
+                    cursor: "pointer"
+                }}>
+                <svg 
+                    onMouseOver={() => { setBgColor( defaultStroke ); setStrokeColor( "white" ) }}
+                    onMouseOut={() => { setBgColor( defaultBg ); setStrokeColor( defaultStroke ) }}
+                    style={{ transition: "all 300ms ease-out" }} 
+                    width="70" height="70" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path style={{
+                            transition: "all 300ms ease-out", 
+                            fill: bgColor, pointerEvents: "none"
+                            }}
+                            d={ props.d1 }/>
+                        <path style={{ 
+                            transition: "all 300ms ease-out", 
+                            stroke: strokeColor, 
+                            pointerEvents: "none", strokeWidth:"4", 
+                            strokeLinecap:"round", strokeLinejoin:"round" 
+                            }}
+                            d={ props.d2 }/>
+                </svg>
+            </button>
+        </Link>
     )
 }

@@ -3,9 +3,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import store from './app/store'
 import { Provider } from 'react-redux'
-import ProviderScreen, { useScreen } from "./Screens/ProviderScreen";
+import ProviderScreen, { useScreen } from "./Components/ProviderScreen";
 import ErrorBoundary from "./Components/ErrorBoundry";
 import { BrowserRouter, Route, Routes } from "react-router";
+
+import ScreenContests from "./Screens/ScreenContests";
+import ScreenDiscussion from "./Screens/ScreenDiscussion";
+import ScreenMain from "./Screens/ScreenMain";
+import ScreenProfile from "./Screens/ScreenProfile";
+import ScreenNewPost from "./Screens/ScreenNewPost";
+import ScreenSearch from "./Screens/ScreenSearch";
 
 
 
@@ -15,13 +22,20 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
             <ProviderScreen>
                 <BrowserRouter> 
                     <Routes>
-                        <Route index element={ <App/> }>
-                            {/* <Route index element={ <ScreenMain><Menu setScreen={ setScreen }/></ScreenMain> } /> */}
-                            {/* <Route path="contests" element={ <ScreenContests><Menu setScreen={ setScreen }/></ScreenContests> } />
-                            <Route path="discussion" element={ <ScreenDiscussion><Menu setScreen={ setScreen }/></ScreenDiscussion> } />
-                            <Route path="newpost" element={ <ScreenNewPost><Menu setScreen={ setScreen }/></ScreenNewPost> } />
-                            <Route path="search" element={ <ScreenSearch><Menu setScreen={ setScreen }/></ScreenSearch> } />
-                            <Route path="profile" element={ <ScreenProfile><Menu setScreen={ setScreen }/></ScreenProfile> } /> */}
+                        <Route element={ <App/> }>
+                            <Route index element={ <ScreenMain/> }/>
+                            <Route path="contests" element={ <ScreenContests/> }/>
+                            <Route path="discussion" element={ <ScreenDiscussion/> }/>
+                            <Route path="newpost" element={ <ScreenNewPost/> }/>
+                            <Route path="search" element={ <ScreenSearch/> }/>
+                            <Route path="profile" element={ <ScreenProfile/> }>
+                                <Route path="collections"/>
+                                <Route path="saved"/>
+                                <Route path="liked"/>
+                                <Route path="reposted"/>
+                                <Route path="settings"/>
+                                <Route path="support_service"/>
+                            </Route>
                         </Route>
                     </Routes>
                 </BrowserRouter>

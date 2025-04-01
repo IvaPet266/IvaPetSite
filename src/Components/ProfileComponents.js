@@ -1,6 +1,39 @@
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { changeColorTheme } from "../app/store"
+import { Link } from "react-router"
+
+
+export function ProfileLink( props ) {
+    switch ( props.link ){
+        case true: return (
+            <Link to={`/profile/${ props.text.replace( " ", "_" ).toLowerCase() }`}>
+                <button style={{ 
+                    background: "transparent", border: "none", 
+                    margin: "0px", padding: "2px", cursor: "pointer" 
+                    }}>
+                    <span className='CormorantInfant-serif' 
+                        style={{ pointerEvents: "none", transition: "color 300ms ease-out", 
+                        fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
+                        { props.text }
+                    </span>
+                </button>
+            </Link>
+        )
+        default: return (
+            <button style={{ 
+                background: "transparent", border: "none", 
+                margin: "0px", padding: "2px", cursor: "pointer" 
+                }}>
+                <span className='CormorantInfant-serif' 
+                    style={{ pointerEvents: "none", transition: "color 300ms ease-out", 
+                    fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
+                    { props.text }
+                </span>
+            </button>
+        )
+    }
+}
 
 
 export function ProfileContents ( props ){
@@ -19,33 +52,28 @@ export function ProfileContents ( props ){
             }}} onClick={() => {
                 if ( props.text == "Privacy Policy" ) window.open( "https://2048game.com/ru/", "_blank" )
                 else if ( props.text == "Log Out" ) console.log("Log Out")
-                else props.setMenuSection( props.text )
+                else {
+                    props.setMenuSection( props.text );
+                    props.setScreen( props.text.replace( " ", "_" ).toLowerCase() )
+                }
             }}>
-            <button style={{ 
-            background: "transparent", border: "none", 
-            margin: "0px", padding: "2px", cursor: "pointer" 
-            }}>
-            <span className='CormorantInfant-serif' 
-                style={{ pointerEvents: "none", transition: "color 300ms ease-out", 
-                fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
-                { props.text }
-            </span>
-            </button>
+            <ProfileLink link={ props.link } text={ props.text } objColor={ props.objColor }/>
             <svg 
-            style={{ 
-                transition: "all 300ms ease-out", pointerEvents: "none", margin: "0px", 
-                paddingRight: "5px", alignSelf: "center", cursor: "pointer" 
-            }} width={ props.w } height={ props.h } viewBox={`0 0 ${ props.w } ${ props.h }`} fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path style={{ 
-                transition: "stroke 300ms ease-out", stroke: props.contentsColor,
-                strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round" }}
-                d={ props.d }
-            />
-            {props.d1 && <path style={{
-                transition: "stroke 300ms ease-out", stroke: props.contentsColor, 
-                strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round" }}
-                d={ props.d1 }/>
-            }
+                style={{ 
+                    transition: "all 300ms ease-out", pointerEvents: "none", margin: "0px", 
+                    paddingRight: "5px", alignSelf: "center", cursor: "pointer" 
+                }} width={ props.w } height={ props.h } viewBox={`0 0 ${ props.w } ${ props.h }`} 
+                fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path style={{ 
+                    transition: "stroke 300ms ease-out", stroke: props.contentsColor,
+                    strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round" }}
+                    d={ props.d }/>
+                { 
+                    props.d1 && <path style={{
+                    transition: "stroke 300ms ease-out", stroke: props.contentsColor, 
+                    strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round" }}
+                    d={ props.d1 }/>
+                }
             </svg>
         </div>
     )
@@ -69,17 +97,19 @@ export function ProfileContentsFill( props ) {
             }}} onClick={() => {
                 props.setMenuSection( props.text )
             }}>
-            <button style={{ 
-                background: "transparent", border: "none", 
-                margin: "0px", padding: "2px", cursor: "pointer" 
-                }}>
-                <span className='CormorantInfant-serif' 
-                    style={{ 
-                        pointerEvents: "none", transition: "color 300ms ease-out", 
-                        fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
-                    { props.text }
-                </span>
-            </button>
+            <Link to={`/profile/${ props.text.toLowerCase() }`}>
+                <button style={{ 
+                    background: "transparent", border: "none", 
+                    margin: "0px", padding: "2px", cursor: "pointer" 
+                    }}>
+                    <span className='CormorantInfant-serif' 
+                        style={{ 
+                            pointerEvents: "none", transition: "color 300ms ease-out", 
+                            fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
+                        { props.text }
+                    </span>
+                </button>
+            </Link>
             <svg 
                 style={{ 
                     transition: "all 300ms ease-out", pointerEvents: "none", margin: "0px",
@@ -90,14 +120,14 @@ export function ProfileContentsFill( props ) {
                     transition: "stroke 300ms ease-out", stroke: props.contentsColor, strokeWidth: "3", 
                     strokeLinecap: "round", strokeLinejoin: "round" }}
                     d={ props.d }
-            />
-            {
-                props.d1 && <path style={{
-                transition: "stroke 300ms ease-out", stroke: props.contentsColor, 
-                strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round"
-                }}
-                d={ props.d1 }/>
-            }
+                />
+                {
+                    props.d1 && <path style={{
+                    transition: "stroke 300ms ease-out", stroke: props.contentsColor, 
+                    strokeWidth: "3", strokeLinecap: "round", strokeLinejoin: "round"
+                    }}
+                    d={ props.d1 }/>
+                }
             </svg>
         </div>
     )
