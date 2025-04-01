@@ -1,6 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
+
+function checkWhite( color ) {
+    const r = parseInt( color.substring( 0, 2 ), 16 ); 
+    const g = parseInt( color.substring( 2, 4 ), 16 );  
+
+    return r > 128 && g > 128;
+}
+
 export const colorThemeSlice = createSlice({
     name: 'colorTheme',
     initialState: {
@@ -20,6 +28,8 @@ export const colorThemeSlice = createSlice({
         changeColorTheme: ( state, parameter ) => {
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
             console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
+
+            state.lines = checkWhite( state.fill_inactive ) ? "black" : "white"
         },
         back2defaultColorTheme: ( state ) => {
             state.fill_inactive = "#DBC1FF";

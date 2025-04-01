@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 
 export default function Menu( props ) {
   
+  const menuBg = useSelector ( ( state ) => state.colorTheme.fill_inactive );
+
   const text = {
     "eng": {
       "mainScreen": "Main",
@@ -23,8 +25,9 @@ export default function Menu( props ) {
 
   return (
     <div id="menu" style={{
-        display: "flex", flexDirection: "row", justifyContent: "space-between", flexWrap: "nowrap",
-        background: "#DBC1FF", padding: "", alignItems: "center", height: "100px", border: "solid black 1px" 
+        display: "flex", flexDirection: "row", justifyContent: "space-between", 
+        flexWrap: "nowrap", background: menuBg, padding: "", alignItems: "center", 
+        height: "100px", border: "solid black 1px" 
       }}>
       <div>
         <Button id="main" style_={ false }>Main</Button>
@@ -65,12 +68,12 @@ export function Button( props ) {
   switch ( screen ) {
     case props.id: style={
         background: menuTextColor, color: bioTextColor, height: "50px", width: "160px", textAlign: "center",
-        fontFamily: "Cormorant Infant, serif", margin: "8px", whiteSpace: "nowrap"
+        fontFamily: "Cormorant Infant, serif", margin: "8px", whiteSpace: "nowrap", cursor: "pointer"
       }; break;
     default: style={
         background: backgroundColorInactive, color: textColorInactive, borderColor: backgroundColorInactive, 
         height: "50px", width: "160px", textAlign: "center", fontFamily: "Cormorant Infant, serif", fontWeight: "bold",
-        margin: "8px", transition: "all 300ms ease-out", whiteSpace: "nowrap"
+        margin: "8px", transition: "all 300ms ease-out", whiteSpace: "nowrap", cursor: "pointer"
       }; break;
   };
 

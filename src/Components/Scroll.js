@@ -139,7 +139,7 @@ export function Filters() {
                     <FilterDiv name="Category" type=""/>
                     <input style={{ 
                         transition: "all 300ms ease-out", backgroundColor: resetBgColor, 
-                        color: resetColor, border: resetBorder 
+                        color: resetColor, border: resetBorder, cursor: "pointer" 
                         }} 
                         type="reset" onClick={() => {
                             filters.likes = null;
@@ -159,7 +159,7 @@ export function Filters() {
                         }} value="Reset"/>
                     <button style={{ 
                             transition: "all 300ms ease-out", backgroundColor: confirmBgColor, 
-                            color: confirmColor, border: confirmBorder 
+                            color: confirmColor, border: confirmBorder, cursor: "pointer" 
                         }} onMouseEnter={() => {
                             setConfirmBgColor( filtersBg );
                             setConfirmColor( menuBg );
@@ -173,7 +173,9 @@ export function Filters() {
                                 dispatch( changeFilter( { name: filter, value: filters[ filter ] } ))
                             }
                         }}>Confirm</button>
-                    <button style={{ transition: "all 300ms ease-out", background: filtersBtnColor, border: filtersBorder, color: filtersBtnTextColor }} 
+                    <button style={{ 
+                        transition: "all 300ms ease-out", background: filtersBtnColor, 
+                        border: filtersBorder, color: filtersBtnTextColor, cursor: "pointer" }} 
                         onMouseEnter={() => {
                             setFiltersBtnColor( filtersBg );
                             setFiltersBorder( `solid 1px ${ menuBg }` );
@@ -195,7 +197,7 @@ export function Filters() {
             return (
                 <button style={{ 
                     height: "60px", transition: "all 300ms ease-out", background: filtersBtnColor,
-                    border: filtersBorder, color: filtersBtnTextColor }} 
+                    border: filtersBorder, color: filtersBtnTextColor, cursor: "pointer" }} 
                     onMouseEnter={() => {
                         setFiltersBtnColor( menuBg );
                         setFiltersBorder( `solid 1px ${ filtersBg }` );

@@ -30,7 +30,8 @@ export default function SVGButton( props ) {
                 transition: "all 300ms ease-out",
                 border: "none",
                 alignItems: "center",
-                alignSelf: "center"
+                alignSelf: "center",
+                cursor: "pointer"
             }}>
             <svg 
                 onMouseOver={() => { setBgColor( defaultStroke ); setStrokeColor( "white" ) }}
@@ -76,7 +77,8 @@ export function SVGButton2Paths ( props ) {
                 margin: "8px",
                 transition: "all 300ms ease-out",
                 border: "none",
-                alignSelf: "center"
+                alignSelf: "center",
+                cursor: "pointer"
             }}>
             <svg 
                 onMouseOver={() => { setBgColor( defaultStroke ); setStrokeColor( "white" ) }}
