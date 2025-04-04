@@ -120,8 +120,8 @@ export function Filters() {
     const [ resetColor, setResetColor ] = useState( filtersBg );
     const [ resetBorder, setResetBorder ] = useState( "none" );
 
-    const [ confirmColor, setConfirmColor ] = useState( menuBg );
-    const [ confirmBgColor, setConfirmBgColor ] = useState( filtersBg );
+    const [ confirmColor, setConfirmColor ] = useState( filtersBg );
+    const [ confirmBgColor, setConfirmBgColor ] = useState( menuBg );
     const [ confirmBorder, setConfirmBorder ] = useState( "none" );
     
     switch ( storeFilters ) {

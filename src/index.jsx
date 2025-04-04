@@ -19,28 +19,28 @@ import ScreenSearch from "./Screens/ScreenSearch";
 ReactDOM.createRoot( document.getElementById( "app" ) ).render( 
     <ErrorBoundary>
         <Provider store={ store }>
-            <ProviderScreen>
+            {/* <ProviderScreen> */}
                 <BrowserRouter> 
                     <Routes>
-                        <Route path="/" element={ <App/> }>
-                            {/* <Route index element={ <ScreenMain/> }/>
-                            <Route path="contests" element={ <ScreenContests/> }/>
-                            <Route path="discussion" element={ <ScreenDiscussion/> }/>
-                            <Route path="newpost" element={ <ScreenNewPost/> }/>
-                            <Route path="search" element={ <ScreenSearch/> }/>
-                            <Route path="profile" element={ <ScreenProfile/> }>
-                                <Route path="collections"/>
-                                <Route path="saved"/>
-                                <Route path="liked"/>
-                                <Route path="reposted"/>
-                                <Route path="settings"/>
-                                <Route path="supportservice"/>
-                            </Route> */}
+                        {/* <Route path="/" element={ <App/> }> */}
+                        <Route index element={ <ScreenMain/> }/>
+                        <Route path="contests" element={ <ScreenContests/> }/>
+                        <Route path="discussion" element={ <ScreenDiscussion/> }/>
+                        <Route path="newpost" element={ <ScreenNewPost/> }/>
+                        <Route path="search" element={ <ScreenSearch/> }/>
+                        <Route path="profile" element={ <ScreenProfile/> }>
+                            <Route path="collections"/>
+                            <Route path="saved"/>
+                            <Route path="liked"/>
+                            <Route path="reposted"/>
+                            <Route path="settings"/>
+                            <Route path="supportservice"/>
                         </Route>
+                        {/* </Route> */}
                     </Routes>
                 </BrowserRouter>
                 {/* <App/> */}
-            </ProviderScreen>
+            {/* </ProviderScreen> */}
         </Provider>
     </ErrorBoundary>
 );
