@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { useScreen } from './ProviderScreen';
 import SVGButton, { SVGButton2Paths } from './SVGButtons';
 import { useSelector } from 'react-redux';
-import { NavLink, Link } from 'react-router';
+import { NavLink, Link, useLocation } from 'react-router';
 
 
 export default function Menu( props ) {
   
   const menuBg = useSelector ( ( state ) => state.colorTheme.fill_inactive );
   const lines = useSelector ( ( state ) => state.colorTheme.lines );
+
+  const location = useLocation();
 
   const text = {
     "eng": {
@@ -66,11 +68,15 @@ export default function Menu( props ) {
             )}
           </NavLink>
           <NavLink to="/profile/collections">
-            { ({ isActive }) => (
-              <SVGButton menu={ true } isActive={ isActive } id="profile" w="52" h="58" 
-                d="M49.3337 55.25V49.4167C49.3337 46.3225 48.1045 43.355 45.9166 41.1671C43.7286 38.9792 40.7612 37.75 37.667 37.75H14.3337C11.2395 37.75 8.272 38.9792 6.08408 41.1671C3.89615 43.355 2.66699 46.3225 2.66699 49.4167V55.25M37.667 14.4167C37.667 20.86 32.4436 26.0833 26.0003 26.0833C19.557 26.0833 14.3337 20.86 14.3337 14.4167C14.3337 7.97334 19.557 2.75 26.0003 2.75C32.4436 2.75 37.667 7.97334 37.667 14.4167Z"
-              />
-            )}
+            { ({ isActive }) => {
+              if ( location.pathname.indexOf( "profile" ) != -1 ) isActive = true;
+              return (
+                <SVGButton menu={ true } isActive={ isActive } id="profile" w="52" h="58" 
+                  d="M49.3337 55.25V49.4167C49.3337 46.3225 48.1045 43.355 45.9166 41.1671C43.7286 38.9792 40.7612 37.75 37.667 37.75H14.3337C11.2395 37.75 8.272 38.9792 6.08408 41.1671C3.89615 43.355 2.66699 46.3225 2.66699 49.4167V55.25M37.667 14.4167C37.667 20.86 32.4436 26.0833 26.0003 26.0833C19.557 26.0833 14.3337 20.86 14.3337 14.4167C14.3337 7.97334 19.557 2.75 26.0003 2.75C32.4436 2.75 37.667 7.97334 37.667 14.4167Z"
+                />
+              )
+            }
+            }
           </NavLink>
         </div>
       </div>      
