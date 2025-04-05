@@ -21,6 +21,19 @@ export default function SVGButton( props ) {
     const backgroundColor = props.border ? fillColor : "transparent";
     console.log(fill);
 
+    useEffect(() => {
+        if ( props.isActive == true ) {
+            setBgColor( stroke_inactive ); 
+            setStrokeColor( "white" );
+            setFillColor( bg_active );
+        } else {
+            setBgColor( bg_inactive ); 
+            setStrokeColor( stroke_inactive );
+            setFillColor( bg_inactive ); 
+        }
+        }, [ props.isActive ]
+    )
+
     return (
         <button
             onClick={ () => {
@@ -42,9 +55,11 @@ export default function SVGButton( props ) {
                     setFillColor( bg_active );
                 }}
                 onMouseOut={() => { 
-                    setBgColor( bg_inactive ); 
-                    setStrokeColor( stroke_inactive );
-                    setFillColor( bg_inactive ); 
+                    if ( !props.isActive ) {
+                        setBgColor( bg_inactive ); 
+                        setStrokeColor( stroke_inactive );
+                        setFillColor( bg_inactive ); 
+                    }
                 }}
                 style={{ transition: "all 300ms ease-out", border, fill }}
                 width={ props.w } height={ props.h } viewBox={`0 0 ${ props.w } ${ props.h }`} xmlns="http://www.w3.org/2000/svg">
@@ -71,21 +86,17 @@ export function SVGButton2Paths ( props ) {
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
     
 
-    switch ( props.isActive ) {
-        case true:
-            if ( bgColor != stroke_inactive && strokeColor != "white" ) {
-                setBgColor( stroke_inactive ); 
-                setStrokeColor( "white" );
-                console.log("newpost"); 
-                break;
+    useEffect(() => {
+        if ( props.isActive == true ) {
+            setBgColor( stroke_inactive ); 
+            setStrokeColor( "white" );
+            console.log("newpost"); 
+        } else {
+            setBgColor( bg_inactive ); 
+            setStrokeColor( stroke_inactive );
             }
-        default:
-            if ( bgColor != bg_inactive && strokeColor != stroke_inactive ) {
-                setBgColor( bg_inactive ); 
-                setStrokeColor( stroke_inactive );
-                break;
-            }
-    }
+        }, [ props.isActive ]
+    );
 
     return (
         <button
@@ -97,10 +108,15 @@ export function SVGButton2Paths ( props ) {
                 alignSelf: "center",
                 cursor: "pointer"
             }}>
-            <svg 
-                onMouseOver={() => { setBgColor( stroke_inactive ); setStrokeColor( "white" ) }}
-                onMouseOut={() => { setBgColor( bg_inactive ); setStrokeColor( stroke_inactive ) }}
-                style={{ transition: "all 300ms ease-out" }} 
+            <svg onMouseOver={() => { 
+                    setBgColor( stroke_inactive ); 
+                    setStrokeColor( "white" ) 
+                }} onMouseOut={() => { 
+                    if ( !props.isActive ) {
+                        setBgColor( bg_inactive ); 
+                        setStrokeColor( stroke_inactive ) 
+                    }
+                }} style={{ transition: "all 300ms ease-out" }} 
                 width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path style={{
                         transition: "all 300ms ease-out", 

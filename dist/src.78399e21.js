@@ -36231,6 +36231,17 @@ function SVGButton(props) {
   var fill = props.border ? fillColor : bgColor;
   var backgroundColor = props.border ? fillColor : "transparent";
   console.log(fill);
+  (0, _react.useEffect)(function () {
+    if (props.isActive == true) {
+      setBgColor(stroke_inactive);
+      setStrokeColor("white");
+      setFillColor(bg_active);
+    } else {
+      setBgColor(bg_inactive);
+      setStrokeColor(stroke_inactive);
+      setFillColor(bg_inactive);
+    }
+  }, [props.isActive]);
   return /*#__PURE__*/_react.default.createElement("button", {
     onClick: function onClick() {
       if (!props.menu) console.log("send message");
@@ -36254,9 +36265,11 @@ function SVGButton(props) {
       setFillColor(bg_active);
     },
     onMouseOut: function onMouseOut() {
-      setBgColor(bg_inactive);
-      setStrokeColor(stroke_inactive);
-      setFillColor(bg_inactive);
+      if (!props.isActive) {
+        setBgColor(bg_inactive);
+        setStrokeColor(stroke_inactive);
+        setFillColor(bg_inactive);
+      }
     },
     style: {
       transition: "all 300ms ease-out",
@@ -36302,21 +36315,16 @@ function SVGButton2Paths(props) {
     _useState10 = _slicedToArray(_useState9, 2),
     strokeColor = _useState10[0],
     setStrokeColor = _useState10[1];
-  switch (props.isActive) {
-    case true:
-      if (bgColor != stroke_inactive && strokeColor != "white") {
-        setBgColor(stroke_inactive);
-        setStrokeColor("white");
-        console.log("newpost");
-        break;
-      }
-    default:
-      if (bgColor != bg_inactive && strokeColor != stroke_inactive) {
-        setBgColor(bg_inactive);
-        setStrokeColor(stroke_inactive);
-        break;
-      }
-  }
+  (0, _react.useEffect)(function () {
+    if (props.isActive == true) {
+      setBgColor(stroke_inactive);
+      setStrokeColor("white");
+      console.log("newpost");
+    } else {
+      setBgColor(bg_inactive);
+      setStrokeColor(stroke_inactive);
+    }
+  }, [props.isActive]);
   return /*#__PURE__*/_react.default.createElement("button", {
     style: {
       background: "transparent",
@@ -36332,8 +36340,10 @@ function SVGButton2Paths(props) {
       setStrokeColor("white");
     },
     onMouseOut: function onMouseOut() {
-      setBgColor(bg_inactive);
-      setStrokeColor(stroke_inactive);
+      if (!props.isActive) {
+        setBgColor(bg_inactive);
+        setStrokeColor(stroke_inactive);
+      }
     },
     style: {
       transition: "all 300ms ease-out"
@@ -36451,18 +36461,30 @@ function Menu(props) {
       d1: "M35 67.5C52.9493 67.5 67.5 52.9493 67.5 35C67.5 17.0507 52.9493 2.5 35 2.5C17.0507 2.5 2.5 17.0507 2.5 35C2.5 52.9493 17.0507 67.5 35 67.5Z",
       d2: "M35 22V48M22 35H48M67.5 35C67.5 52.9493 52.9493 67.5 35 67.5C17.0507 67.5 2.5 52.9493 2.5 35C2.5 17.0507 17.0507 2.5 35 2.5C52.9493 2.5 67.5 17.0507 67.5 35Z"
     });
-  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
-    menu: true,
-    id: "search",
-    w: "58",
-    h: "58",
-    d: "M55.25 55.25L42.5625 42.5625M49.4167 26.0833C49.4167 38.97 38.97 49.4167 26.0833 49.4167C13.1967 49.4167 2.75 38.97 2.75 26.0833C2.75 13.1967 13.1967 2.75 26.0833 2.75C38.97 2.75 49.4167 13.1967 49.4167 26.0833Z"
-  }), /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
-    menu: true,
-    id: "profile",
-    w: "52",
-    h: "58",
-    d: "M49.3337 55.25V49.4167C49.3337 46.3225 48.1045 43.355 45.9166 41.1671C43.7286 38.9792 40.7612 37.75 37.667 37.75H14.3337C11.2395 37.75 8.272 38.9792 6.08408 41.1671C3.89615 43.355 2.66699 46.3225 2.66699 49.4167V55.25M37.667 14.4167C37.667 20.86 32.4436 26.0833 26.0003 26.0833C19.557 26.0833 14.3337 20.86 14.3337 14.4167C14.3337 7.97334 19.557 2.75 26.0003 2.75C32.4436 2.75 37.667 7.97334 37.667 14.4167Z"
+  }), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
+    to: "/search"
+  }, function (_ref5) {
+    var isActive = _ref5.isActive;
+    return /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
+      menu: true,
+      isActive: isActive,
+      id: "search",
+      w: "58",
+      h: "58",
+      d: "M55.25 55.25L42.5625 42.5625M49.4167 26.0833C49.4167 38.97 38.97 49.4167 26.0833 49.4167C13.1967 49.4167 2.75 38.97 2.75 26.0833C2.75 13.1967 13.1967 2.75 26.0833 2.75C38.97 2.75 49.4167 13.1967 49.4167 26.0833Z"
+    });
+  }), /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
+    to: "/profile/collections"
+  }, function (_ref6) {
+    var isActive = _ref6.isActive;
+    return /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
+      menu: true,
+      isActive: isActive,
+      id: "profile",
+      w: "52",
+      h: "58",
+      d: "M49.3337 55.25V49.4167C49.3337 46.3225 48.1045 43.355 45.9166 41.1671C43.7286 38.9792 40.7612 37.75 37.667 37.75H14.3337C11.2395 37.75 8.272 38.9792 6.08408 41.1671C3.89615 43.355 2.66699 46.3225 2.66699 49.4167V55.25M37.667 14.4167C37.667 20.86 32.4436 26.0833 26.0003 26.0833C19.557 26.0833 14.3337 20.86 14.3337 14.4167C14.3337 7.97334 19.557 2.75 26.0003 2.75C32.4436 2.75 37.667 7.97334 37.667 14.4167Z"
+    });
   }))));
 }
 ;
@@ -37185,6 +37207,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _store = require("../app/store");
 var _SVGButtons = _interopRequireDefault(require("./SVGButtons"));
+var _reactRouter = require("react-router");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -37198,31 +37221,7 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 function ProfileLink(props) {
   switch (props.link) {
-    case true:
-      return (
-        /*#__PURE__*/
-        // <Link to={`/profile/${ props.text.replace( " ", "_" ).toLowerCase() }`}>
-        _react.default.createElement("button", {
-          style: {
-            background: "transparent",
-            border: "none",
-            margin: "0px",
-            padding: "2px",
-            cursor: "pointer"
-          }
-        }, /*#__PURE__*/_react.default.createElement("span", {
-          className: "CormorantInfant-serif",
-          style: {
-            pointerEvents: "none",
-            transition: "color 300ms ease-out",
-            fontWeight: "bold",
-            color: props.objColor,
-            fontSize: "25px"
-          }
-        }, props.text))
-        // </Link>
-      );
-    default:
+    case false:
       return /*#__PURE__*/_react.default.createElement("button", {
         style: {
           background: "transparent",
@@ -37241,6 +37240,27 @@ function ProfileLink(props) {
           fontSize: "25px"
         }
       }, props.text));
+    default:
+      return /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
+        to: "/profile/".concat(props.link)
+      }, /*#__PURE__*/_react.default.createElement("button", {
+        style: {
+          background: "transparent",
+          border: "none",
+          margin: "0px",
+          padding: "2px",
+          cursor: "pointer"
+        }
+      }, /*#__PURE__*/_react.default.createElement("span", {
+        className: "CormorantInfant-serif",
+        style: {
+          pointerEvents: "none",
+          transition: "color 300ms ease-out",
+          fontWeight: "bold",
+          color: props.objColor,
+          fontSize: "25px"
+        }
+      }, props.text)));
   }
 }
 function ProfileContents(props) {
@@ -37265,12 +37285,10 @@ function ProfileContents(props) {
     onClick: function onClick() {
       if (props.text == "Privacy Policy") window.open("https://2048game.com/ru/", "_blank");else if (props.text == "Log Out") console.log("Log Out");else {
         props.setMenuSection(props.text);
-        // if ( props.text == "Support Service" ) props.setScreen( "supportservice" )
-        // else props.setScreen( props.text.toLowerCase() )
       }
     }
-  }, /*#__PURE__*/_react.default.createElement(ProfileLink /* link={ props.link } */, {
-    link: false,
+  }, /*#__PURE__*/_react.default.createElement(ProfileLink, {
+    link: props.link,
     text: props.text,
     objColor: props.objColor
   }), /*#__PURE__*/_react.default.createElement("svg", {
@@ -37331,24 +37349,11 @@ function ProfileContentsFill(props) {
     onClick: function onClick() {
       props.setMenuSection(props.text);
     }
-  }, /*#__PURE__*/_react.default.createElement("button", {
-    style: {
-      background: "transparent",
-      border: "none",
-      margin: "0px",
-      padding: "2px",
-      cursor: "pointer"
-    }
-  }, /*#__PURE__*/_react.default.createElement("span", {
-    className: "CormorantInfant-serif",
-    style: {
-      pointerEvents: "none",
-      transition: "color 300ms ease-out",
-      fontWeight: "bold",
-      color: props.objColor,
-      fontSize: "25px"
-    }
-  }, props.text)), /*#__PURE__*/_react.default.createElement("svg", {
+  }, /*#__PURE__*/_react.default.createElement(ProfileLink, {
+    link: props.link,
+    text: props.text,
+    objColor: props.objColor
+  }), /*#__PURE__*/_react.default.createElement("svg", {
     style: {
       transition: "all 300ms ease-out",
       pointerEvents: "none",
@@ -37686,7 +37691,7 @@ function Lines(props) {
     size: "3"
   }));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js","./SVGButtons":"Components/SVGButtons.js"}],"Screens/ScreenProfile.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js","./SVGButtons":"Components/SVGButtons.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"Screens/ScreenProfile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37800,120 +37805,44 @@ function ScreenProfile(props) {
     logOutStrokeSVG = _useState38[0],
     setLogOutStrokeSVG = _useState38[1];
   (0, _react.useEffect)(function () {
+    setCollectionsColor(menuTextColor);
+    setCollectionsStrokeSVG(menuTextColor);
+    setCollectionsFillSVG("none");
+    setSavedColor(menuTextColor);
+    setSavedStrokeSVG(menuTextColor);
+    setLikedColor(menuTextColor);
+    setLikedFillSVG("none");
+    setLikedStrokeSVG(menuTextColor);
+    setRepostedColor(menuTextColor);
+    setRepostedStrokeSVG(menuTextColor);
+    setSettingsColor(menuTextColor);
+    setSettingsStrokeSVG(menuTextColor);
+    setPrivacyPColor(menuTextColor);
+    setPrivacyPStrokeSVG(menuTextColor);
+    setSupportSColor(menuTextColor);
+    setSupportSStrokeSVG(menuTextColor);
+    setLogOutColor(menuTextColor);
+    setLogOutStrokeSVG(menuTextColor);
     if (menuSection == "Collections") {
       setCollectionsColor("#FFF600");
       setCollectionsStrokeSVG(lines);
       setCollectionsFillSVG("#FFF600");
-      setSavedColor(menuTextColor);
-      setSavedStrokeSVG(menuTextColor);
-      setLikedColor(menuTextColor);
-      setLikedFillSVG("none");
-      setLikedStrokeSVG(menuTextColor);
-      setRepostedColor(menuTextColor);
-      setRepostedStrokeSVG(menuTextColor);
-      setSettingsColor(menuTextColor);
-      setSettingsStrokeSVG(menuTextColor);
-      setPrivacyPColor(menuTextColor);
-      setPrivacyPStrokeSVG(menuTextColor);
-      setSupportSColor(menuTextColor);
-      setSupportSStrokeSVG(menuTextColor);
-      setLogOutColor(menuTextColor);
-      setLogOutStrokeSVG(menuTextColor);
     } else if (menuSection == "Saved") {
-      setCollectionsColor(menuTextColor);
-      setCollectionsStrokeSVG(menuTextColor);
-      setCollectionsFillSVG("none");
       setSavedColor("#00BC13");
       setSavedStrokeSVG("#00BC13");
-      setLikedColor(menuTextColor);
-      setLikedFillSVG("none");
-      setLikedStrokeSVG(menuTextColor);
-      setRepostedColor(menuTextColor);
-      setRepostedStrokeSVG(menuTextColor);
-      setSettingsColor(menuTextColor);
-      setSettingsStrokeSVG(menuTextColor);
-      setPrivacyPColor(menuTextColor);
-      setPrivacyPStrokeSVG(menuTextColor);
-      setSupportSColor(menuTextColor);
-      setSupportSStrokeSVG(menuTextColor);
-      setLogOutColor(menuTextColor);
-      setLogOutStrokeSVG(menuTextColor);
     } else if (menuSection == "Liked") {
-      setCollectionsColor(menuTextColor);
-      setCollectionsStrokeSVG(menuTextColor);
-      setCollectionsFillSVG("none");
-      setSavedColor(menuTextColor);
-      setSavedStrokeSVG(menuTextColor);
       setLikedColor("#B90000");
       setLikedFillSVG("#B90000");
       setLikedStrokeSVG(lines);
-      setRepostedColor(menuTextColor);
-      setRepostedStrokeSVG(menuTextColor);
-      setSettingsColor(menuTextColor);
-      setSettingsStrokeSVG(menuTextColor);
-      setPrivacyPColor(menuTextColor);
-      setPrivacyPStrokeSVG(menuTextColor);
-      setSupportSColor(menuTextColor);
-      setSupportSStrokeSVG(menuTextColor);
-      setLogOutColor(menuTextColor);
-      setLogOutStrokeSVG(menuTextColor);
     } else if (menuSection == "Reposted") {
-      setCollectionsColor(menuTextColor);
-      setCollectionsStrokeSVG(menuTextColor);
-      setCollectionsFillSVG("none");
-      setSavedColor(menuTextColor);
-      setSavedStrokeSVG(menuTextColor);
-      setLikedColor(menuTextColor);
-      setLikedFillSVG("none");
-      setLikedStrokeSVG(menuTextColor);
       setRepostedColor("#4700AA");
       setRepostedStrokeSVG("#4700AA");
-      setSettingsColor(menuTextColor);
-      setSettingsStrokeSVG(menuTextColor);
-      setPrivacyPColor(menuTextColor);
-      setPrivacyPStrokeSVG(menuTextColor);
-      setSupportSColor(menuTextColor);
-      setSupportSStrokeSVG(menuTextColor);
-      setLogOutColor(menuTextColor);
-      setLogOutStrokeSVG(menuTextColor);
     } else if (menuSection == "Settings") {
-      setCollectionsColor(menuTextColor);
-      setCollectionsStrokeSVG(menuTextColor);
-      setCollectionsFillSVG("none");
-      setSavedColor(menuTextColor);
-      setSavedStrokeSVG(menuTextColor);
-      setLikedColor(menuTextColor);
-      setLikedFillSVG("none");
-      setLikedStrokeSVG(menuTextColor);
-      setRepostedColor(menuTextColor);
-      setRepostedStrokeSVG(menuTextColor);
       setSettingsColor(bioTextColor);
       setSettingsStrokeSVG(bioTextColor);
-      setPrivacyPColor(menuTextColor);
-      setPrivacyPStrokeSVG(menuTextColor);
-      setSupportSColor(menuTextColor);
-      setSupportSStrokeSVG(menuTextColor);
-      setLogOutColor(menuTextColor);
-      setLogOutStrokeSVG(menuTextColor);
     } else if (menuSection == "Support") {
-      setCollectionsColor(menuTextColor);
-      setCollectionsStrokeSVG(menuTextColor);
-      setCollectionsFillSVG("none");
-      setSavedColor(menuTextColor);
-      setSavedStrokeSVG(menuTextColor);
-      setLikedColor(menuTextColor);
-      setLikedFillSVG("none");
-      setLikedStrokeSVG(menuTextColor);
-      setRepostedColor(menuTextColor);
-      setRepostedStrokeSVG(menuTextColor);
-      setSettingsColor(bioTextColor);
-      setSettingsStrokeSVG(bioTextColor);
-      setPrivacyPColor(menuTextColor);
-      setPrivacyPStrokeSVG(menuTextColor);
       setSupportSColor(bioTextColor);
       setSupportSStrokeSVG(bioTextColor);
-      setLogOutColor(menuTextColor);
-      setLogOutStrokeSVG(menuTextColor);
     }
   }, [menuSection]);
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
@@ -37962,6 +37891,7 @@ function ScreenProfile(props) {
     objColor: collectionsColor,
     contentsColor: collectionsStrokeSVG,
     lines: lines,
+    link: "collections",
     objFillSVG: collectionsFillSVG,
     setObjFillSVG: function setObjFillSVG(state) {
       return setCollectionsFillSVG(state);
@@ -37984,7 +37914,7 @@ function ScreenProfile(props) {
     text: "Saved",
     activeContentsColor: "#00BC13",
     inactiveContentsColor: menuTextColor,
-    link: true,
+    link: "saved",
     objColor: savedColor,
     contentsColor: savedStrokeSVG,
     w: "28",
@@ -38007,6 +37937,7 @@ function ScreenProfile(props) {
     text: "Liked",
     activeContentsColor: "#B90000",
     inactiveContentsColor: menuTextColor,
+    link: "liked",
     objColor: likedColor,
     contentsColor: likedStrokeSVG,
     lines: lines,
@@ -38034,7 +37965,7 @@ function ScreenProfile(props) {
     text: "Reposted",
     activeContentsColor: "#4700AA",
     inactiveContentsColor: menuTextColor,
-    link: true,
+    link: "reposted",
     objColor: repostedColor,
     contentsColor: repostedStrokeSVG,
     w: "24",
@@ -38065,7 +37996,7 @@ function ScreenProfile(props) {
     text: "Settings",
     activeContentsColor: bioTextColor,
     inactiveContentsColor: menuTextColor,
-    link: true,
+    link: "settings",
     objColor: settingsColor,
     contentsColor: settingsStrokeSVG,
     w: "27",
@@ -38089,6 +38020,7 @@ function ScreenProfile(props) {
     text: "Privacy Policy",
     activeContentsColor: bioTextColor,
     inactiveContentsColor: menuTextColor,
+    link: false,
     objColor: privacyPColor,
     contentsColor: privacyPStrokeSVG,
     w: "25",
@@ -38111,7 +38043,7 @@ function ScreenProfile(props) {
     text: "Support Service",
     activeContentsColor: bioTextColor,
     inactiveContentsColor: menuTextColor,
-    link: true,
+    link: "support",
     objColor: supportSColor,
     contentsColor: supportSStrokeSVG,
     w: "25",
@@ -38138,6 +38070,7 @@ function ScreenProfile(props) {
     contentsColor: logOutStrokeSVG,
     w: "25",
     h: "25",
+    link: false,
     d: "M9.125 22.625H4.625C4.02826 22.625 3.45597 22.3879 3.03401 21.966C2.61205 21.544 2.375 20.9717 2.375 20.375V4.625C2.375 4.02826 2.61205 3.45597 3.03401 3.03401C3.45597 2.61205 4.02826 2.375 4.625 2.375H9.125M17 18.125L22.625 12.5M22.625 12.5L17 6.875M22.625 12.5H9.125"
   }))));
 }
@@ -38329,7 +38262,7 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "settings"
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
-  path: "supportservice"
+  path: "support"
 })))))));
 },{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -38356,7 +38289,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60394" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50876" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -34,7 +34,7 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                             <Route path="liked"/>
                             <Route path="reposted"/>
                             <Route path="settings"/>
-                            <Route path="supportservice"/>
+                            <Route path="support"/>
                         </Route>
                         {/* </Route> */}
                     </Routes>

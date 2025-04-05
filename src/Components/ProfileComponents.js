@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { changeColorTheme } from "../app/store"
 import SVGButton from "./SVGButtons"
+import { NavLink } from "react-router"
 // import { Link } from "react-router"
 
 
 export function ProfileLink( props ) {
     switch ( props.link ){
-        case true: return (
-            // <Link to={`/profile/${ props.text.replace( " ", "_" ).toLowerCase() }`}>
+        case false: 
+            return (
                 <button style={{ 
                     background: "transparent", border: "none", 
                     margin: "0px", padding: "2px", cursor: "pointer" 
@@ -19,20 +20,22 @@ export function ProfileLink( props ) {
                         { props.text }
                     </span>
                 </button>
-            // </Link>
-        )
-        default: return (
-            <button style={{ 
-                background: "transparent", border: "none", 
-                margin: "0px", padding: "2px", cursor: "pointer" 
-                }}>
-                <span className='CormorantInfant-serif' 
-                    style={{ pointerEvents: "none", transition: "color 300ms ease-out", 
-                    fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
-                    { props.text }
-                </span>
-            </button>
-        )
+            )
+        default:
+            return (
+                <NavLink to={ `/profile/${ props.link }` }>
+                    <button style={{ 
+                        background: "transparent", border: "none", 
+                        margin: "0px", padding: "2px", cursor: "pointer" 
+                        }}>
+                        <span className='CormorantInfant-serif' 
+                            style={{ pointerEvents: "none", transition: "color 300ms ease-out", 
+                            fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
+                            { props.text }
+                        </span>
+                    </button>
+                </NavLink>
+            )
     }
 }
 
@@ -55,11 +58,9 @@ export function ProfileContents ( props ) {
                 else if ( props.text == "Log Out" ) console.log( "Log Out" )
                 else {
                     props.setMenuSection( props.text );
-                    // if ( props.text == "Support Service" ) props.setScreen( "supportservice" )
-                    // else props.setScreen( props.text.toLowerCase() )
                 }
             }}>
-            <ProfileLink /* link={ props.link } */ link={ false } text={ props.text } objColor={ props.objColor }/>
+            <ProfileLink link={ props.link } text={ props.text } objColor={ props.objColor }/>
             <svg 
                 style={{ 
                     transition: "all 300ms ease-out", pointerEvents: "none", margin: "0px", 
@@ -82,7 +83,7 @@ export function ProfileContents ( props ) {
 }
   
 export function ProfileContentsFill( props ) {
-    return (
+return (
         <div 
             style={{ 
                 width: "100%", display: "flex", flexDirection: "row", 
@@ -99,19 +100,7 @@ export function ProfileContentsFill( props ) {
             }}} onClick={() => {
                 props.setMenuSection( props.text )
             }}>
-            {/* <Link to={`/profile/${ props.text.toLowerCase() }`}> */}
-                <button style={{ 
-                    background: "transparent", border: "none", 
-                    margin: "0px", padding: "2px", cursor: "pointer" 
-                    }}>
-                    <span className='CormorantInfant-serif' 
-                        style={{ 
-                            pointerEvents: "none", transition: "color 300ms ease-out", 
-                            fontWeight: "bold", color: props.objColor, fontSize: "25px" }}>
-                        { props.text }
-                    </span>
-                </button>
-            {/* </Link> */}
+            <ProfileLink link={ props.link } text={ props.text } objColor={ props.objColor }/>
             <svg 
                 style={{ 
                     transition: "all 300ms ease-out", pointerEvents: "none", margin: "0px",
