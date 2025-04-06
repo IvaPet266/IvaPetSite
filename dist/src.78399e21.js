@@ -21449,8 +21449,10 @@ var routes = exports.routes = (0, _toolkit.createSlice)({
       liked: "profile/liked",
       reposted: "profile/reposted",
       settings: "profile/settings",
-      supportservice: "profile/supportservice"
-    }
+      support: "profile/support",
+      cards: "cards"
+    },
+    cardId: null
   },
   reducers: {}
 });
@@ -37052,16 +37054,55 @@ function Container(props) {
 }
 ;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"imgs/cards/cat.jpg":[function(require,module,exports) {
-module.exports = "/ac0c95abd277c5b9eefd4d702d468355.jpg";
+module.exports = "/cat.2d468355.jpg";
 },{}],"imgs/cards/cat1.jpg":[function(require,module,exports) {
-module.exports = "/311fb79c5fef49af00a395e72ce78888.jpg";
+module.exports = "/cat1.2ce78888.jpg";
 },{}],"imgs/cards/cat2.jpg":[function(require,module,exports) {
-module.exports = "/bc9b6479556ca2a754681d87b1131354.jpg";
+module.exports = "/cat2.b1131354.jpg";
 },{}],"imgs/cards/dog.jpg":[function(require,module,exports) {
-module.exports = "/63c171b3cf3c71cbbfb626770f5c4af6.jpg";
+module.exports = "/dog.0f5c4af6.jpg";
 },{}],"imgs/cards/dog1.jpg":[function(require,module,exports) {
-module.exports = "/4f544e4b870ea766751a35501a6c59f0.jpg";
-},{}],"Components/Scroll.js":[function(require,module,exports) {
+module.exports = "/dog1.1a6c59f0.jpg";
+},{}],"Screens/CardScreen.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = CardScreen;
+var _react = _interopRequireDefault(require("react"));
+var _reactRedux = require("react-redux");
+var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function CardScreen(props) {
+  var menuBg = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var menuTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_inactive;
+  });
+  var bioTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_active;
+  });
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, /*#__PURE__*/_react.default.createElement("div", {
+    id: "card",
+    style: {
+      padding: "5px",
+      width: "400px",
+      height: "500px",
+      backgroundColor: "gray",
+      position: "absolute",
+      top: "25%",
+      left: "25%",
+      borderRadius: "20px",
+      border: "solid 1px ".concat(lines)
+    }
+  }, props.children));
+}
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Components/Scroll.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37079,6 +37120,8 @@ var _cat3 = _interopRequireDefault(require("../imgs/cards/cat2.jpg"));
 var _dog = _interopRequireDefault(require("../imgs/cards/dog.jpg"));
 var _dog2 = _interopRequireDefault(require("../imgs/cards/dog1.jpg"));
 var _store = require("../app/store");
+var _reactRouter = require("react-router");
+var _CardScreen = _interopRequireDefault(require("../Screens/CardScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -37117,6 +37160,7 @@ function Scroll(props) {
   var textColor = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
   });
+  var location = (0, _reactRouter.useLocation)();
   var likesFilter = (0, _reactRedux.useSelector)(function (state) {
     return state.filters.likes;
   });
@@ -37190,14 +37234,27 @@ function Scroll(props) {
       }, CARDS.map(function (value, index) {
         var author = checkFilters(authorFilter, value["author"]);
         var category = checkFilters(categoryFilter, value["category"]);
-        if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_Card.default, {
+        var params = (0, _reactRouter.useParams)();
+        params.id = index;
+        if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
+          to: "cards"
+        }, " ", function (isActive) {
+          if (isActive) return /*#__PURE__*/_react.default.createElement(_CardScreen.default, null, /*#__PURE__*/_react.default.createElement(_Card.default, {
+            key: index,
+            img: value["image"],
+            title: value["title"],
+            author: value["author"],
+            category: value["category"],
+            text_content: value["text_content"]
+          }));
+        }, /*#__PURE__*/_react.default.createElement(_Card.default, {
           key: index,
           img: value["image"],
           title: value["title"],
           author: value["author"],
           category: value["category"],
           text_content: value["text_content"]
-        });
+        }));
       })));
     default:
       return /*#__PURE__*/_react.default.createElement("p", {
@@ -37433,7 +37490,7 @@ function FilterDiv(props) {
     }
   }));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Card":"Components/Card.js","../imgs/cards/cat.jpg":"imgs/cards/cat.jpg","../imgs/cards/cat1.jpg":"imgs/cards/cat1.jpg","../imgs/cards/cat2.jpg":"imgs/cards/cat2.jpg","../imgs/cards/dog.jpg":"imgs/cards/dog.jpg","../imgs/cards/dog1.jpg":"imgs/cards/dog1.jpg","../app/store":"app/store.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Card":"Components/Card.js","../imgs/cards/cat.jpg":"imgs/cards/cat.jpg","../imgs/cards/cat1.jpg":"imgs/cards/cat1.jpg","../imgs/cards/cat2.jpg":"imgs/cards/cat2.jpg","../imgs/cards/dog.jpg":"imgs/cards/dog.jpg","../imgs/cards/dog1.jpg":"imgs/cards/dog1.jpg","../app/store":"app/store.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../Screens/CardScreen":"Screens/CardScreen.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37995,6 +38052,7 @@ var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
 var _reactRedux = require("react-redux");
 var _ProfileComponents = require("../Components/ProfileComponents");
 var _ProviderScreen = require("../Components/ProviderScreen");
+var _reactRouter = require("react-router");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -38020,6 +38078,7 @@ function ScreenProfile(props) {
   var lines = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.lines;
   });
+  var location = (0, _reactRouter.useLocation)();
   var _useState = (0, _react.useState)("Collections"),
     _useState2 = _slicedToArray(_useState, 2),
     menuSection = _useState2[0],
@@ -38137,6 +38196,12 @@ function ScreenProfile(props) {
       setSupportSStrokeSVG(bioTextColor);
     }
   }, [menuSection]);
+  (0, _react.useEffect)(function () {
+    if (location.pathname.indexOf("profile") != -1 && location.pathname.indexOf(menuSection.toLowerCase()) == -1) {
+      var s = location.pathname.slice(location.pathname.indexOf("profile") + 8);
+      _setMenuSection("".concat(s.slice(0, 1).toUpperCase()).concat(s.slice(1, s.length)));
+    }
+  }, [location.pathname]);
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
     className: "CormorantInfant-serif",
     style: {
@@ -38366,7 +38431,7 @@ function ScreenProfile(props) {
     d: "M9.125 22.625H4.625C4.02826 22.625 3.45597 22.3879 3.03401 21.966C2.61205 21.544 2.375 20.9717 2.375 20.375V4.625C2.375 4.02826 2.61205 3.45597 3.03401 3.03401C3.45597 2.61205 4.02826 2.375 4.625 2.375H9.125M17 18.125L22.625 12.5M22.625 12.5L17 6.875M22.625 12.5H9.125"
   }))));
 }
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/ProfileComponents":"Components/ProfileComponents.js","../Components/ProviderScreen":"Components/ProviderScreen.js"}],"Screens/ScreenSearch.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/ProfileComponents":"Components/ProfileComponents.js","../Components/ProviderScreen":"Components/ProviderScreen.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"Screens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38520,6 +38585,7 @@ var _ScreenMain = _interopRequireDefault(require("./Screens/ScreenMain"));
 var _ScreenProfile = _interopRequireDefault(require("./Screens/ScreenProfile"));
 var _ScreenNewPost = _interopRequireDefault(require("./Screens/ScreenNewPost"));
 var _ScreenSearch = _interopRequireDefault(require("./Screens/ScreenSearch"));
+var _CardScreen = _interopRequireDefault(require("./Screens/CardScreen"));
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -38555,8 +38621,11 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
   path: "settings"
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "support"
-})))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
+  path: "cards",
+  element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
+}))))));
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Screens/CardScreen":"Screens/CardScreen.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -38581,7 +38650,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56265" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63937" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

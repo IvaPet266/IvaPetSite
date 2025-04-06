@@ -7,6 +7,8 @@ import cat2 from '../imgs/cards/cat2.jpg';
 import dog from '../imgs/cards/dog.jpg';
 import dog1 from '../imgs/cards/dog1.jpg';
 import { changeColorTheme, changeParameter, changeFilter } from '../app/store';
+import { NavLink, useLocation, useParams } from 'react-router';
+import CardScreen from '../Screens/CardScreen';
 
 
 const filters = {
@@ -25,6 +27,8 @@ export default function Scroll( props ) {
     const ref = useRef( null );
 
     const textColor = useSelector( ( state ) => state.colorTheme.fill_inactive );
+
+    const location = useLocation();
 
     const likesFilter = useSelector( ( state ) => state.filters.likes );
     const repostsFilter = useSelector( ( state ) => state.filters.reposts );
@@ -80,13 +84,27 @@ export default function Scroll( props ) {
                         { CARDS.map( ( value, index ) => {
                             const author = checkFilters( authorFilter, value[ "author" ] );
                             const category = checkFilters( categoryFilter, value[ "category" ] );
+                            let params = useParams();
+                            params.id = index;
                             if ( value[ "likes_amount" ] >= likesFilter && author && category )
                                 return (
-                                    <Container 
-                                        key={ index } img={ value[ "image" ] } 
-                                        title={ value[ "title" ] } author={ value[ "author" ] }
-                                        category={ value[ "category" ] }
-                                        text_content={ value[ "text_content" ] }/> 
+                                    <NavLink to={`cards`}> {/*!!!!!*/}
+                                        { ( isActive ) => {
+                                            if ( isActive ) return (
+                                            <CardScreen>
+                                                <Container 
+                                                    key={ index } img={ value[ "image" ] } 
+                                                    title={ value[ "title" ] } author={ value[ "author" ] }
+                                                    category={ value[ "category" ] }
+                                                    text_content={ value[ "text_content" ] }/> 
+                                            </CardScreen>)
+                                        }}
+                                        <Container 
+                                            key={ index } img={ value[ "image" ] } 
+                                            title={ value[ "title" ] } author={ value[ "author" ] }
+                                            category={ value[ "category" ] }
+                                            text_content={ value[ "text_content" ] }/> 
+                                    </NavLink>
                                 )})}
                     </div>
                 </>

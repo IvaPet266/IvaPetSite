@@ -13,6 +13,7 @@ import ScreenMain from "./Screens/ScreenMain";
 import ScreenProfile from "./Screens/ScreenProfile";
 import ScreenNewPost from "./Screens/ScreenNewPost";
 import ScreenSearch from "./Screens/ScreenSearch";
+import CardScreen from "./Screens/CardScreen";
 
 
 
@@ -36,6 +37,7 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                             <Route path="settings"/>
                             <Route path="support"/>
                         </Route>
+                        <Route path="cards" element={ <CardScreen/> }/>
                         {/* </Route> */}
                     </Routes>
                 </BrowserRouter>

@@ -124,9 +124,10 @@ export const routes = createSlice({
             liked: "profile/liked",
             reposted: "profile/reposted",
             settings: "profile/settings",
-            supportservice: "profile/supportservice",
-            
-        }
+            support: "profile/support",
+            cards: "cards"
+        },
+        cardId: null
     },
     reducers: {
     }  

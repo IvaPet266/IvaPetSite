@@ -3,6 +3,7 @@ import BaseScreen from '../Components/BaseScreen';
 import { useSelector } from 'react-redux';
 import { MainProfileDiv, ProfileContents, ProfileContentsFill } from '../Components/ProfileComponents';
 import { useScreen } from '../Components/ProviderScreen';
+import { useLocation } from 'react-router';
 
 export default function ScreenProfile( props ) {
 
@@ -12,6 +13,8 @@ export default function ScreenProfile( props ) {
   const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
   const bioTextColor = useSelector( ( state ) => state.colorTheme.stroke_active );
   const lines = useSelector( ( state ) => state.colorTheme.lines );
+
+  const location = useLocation();
 
   const [ menuSection, setMenuSection ] = useState( "Collections" );
 
@@ -91,6 +94,13 @@ export default function ScreenProfile( props ) {
     }
   }, [ menuSection ])
     
+  useEffect(() => {
+    if ( location.pathname.indexOf( "profile" ) != -1 && location.pathname.indexOf( menuSection.toLowerCase() ) == -1 ) {
+
+      const s = location.pathname.slice( location.pathname.indexOf( "profile" ) + 8 );
+      setMenuSection( `${ s.slice( 0, 1 ).toUpperCase() }${ s.slice( 1, s.length ) }` )
+    }
+  }, [ location.pathname ])
 
   return (
     <BaseScreen>
