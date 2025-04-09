@@ -36852,6 +36852,7 @@ function Button(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.ScrollBar = ScrollBar;
 exports.default = BaseScreen;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
@@ -36859,18 +36860,105 @@ var _Menu = _interopRequireDefault(require("./Menu"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function BaseScreen(props) {
   var bg_color = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
   });
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
+      display: "flex",
+      flexDirection: "row"
+    }
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "99%",
       minHeight: "100vh",
       backgroundColor: bg_color
     }
-  }, /*#__PURE__*/_react.default.createElement(_Menu.default, null), props.children);
+  }, /*#__PURE__*/_react.default.createElement(_Menu.default, null), props.children, /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb")), /*#__PURE__*/_react.default.createElement(ScrollBar, null));
 }
 ;
+function ScrollBar(props) {
+  var _useState = (0, _react.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    isDragging = _useState2[0],
+    setIsDragging = _useState2[1];
+  var _useState3 = (0, _react.useState)(0),
+    _useState4 = _slicedToArray(_useState3, 2),
+    positionY = _useState4[0],
+    setPositionY = _useState4[1];
+  var innerDivRef = (0, _react.useRef)(null);
+  var handleMouseDown = function handleMouseDown(event) {
+    if (!innerDivRef.current) return;
+    console.log("mouseDown");
+    var initialY = event.clientY;
+    var rect = innerDivRef.current.getBoundingClientRect();
+    var offsetTop = rect.top + window.scrollY;
+    setIsDragging(true);
+    var handleMouseMove = function handleMouseMove(event) {
+      if (!isDragging || !innerDivRef.current) return;
+      console.log("mouseMove");
+      var newY = Math.min(Math.max(offsetTop + event.clientY - initialY, 0), window.innerHeight - innerDivRef.current.offsetHeight);
+      setPositionY(newY);
+      window.scrollBy(0, newY);
+    };
+    var _handleMouseUp = function handleMouseUp() {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', _handleMouseUp);
+      setIsDragging(false);
+    };
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', _handleMouseUp);
+    (0, _react.useEffect)(function () {
+      return function () {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', _handleMouseUp);
+      };
+    }, []);
+  };
+  var handleScroll = function handleScroll() {
+    var scrollPosition = window.scrollY || window.pageYOffset;
+    setPositionY("".concat(50 + scrollPosition / 2, "%"));
+  };
+  var handleWheel = function handleWheel(event) {
+    setIsDragging(true);
+    window.scrollBy(0, event.deltaY);
+    handleScroll();
+  };
+  (0, _react.useEffect)(function () {
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('wheel', handleWheel);
+  }, []);
+
+  // handleScroll();
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      backgroundColor: "aqua",
+      margin: "0",
+      width: "1%"
+    }
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    ref: innerDivRef,
+    style: {
+      position: isDragging ? 'fixed' : 'static',
+      top: isDragging ? "".concat(positionY, "px") : undefined,
+      height: "5vh",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "red",
+      borderRadius: "10px",
+      cursor: "pointer"
+    },
+    onMouseDown: handleMouseDown
+  }));
+}
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
 "use strict";
 
@@ -38625,174 +38713,5 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
   path: "cards",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Screens/CardScreen":"Screens/CardScreen.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
-var global = arguments[3];
-var OVERLAY_ID = '__parcel__error__overlay__';
-var OldModule = module.bundle.Module;
-function Module(moduleName) {
-  OldModule.call(this, moduleName);
-  this.hot = {
-    data: module.bundle.hotData,
-    _acceptCallbacks: [],
-    _disposeCallbacks: [],
-    accept: function (fn) {
-      this._acceptCallbacks.push(fn || function () {});
-    },
-    dispose: function (fn) {
-      this._disposeCallbacks.push(fn);
-    }
-  };
-  module.bundle.hotData = null;
-}
-module.bundle.Module = Module;
-var checkedAssets, assetsToAccept;
-var parent = module.bundle.parent;
-if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "" || location.hostname;
-  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63937" + '/');
-  ws.onmessage = function (event) {
-    checkedAssets = {};
-    assetsToAccept = [];
-    var data = JSON.parse(event.data);
-    if (data.type === 'update') {
-      var handled = false;
-      data.assets.forEach(function (asset) {
-        if (!asset.isNew) {
-          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
-          if (didAccept) {
-            handled = true;
-          }
-        }
-      });
-
-      // Enable HMR for CSS by default.
-      handled = handled || data.assets.every(function (asset) {
-        return asset.type === 'css' && asset.generated.js;
-      });
-      if (handled) {
-        console.clear();
-        data.assets.forEach(function (asset) {
-          hmrApply(global.parcelRequire, asset);
-        });
-        assetsToAccept.forEach(function (v) {
-          hmrAcceptRun(v[0], v[1]);
-        });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
-      }
-    }
-    if (data.type === 'reload') {
-      ws.close();
-      ws.onclose = function () {
-        location.reload();
-      };
-    }
-    if (data.type === 'error-resolved') {
-      console.log('[parcel] ✨ Error resolved');
-      removeErrorOverlay();
-    }
-    if (data.type === 'error') {
-      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
-      removeErrorOverlay();
-      var overlay = createErrorOverlay(data);
-      document.body.appendChild(overlay);
-    }
-  };
-}
-function removeErrorOverlay() {
-  var overlay = document.getElementById(OVERLAY_ID);
-  if (overlay) {
-    overlay.remove();
-  }
-}
-function createErrorOverlay(data) {
-  var overlay = document.createElement('div');
-  overlay.id = OVERLAY_ID;
-
-  // html encode message and stack trace
-  var message = document.createElement('div');
-  var stackTrace = document.createElement('pre');
-  message.innerText = data.error.message;
-  stackTrace.innerText = data.error.stack;
-  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
-  return overlay;
-}
-function getParents(bundle, id) {
-  var modules = bundle.modules;
-  if (!modules) {
-    return [];
-  }
-  var parents = [];
-  var k, d, dep;
-  for (k in modules) {
-    for (d in modules[k][1]) {
-      dep = modules[k][1][d];
-      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
-        parents.push(k);
-      }
-    }
-  }
-  if (bundle.parent) {
-    parents = parents.concat(getParents(bundle.parent, id));
-  }
-  return parents;
-}
-function hmrApply(bundle, asset) {
-  var modules = bundle.modules;
-  if (!modules) {
-    return;
-  }
-  if (modules[asset.id] || !bundle.parent) {
-    var fn = new Function('require', 'module', 'exports', asset.generated.js);
-    asset.isNew = !modules[asset.id];
-    modules[asset.id] = [fn, asset.deps];
-  } else if (bundle.parent) {
-    hmrApply(bundle.parent, asset);
-  }
-}
-function hmrAcceptCheck(bundle, id) {
-  var modules = bundle.modules;
-  if (!modules) {
-    return;
-  }
-  if (!modules[id] && bundle.parent) {
-    return hmrAcceptCheck(bundle.parent, id);
-  }
-  if (checkedAssets[id]) {
-    return;
-  }
-  checkedAssets[id] = true;
-  var cached = bundle.cache[id];
-  assetsToAccept.push([bundle, id]);
-  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-    return true;
-  }
-  return getParents(global.parcelRequire, id).some(function (id) {
-    return hmrAcceptCheck(global.parcelRequire, id);
-  });
-}
-function hmrAcceptRun(bundle, id) {
-  var cached = bundle.cache[id];
-  bundle.hotData = {};
-  if (cached) {
-    cached.hot.data = bundle.hotData;
-  }
-  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
-    cached.hot._disposeCallbacks.forEach(function (cb) {
-      cb(bundle.hotData);
-    });
-  }
-  delete bundle.cache[id];
-  bundle(id);
-  cached = bundle.cache[id];
-  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
-    cached.hot._acceptCallbacks.forEach(function (cb) {
-      cb();
-    });
-    return true;
-  }
-}
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Screens/CardScreen":"Screens/CardScreen.js"}]},{},["index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map
