@@ -21419,7 +21419,9 @@ var _filters$actions = filters.actions,
 var configParams = exports.configParams = (0, _toolkit.createSlice)({
   name: "configParams",
   initialState: {
-    filters: false
+    filters: false,
+    scrollHeight: null,
+    scroll: 0
   },
   reducers: {
     changeParameter: function changeParameter(state, parameter) {
@@ -21428,6 +21430,7 @@ var configParams = exports.configParams = (0, _toolkit.createSlice)({
     },
     back2defaultConfigParamters: function back2defaultConfigParamters(state) {
       state.filters = false;
+      state.scrollHeight - null;
     }
   }
 });
@@ -36852,11 +36855,11 @@ function Button(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ScrollBar = ScrollBar;
 exports.default = BaseScreen;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _Menu = _interopRequireDefault(require("./Menu"));
+var _store = require("../app/store");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -36870,96 +36873,152 @@ function BaseScreen(props) {
   var bg_color = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
   });
+  var _useState = (0, _react.useState)("pointer"),
+    _useState2 = _slicedToArray(_useState, 2),
+    cursor = _useState2[0],
+    setCursor = _useState2[1];
+  var scrollHeight = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.scrollHeight;
+  });
+  var ref = (0, _react.useRef)(null);
+  var dispatcher = (0, _reactRedux.useDispatch)();
+  var _useState3 = (0, _react.useState)(99),
+    _useState4 = _slicedToArray(_useState3, 2),
+    scrollWidth = _useState4[0],
+    setScrollWidth = _useState4[1];
+  var _useState5 = (0, _react.useState)(90),
+    _useState6 = _slicedToArray(_useState5, 2),
+    scrollbarHeight = _useState6[0],
+    setScrollbarHeight = _useState6[1];
+  var _useState7 = (0, _react.useState)(document.getElementById("scroll")),
+    _useState8 = _slicedToArray(_useState7, 2),
+    scroll = _useState8[0],
+    setScroll = _useState8[1];
+  var _useState9 = (0, _react.useState)(0),
+    _useState10 = _slicedToArray(_useState9, 2),
+    scrollbarPosY = _useState10[0],
+    setScrollbarPosY = _useState10[1];
+  var _useState11 = (0, _react.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    isDragged = _useState12[0],
+    setIsDragged = _useState12[1];
+  var scrollIntervalId;
+  (0, _react.useEffect)(function () {
+    if (scroll === null) scrollIntervalId = setInterval(addScroll, 250);
+  }, [scroll]);
+  function changeScrollbarSize() {
+    setScrollbarHeight(Math.min(Math.round(scrollHeight / window.innerHeight), window.innerHeight));
+    if (scrollbarHeight == window.innerHeight) setScrollWidth(100);
+    console.log(scrollbarHeight);
+  }
+  ;
+  function addScroll() {
+    setScroll(document.getElementById("scroll"));
+    switch (scrollHeight) {
+      case null:
+        return;
+      default:
+        if (scroll !== null) {
+          changeScrollbarSize();
+          clearInterval(scrollIntervalId);
+          return;
+        }
+    }
+  }
+  ;
+  function handleMouseDown() {
+    setIsDragged(true);
+    setCursor("dragging");
+    document.addEventListener("mouseup", function (event) {
+      return handleMouseUp(event);
+    });
+  }
+  ;
+  function handleMouseUp(event_) {
+    console.log(event_);
+    var posY = event_.clientY < 0 ? 0 : event_.client > scrollHeight ? scrollHeight : event_.clientY;
+    console.log(posY);
+    setScrollbarPosY(posY);
+    var d = Math.round(posY * scrollHeight / window.innerHeight);
+    console.log(-1 * d);
+    dispatcher((0, _store.changeParameter)({
+      "name": "scroll",
+      "value": -1 * d
+    }));
+    document.removeEventListener("mouseup", function (event) {
+      return handleMouseUp(event);
+    });
+    setIsDragged(false);
+  }
+  ;
+  (0, _react.useLayoutEffect)(function () {
+    window.visualViewport.addEventListener("resize", changeScrollbarSize);
+    return function () {
+      window.visualViewport.removeEventListener("resize", changeScrollbarSize);
+    };
+  }, []);
+  (0, _react.useEffect)(function () {
+    window.visualViewport.addEventListener("scroll", function (event) {
+      return handleMouseUp(event);
+    });
+    console.log(2);
+    return function () {
+      window.visualViewport.removeEventListener("scroll", function (event) {
+        return handleMouseUp(event);
+      });
+      console.log(3);
+    };
+  }, []);
+  (0, _react.useEffect)(function () {
+    changeScrollbarSize();
+  }, [scrollHeight]);
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "flex",
-      flexDirection: "row"
+      flexDirection: "row",
+      height: "100vh",
+      width: "100vw",
+      backgroundColor: "grey"
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      width: "99%",
-      minHeight: "100vh",
-      backgroundColor: bg_color
+      display: "flex",
+      flexDirection: "column",
+      width: "".concat(scrollWidth, "%"),
+      height: "100vh"
     }
-  }, /*#__PURE__*/_react.default.createElement(_Menu.default, null), props.children, /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb"), /*#__PURE__*/_react.default.createElement("p", null, "dfgvb")), /*#__PURE__*/_react.default.createElement(ScrollBar, null));
-}
-;
-function ScrollBar(props) {
-  var _useState = (0, _react.useState)(false),
-    _useState2 = _slicedToArray(_useState, 2),
-    isDragging = _useState2[0],
-    setIsDragging = _useState2[1];
-  var _useState3 = (0, _react.useState)(0),
-    _useState4 = _slicedToArray(_useState3, 2),
-    positionY = _useState4[0],
-    setPositionY = _useState4[1];
-  var innerDivRef = (0, _react.useRef)(null);
-  var handleMouseDown = function handleMouseDown(event) {
-    if (!innerDivRef.current) return;
-    console.log("mouseDown");
-    var initialY = event.clientY;
-    var rect = innerDivRef.current.getBoundingClientRect();
-    var offsetTop = rect.top + window.scrollY;
-    setIsDragging(true);
-    var handleMouseMove = function handleMouseMove(event) {
-      if (!isDragging || !innerDivRef.current) return;
-      console.log("mouseMove");
-      var newY = Math.min(Math.max(offsetTop + event.clientY - initialY, 0), window.innerHeight - innerDivRef.current.offsetHeight);
-      setPositionY(newY);
-      window.scrollBy(0, newY);
-    };
-    var _handleMouseUp = function handleMouseUp() {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', _handleMouseUp);
-      setIsDragging(false);
-    };
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', _handleMouseUp);
-    (0, _react.useEffect)(function () {
-      return function () {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', _handleMouseUp);
-      };
-    }, []);
-  };
-  var handleScroll = function handleScroll() {
-    var scrollPosition = window.scrollY || window.pageYOffset;
-    setPositionY("".concat(50 + scrollPosition / 2, "%"));
-  };
-  var handleWheel = function handleWheel(event) {
-    setIsDragging(true);
-    window.scrollBy(0, event.deltaY);
-    handleScroll();
-  };
-  (0, _react.useEffect)(function () {
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('wheel', handleWheel);
-  }, []);
-
-  // handleScroll();
-
-  return /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement(_Menu.default, null), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      backgroundColor: bg_color,
+      overflow: "hidden"
+    }
+  }, props.children)), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       backgroundColor: "aqua",
       margin: "0",
       width: "1%"
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
-    ref: innerDivRef,
+    ref: ref,
     style: {
-      position: isDragging ? 'fixed' : 'static',
-      top: isDragging ? "".concat(positionY, "px") : undefined,
-      height: "5vh",
+      position: "relative",
+      top: scrollbarPosY,
+      right: 0,
+      height: "".concat(scrollbarHeight, "px"),
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "red",
       borderRadius: "10px",
-      cursor: "pointer"
+      cursor: cursor
     },
-    onMouseDown: handleMouseDown
-  }));
+    id: "scrollbar",
+    onMouseDown: function onMouseDown() {
+      return handleMouseDown();
+    }
+  })));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
+;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js","../app/store":"app/store.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37245,9 +37304,17 @@ function Scroll(props) {
     CARDS = _useState6[0],
     setCARDS = _useState6[1];
   var ref = (0, _react.useRef)(null);
+  var _useState7 = (0, _react.useState)("Wait a second!"),
+    _useState8 = _slicedToArray(_useState7, 2),
+    defaultText = _useState8[0],
+    setDefaultText = _useState8[1];
   var textColor = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
   });
+  var scrollPosY = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.scroll;
+  });
+  var dispatcher = (0, _reactRedux.useDispatch)();
   var location = (0, _reactRouter.useLocation)();
   var likesFilter = (0, _reactRedux.useSelector)(function (state) {
     return state.filters.likes;
@@ -37267,20 +37334,59 @@ function Scroll(props) {
   var hashtagsFilter = (0, _reactRedux.useSelector)(function (state) {
     return state.filters.hashtags;
   });
+  var _useState9 = (0, _react.useState)(document.getElementById("scroll")),
+    _useState10 = _slicedToArray(_useState9, 2),
+    scroll = _useState10[0],
+    setScroll = _useState10[1];
+  (0, _react.useEffect)(function () {
+    console.log("scrollPosY ->", scrollPosY);
+  }, [scrollPosY]);
+  var scrollIntervalId;
+  (0, _react.useEffect)(function () {
+    if (scroll === null) console.log("1");
+    scrollIntervalId = setInterval(addScroll, 250);
+  }, [scroll]);
   var zoomHandle = function zoomHandle() {
     var _ref$current$getBound = ref.current.getBoundingClientRect(),
-      width = _ref$current$getBound.width;
+      width = _ref$current$getBound.width,
+      height = _ref$current$getBound.height;
     var w = Math.max(width * 0.25, 150);
+    dispatcher((0, _store.changeParameter)({
+      "name": "scrollHeight",
+      "value": Math.round(height)
+    }));
     var cardAmount = Math.floor(width / w);
     setPadding((width - cardAmount * w) * 0.5);
     setCardWidth("".concat(w, "px"));
   };
+  function addScroll() {
+    setScroll(document.getElementById("scroll"));
+    switch (scroll) {
+      case null:
+        return;
+      default:
+        console.log("added scroll: ".concat(scroll));
+        var _ref$current$getBound2 = ref.current.getBoundingClientRect(),
+          height = _ref$current$getBound2.height;
+        dispatcher((0, _store.changeParameter)({
+          "name": "scrollHeight",
+          "value": Math.round(height)
+        }));
+        clearInterval(scrollIntervalId);
+        return;
+    }
+  }
   (0, _react.useLayoutEffect)(function () {
     window.visualViewport.addEventListener("resize", zoomHandle);
     return function () {
       window.visualViewport.removeEventListener("resize", zoomHandle);
     };
   }, []);
+
+  // useEffect(() => {
+  //     addScroll()
+  // }, [ scroll, scroll.children.length ])
+
   (0, _react.useEffect)(function () {
     _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var response;
@@ -37317,17 +37423,22 @@ function Scroll(props) {
           padding: "0px ".concat(padding, "px"),
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "center"
-        }
+          position: "relative",
+          justifyContent: "center",
+          top: scrollPosY
+        },
+        id: "scroll"
       }, CARDS.map(function (value, index) {
         var author = checkFilters(authorFilter, value["author"]);
         var category = checkFilters(categoryFilter, value["category"]);
-        var params = (0, _reactRouter.useParams)();
-        params.id = index;
+        // let params = useParams();
+        // params.id = index;
         if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
           to: "cards"
         }, " ", function (isActive) {
-          if (isActive) return /*#__PURE__*/_react.default.createElement(_CardScreen.default, null, /*#__PURE__*/_react.default.createElement(_Card.default, {
+          if (isActive) return /*#__PURE__*/_react.default.createElement(_CardScreen.default, {
+            key: index
+          }, /*#__PURE__*/_react.default.createElement(_Card.default, {
             key: index,
             img: value["image"],
             title: value["title"],
@@ -37349,7 +37460,7 @@ function Scroll(props) {
         style: {
           color: textColor
         }
-      }, "Wait a minute!");
+      }, defaultText);
     //!
   }
 }
@@ -37373,46 +37484,46 @@ function Filters() {
     return state.configParams.filters;
   });
   var dispatch = (0, _reactRedux.useDispatch)();
-  var _useState7 = (0, _react.useState)('>>'),
-    _useState8 = _slicedToArray(_useState7, 2),
-    filtersBtnText = _useState8[0],
-    setFiltersBtnText = _useState8[1];
-  var _useState9 = (0, _react.useState)(filtersBg),
-    _useState10 = _slicedToArray(_useState9, 2),
-    filtersBtnColor = _useState10[0],
-    setFiltersBtnColor = _useState10[1];
-  var _useState11 = (0, _react.useState)("none"),
+  var _useState11 = (0, _react.useState)('>>'),
     _useState12 = _slicedToArray(_useState11, 2),
-    filtersBorder = _useState12[0],
-    setFiltersBorder = _useState12[1];
-  var _useState13 = (0, _react.useState)(menuBg),
+    filtersBtnText = _useState12[0],
+    setFiltersBtnText = _useState12[1];
+  var _useState13 = (0, _react.useState)(filtersBg),
     _useState14 = _slicedToArray(_useState13, 2),
-    filtersBtnTextColor = _useState14[0],
-    setFiltersBtnTextColor = _useState14[1];
-  var _useState15 = (0, _react.useState)(menuBg),
+    filtersBtnColor = _useState14[0],
+    setFiltersBtnColor = _useState14[1];
+  var _useState15 = (0, _react.useState)("none"),
     _useState16 = _slicedToArray(_useState15, 2),
-    resetBgColor = _useState16[0],
-    setResetBgColor = _useState16[1];
-  var _useState17 = (0, _react.useState)(filtersBg),
+    filtersBorder = _useState16[0],
+    setFiltersBorder = _useState16[1];
+  var _useState17 = (0, _react.useState)(menuBg),
     _useState18 = _slicedToArray(_useState17, 2),
-    resetColor = _useState18[0],
-    setResetColor = _useState18[1];
-  var _useState19 = (0, _react.useState)("none"),
+    filtersBtnTextColor = _useState18[0],
+    setFiltersBtnTextColor = _useState18[1];
+  var _useState19 = (0, _react.useState)(menuBg),
     _useState20 = _slicedToArray(_useState19, 2),
-    resetBorder = _useState20[0],
-    setResetBorder = _useState20[1];
+    resetBgColor = _useState20[0],
+    setResetBgColor = _useState20[1];
   var _useState21 = (0, _react.useState)(filtersBg),
     _useState22 = _slicedToArray(_useState21, 2),
-    confirmColor = _useState22[0],
-    setConfirmColor = _useState22[1];
-  var _useState23 = (0, _react.useState)(menuBg),
+    resetColor = _useState22[0],
+    setResetColor = _useState22[1];
+  var _useState23 = (0, _react.useState)("none"),
     _useState24 = _slicedToArray(_useState23, 2),
-    confirmBgColor = _useState24[0],
-    setConfirmBgColor = _useState24[1];
-  var _useState25 = (0, _react.useState)("none"),
+    resetBorder = _useState24[0],
+    setResetBorder = _useState24[1];
+  var _useState25 = (0, _react.useState)(filtersBg),
     _useState26 = _slicedToArray(_useState25, 2),
-    confirmBorder = _useState26[0],
-    setConfirmBorder = _useState26[1];
+    confirmColor = _useState26[0],
+    setConfirmColor = _useState26[1];
+  var _useState27 = (0, _react.useState)(menuBg),
+    _useState28 = _slicedToArray(_useState27, 2),
+    confirmBgColor = _useState28[0],
+    setConfirmBgColor = _useState28[1];
+  var _useState29 = (0, _react.useState)("none"),
+    _useState30 = _slicedToArray(_useState29, 2),
+    confirmBorder = _useState30[0],
+    setConfirmBorder = _useState30[1];
   switch (storeFilters) {
     case true:
       return /*#__PURE__*/_react.default.createElement("div", {

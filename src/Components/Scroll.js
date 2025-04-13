@@ -25,8 +25,11 @@ export default function Scroll( props ) {
     const [ padding, setPadding ] = useState( null );
     const [ CARDS, setCARDS ] = useState( null );
     const ref = useRef( null );
+    const [ defaultText, setDefaultText ] = useState( "Wait a second!" );
 
     const textColor = useSelector( ( state ) => state.colorTheme.fill_inactive );
+    const scrollPosY = useSelector( ( state ) => state.configParams.scroll );
+    const dispatcher = useDispatch();
 
     const location = useLocation();
 
@@ -37,15 +40,43 @@ export default function Scroll( props ) {
     const categoryFilter = useSelector( ( state ) => state.filters.category );
     const hashtagsFilter = useSelector( ( state ) => state.filters.hashtags );
 
+    const [ scroll, setScroll ] = useState( document.getElementById( "scroll" ));
+  
+    useEffect(() => {
+        console.log("scrollPosY ->", scrollPosY);
+    }, [ scrollPosY ])
+
+
+    let scrollIntervalId
+    useEffect(() => {
+        if ( scroll === null ) console.log("1"); scrollIntervalId = setInterval( addScroll, 250 )
+    }, [ scroll ])
+
     const zoomHandle = () => {
-        const { width } = ref.current.getBoundingClientRect();
+        const { width, height } = ref.current.getBoundingClientRect();
         let w = Math.max( width * 0.25, 150 );
 
+        dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) )
         const cardAmount = Math.floor( width / w );
         setPadding( ( width - ( cardAmount * w ) ) * 0.5 );
 
         setCardWidth( `${w}px` );
     };
+
+    function addScroll() {
+        setScroll( document.getElementById( "scroll" ));
+    
+        switch ( scroll ) {
+            case null:
+                return;
+            default:
+                console.log(`added scroll: ${ scroll }`);
+                const { height } = ref.current.getBoundingClientRect();
+                dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) );
+                clearInterval( scrollIntervalId );
+                return;
+        }
+      }
 
     useLayoutEffect(() => {  
         window.visualViewport.addEventListener( "resize", zoomHandle );
@@ -53,6 +84,10 @@ export default function Scroll( props ) {
             window.visualViewport.removeEventListener( "resize", zoomHandle );
         }
     }, []);
+
+    // useEffect(() => {
+    //     addScroll()
+    // }, [ scroll, scroll.children.length ])
 
     useEffect(() => {(
         async () => {
@@ -75,23 +110,22 @@ export default function Scroll( props ) {
                     <div
                         ref={ ref }
                         style={{
-                            padding: `0px ${ padding }px`,
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "center"
-                        }}>
+                            padding: `0px ${ padding }px`, display: "flex",
+                            flexWrap: "wrap", position: "relative",
+                            justifyContent: "center", top: scrollPosY,
+                        }} id="scroll">
                         
                         { CARDS.map( ( value, index ) => {
                             const author = checkFilters( authorFilter, value[ "author" ] );
                             const category = checkFilters( categoryFilter, value[ "category" ] );
-                            let params = useParams();
-                            params.id = index;
+                            // let params = useParams();
+                            // params.id = index;
                             if ( value[ "likes_amount" ] >= likesFilter && author && category )
                                 return (
-                                    <NavLink to={`cards`}> {/*!!!!!*/}
+                                    <NavLink to={`cards`}> {/* //! */}
                                         { ( isActive ) => {
                                             if ( isActive ) return (
-                                            <CardScreen>
+                                            <CardScreen key={ index }>
                                                 <Container 
                                                     key={ index } img={ value[ "image" ] } 
                                                     title={ value[ "title" ] } author={ value[ "author" ] }
@@ -105,12 +139,13 @@ export default function Scroll( props ) {
                                             category={ value[ "category" ] }
                                             text_content={ value[ "text_content" ] }/> 
                                     </NavLink>
-                                )})}
+                                )
+                            })}
                     </div>
                 </>
             )
         default:
-            return <p style={{ color: textColor }}>Wait a minute!</p> //!
+            return <p style={{ color: textColor }}>{ defaultText }</p> //!
     }
 };
 

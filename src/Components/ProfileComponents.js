@@ -83,7 +83,7 @@ export function ProfileContents ( props ) {
 }
   
 export function ProfileContentsFill( props ) {
-return (
+    return (
         <div 
             style={{ 
                 width: "100%", display: "flex", flexDirection: "row", 
