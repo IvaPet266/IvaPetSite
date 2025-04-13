@@ -36898,10 +36898,8 @@ function BaseScreen(props) {
     _useState10 = _slicedToArray(_useState9, 2),
     scrollbarPosY = _useState10[0],
     setScrollbarPosY = _useState10[1];
-  var _useState11 = (0, _react.useState)(false),
-    _useState12 = _slicedToArray(_useState11, 2),
-    isDragged = _useState12[0],
-    setIsDragged = _useState12[1];
+  var isDragged = false;
+  var mouseMoveIntervalId;
   var scrollIntervalId;
   (0, _react.useEffect)(function () {
     if (scroll === null) scrollIntervalId = setInterval(addScroll, 250);
@@ -36909,7 +36907,6 @@ function BaseScreen(props) {
   function changeScrollbarSize() {
     setScrollbarHeight(Math.min(Math.round(scrollHeight / window.innerHeight), window.innerHeight));
     if (scrollbarHeight == window.innerHeight) setScrollWidth(100);
-    console.log(scrollbarHeight);
   }
   ;
   function addScroll() {
@@ -36921,64 +36918,85 @@ function BaseScreen(props) {
         if (scroll !== null) {
           changeScrollbarSize();
           clearInterval(scrollIntervalId);
+          window.addEventListener("scroll", handleScroll);
+          window.addEventListener('wheel', handleWheel);
           return;
         }
     }
   }
   ;
   function handleMouseDown() {
-    setIsDragged(true);
+    isDragged = true;
     setCursor("dragging");
+    document.addEventListener("mousemove", function (event) {
+      return handleMouseUp(event, false);
+    });
     document.addEventListener("mouseup", function (event) {
       return handleMouseUp(event);
     });
   }
   ;
   function handleMouseUp(event_) {
-    console.log(event_);
-    var posY = event_.clientY < 0 ? 0 : event_.client > scrollHeight ? scrollHeight : event_.clientY;
-    console.log(posY);
-    setScrollbarPosY(posY);
-    var d = Math.round(posY * scrollHeight / window.innerHeight);
-    console.log(-1 * d);
-    dispatcher((0, _store.changeParameter)({
-      "name": "scroll",
-      "value": -1 * d
-    }));
-    document.removeEventListener("mouseup", function (event) {
-      return handleMouseUp(event);
-    });
-    setIsDragged(false);
+    var mouseup = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    if (isDragged) {
+      var posY = event_.clientY < 0 ? 0 : event_.clientY > scrollHeight ? scrollHeight : event_.clientY;
+      setScrollbarPosY(posY);
+      var d = Math.round(posY * scrollHeight / window.innerHeight);
+      dispatcher((0, _store.changeParameter)({
+        "name": "scroll",
+        "value": -1 * d
+      }));
+    }
+    if (mouseup) {
+      document.removeEventListener("mousemove", function (event) {
+        return handleMouseUp(event, false);
+      });
+      document.removeEventListener("mouseup", function (event) {
+        return handleMouseUp(event);
+      });
+      console.log(document.listeners);
+      isDragged = false;
+    }
   }
   ;
+  function handleScroll() {
+    var scrollPosition = window.scrollY;
+    console.log(scrollPosition);
+    isDragged = true;
+    handleMouseUp({
+      clientY: scrollPosition
+    });
+  }
+  ;
+  function handleWheel(event) {
+    var scrollPosition = event.deltaY;
+    console.log(scrollPosition);
+    isDragged = true;
+    handleMouseUp({
+      clientY: scrollPosition
+    });
+  }
   (0, _react.useLayoutEffect)(function () {
     window.visualViewport.addEventListener("resize", changeScrollbarSize);
     return function () {
-      window.visualViewport.removeEventListener("resize", changeScrollbarSize);
+      return window.visualViewport.removeEventListener("resize", changeScrollbarSize);
     };
   }, []);
-  (0, _react.useEffect)(function () {
+  (0, _react.useLayoutEffect)(function () {
     window.visualViewport.addEventListener("scroll", function (event) {
-      return handleMouseUp(event);
+      return handleScroll(event);
     });
-    console.log(2);
-    return function () {
-      window.visualViewport.removeEventListener("scroll", function (event) {
-        return handleMouseUp(event);
-      });
-      console.log(3);
-    };
   }, []);
   (0, _react.useEffect)(function () {
     changeScrollbarSize();
-  }, [scrollHeight]);
+  }, [scrollHeight, window.innerHeight, window.innerWidth]);
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "flex",
       flexDirection: "row",
       height: "100vh",
       width: "100vw",
-      backgroundColor: "grey"
+      backgroundColor: bg_color
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
@@ -37091,6 +37109,7 @@ function Container(props) {
       overflow: "hidden",
       width: "".concat(props.width - margin, "px"),
       margin: "".concat(margin * 0.25, "px ").concat(margin * 0.5, "px"),
+      minHeihgt: "250px",
       maxHeight: "250px",
       maxWidth: "200px",
       position: "relative",
@@ -37571,6 +37590,13 @@ function Filters() {
           filters.author = null;
           filters.category = null;
           filters.hashtags = [];
+          for (var _i = 0, _arr = ["likes", "repostsFilter", "saves", "author", "category", "hashtags"]; _i < _arr.length; _i++) {
+            var filter = _arr[_i];
+            dispatch((0, _store.changeFilter)({
+              name: filter,
+              value: null
+            }));
+          }
         },
         onMouseEnter: function onMouseEnter() {
           setResetBgColor(filtersBg);
@@ -37602,8 +37628,8 @@ function Filters() {
           setConfirmBorder("none");
         },
         onClick: function onClick() {
-          for (var _i = 0, _arr = ["likes", "repostsFilter", "saves", "author", "category", "hashtags"]; _i < _arr.length; _i++) {
-            var filter = _arr[_i];
+          for (var _i2 = 0, _arr2 = ["likes", "repostsFilter", "saves", "author", "category", "hashtags"]; _i2 < _arr2.length; _i2++) {
+            var filter = _arr2[_i2];
             dispatch((0, _store.changeFilter)({
               name: filter,
               value: filters[filter]
@@ -37669,6 +37695,9 @@ function Filters() {
   }
 }
 function FilterDiv(props) {
+  var filter = (0, _reactRedux.useSelector)(function (state) {
+    return state.filters[props.name.toLowerCase()];
+  });
   return /*#__PURE__*/_react.default.createElement("div", {
     id: "".concat(props.name, "Filter"),
     style: {
@@ -37684,6 +37713,7 @@ function FilterDiv(props) {
       margin: "5px"
     },
     type: props.type,
+    value: filter,
     onChange: function onChange(state) {
       filters[props.name.toLowerCase()] = state.target.value;
     }

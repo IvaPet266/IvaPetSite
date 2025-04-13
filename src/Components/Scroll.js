@@ -201,6 +201,9 @@ export function Filters() {
                             filters.author = null;
                             filters.category = null;
                             filters.hashtags = [];
+                            for ( const filter of [ "likes", "repostsFilter", "saves", "author", "category", "hashtags" ] ) {
+                                dispatch( changeFilter( { name: filter, value: null } ))
+                            }
                         }} onMouseEnter={() => {
                             setResetBgColor( filtersBg );
                             setResetColor( menuBg );
@@ -272,15 +275,17 @@ export function Filters() {
 }
 
 export function FilterDiv( props ) {
-    
+    const filter = useSelector( ( state ) => state.filters[ props.name.toLowerCase() ])
     return (
         <div id={`${ props.name }Filter`} 
-            style={{background: "transparent", display: "flex", 
-            flexDirection: "row", alignItems: "center" }}>
+            style={{
+                background: "transparent", display: "flex", 
+                flexDirection: "row", alignItems: "center" }}>
             <h5>{ props.name }</h5>
-            <input style={{ height: "60%", width: "50px", margin: "5px" }}  type={ props.type }
+            <input style={{ height: "60%", width: "50px", margin: "5px" }} 
+                type={ props.type } value={ filter }
                 onChange={( state ) => {
-                    filters[ props.name.toLowerCase() ] =  state.target.value ;
+                    filters[ props.name.toLowerCase() ] = state.target.value ;
                 }}/>
         </div>
     )
