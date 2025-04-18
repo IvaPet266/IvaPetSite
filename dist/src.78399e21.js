@@ -36899,7 +36899,6 @@ function BaseScreen(props) {
     scrollbarPosY = _useState10[0],
     setScrollbarPosY = _useState10[1];
   var isDragged = false;
-  var mouseMoveIntervalId;
   var scrollIntervalId;
   (0, _react.useEffect)(function () {
     if (scroll === null) scrollIntervalId = setInterval(addScroll, 250);
@@ -36954,14 +36953,12 @@ function BaseScreen(props) {
       document.removeEventListener("mouseup", function (event) {
         return handleMouseUp(event);
       });
-      console.log(document.listeners);
       isDragged = false;
     }
   }
   ;
   function handleScroll() {
     var scrollPosition = window.scrollY;
-    console.log(scrollPosition);
     isDragged = true;
     handleMouseUp({
       clientY: scrollPosition
@@ -36970,7 +36967,6 @@ function BaseScreen(props) {
   ;
   function handleWheel(event) {
     var scrollPosition = event.deltaY;
-    console.log(scrollPosition);
     isDragged = true;
     handleMouseUp({
       clientY: scrollPosition
@@ -37010,32 +37006,52 @@ function BaseScreen(props) {
       backgroundColor: bg_color,
       overflow: "hidden"
     }
-  }, props.children)), /*#__PURE__*/_react.default.createElement("div", {
+  }, props.children)), props.scroll && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, scrollWidth !== 99 && setScrollWidth(99), /*#__PURE__*/_react.default.createElement(Scrollbar, {
+    scrollbarPosY: scrollbarPosY,
+    scrollbarHeight: scrollbarHeight,
+    cursor: cursor,
+    handleMouseDown: handleMouseDown
+  })), !props.scroll && scrollWidth !== 100 && setScrollWidth(100));
+}
+;
+function Scrollbar(props) {
+  var scrollbarBgLight = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var scrollbarBgDark = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_active;
+  });
+  var scrollbarBorder = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  var colorTransitionStyle = "\n    transition: background-color 100ms ease-in-out;\n    background-color: linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n      ").concat(scrollbarBgDark, " ").concat(Math.floor(props.scrollbarPosY / window.innerHeight * 100), "%,\n    );\n  ");
+  return /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      backgroundColor: "aqua",
+      background: "linear-gradient(".concat(scrollbarBgDark, " 10%, 30%, ").concat(scrollbarBgLight, ")"),
       margin: "0",
-      width: "1%"
+      width: "1%",
+      border: "solid ".concat(scrollbarBorder, " 1px")
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
-    ref: ref,
+    ref: props.ref,
     style: {
       position: "relative",
-      top: scrollbarPosY,
+      top: props.scrollbarPosY,
       right: 0,
-      height: "".concat(scrollbarHeight, "px"),
+      height: "".concat(props.scrollbarHeight, "px"),
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "red",
+      backgroundImage: colorTransitionStyle,
       borderRadius: "10px",
-      cursor: cursor
+      cursor: props.cursor,
+      boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)"
     },
     id: "scrollbar",
     onMouseDown: function onMouseDown() {
-      return handleMouseDown();
+      return props.handleMouseDown();
     }
-  })));
+  }));
 }
-;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js","../app/store":"app/store.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
 "use strict";
 
@@ -37731,7 +37747,9 @@ var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
 var _Scroll = _interopRequireDefault(require("../Components/Scroll"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function ScreenMain(props) {
-  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.default, null));
+  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
+    scroll: true
+  }, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.default, null));
 }
 ;
 },{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","../Components/Scroll":"Components/Scroll.js"}],"Screens/ScreenDiscussion.js":[function(require,module,exports) {

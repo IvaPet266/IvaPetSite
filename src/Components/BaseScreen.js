@@ -19,8 +19,6 @@ export default function BaseScreen( props ) {
 
   let isDragged = false;
 
-  let mouseMoveIntervalId;
-
   let scrollIntervalId;
   useEffect(() => {
     if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 );
@@ -66,21 +64,18 @@ export default function BaseScreen( props ) {
     if ( mouseup ) {
       document.removeEventListener( "mousemove", ( event ) => handleMouseUp( event, false ) );
       document.removeEventListener( "mouseup", ( event ) => handleMouseUp( event ) );
-      console.log(document.listeners);
       isDragged = false;
     }
   };  
 
   function handleScroll () {
     const scrollPosition = window.scrollY;
-    console.log( scrollPosition );
     isDragged = true;
     handleMouseUp( { clientY: scrollPosition } );
   };
 
   function handleWheel ( event ) {
     const scrollPosition = event.deltaY;
-    console.log( scrollPosition );
     isDragged = true;
     handleMouseUp( { clientY: scrollPosition } );
   }
@@ -106,19 +101,43 @@ export default function BaseScreen( props ) {
           { props.children }
         </div>
       </div>
-      <div style={{ backgroundColor: "aqua", margin: "0", width: "1%" }}>
-        <div ref={ ref }
-          style={{
-            position: "relative",
-            top: scrollbarPosY,
-            right: 0,
-            height: `${ scrollbarHeight }px`, justifyContent: "center", alignItems: "center",
-            backgroundColor: "red", borderRadius: "10px",
-            cursor: cursor
-          }} id="scrollbar"
-          onMouseDown={() => handleMouseDown()}
-        />
-      </div>
+      { props.scroll && (
+        <>
+          { scrollWidth !== 99 && setScrollWidth( 99 ) }
+          <Scrollbar
+            scrollbarPosY={ scrollbarPosY } scrollbarHeight={ scrollbarHeight }
+            cursor={ cursor } handleMouseDown={ handleMouseDown }
+          />
+        </>
+      )}
+      { !props.scroll && scrollWidth !== 100 && setScrollWidth( 100 ) }
     </div>
   )
 };
+
+
+function Scrollbar( props ) {
+  const scrollbarBgLight = useSelector( ( state ) => state.colorTheme.fill_inactive );
+  const scrollbarBgDark = useSelector( ( state ) => state.colorTheme.fill_active );
+  const scrollbarBorder = useSelector( ( state ) => state.colorTheme.lines );
+
+  const colorTransitionStyle = `
+    transition: background-color 100ms ease-in-out;
+    background-color: linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
+      ${ scrollbarBgDark } ${ Math.floor(( props.scrollbarPosY / window.innerHeight ) * 100) }%,
+    );
+  `;
+  return (
+    <div style={{ background: `linear-gradient(${ scrollbarBgDark } 10%, 30%, ${ scrollbarBgLight })`, 
+      margin: "0", width: "1%", border: `solid ${ scrollbarBorder } 1px` }}>
+      <div ref={ props.ref }
+        style={{
+          position: "relative", top: props.scrollbarPosY, right: 0, height: `${ props.scrollbarHeight }px`, 
+          justifyContent: "center", alignItems: "center", backgroundImage: colorTransitionStyle, 
+          borderRadius: "10px", cursor: props.cursor, boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)",
+        }} id="scrollbar"
+        onMouseDown={() => props.handleMouseDown()}
+      />
+    </div>
+  )
+}
