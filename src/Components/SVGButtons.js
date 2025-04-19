@@ -19,7 +19,6 @@ export default function SVGButton( props ) {
 
     const fill = props.border ? fillColor : bgColor;
     const backgroundColor = props.border ? fillColor : "transparent";
-    console.log(fill);
 
     useEffect(() => {
         if ( props.isActive == true ) {
@@ -84,7 +83,6 @@ export function SVGButton2Paths ( props ) {
 
     const [ bgColor, setBgColor ] = useState( bg_inactive );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
-    
 
     useEffect(() => {
         if ( props.isActive == true ) {

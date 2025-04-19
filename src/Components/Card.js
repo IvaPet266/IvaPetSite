@@ -11,6 +11,8 @@ export default function Container( props ) {
 
     const margin = 10;
 
+    const title = props.title.length < 30 ? props.title : `${ props.title.slice( 0, 27 ) }...`
+
     return (
         <div 
             style={{
@@ -47,7 +49,7 @@ export default function Container( props ) {
                 }}>
                 <div className='CormorantInfant-serif' 
                     style={{ display: "flex", flexDirection: "column", padding: "3px" }}>
-                    <h5 style={{ position: "absolute", bottom: "10px", color: "white" }}>{ props.title }</h5>
+                    <h5 style={{ position: "absolute", bottom: "10px", color: "white" }}>{ title }</h5>
                     <span style={{ color: "white" }}>{ props.author }</span>
                     <button></button>
                 </div>

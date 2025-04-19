@@ -39,7 +39,7 @@ export default function BaseScreen( props ) {
           changeScrollbarSize();
           clearInterval( scrollIntervalId );
           window.addEventListener( "scroll", handleScroll );
-          window.addEventListener('wheel', handleWheel );
+          window.addEventListener( 'wheel', handleWheel );
           return;
         }
     }
@@ -68,16 +68,19 @@ export default function BaseScreen( props ) {
     }
   };  
 
-  function handleScroll () {
-    const scrollPosition = window.scrollY;
-    isDragged = true;
-    handleMouseUp( { clientY: scrollPosition } );
+  function handleWheel ( event ) {
+    console.log("wheel");
+    const scrollPosition = scrollbarPosY + event.deltaY * 0.01;
+    setScrollbarPosY( scrollPosition )
+
+    const d = Math.round( ( scrollPosition * scrollHeight ) / window.innerHeight );
+    dispatcher( changeParameter( { "name": "scroll", "value": -1 * d } ) );
   };
 
-  function handleWheel ( event ) {
-    const scrollPosition = event.deltaY;
-    isDragged = true;
-    handleMouseUp( { clientY: scrollPosition } );
+  function clickScroll( event ) {
+    const posY = event.nativeEvent.offsetY 
+    console.log( event, event.nativeEvent.offsetY, scrollbarHeight );
+    setScrollbarPosY( posY )
   }
 
   useLayoutEffect(() => {  
@@ -104,7 +107,8 @@ export default function BaseScreen( props ) {
       { props.scroll && (
         <>
           { scrollWidth !== 99 && setScrollWidth( 99 ) }
-          <Scrollbar
+          <Scrollbar clickScroll={ ( event ) => clickScroll( event ) }
+            setScrollbarPosY={ ( state ) => setScrollbarPosY( state ) }
             scrollbarPosY={ scrollbarPosY } scrollbarHeight={ scrollbarHeight }
             cursor={ cursor } handleMouseDown={ handleMouseDown }
           />
@@ -120,20 +124,19 @@ function Scrollbar( props ) {
   const scrollbarBgLight = useSelector( ( state ) => state.colorTheme.fill_inactive );
   const scrollbarBgDark = useSelector( ( state ) => state.colorTheme.fill_active );
   const scrollbarBorder = useSelector( ( state ) => state.colorTheme.lines );
+  const scrollbarBoxBorder = useSelector( ( state ) => state.colorTheme.stroke_active );
 
-  const colorTransitionStyle = `
-    transition: background-color 100ms ease-in-out;
-    background-color: linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
-      ${ scrollbarBgDark } ${ Math.floor(( props.scrollbarPosY / window.innerHeight ) * 100) }%,
-    );
-  `;
+  const colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
+      ${ scrollbarBgDark } ${ Math.floor(( props.scrollbarPosY / window.innerHeight ) * 100) }% )`;
+      
   return (
     <div style={{ background: `linear-gradient(${ scrollbarBgDark } 10%, 30%, ${ scrollbarBgLight })`, 
-      margin: "0", width: "1%", border: `solid ${ scrollbarBorder } 1px` }}>
+      margin: "0", width: "1%", border: `solid ${ scrollbarBorder } 1px` }} onClick={( event ) => props.clickScroll( event )}>
       <div ref={ props.ref }
-        style={{
-          position: "relative", top: props.scrollbarPosY, right: 0, height: `${ props.scrollbarHeight }px`, 
-          justifyContent: "center", alignItems: "center", backgroundImage: colorTransitionStyle, 
+        style={{ 
+          transition: "background 100ms ease-in-out", minHeight: "5px", position: "relative", 
+          top: props.scrollbarPosY, right: 0, height: `${ props.scrollbarHeight }px`, justifyContent: "center", 
+          alignItems: "center", background: colorTransitionStyle, border: `solid ${ scrollbarBoxBorder } 1px`,
           borderRadius: "10px", cursor: props.cursor, boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)",
         }} id="scrollbar"
         onMouseDown={() => props.handleMouseDown()}

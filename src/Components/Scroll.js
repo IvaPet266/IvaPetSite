@@ -42,14 +42,9 @@ export default function Scroll( props ) {
 
     const [ scroll, setScroll ] = useState( document.getElementById( "scroll" ));
   
-    useEffect(() => {
-        console.log("scrollPosY ->", scrollPosY);
-    }, [ scrollPosY ])
-
-
     let scrollIntervalId
     useEffect(() => {
-        if ( scroll === null ) console.log("1"); scrollIntervalId = setInterval( addScroll, 250 )
+        if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 )
     }, [ scroll ])
 
     const zoomHandle = () => {
@@ -70,7 +65,6 @@ export default function Scroll( props ) {
             case null:
                 return;
             default:
-                console.log(`added scroll: ${ scroll }`);
                 const { height } = ref.current.getBoundingClientRect();
                 dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) );
                 clearInterval( scrollIntervalId );
@@ -122,10 +116,10 @@ export default function Scroll( props ) {
                             // params.id = index;
                             if ( value[ "likes_amount" ] >= likesFilter && author && category )
                                 return (
-                                    <NavLink to={`cards`}> {/* //! */}
+                                    <NavLink to={`cards`} key={ index }> {/* //! */}
                                         { ( isActive ) => {
                                             if ( isActive ) return (
-                                            <CardScreen key={ index }>
+                                            <CardScreen>
                                                 <Container 
                                                     key={ index } img={ value[ "image" ] } 
                                                     title={ value[ "title" ] } author={ value[ "author" ] }
