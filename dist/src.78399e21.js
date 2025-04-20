@@ -37470,12 +37470,13 @@ function Container(props) {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          objectPosition: "center center",
+          objectPosition: "center 60%",
           borderRadius: "20px",
           transition: "all 300ms ease-out",
           opacity: 1,
           pointerEvents: 'none',
-          filter: filter
+          filter: filter,
+          boxShadow: "none"
         },
         src: props.img
       });

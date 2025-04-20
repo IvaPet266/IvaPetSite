@@ -24,20 +24,17 @@ export default function Container( props ) {
                 maxWidth: "200px", position: "relative",
                 border: `solid 1px ${ lines }`,
                 borderRadius: "20px",
-            }}    
-            onMouseEnter={ () => {
-                    setFocused( true );
-                    setFilter( "brightness(30%) saturate(40%)" );
-                    setTextFilter( "brightness(30%) contrast(30%)" );                       
-                    setTextStyle( { color: "lightgrey"})
-                }}
-            onMouseOut={ () => {
-                    setFocused( false );
-                    setFilter( "none" );
-                    setTextFilter( "none" );                                    
-                    setTextStyle( { color: "black" } );
-                }}
-            onClick={() => {console.log("card")}}>            
+            }} onMouseEnter={ () => {
+                setFocused( true );
+                setFilter( "brightness(30%) saturate(40%)" );
+                setTextFilter( "brightness(30%) contrast(30%)" );                       
+                setTextStyle( { color: "lightgrey" } )
+            }} onMouseOut={ () => {
+                setFocused( false );
+                setFilter( "none" );
+                setTextFilter( "none" );                                    
+                setTextStyle( { color: "black" } );
+            }} onClick={() => {console.log("card")}}>            
             <div 
                 style={{ 
                     padding: "7px", position: "absolute",
@@ -61,15 +58,10 @@ export default function Container( props ) {
                 if ( props.category == "ARTWORK" ) {
                     return <img 
                         style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            objectPosition: "center center",
-                            borderRadius: "20px",
-                            transition: "all 300ms ease-out",
-                            opacity: 1,
-                            pointerEvents: 'none',        
-                            filter: filter 
+                            width: "100%", height: "100%",
+                            objectFit: "cover", objectPosition: "center 60%",
+                            borderRadius: "20px", transition: "all 300ms ease-out",
+                            opacity: 1, pointerEvents: 'none', filter: filter, boxShadow: "none",
                         }} 
                         src={ props.img }/>
                 } else {
@@ -82,21 +74,20 @@ export default function Container( props ) {
                     else text = props.text_content;
                     return (
                         <div style={{ 
-                            width: "90%",
-                            height: "100%",
-                            transition: "all 300ms ease-out",
-                            borderRadius: "20px",
-                            padding: "5px",
-                            opacity: 1,
-                            pointerEvents: 'none',  
-                            display: "flex",
-                            alignContent: "center",  
-                            whiteSpace: "pre-line",  
-                            textAlign: "center",
-                            filter: textFilter}}>
+                                width: "90%", height: "100%",
+                                transition: "all 300ms ease-out",
+                                borderRadius: "20px", padding: "5px",
+                                opacity: 1, pointerEvents: 'none',  
+                                display: "flex", alignContent: "center",  
+                                whiteSpace: "pre-line", textAlign: "center",
+                                filter: textFilter
+                            }}>
                             <span style={{ 
-                                transition: "all 300ms ease-out", 
-                                ...textStyle }}>{ text }</span>
+                                    transition: "all 300ms ease-out", 
+                                    ...textStyle 
+                                }}>
+                                { text }
+                            </span>
                         </div>
                     )
                 } 
