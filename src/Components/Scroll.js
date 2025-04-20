@@ -116,7 +116,7 @@ export default function Scroll( props ) {
                             // params.id = index;
                             if ( value[ "likes_amount" ] >= likesFilter && author && category )
                                 return (
-                                    <NavLink to={`cards`} key={ index }> {/* //! */}
+                                    <NavLink to={`cards/${ index }`} key={ index }> {/* //! */}
                                         { ( isActive ) => {
                                             if ( isActive ) return (
                                             <CardScreen>

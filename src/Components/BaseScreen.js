@@ -52,9 +52,9 @@ export default function BaseScreen( props ) {
     document.addEventListener( "mouseup", ( event ) => handleMouseUp( event ) );
   };
   
-  function handleMouseUp ( event_, mouseup=true ) {
+  function handleMouseUp ( event, mouseup=true ) {
     if ( isDragged ) {
-      const posY = event_.clientY < 0 ? 0 : ( event_.clientY > scrollHeight ? scrollHeight : event_.clientY );
+      const posY = event.clientY < 0 ? 0 : ( event.clientY > scrollHeight ? scrollHeight : event.clientY );
   
       setScrollbarPosY( posY );
       const d = Math.round( ( posY * scrollHeight ) / window.innerHeight );
@@ -68,9 +68,13 @@ export default function BaseScreen( props ) {
     }
   };  
 
+  function handleScroll () {
+    console.log("scroll");
+  }
+
   function handleWheel ( event ) {
     console.log("wheel");
-    const scrollPosition = scrollbarPosY + event.deltaY * 0.01;
+    const scrollPosition = scrollbarPosY + event.deltaY;
     setScrollbarPosY( scrollPosition )
 
     const d = Math.round( ( scrollPosition * scrollHeight ) / window.innerHeight );
@@ -139,7 +143,7 @@ function Scrollbar( props ) {
           alignItems: "center", background: colorTransitionStyle, border: `solid ${ scrollbarBoxBorder } 1px`,
           borderRadius: "10px", cursor: props.cursor, boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)",
         }} id="scrollbar"
-        onMouseDown={() => props.handleMouseDown()}
+        onMouseDown={ () => props.handleMouseDown() }
       />
     </div>
   )

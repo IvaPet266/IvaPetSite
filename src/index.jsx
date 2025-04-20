@@ -16,7 +16,6 @@ import ScreenSearch from "./Screens/ScreenSearch";
 import CardScreen from "./Screens/CardScreen";
 
 
-
 ReactDOM.createRoot( document.getElementById( "app" ) ).render( 
     <ErrorBoundary>
         <Provider store={ store }>

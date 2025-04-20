@@ -21480,7 +21480,8 @@ var configParams = exports.configParams = (0, _toolkit.createSlice)({
   initialState: {
     filters: false,
     scrollHeight: null,
-    scroll: 0
+    scroll: 0,
+    cardsAmount: 0
   },
   reducers: {
     changeParameter: function changeParameter(state, parameter) {
@@ -37187,10 +37188,10 @@ function BaseScreen(props) {
     });
   }
   ;
-  function handleMouseUp(event_) {
+  function handleMouseUp(event) {
     var mouseup = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
     if (isDragged) {
-      var posY = event_.clientY < 0 ? 0 : event_.clientY > scrollHeight ? scrollHeight : event_.clientY;
+      var posY = event.clientY < 0 ? 0 : event.clientY > scrollHeight ? scrollHeight : event.clientY;
       _setScrollbarPosY(posY);
       var d = Math.round(posY * scrollHeight / window.innerHeight);
       dispatcher((0, _store.changeParameter)({
@@ -37209,9 +37210,12 @@ function BaseScreen(props) {
     }
   }
   ;
+  function handleScroll() {
+    console.log("scroll");
+  }
   function handleWheel(event) {
     console.log("wheel");
-    var scrollPosition = scrollbarPosY + event.deltaY * 0.01;
+    var scrollPosition = scrollbarPosY + event.deltaY;
     _setScrollbarPosY(scrollPosition);
     var d = Math.round(scrollPosition * scrollHeight / window.innerHeight);
     dispatcher((0, _store.changeParameter)({
@@ -37733,7 +37737,7 @@ function Scroll(props) {
         // let params = useParams();
         // params.id = index;
         if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
-          to: "cards",
+          to: "cards/".concat(index),
           key: index
         }, " ", function (isActive) {
           if (isActive) return /*#__PURE__*/_react.default.createElement(_CardScreen.default, null, /*#__PURE__*/_react.default.createElement(_Card.default, {
