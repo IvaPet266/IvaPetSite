@@ -53,7 +53,7 @@ export default function Container( props ) {
                 <img style={{ 
                     position: "absolute", right: "20px", height: "30px", width: "30px",
                     backgroundColor: "white", borderRadius: "25px" }}/>
-            </div>
+            </div> 
             { (() => {
                 if ( props.category == "ARTWORK" ) {
                     return <img 

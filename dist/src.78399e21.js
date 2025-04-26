@@ -21486,7 +21486,7 @@ var configParams = exports.configParams = (0, _toolkit.createSlice)({
   reducers: {
     changeParameter: function changeParameter(state, parameter) {
       state[parameter.payload["name"]] = parameter.payload["value"];
-      console.log(parameter.payload["name"], '->', state[parameter.payload["name"]]);
+      // console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
     },
     back2defaultConfigParamters: function back2defaultConfigParamters(state) {
       state.filters = false;
@@ -37152,10 +37152,6 @@ function BaseScreen(props) {
     scrollbarPosY = _useState10[0],
     _setScrollbarPosY = _useState10[1];
   var isDragged = false;
-  var scrollIntervalId;
-  (0, _react.useEffect)(function () {
-    if (scroll === null) scrollIntervalId = setInterval(addScroll, 250);
-  }, [scroll]);
   function changeScrollbarSize() {
     setScrollbarHeight(Math.min(Math.round(scrollHeight / window.innerHeight), window.innerHeight));
     if (scrollbarHeight == window.innerHeight) setScrollWidth(100);
@@ -37177,6 +37173,10 @@ function BaseScreen(props) {
     }
   }
   ;
+  var scrollIntervalId;
+  (0, _react.useEffect)(function () {
+    if (scroll === null) scrollIntervalId = setInterval(addScroll, 250);
+  }, [scroll]);
   function handleMouseDown() {
     isDragged = true;
     setCursor("dragging");
@@ -37230,15 +37230,15 @@ function BaseScreen(props) {
     _setScrollbarPosY(posY);
   }
   (0, _react.useLayoutEffect)(function () {
+    !props.scroll && scrollWidth !== 100 && setScrollWidth(100);
+    scrollWidth !== 99 && setScrollWidth(99);
+    window.visualViewport.addEventListener("scroll", function (event) {
+      return handleScroll(event);
+    });
     window.visualViewport.addEventListener("resize", changeScrollbarSize);
     return function () {
       return window.visualViewport.removeEventListener("resize", changeScrollbarSize);
     };
-  }, []);
-  (0, _react.useLayoutEffect)(function () {
-    window.visualViewport.addEventListener("scroll", function (event) {
-      return handleScroll(event);
-    });
   }, []);
   (0, _react.useEffect)(function () {
     changeScrollbarSize();
@@ -37263,7 +37263,7 @@ function BaseScreen(props) {
       backgroundColor: bg_color,
       overflow: "hidden"
     }
-  }, props.children)), props.scroll && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, scrollWidth !== 99 && setScrollWidth(99), /*#__PURE__*/_react.default.createElement(Scrollbar, {
+  }, props.children)), props.scroll && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(Scrollbar, {
     clickScroll: function clickScroll(event) {
       return _clickScroll(event);
     },
@@ -37274,7 +37274,7 @@ function BaseScreen(props) {
     scrollbarHeight: scrollbarHeight,
     cursor: cursor,
     handleMouseDown: handleMouseDown
-  })), !props.scroll && scrollWidth !== 100 && setScrollWidth(100));
+  })));
 }
 ;
 function Scrollbar(props) {

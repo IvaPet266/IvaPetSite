@@ -19,11 +19,6 @@ export default function BaseScreen( props ) {
 
   let isDragged = false;
 
-  let scrollIntervalId;
-  useEffect(() => {
-    if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 );
-  }, [ scroll ]);
-
   function changeScrollbarSize () {
     setScrollbarHeight( Math.min( Math.round( scrollHeight / window.innerHeight ), window.innerHeight ) );
     if ( scrollbarHeight == window.innerHeight ) setScrollWidth( 100 );
@@ -44,6 +39,10 @@ export default function BaseScreen( props ) {
         }
     }
   };
+  let scrollIntervalId;
+  useEffect(() => {
+    if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 );
+  }, [ scroll ]);
 
   function handleMouseDown () {
     isDragged = true;
@@ -87,14 +86,14 @@ export default function BaseScreen( props ) {
     setScrollbarPosY( posY )
   }
 
-  useLayoutEffect(() => {  
+  useLayoutEffect(() => {
+    !props.scroll && scrollWidth !== 100 && setScrollWidth( 100 );
+    scrollWidth !== 99 && setScrollWidth( 99 )
+    window.visualViewport.addEventListener( "scroll", ( event ) => handleScroll( event ) );
     window.visualViewport.addEventListener( "resize", changeScrollbarSize );
     return () => window.visualViewport.removeEventListener( "resize", changeScrollbarSize );
-  }, []);
-  
-  useLayoutEffect(() => {
-    window.visualViewport.addEventListener( "scroll", ( event ) => handleScroll( event ) );
   }, [])
+
 
   useEffect(() => {
     changeScrollbarSize()
@@ -110,7 +109,6 @@ export default function BaseScreen( props ) {
       </div>
       { props.scroll && (
         <>
-          { scrollWidth !== 99 && setScrollWidth( 99 ) }
           <Scrollbar clickScroll={ ( event ) => clickScroll( event ) }
             setScrollbarPosY={ ( state ) => setScrollbarPosY( state ) }
             scrollbarPosY={ scrollbarPosY } scrollbarHeight={ scrollbarHeight }
@@ -118,7 +116,6 @@ export default function BaseScreen( props ) {
           />
         </>
       )}
-      { !props.scroll && scrollWidth !== 100 && setScrollWidth( 100 ) }
     </div>
   )
 };
