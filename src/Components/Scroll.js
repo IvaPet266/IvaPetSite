@@ -65,6 +65,7 @@ export default function Scroll( props ) {
             case null:
                 return;
             default:
+                console.log("scroll added");
                 const { height } = ref.current.getBoundingClientRect();
                 dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) );
                 clearInterval( scrollIntervalId );
@@ -74,6 +75,7 @@ export default function Scroll( props ) {
 
     useLayoutEffect(() => {  
         window.visualViewport.addEventListener( "resize", zoomHandle );
+        addScroll()
         return () => {
             window.visualViewport.removeEventListener( "resize", zoomHandle );
         }
