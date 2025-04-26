@@ -68,6 +68,7 @@ export default function Scroll( props ) {
                 console.log("scroll added");
                 const { height } = ref.current.getBoundingClientRect();
                 dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) );
+                props.scrollRef.current = document.getElementById( "scroll" );
                 clearInterval( scrollIntervalId );
                 return;
         }

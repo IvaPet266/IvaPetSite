@@ -22738,8 +22738,9 @@ module.exports.parse = parse;
 module.exports.parseString = parseString;
 module.exports.splitCookiesString = splitCookiesString;
 
-},{}],"../node_modules/react-router/dist/development/chunk-LSOULM7L.mjs":[function(require,module,exports) {
+},{}],"../node_modules/react-router/dist/development/chunk-BAXFHI7N.mjs":[function(require,module,exports) {
 var define;
+var process = require("process");
 var global = arguments[3];
 "use strict";
 
@@ -22800,8 +22801,9 @@ exports.data = data;
 exports.decodeViaTurboStream = decodeViaTurboStream;
 exports.deserializeErrors = deserializeErrors2;
 exports.generatePath = generatePath;
+exports.getHydrationData = getHydrationData;
 exports.getPatchRoutesOnNavigationFunction = getPatchRoutesOnNavigationFunction;
-exports.getSingleFetchDataStrategy = getSingleFetchDataStrategy;
+exports.getTurboStreamSingleFetchDataStrategy = getTurboStreamSingleFetchDataStrategy;
 exports.href = href;
 exports.hydrationRouteProperties = void 0;
 exports.invariant = invariant;
@@ -22913,7 +22915,7 @@ function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
- * react-router v7.5.1
+ * react-router v7.5.2
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -30123,7 +30125,7 @@ function _getKeyedPrefetchLinks() {
                 }
               }, _callee86);
             }));
-            return function (_x229) {
+            return function (_x230) {
               return _ref118.apply(this, arguments);
             };
           }()));
@@ -30364,6 +30366,7 @@ function _createRequestInit() {
   return _createRequestInit.apply(this, arguments);
 }
 var SingleFetchRedirectSymbol = exports.SingleFetchRedirectSymbol = Symbol("SingleFetchRedirect");
+var SINGLE_FETCH_REDIRECT_STATUS = 202;
 var NO_BODY_STATUS_CODES = /* @__PURE__ */new Set([100, 101, 204, 205]);
 function StreamTransfer(_ref52) {
   var context = _ref52.context,
@@ -30423,8 +30426,17 @@ function StreamTransfer(_ref52) {
     })));
   }
 }
-function getSingleFetchDataStrategy(getRouter, getRouteInfo, ssr, basename) {
-  var dataStrategy = getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecodeViaTurboStream, ssr, basename);
+function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules, ssr, basename) {
+  var dataStrategy = getSingleFetchDataStrategyImpl(getRouter, function (match) {
+    var manifestRoute = manifest.routes[match.route.id];
+    invariant2(manifestRoute, "Route not found in manifest");
+    var routeModule = routeModules[match.route.id];
+    return {
+      hasLoader: manifestRoute.hasLoader,
+      hasClientLoader: manifestRoute.hasClientLoader,
+      hasShouldRevalidate: Boolean(routeModule === null || routeModule === void 0 ? void 0 : routeModule.shouldRevalidate)
+    };
+  }, fetchAndDecodeViaTurboStream, ssr, basename);
   return /*#__PURE__*/function () {
     var _ref53 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee30(args) {
       return _regeneratorRuntime().wrap(function _callee30$(_context31) {
@@ -30458,7 +30470,7 @@ function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode,
             return _context32.abrupt("return", singleFetchActionStrategy(args, fetchAndDecode, basename));
           case 4:
             foundRevalidatingServerLoader = matches.some(function (m) {
-              var _getRouteInfo = getRouteInfo(m.route.id),
+              var _getRouteInfo = getRouteInfo(m),
                 hasLoader = _getRouteInfo.hasLoader,
                 hasClientLoader = _getRouteInfo.hasClientLoader;
               return m.unstable_shouldCallHandler() && hasLoader && !hasClientLoader;
@@ -30537,7 +30549,7 @@ function _singleFetchActionStrategy() {
                 }
               }, _callee90);
             }));
-            return function (_x230) {
+            return function (_x231) {
               return _ref119.apply(this, arguments);
             };
           }());
@@ -30583,7 +30595,7 @@ function _nonSsrStrategy() {
                   while (1) switch (_context94.prev = _context94.next) {
                     case 0:
                       _context94.prev = 0;
-                      _getRouteInfo2 = getRouteInfo(m.route.id), hasClientLoader = _getRouteInfo2.hasClientLoader;
+                      _getRouteInfo2 = getRouteInfo(m), hasClientLoader = _getRouteInfo2.hasClientLoader;
                       routeId = m.route.id;
                       if (!hasClientLoader) {
                         _context94.next = 9;
@@ -30637,7 +30649,7 @@ function _nonSsrStrategy() {
                   }
                 }, _callee93, null, [[0, 16]]);
               }));
-              return function (_x231) {
+              return function (_x232) {
                 return _ref123.apply(this, arguments);
               };
             }());
@@ -30681,7 +30693,7 @@ function _singleFetchLoaderNavigationStrategy() {
                             case 0:
                               routeDfds[i].resolve();
                               routeId = m.route.id;
-                              _getRouteInfo3 = getRouteInfo(routeId), hasLoader = _getRouteInfo3.hasLoader, hasClientLoader = _getRouteInfo3.hasClientLoader, hasShouldRevalidate = _getRouteInfo3.hasShouldRevalidate;
+                              _getRouteInfo3 = getRouteInfo(m), hasLoader = _getRouteInfo3.hasLoader, hasClientLoader = _getRouteInfo3.hasClientLoader, hasShouldRevalidate = _getRouteInfo3.hasShouldRevalidate;
                               defaultShouldRevalidate = !m.unstable_shouldRevalidateArgs || m.unstable_shouldRevalidateArgs.actionStatus == null || m.unstable_shouldRevalidateArgs.actionStatus < 400;
                               shouldCall = m.unstable_shouldCallHandler(defaultShouldRevalidate);
                               if (shouldCall) {
@@ -30781,7 +30793,7 @@ function _singleFetchLoaderNavigationStrategy() {
                           }
                         }, _callee97, null, [[10, 17], [22, 29]]);
                       }));
-                      return function (_x234) {
+                      return function (_x235) {
                         return _ref126.apply(this, arguments);
                       };
                     }()));
@@ -30791,7 +30803,7 @@ function _singleFetchLoaderNavigationStrategy() {
                 }
               }, _callee98);
             }));
-            return function (_x232, _x233) {
+            return function (_x233, _x234) {
               return _ref125.apply(this, arguments);
             };
           }()));
@@ -30804,7 +30816,9 @@ function _singleFetchLoaderNavigationStrategy() {
             _context100.next = 12;
             break;
           }
-          singleFetchDfd.resolve({});
+          singleFetchDfd.resolve({
+            routes: {}
+          });
           _context100.next = 23;
           break;
         case 12:
@@ -30877,7 +30891,7 @@ function _singleFetchLoaderFetcherStrategy() {
                 }
               }, _callee101);
             }));
-            return function (_x235) {
+            return function (_x236) {
               return _ref129.apply(this, arguments);
             };
           }());
@@ -30963,8 +30977,25 @@ function _fetchAndDecodeViaTurboStream() {
           }
           throw new ErrorResponseImpl(404, "Not Found", true);
         case 13:
+          if (!(res.status === 204 && res.headers.has("X-Remix-Redirect"))) {
+            _context104.next = 15;
+            break;
+          }
+          return _context104.abrupt("return", {
+            status: SINGLE_FETCH_REDIRECT_STATUS,
+            data: {
+              redirect: {
+                redirect: res.headers.get("X-Remix-Redirect"),
+                status: Number(res.headers.get("X-Remix-Status") || "302"),
+                revalidate: res.headers.get("X-Remix-Revalidate") === "true",
+                reload: res.headers.get("X-Remix-Reload-Document") === "true",
+                replace: res.headers.get("X-Remix-Replace") === "true"
+              }
+            }
+          });
+        case 15:
           if (!NO_BODY_STATUS_CODES.has(res.status)) {
-            _context104.next = 17;
+            _context104.next = 19;
             break;
           }
           routes = {};
@@ -30979,12 +31010,12 @@ function _fetchAndDecodeViaTurboStream() {
               routes: routes
             }
           });
-        case 17:
+        case 19:
           invariant2(res.body, "No response body to decode");
-          _context104.prev = 18;
-          _context104.next = 21;
+          _context104.prev = 20;
+          _context104.next = 23;
           return decodeViaTurboStream(res.body, window);
-        case 21:
+        case 23:
           decoded = _context104.sent;
           if (request.method === "GET") {
             typed = decoded.value;
@@ -31015,15 +31046,15 @@ function _fetchAndDecodeViaTurboStream() {
             status: res.status,
             data: data2
           });
-        case 26:
-          _context104.prev = 26;
-          _context104.t3 = _context104["catch"](18);
+        case 28:
+          _context104.prev = 28;
+          _context104.t3 = _context104["catch"](20);
           throw new Error("Unable to decode turbo-stream response");
-        case 29:
+        case 31:
         case "end":
           return _context104.stop();
       }
-    }, _callee103, null, [[18, 26]]);
+    }, _callee103, null, [[20, 28]]);
   }));
   return _fetchAndDecodeViaTurboStream.apply(this, arguments);
 }
@@ -31552,7 +31583,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
           return _ref60.apply(this, arguments);
         };
       }();
-      dataRoute.loader.hydrate = shouldHydrateRouteLoader(route, routeModule, isSpaMode);
+      dataRoute.loader.hydrate = shouldHydrateRouteLoader(route.id, routeModule.clientLoader, route.hasLoader, isSpaMode);
       dataRoute.action = function (_ref62, singleFetch) {
         var request = _ref62.request,
           params = _ref62.params,
@@ -31972,8 +32003,8 @@ function getRouteModuleComponent(routeModule) {
     return routeModule.default;
   }
 }
-function shouldHydrateRouteLoader(route, routeModule, isSpaMode) {
-  return isSpaMode && route.id !== "root" || routeModule.clientLoader != null && (routeModule.clientLoader.hydrate === true || route.hasLoader !== true);
+function shouldHydrateRouteLoader(routeId, clientLoader, hasLoader, isSpaMode) {
+  return isSpaMode && routeId !== "root" || clientLoader != null && (clientLoader.hydrate === true || hasLoader !== true);
 }
 
 // lib/dom/ssr/fog-of-war.ts
@@ -32748,7 +32779,7 @@ function mergeRefs() {
 var isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
 try {
   if (isBrowser) {
-    window.__reactRouterVersion = "7.5.1";
+    window.__reactRouterVersion = "7.5.2";
   }
 } catch (e) {}
 function createBrowserRouter(routes, opts) {
@@ -33865,7 +33896,7 @@ function ServerRouter(_ref100) {
       var routeId = match.route.id;
       var route = routeModules[routeId];
       var manifestRoute = context.manifest.routes[routeId];
-      if (route && manifestRoute && shouldHydrateRouteLoader(manifestRoute, route, context.isSpaMode) && (route.HydrateFallback || !manifestRoute.hasLoader)) {
+      if (route && manifestRoute && shouldHydrateRouteLoader(routeId, route.clientLoader, manifestRoute.hasLoader, context.isSpaMode) && (route.HydrateFallback || !manifestRoute.hasLoader)) {
         delete context.staticHandlerContext.loaderData[routeId];
       }
     }
@@ -34223,7 +34254,7 @@ function decodeCookieValue(_x184, _x185) {
 }
 function _decodeCookieValue() {
   _decodeCookieValue = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee107(value, secrets) {
-    var _iterator16, _step16, secret, unsignedValue;
+    var _iterator17, _step17, secret, unsignedValue;
     return _regeneratorRuntime().wrap(function _callee107$(_context108) {
       while (1) switch (_context108.prev = _context108.next) {
         case 0:
@@ -34231,15 +34262,15 @@ function _decodeCookieValue() {
             _context108.next = 22;
             break;
           }
-          _iterator16 = _createForOfIteratorHelper(secrets);
+          _iterator17 = _createForOfIteratorHelper(secrets);
           _context108.prev = 2;
-          _iterator16.s();
+          _iterator17.s();
         case 4:
-          if ((_step16 = _iterator16.n()).done) {
+          if ((_step17 = _iterator17.n()).done) {
             _context108.next = 13;
             break;
           }
-          secret = _step16.value;
+          secret = _step17.value;
           _context108.next = 8;
           return unsign(value, secret);
         case 8:
@@ -34258,10 +34289,10 @@ function _decodeCookieValue() {
         case 15:
           _context108.prev = 15;
           _context108.t0 = _context108["catch"](2);
-          _iterator16.e(_context108.t0);
+          _iterator17.e(_context108.t0);
         case 18:
           _context108.prev = 18;
-          _iterator16.f();
+          _iterator17.f();
           return _context108.finish(18);
         case 21:
           return _context108.abrupt("return", null);
@@ -34519,6 +34550,26 @@ function invariant3(value, message) {
   }
 }
 
+// lib/server-runtime/dev.ts
+var globalDevServerHooksKey = "__reactRouterDevServerHooks";
+function setDevServerHooks(devServerHooks) {
+  globalThis[globalDevServerHooksKey] = devServerHooks;
+}
+function getDevServerHooks() {
+  return globalThis[globalDevServerHooksKey];
+}
+function getBuildTimeHeader(request, headerName) {
+  if (typeof process !== "undefined") {
+    try {
+      var _process$env;
+      if (((_process$env = process.env) === null || _process$env === void 0 ? void 0 : _process$env.IS_RR_BUILD_REQUEST) === "yes") {
+        return request.headers.get(headerName);
+      }
+    } catch (e) {}
+  }
+  return null;
+}
+
 // lib/server-runtime/routes.ts
 function groupRoutesByParentId2(manifest) {
   var routes = {};
@@ -34560,11 +34611,11 @@ function createStaticHandlerDataRoutes(manifest, future) {
           return _regeneratorRuntime().wrap(function _callee61$(_context62) {
             while (1) switch (_context62.prev = _context62.next) {
               case 0:
-                if (!args.request.headers.has("X-React-Router-Prerender-Data")) {
+                preRenderedData = getBuildTimeHeader(args.request, "X-React-Router-Prerender-Data");
+                if (!(preRenderedData != null)) {
                   _context62.next = 28;
                   break;
                 }
-                preRenderedData = args.request.headers.get("X-React-Router-Prerender-Data");
                 encoded = preRenderedData ? decodeURI(preRenderedData) : preRenderedData;
                 invariant3(encoded, "Missing prerendered data for route");
                 uint8array = new TextEncoder().encode(encoded);
@@ -34658,15 +34709,6 @@ function createServerHandoffString(serverHandoff) {
   return escapeHtml2(JSON.stringify(serverHandoff));
 }
 
-// lib/server-runtime/dev.ts
-var globalDevServerHooksKey = "__reactRouterDevServerHooks";
-function setDevServerHooks(devServerHooks) {
-  globalThis[globalDevServerHooksKey] = devServerHooks;
-}
-function getDevServerHooks() {
-  return globalThis[globalDevServerHooksKey];
-}
-
 // lib/server-runtime/single-fetch.ts
 
 // lib/server-runtime/headers.ts
@@ -34739,7 +34781,6 @@ function prependCookies(parentHeaders, childHeaders) {
 }
 
 // lib/server-runtime/single-fetch.ts
-var SINGLE_FETCH_REDIRECT_STATUS = 202;
 var SERVER_NO_BODY_STATUS_CODES = /* @__PURE__ */new Set([].concat(_toConsumableArray(NO_BODY_STATUS_CODES), [304]));
 function singleFetchAction(_x189, _x190, _x191, _x192, _x193, _x194, _x195) {
   return _singleFetchAction.apply(this, arguments);
@@ -35056,7 +35097,7 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
   var errorHandler;
   return /*#__PURE__*/function () {
     var _requestHandler = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee62(request, initialContext) {
-      var derived, _derived, params, loadContext, handleError, error, url, normalizedBasename, normalizedPath, manifestUrl, res, matches, response, handlerUrl, singleFetchMatches, result, headers, _getDevServerHooks2, pathname, criticalCss, _getDevServerHooks3, _getDevServerHooks3$g;
+      var derived, _derived, params, loadContext, handleError, error, url, normalizedBasename, normalizedPath, isSpaMode, manifestUrl, res, matches, response, handlerUrl, singleFetchMatches, result, headers, _getDevServerHooks2, pathname, criticalCss, _getDevServerHooks3, _getDevServerHooks3$g;
       return _regeneratorRuntime().wrap(function _callee62$(_context63) {
         while (1) switch (_context63.prev = _context63.next) {
           case 0:
@@ -35138,24 +35179,25 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
             if (stripBasename(normalizedPath, normalizedBasename) !== "/" && normalizedPath.endsWith("/")) {
               normalizedPath = normalizedPath.slice(0, -1);
             }
+            isSpaMode = getBuildTimeHeader(request, "X-React-Router-SPA-Mode") === "yes";
             if (_build.ssr) {
-              _context63.next = 45;
+              _context63.next = 46;
               break;
             }
             if (!(_build.prerender.length === 0)) {
-              _context63.next = 38;
+              _context63.next = 39;
               break;
             }
-            request.headers.set("X-React-Router-SPA-Mode", "yes");
-            _context63.next = 45;
+            isSpaMode = true;
+            _context63.next = 46;
             break;
-          case 38:
+          case 39:
             if (!(!_build.prerender.includes(normalizedPath) && !_build.prerender.includes(normalizedPath + "/"))) {
-              _context63.next = 45;
+              _context63.next = 46;
               break;
             }
             if (!url.pathname.endsWith(".data")) {
-              _context63.next = 44;
+              _context63.next = 45;
               break;
             }
             errorHandler(new ErrorResponseImpl(404, "Not Found", "Refusing to SSR the path `".concat(normalizedPath, "` because `ssr:false` is set and the path is not included in the `prerender` config, so in production the path will be a 404.")), {
@@ -35167,57 +35209,57 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
               status: 404,
               statusText: "Not Found"
             }));
-          case 44:
-            request.headers.set("X-React-Router-SPA-Mode", "yes");
           case 45:
+            isSpaMode = true;
+          case 46:
             manifestUrl = "".concat(normalizedBasename, "/__manifest").replace(/\/+/g, "/");
             if (!(url.pathname === manifestUrl)) {
-              _context63.next = 58;
+              _context63.next = 59;
               break;
             }
-            _context63.prev = 47;
-            _context63.next = 50;
+            _context63.prev = 48;
+            _context63.next = 51;
             return handleManifestRequest(_build, routes, url);
-          case 50:
+          case 51:
             res = _context63.sent;
             return _context63.abrupt("return", res);
-          case 54:
-            _context63.prev = 54;
-            _context63.t2 = _context63["catch"](47);
+          case 55:
+            _context63.prev = 55;
+            _context63.t2 = _context63["catch"](48);
             handleError(_context63.t2);
             return _context63.abrupt("return", new Response("Unknown Server Error", {
               status: 500
             }));
-          case 58:
+          case 59:
             matches = matchServerRoutes(routes, url.pathname, _build.basename);
             if (matches && matches.length > 0) {
               Object.assign(params, matches[0].params);
             }
             if (!url.pathname.endsWith(".data")) {
-              _context63.next = 79;
+              _context63.next = 80;
               break;
             }
             handlerUrl = new URL(request.url);
             handlerUrl.pathname = normalizedPath;
             singleFetchMatches = matchServerRoutes(routes, handlerUrl.pathname, _build.basename);
-            _context63.next = 66;
+            _context63.next = 67;
             return handleSingleFetchRequest(serverMode, _build, staticHandler, request, handlerUrl, loadContext, handleError);
-          case 66:
+          case 67:
             response = _context63.sent;
             if (!_build.entry.module.handleDataRequest) {
-              _context63.next = 77;
+              _context63.next = 78;
               break;
             }
-            _context63.next = 70;
+            _context63.next = 71;
             return _build.entry.module.handleDataRequest(response, {
               context: loadContext,
               params: singleFetchMatches ? singleFetchMatches[0].params : {},
               request: request
             });
-          case 70:
+          case 71:
             response = _context63.sent;
             if (!isRedirectResponse(response)) {
-              _context63.next = 77;
+              _context63.next = 78;
               break;
             }
             result = getSingleFetchRedirect(response.status, response.headers, _build.basename);
@@ -35230,52 +35272,52 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
               status: SINGLE_FETCH_REDIRECT_STATUS,
               headers: headers
             }));
-          case 77:
-            _context63.next = 100;
+          case 78:
+            _context63.next = 101;
             break;
-          case 79:
-            if (!(!request.headers.has("X-React-Router-SPA-Mode") && matches && matches[matches.length - 1].route.module.default == null && matches[matches.length - 1].route.module.ErrorBoundary == null)) {
-              _context63.next = 85;
+          case 80:
+            if (!(!isSpaMode && matches && matches[matches.length - 1].route.module.default == null && matches[matches.length - 1].route.module.ErrorBoundary == null)) {
+              _context63.next = 86;
               break;
             }
-            _context63.next = 82;
+            _context63.next = 83;
             return handleResourceRequest(serverMode, _build, staticHandler, matches.slice(-1)[0].route.id, request, loadContext, handleError);
-          case 82:
+          case 83:
             response = _context63.sent;
-            _context63.next = 100;
+            _context63.next = 101;
             break;
-          case 85:
+          case 86:
             pathname = url.pathname;
             criticalCss = void 0;
             if (!_build.unstable_getCriticalCss) {
-              _context63.next = 93;
+              _context63.next = 94;
               break;
             }
-            _context63.next = 90;
+            _context63.next = 91;
             return _build.unstable_getCriticalCss({
               pathname: pathname
             });
-          case 90:
+          case 91:
             criticalCss = _context63.sent;
-            _context63.next = 97;
+            _context63.next = 98;
             break;
-          case 93:
+          case 94:
             if (!(mode === "development" /* Development */ && (_getDevServerHooks2 = getDevServerHooks()) !== null && _getDevServerHooks2 !== void 0 && _getDevServerHooks2.getCriticalCss)) {
-              _context63.next = 97;
+              _context63.next = 98;
               break;
             }
-            _context63.next = 96;
+            _context63.next = 97;
             return (_getDevServerHooks3 = getDevServerHooks()) === null || _getDevServerHooks3 === void 0 || (_getDevServerHooks3$g = _getDevServerHooks3.getCriticalCss) === null || _getDevServerHooks3$g === void 0 ? void 0 : _getDevServerHooks3$g.call(_getDevServerHooks3, pathname);
-          case 96:
-            criticalCss = _context63.sent;
           case 97:
-            _context63.next = 99;
-            return handleDocumentRequest(serverMode, _build, staticHandler, request, loadContext, handleError, criticalCss);
-          case 99:
-            response = _context63.sent;
+            criticalCss = _context63.sent;
+          case 98:
+            _context63.next = 100;
+            return handleDocumentRequest(serverMode, _build, staticHandler, request, loadContext, handleError, isSpaMode, criticalCss);
           case 100:
+            response = _context63.sent;
+          case 101:
             if (!(request.method === "HEAD")) {
-              _context63.next = 102;
+              _context63.next = 103;
               break;
             }
             return _context63.abrupt("return", new Response(null, {
@@ -35283,13 +35325,13 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
               status: response.status,
               statusText: response.statusText
             }));
-          case 102:
-            return _context63.abrupt("return", response);
           case 103:
+            return _context63.abrupt("return", response);
+          case 104:
           case "end":
             return _context63.stop();
         }
-      }, _callee62, null, [[16, 20], [47, 54]]);
+      }, _callee62, null, [[16, 20], [48, 55]]);
     }));
     function requestHandler(_x203, _x204) {
       return _requestHandler.apply(this, arguments);
@@ -35302,7 +35344,7 @@ function handleManifestRequest(_x205, _x206, _x207) {
 }
 function _handleManifestRequest() {
   _handleManifestRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee111(build, routes, url) {
-    var patches, paths, _iterator17, _step17, path, matches, _iterator18, _step18, _match2, routeId, route;
+    var patches, paths, _iterator18, _step18, path, matches, _iterator19, _step19, _match2, routeId, route;
     return _regeneratorRuntime().wrap(function _callee111$(_context112) {
       while (1) switch (_context112.prev = _context112.next) {
         case 0:
@@ -35333,16 +35375,16 @@ function _handleManifestRequest() {
               paths.add("/".concat(partialPath));
             });
           });
-          _iterator17 = _createForOfIteratorHelper(paths);
+          _iterator18 = _createForOfIteratorHelper(paths);
           try {
-            for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
-              path = _step17.value;
+            for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+              path = _step18.value;
               matches = matchServerRoutes(routes, path, build.basename);
               if (matches) {
-                _iterator18 = _createForOfIteratorHelper(matches);
+                _iterator19 = _createForOfIteratorHelper(matches);
                 try {
-                  for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
-                    _match2 = _step18.value;
+                  for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
+                    _match2 = _step19.value;
                     routeId = _match2.route.id;
                     route = build.assets.routes[routeId];
                     if (route) {
@@ -35350,16 +35392,16 @@ function _handleManifestRequest() {
                     }
                   }
                 } catch (err) {
-                  _iterator18.e(err);
+                  _iterator19.e(err);
                 } finally {
-                  _iterator18.f();
+                  _iterator19.f();
                 }
               }
             }
           } catch (err) {
-            _iterator17.e(err);
+            _iterator18.e(err);
           } finally {
-            _iterator17.f();
+            _iterator18.f();
           }
           return _context112.abrupt("return", Response.json(patches, {
             headers: {
@@ -35413,12 +35455,12 @@ function _handleSingleFetchRequest() {
   }));
   return _handleSingleFetchRequest.apply(this, arguments);
 }
-function handleDocumentRequest(_x215, _x216, _x217, _x218, _x219, _x220, _x221) {
+function handleDocumentRequest(_x215, _x216, _x217, _x218, _x219, _x220, _x221, _x222) {
   return _handleDocumentRequest.apply(this, arguments);
 }
 function _handleDocumentRequest() {
-  _handleDocumentRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee114(serverMode, build, staticHandler, request, loadContext, handleError, criticalCss) {
-    var isSpaMode, response, renderHtml, _renderHtml;
+  _handleDocumentRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee114(serverMode, build, staticHandler, request, loadContext, handleError, isSpaMode, criticalCss) {
+    var response, renderHtml, _renderHtml;
     return _regeneratorRuntime().wrap(function _callee114$(_context115) {
       while (1) switch (_context115.prev = _context115.next) {
         case 0:
@@ -35543,37 +35585,36 @@ function _handleDocumentRequest() {
             }));
             return _renderHtml.apply(this, arguments);
           };
-          renderHtml = function _renderHtml2(_x236, _x237) {
+          renderHtml = function _renderHtml2(_x237, _x238) {
             return _renderHtml.apply(this, arguments);
           };
-          isSpaMode = request.headers.has("X-React-Router-SPA-Mode");
-          _context115.prev = 3;
-          _context115.next = 6;
+          _context115.prev = 2;
+          _context115.next = 5;
           return staticHandler.query(request, {
             requestContext: loadContext,
             unstable_respond: build.future.unstable_middleware ? function (ctx) {
               return renderHtml(ctx, isSpaMode);
             } : void 0
           });
-        case 6:
+        case 5:
           response = _context115.sent;
           return _context115.abrupt("return", isResponse(response) ? response : renderHtml(response, isSpaMode));
-        case 10:
-          _context115.prev = 10;
-          _context115.t0 = _context115["catch"](3);
+        case 9:
+          _context115.prev = 9;
+          _context115.t0 = _context115["catch"](2);
           handleError(_context115.t0);
           return _context115.abrupt("return", new Response(null, {
             status: 500
           }));
-        case 14:
+        case 13:
         case "end":
           return _context115.stop();
       }
-    }, _callee114, null, [[3, 10]]);
+    }, _callee114, null, [[2, 9]]);
   }));
   return _handleDocumentRequest.apply(this, arguments);
 }
-function handleResourceRequest(_x222, _x223, _x224, _x225, _x226, _x227, _x228) {
+function handleResourceRequest(_x223, _x224, _x225, _x226, _x227, _x228, _x229) {
   return _handleResourceRequest.apply(this, arguments);
 }
 function _handleResourceRequest() {
@@ -35811,7 +35852,7 @@ function createSessionStorage(_ref111) {
   };
 }
 function warnOnceAboutSigningSessionCookie(cookie) {
-  warnOnce(cookie.isSigned, "The \"".concat(cookie.name, "\" cookie is not signed, but session cookies should be signed to prevent tampering on the client before they are sent back to the server. See https://remix.run/utils/cookies#signing-cookies for more information."));
+  warnOnce(cookie.isSigned, "The \"".concat(cookie.name, "\" cookie is not signed, but session cookies should be signed to prevent tampering on the client before they are sent back to the server. See https://reactrouter.com/explanation/sessions-and-cookies#signing-cookies for more information."));
 }
 
 // lib/server-runtime/sessions/cookieStorage.ts
@@ -36032,7 +36073,36 @@ function deserializeErrors2(errors) {
   }
   return serialized;
 }
-},{"react":"../node_modules/react/index.js","turbo-stream":"../node_modules/turbo-stream/dist/turbo-stream.js","cookie":"../node_modules/cookie/dist/index.js","set-cookie-parser":"../node_modules/set-cookie-parser/lib/set-cookie.js"}],"../node_modules/react-router/dist/development/index.mjs":[function(require,module,exports) {
+
+// lib/dom/ssr/hydration.tsx
+function getHydrationData(state, routes, getRouteInfo, location, basename, isSpaMode) {
+  var hydrationData = _objectSpread(_objectSpread({}, state), {}, {
+    loaderData: _objectSpread({}, state.loaderData)
+  });
+  var initialMatches = matchRoutes(routes, location, basename);
+  if (initialMatches) {
+    var _iterator16 = _createForOfIteratorHelper(initialMatches),
+      _step16;
+    try {
+      for (_iterator16.s(); !(_step16 = _iterator16.n()).done;) {
+        var match = _step16.value;
+        var routeId = match.route.id;
+        var routeInfo = getRouteInfo(routeId);
+        if (shouldHydrateRouteLoader(routeId, routeInfo.clientLoader, routeInfo.hasLoader, isSpaMode) && (routeInfo.hasHydrateFallback || !routeInfo.hasLoader)) {
+          delete hydrationData.loaderData[routeId];
+        } else if (!routeInfo.hasLoader) {
+          hydrationData.loaderData[routeId] = null;
+        }
+      }
+    } catch (err) {
+      _iterator16.e(err);
+    } finally {
+      _iterator16.f();
+    }
+  }
+  return hydrationData;
+}
+},{"react":"../node_modules/react/index.js","turbo-stream":"../node_modules/turbo-stream/dist/turbo-stream.js","cookie":"../node_modules/cookie/dist/index.js","set-cookie-parser":"../node_modules/set-cookie-parser/lib/set-cookie.js","process":"../node_modules/process/browser.js"}],"../node_modules/react-router/dist/development/index.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36041,695 +36111,701 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "Await", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Await;
+    return _chunkBAXFHI7N.Await;
   }
 });
 Object.defineProperty(exports, "BrowserRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.BrowserRouter;
+    return _chunkBAXFHI7N.BrowserRouter;
   }
 });
 Object.defineProperty(exports, "Form", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Form;
+    return _chunkBAXFHI7N.Form;
   }
 });
 Object.defineProperty(exports, "HashRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.HashRouter;
+    return _chunkBAXFHI7N.HashRouter;
   }
 });
 Object.defineProperty(exports, "IDLE_BLOCKER", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.IDLE_BLOCKER;
+    return _chunkBAXFHI7N.IDLE_BLOCKER;
   }
 });
 Object.defineProperty(exports, "IDLE_FETCHER", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.IDLE_FETCHER;
+    return _chunkBAXFHI7N.IDLE_FETCHER;
   }
 });
 Object.defineProperty(exports, "IDLE_NAVIGATION", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.IDLE_NAVIGATION;
+    return _chunkBAXFHI7N.IDLE_NAVIGATION;
   }
 });
 Object.defineProperty(exports, "Link", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Link;
+    return _chunkBAXFHI7N.Link;
   }
 });
 Object.defineProperty(exports, "Links", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Links;
+    return _chunkBAXFHI7N.Links;
   }
 });
 Object.defineProperty(exports, "MemoryRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.MemoryRouter;
+    return _chunkBAXFHI7N.MemoryRouter;
   }
 });
 Object.defineProperty(exports, "Meta", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Meta;
+    return _chunkBAXFHI7N.Meta;
   }
 });
 Object.defineProperty(exports, "NavLink", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.NavLink;
+    return _chunkBAXFHI7N.NavLink;
   }
 });
 Object.defineProperty(exports, "Navigate", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Navigate;
+    return _chunkBAXFHI7N.Navigate;
   }
 });
 Object.defineProperty(exports, "NavigationType", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Action;
+    return _chunkBAXFHI7N.Action;
   }
 });
 Object.defineProperty(exports, "Outlet", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Outlet;
+    return _chunkBAXFHI7N.Outlet;
   }
 });
 Object.defineProperty(exports, "PrefetchPageLinks", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.PrefetchPageLinks;
+    return _chunkBAXFHI7N.PrefetchPageLinks;
   }
 });
 Object.defineProperty(exports, "Route", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Route;
+    return _chunkBAXFHI7N.Route;
   }
 });
 Object.defineProperty(exports, "Router", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Router;
+    return _chunkBAXFHI7N.Router;
   }
 });
 Object.defineProperty(exports, "RouterProvider", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.RouterProvider;
+    return _chunkBAXFHI7N.RouterProvider;
   }
 });
 Object.defineProperty(exports, "Routes", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Routes;
+    return _chunkBAXFHI7N.Routes;
   }
 });
 Object.defineProperty(exports, "Scripts", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.Scripts;
+    return _chunkBAXFHI7N.Scripts;
   }
 });
 Object.defineProperty(exports, "ScrollRestoration", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.ScrollRestoration;
+    return _chunkBAXFHI7N.ScrollRestoration;
   }
 });
 Object.defineProperty(exports, "ServerRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.ServerRouter;
+    return _chunkBAXFHI7N.ServerRouter;
   }
 });
 Object.defineProperty(exports, "StaticRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.StaticRouter;
+    return _chunkBAXFHI7N.StaticRouter;
   }
 });
 Object.defineProperty(exports, "StaticRouterProvider", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.StaticRouterProvider;
+    return _chunkBAXFHI7N.StaticRouterProvider;
   }
 });
 Object.defineProperty(exports, "UNSAFE_DataRouterContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.DataRouterContext;
+    return _chunkBAXFHI7N.DataRouterContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_DataRouterStateContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.DataRouterStateContext;
+    return _chunkBAXFHI7N.DataRouterStateContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_ErrorResponseImpl", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.ErrorResponseImpl;
+    return _chunkBAXFHI7N.ErrorResponseImpl;
   }
 });
 Object.defineProperty(exports, "UNSAFE_FetchersContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.FetchersContext;
+    return _chunkBAXFHI7N.FetchersContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_FrameworkContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.FrameworkContext;
+    return _chunkBAXFHI7N.FrameworkContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_LocationContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.LocationContext;
+    return _chunkBAXFHI7N.LocationContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_NavigationContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.NavigationContext;
+    return _chunkBAXFHI7N.NavigationContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_RemixErrorBoundary", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.RemixErrorBoundary;
+    return _chunkBAXFHI7N.RemixErrorBoundary;
   }
 });
 Object.defineProperty(exports, "UNSAFE_RouteContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.RouteContext;
+    return _chunkBAXFHI7N.RouteContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_ServerMode", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.ServerMode;
+    return _chunkBAXFHI7N.ServerMode;
   }
 });
 Object.defineProperty(exports, "UNSAFE_SingleFetchRedirectSymbol", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.SingleFetchRedirectSymbol;
+    return _chunkBAXFHI7N.SingleFetchRedirectSymbol;
   }
 });
 Object.defineProperty(exports, "UNSAFE_ViewTransitionContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.ViewTransitionContext;
+    return _chunkBAXFHI7N.ViewTransitionContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createBrowserHistory", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createBrowserHistory;
+    return _chunkBAXFHI7N.createBrowserHistory;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createClientRoutes", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createClientRoutes;
+    return _chunkBAXFHI7N.createClientRoutes;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createClientRoutesWithHMRRevalidationOptOut", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createClientRoutesWithHMRRevalidationOptOut;
+    return _chunkBAXFHI7N.createClientRoutesWithHMRRevalidationOptOut;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createRouter;
+    return _chunkBAXFHI7N.createRouter;
   }
 });
 Object.defineProperty(exports, "UNSAFE_decodeViaTurboStream", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.decodeViaTurboStream;
+    return _chunkBAXFHI7N.decodeViaTurboStream;
   }
 });
 Object.defineProperty(exports, "UNSAFE_deserializeErrors", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.deserializeErrors;
+    return _chunkBAXFHI7N.deserializeErrors;
+  }
+});
+Object.defineProperty(exports, "UNSAFE_getHydrationData", {
+  enumerable: true,
+  get: function () {
+    return _chunkBAXFHI7N.getHydrationData;
   }
 });
 Object.defineProperty(exports, "UNSAFE_getPatchRoutesOnNavigationFunction", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.getPatchRoutesOnNavigationFunction;
+    return _chunkBAXFHI7N.getPatchRoutesOnNavigationFunction;
   }
 });
-Object.defineProperty(exports, "UNSAFE_getSingleFetchDataStrategy", {
+Object.defineProperty(exports, "UNSAFE_getTurboStreamSingleFetchDataStrategy", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.getSingleFetchDataStrategy;
+    return _chunkBAXFHI7N.getTurboStreamSingleFetchDataStrategy;
   }
 });
 Object.defineProperty(exports, "UNSAFE_hydrationRouteProperties", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.hydrationRouteProperties;
+    return _chunkBAXFHI7N.hydrationRouteProperties;
   }
 });
 Object.defineProperty(exports, "UNSAFE_invariant", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.invariant;
+    return _chunkBAXFHI7N.invariant;
   }
 });
 Object.defineProperty(exports, "UNSAFE_mapRouteProperties", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.mapRouteProperties;
+    return _chunkBAXFHI7N.mapRouteProperties;
   }
 });
 Object.defineProperty(exports, "UNSAFE_shouldHydrateRouteLoader", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.shouldHydrateRouteLoader;
+    return _chunkBAXFHI7N.shouldHydrateRouteLoader;
   }
 });
 Object.defineProperty(exports, "UNSAFE_useFogOFWarDiscovery", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useFogOFWarDiscovery;
+    return _chunkBAXFHI7N.useFogOFWarDiscovery;
   }
 });
 Object.defineProperty(exports, "UNSAFE_useScrollRestoration", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useScrollRestoration;
+    return _chunkBAXFHI7N.useScrollRestoration;
   }
 });
 Object.defineProperty(exports, "createBrowserRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createBrowserRouter;
+    return _chunkBAXFHI7N.createBrowserRouter;
   }
 });
 Object.defineProperty(exports, "createCookie", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createCookie;
+    return _chunkBAXFHI7N.createCookie;
   }
 });
 Object.defineProperty(exports, "createCookieSessionStorage", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createCookieSessionStorage;
+    return _chunkBAXFHI7N.createCookieSessionStorage;
   }
 });
 Object.defineProperty(exports, "createHashRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createHashRouter;
+    return _chunkBAXFHI7N.createHashRouter;
   }
 });
 Object.defineProperty(exports, "createMemoryRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createMemoryRouter;
+    return _chunkBAXFHI7N.createMemoryRouter;
   }
 });
 Object.defineProperty(exports, "createMemorySessionStorage", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createMemorySessionStorage;
+    return _chunkBAXFHI7N.createMemorySessionStorage;
   }
 });
 Object.defineProperty(exports, "createPath", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createPath;
+    return _chunkBAXFHI7N.createPath;
   }
 });
 Object.defineProperty(exports, "createRequestHandler", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createRequestHandler;
+    return _chunkBAXFHI7N.createRequestHandler;
   }
 });
 Object.defineProperty(exports, "createRoutesFromChildren", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createRoutesFromChildren;
+    return _chunkBAXFHI7N.createRoutesFromChildren;
   }
 });
 Object.defineProperty(exports, "createRoutesFromElements", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createRoutesFromElements;
+    return _chunkBAXFHI7N.createRoutesFromElements;
   }
 });
 Object.defineProperty(exports, "createRoutesStub", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createRoutesStub;
+    return _chunkBAXFHI7N.createRoutesStub;
   }
 });
 Object.defineProperty(exports, "createSearchParams", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createSearchParams;
+    return _chunkBAXFHI7N.createSearchParams;
   }
 });
 Object.defineProperty(exports, "createSession", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createSession;
+    return _chunkBAXFHI7N.createSession;
   }
 });
 Object.defineProperty(exports, "createSessionStorage", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createSessionStorage;
+    return _chunkBAXFHI7N.createSessionStorage;
   }
 });
 Object.defineProperty(exports, "createStaticHandler", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createStaticHandler;
+    return _chunkBAXFHI7N.createStaticHandler;
   }
 });
 Object.defineProperty(exports, "createStaticRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.createStaticRouter;
+    return _chunkBAXFHI7N.createStaticRouter;
   }
 });
 Object.defineProperty(exports, "data", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.data;
+    return _chunkBAXFHI7N.data;
   }
 });
 Object.defineProperty(exports, "generatePath", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.generatePath;
+    return _chunkBAXFHI7N.generatePath;
   }
 });
 Object.defineProperty(exports, "href", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.href;
+    return _chunkBAXFHI7N.href;
   }
 });
 Object.defineProperty(exports, "isCookie", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.isCookie;
+    return _chunkBAXFHI7N.isCookie;
   }
 });
 Object.defineProperty(exports, "isRouteErrorResponse", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.isRouteErrorResponse;
+    return _chunkBAXFHI7N.isRouteErrorResponse;
   }
 });
 Object.defineProperty(exports, "isSession", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.isSession;
+    return _chunkBAXFHI7N.isSession;
   }
 });
 Object.defineProperty(exports, "matchPath", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.matchPath;
+    return _chunkBAXFHI7N.matchPath;
   }
 });
 Object.defineProperty(exports, "matchRoutes", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.matchRoutes;
+    return _chunkBAXFHI7N.matchRoutes;
   }
 });
 Object.defineProperty(exports, "parsePath", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.parsePath;
+    return _chunkBAXFHI7N.parsePath;
   }
 });
 Object.defineProperty(exports, "redirect", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.redirect;
+    return _chunkBAXFHI7N.redirect;
   }
 });
 Object.defineProperty(exports, "redirectDocument", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.redirectDocument;
+    return _chunkBAXFHI7N.redirectDocument;
   }
 });
 Object.defineProperty(exports, "renderMatches", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.renderMatches;
+    return _chunkBAXFHI7N.renderMatches;
   }
 });
 Object.defineProperty(exports, "replace", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.replace;
+    return _chunkBAXFHI7N.replace;
   }
 });
 Object.defineProperty(exports, "resolvePath", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.resolvePath;
+    return _chunkBAXFHI7N.resolvePath;
   }
 });
 Object.defineProperty(exports, "unstable_HistoryRouter", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.HistoryRouter;
+    return _chunkBAXFHI7N.HistoryRouter;
   }
 });
 Object.defineProperty(exports, "unstable_RouterContextProvider", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.unstable_RouterContextProvider;
+    return _chunkBAXFHI7N.unstable_RouterContextProvider;
   }
 });
 Object.defineProperty(exports, "unstable_createContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.unstable_createContext;
+    return _chunkBAXFHI7N.unstable_createContext;
   }
 });
 Object.defineProperty(exports, "unstable_setDevServerHooks", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.setDevServerHooks;
+    return _chunkBAXFHI7N.setDevServerHooks;
   }
 });
 Object.defineProperty(exports, "unstable_usePrompt", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.usePrompt;
+    return _chunkBAXFHI7N.usePrompt;
   }
 });
 Object.defineProperty(exports, "useActionData", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useActionData;
+    return _chunkBAXFHI7N.useActionData;
   }
 });
 Object.defineProperty(exports, "useAsyncError", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useAsyncError;
+    return _chunkBAXFHI7N.useAsyncError;
   }
 });
 Object.defineProperty(exports, "useAsyncValue", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useAsyncValue;
+    return _chunkBAXFHI7N.useAsyncValue;
   }
 });
 Object.defineProperty(exports, "useBeforeUnload", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useBeforeUnload;
+    return _chunkBAXFHI7N.useBeforeUnload;
   }
 });
 Object.defineProperty(exports, "useBlocker", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useBlocker;
+    return _chunkBAXFHI7N.useBlocker;
   }
 });
 Object.defineProperty(exports, "useFetcher", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useFetcher;
+    return _chunkBAXFHI7N.useFetcher;
   }
 });
 Object.defineProperty(exports, "useFetchers", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useFetchers;
+    return _chunkBAXFHI7N.useFetchers;
   }
 });
 Object.defineProperty(exports, "useFormAction", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useFormAction;
+    return _chunkBAXFHI7N.useFormAction;
   }
 });
 Object.defineProperty(exports, "useHref", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useHref;
+    return _chunkBAXFHI7N.useHref;
   }
 });
 Object.defineProperty(exports, "useInRouterContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useInRouterContext;
+    return _chunkBAXFHI7N.useInRouterContext;
   }
 });
 Object.defineProperty(exports, "useLinkClickHandler", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useLinkClickHandler;
+    return _chunkBAXFHI7N.useLinkClickHandler;
   }
 });
 Object.defineProperty(exports, "useLoaderData", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useLoaderData;
+    return _chunkBAXFHI7N.useLoaderData;
   }
 });
 Object.defineProperty(exports, "useLocation", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useLocation;
+    return _chunkBAXFHI7N.useLocation;
   }
 });
 Object.defineProperty(exports, "useMatch", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useMatch;
+    return _chunkBAXFHI7N.useMatch;
   }
 });
 Object.defineProperty(exports, "useMatches", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useMatches;
+    return _chunkBAXFHI7N.useMatches;
   }
 });
 Object.defineProperty(exports, "useNavigate", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useNavigate;
+    return _chunkBAXFHI7N.useNavigate;
   }
 });
 Object.defineProperty(exports, "useNavigation", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useNavigation;
+    return _chunkBAXFHI7N.useNavigation;
   }
 });
 Object.defineProperty(exports, "useNavigationType", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useNavigationType;
+    return _chunkBAXFHI7N.useNavigationType;
   }
 });
 Object.defineProperty(exports, "useOutlet", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useOutlet;
+    return _chunkBAXFHI7N.useOutlet;
   }
 });
 Object.defineProperty(exports, "useOutletContext", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useOutletContext;
+    return _chunkBAXFHI7N.useOutletContext;
   }
 });
 Object.defineProperty(exports, "useParams", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useParams;
+    return _chunkBAXFHI7N.useParams;
   }
 });
 Object.defineProperty(exports, "useResolvedPath", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useResolvedPath;
+    return _chunkBAXFHI7N.useResolvedPath;
   }
 });
 Object.defineProperty(exports, "useRevalidator", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useRevalidator;
+    return _chunkBAXFHI7N.useRevalidator;
   }
 });
 Object.defineProperty(exports, "useRouteError", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useRouteError;
+    return _chunkBAXFHI7N.useRouteError;
   }
 });
 Object.defineProperty(exports, "useRouteLoaderData", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useRouteLoaderData;
+    return _chunkBAXFHI7N.useRouteLoaderData;
   }
 });
 Object.defineProperty(exports, "useRoutes", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useRoutes;
+    return _chunkBAXFHI7N.useRoutes;
   }
 });
 Object.defineProperty(exports, "useSearchParams", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useSearchParams;
+    return _chunkBAXFHI7N.useSearchParams;
   }
 });
 Object.defineProperty(exports, "useSubmit", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useSubmit;
+    return _chunkBAXFHI7N.useSubmit;
   }
 });
 Object.defineProperty(exports, "useViewTransitionState", {
   enumerable: true,
   get: function () {
-    return _chunkLSOULM7L.useViewTransitionState;
+    return _chunkBAXFHI7N.useViewTransitionState;
   }
 });
-var _chunkLSOULM7L = require("./chunk-LSOULM7L.mjs");
-},{"./chunk-LSOULM7L.mjs":"../node_modules/react-router/dist/development/chunk-LSOULM7L.mjs"}],"Components/SVGButtons.js":[function(require,module,exports) {
+var _chunkBAXFHI7N = require("./chunk-BAXFHI7N.mjs");
+},{"./chunk-BAXFHI7N.mjs":"../node_modules/react-router/dist/development/chunk-BAXFHI7N.mjs"}],"Components/SVGButtons.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37112,123 +37188,101 @@ function BaseScreen(props) {
   var bg_color = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
   });
-  var _useState = (0, _react.useState)("pointer"),
-    _useState2 = _slicedToArray(_useState, 2),
-    cursor = _useState2[0],
-    setCursor = _useState2[1];
   var scrollHeight = (0, _reactRedux.useSelector)(function (state) {
     return state.configParams.scrollHeight;
   });
-  var ref = (0, _react.useRef)(null);
-  var dispatcher = (0, _reactRedux.useDispatch)();
-  var _useState3 = (0, _react.useState)(99),
+  var _useState = (0, _react.useState)(99),
+    _useState2 = _slicedToArray(_useState, 2),
+    scrollWidth = _useState2[0],
+    setScrollWidth = _useState2[1];
+  var _useState3 = (0, _react.useState)(90),
     _useState4 = _slicedToArray(_useState3, 2),
-    scrollWidth = _useState4[0],
-    setScrollWidth = _useState4[1];
-  var _useState5 = (0, _react.useState)(90),
-    _useState6 = _slicedToArray(_useState5, 2),
-    scrollbarHeight = _useState6[0],
-    setScrollbarHeight = _useState6[1];
-  var _useState7 = (0, _react.useState)(document.getElementById("scroll")),
-    _useState8 = _slicedToArray(_useState7, 2),
-    scroll = _useState8[0],
-    setScroll = _useState8[1];
-  var _useState9 = (0, _react.useState)(0),
-    _useState10 = _slicedToArray(_useState9, 2),
-    scrollbarPosY = _useState10[0],
-    _setScrollbarPosY = _useState10[1];
-  var isDragged = false;
+    scrollbarHeight = _useState4[0],
+    setScrollbarHeight = _useState4[1];
+  var dispatcher = (0, _reactRedux.useDispatch)();
   function changeScrollbarSize() {
-    setScrollbarHeight(Math.min(Math.round(scrollHeight / window.innerHeight), window.innerHeight));
-    if (scrollbarHeight == window.innerHeight) setScrollWidth(100);
+    setScrollbarHeight(Math.min(Math.round(Math.pow(visualViewport.height, 2) / scrollHeight), visualViewport.height));
+    if (scrollbarHeight == visualViewport.height) setScrollWidth(100);
   }
   ;
-  function addScroll() {
-    setScroll(document.getElementById("scroll"));
-    switch (scrollHeight) {
-      case null:
-        return;
-      default:
-        if (scroll !== null) {
-          changeScrollbarSize();
-          clearInterval(scrollIntervalId);
-          window.addEventListener("scroll", handleScroll);
-          window.addEventListener('wheel', handleWheel);
-          return;
-        }
-    }
-  }
-  ;
-  var scrollIntervalId;
-  (0, _react.useEffect)(function () {
-    if (scroll === null) scrollIntervalId = setInterval(addScroll, 250);
-  }, [scroll]);
-  function handleMouseDown() {
-    isDragged = true;
-    setCursor("dragging");
-    document.addEventListener("mousemove", function (event) {
-      return handleMouseUp(event, false);
-    });
-    document.addEventListener("mouseup", function (event) {
-      return handleMouseUp(event);
-    });
-  }
-  ;
-  function handleMouseUp(event) {
-    var mouseup = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-    if (isDragged) {
-      var posY = event.clientY < 0 ? 0 : event.clientY > scrollHeight ? scrollHeight : event.clientY;
-      _setScrollbarPosY(posY);
-      var d = Math.round(posY * scrollHeight / window.innerHeight);
-      dispatcher((0, _store.changeParameter)({
-        "name": "scroll",
-        "value": -1 * d
-      }));
-    }
-    if (mouseup) {
-      document.removeEventListener("mousemove", function (event) {
-        return handleMouseUp(event, false);
-      });
-      document.removeEventListener("mouseup", function (event) {
-        return handleMouseUp(event);
-      });
-      isDragged = false;
-    }
-  }
-  ;
-  function handleScroll() {
-    console.log("scroll");
-  }
-  function handleWheel(event) {
-    console.log("wheel");
-    var scrollPosition = scrollbarPosY + event.deltaY;
-    _setScrollbarPosY(scrollPosition);
-    var d = Math.round(scrollPosition * scrollHeight / window.innerHeight);
-    dispatcher((0, _store.changeParameter)({
-      "name": "scroll",
-      "value": -1 * d
-    }));
-  }
-  ;
-  function _clickScroll(event) {
-    var posY = event.nativeEvent.offsetY;
-    console.log(event, event.nativeEvent.offsetY, scrollbarHeight);
-    _setScrollbarPosY(posY);
-  }
   (0, _react.useLayoutEffect)(function () {
-    !props.scroll && scrollWidth !== 100 && setScrollWidth(100);
-    scrollWidth !== 99 && setScrollWidth(99);
-    window.visualViewport.addEventListener("scroll", function (event) {
-      return handleScroll(event);
-    });
-    window.visualViewport.addEventListener("resize", changeScrollbarSize);
-    return function () {
-      return window.visualViewport.removeEventListener("resize", changeScrollbarSize);
-    };
-  }, []);
+    if (scrollHeight !== null) {
+      var scroll = document.getElementById("scroll");
+      dispatcher((0, _store.changeParameter)({
+        name: "scrollHeight",
+        value: scroll.style.height
+      }));
+      changeScrollbarSize();
+    }
+  }, [scrollHeight, props.scrollRef.current]);
   (0, _react.useEffect)(function () {
     changeScrollbarSize();
-  }, [scrollHeight, window.innerHeight, window.innerWidth]);
+  }, [scrollHeight, visualViewport.width, visualViewport.height]);
+
+  // function addScroll() {
+  //   setScroll( document.getElementById( "scroll" ));
+
+  //   switch ( scrollHeight ) {
+  //     case null: return;
+  //     default:
+  //       if ( scroll !== null ) {
+  //         changeScrollbarSize();
+  //         clearInterval( scrollIntervalId );
+  //         window.addEventListener( "scroll", handleScroll );
+  //         window.addEventListener( 'wheel', handleWheel );
+  //         return;
+  //       }
+  //   }
+  // };
+  // let scrollIntervalId;
+  // useEffect(() => {
+  //   if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 );
+  // }, [ scroll ]);
+
+  // function handleMouseDown () {
+  //   isDragged = true;
+  //   setCursor( "dragging" );
+  //   document.addEventListener( "mousemove", ( event ) => handleMouseUp( event, false ) );
+  //   document.addEventListener( "mouseup", ( event ) => handleMouseUp( event ) );
+  // };
+
+  // function handleMouseUp ( event, mouseup=true ) {
+  //   if ( isDragged ) {
+  //     const posY = event.clientY < 0 ? 0 : ( event.clientY > scrollHeight ? scrollHeight : event.clientY );
+
+  //     setClickY( posY );
+  //     const d = Math.round( ( posY * scrollHeight ) / window.innerHeight );
+
+  //     dispatcher( changeParameter( { "name": "scroll", "value": -1 * d } ) );
+  //   }
+  //   if ( mouseup ) {
+  //     document.removeEventListener( "mousemove", ( event ) => handleMouseUp( event, false ) );
+  //     document.removeEventListener( "mouseup", ( event ) => handleMouseUp( event ) );
+  //     isDragged = false;
+  //   }
+  // };  
+
+  // function handleScroll () {
+  //   console.log("scroll");
+  // }
+
+  // function handleWheel ( event ) {
+  //   console.log("wheel");
+  //   const scrollPosition = ClickY + event.deltaY;
+  //   setClickY( scrollPosition )
+
+  //   const d = Math.round( ( scrollPosition * scrollHeight ) / window.innerHeight );
+  //   dispatcher( changeParameter( { "name": "scroll", "value": -1 * d } ) );
+  // };
+
+  // useLayoutEffect(() => {
+  //   !props.scroll && scrollWidth !== 100 && setScrollWidth( 100 );
+  //   scrollWidth !== 99 && setScrollWidth( 99 )
+  //   window.visualViewport.addEventListener( "scroll", ( event ) => handleScroll( event ) );
+  //   window.visualViewport.addEventListener( "resize", changeScrollbarSize );
+  //   return () => window.visualViewport.removeEventListener( "resize", changeScrollbarSize );
+  // }, [])
+
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "flex",
@@ -37250,20 +37304,21 @@ function BaseScreen(props) {
       overflow: "hidden"
     }
   }, props.children)), props.scroll && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(Scrollbar, {
-    clickScroll: function clickScroll(event) {
-      return _clickScroll(event);
-    },
-    setScrollbarPosY: function setScrollbarPosY(state) {
-      return _setScrollbarPosY(state);
-    },
-    scrollbarPosY: scrollbarPosY,
-    scrollbarHeight: scrollbarHeight,
-    cursor: cursor,
-    handleMouseDown: handleMouseDown
+    scrollbarHeight: scrollbarHeight
+    // cursor={ cursor } 
+    // handleMouseDown={ handleMouseDown }
   })));
 }
 ;
 function Scrollbar(props) {
+  var _useState5 = (0, _react.useState)(0),
+    _useState6 = _slicedToArray(_useState5, 2),
+    clickY = _useState6[0],
+    setClickY = _useState6[1];
+  var _useState7 = (0, _react.useState)("pointer"),
+    _useState8 = _slicedToArray(_useState7, 2),
+    cursor = _useState8[0],
+    setCursor = _useState8[1];
   var scrollbarBgLight = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
   });
@@ -37276,24 +37331,32 @@ function Scrollbar(props) {
   var scrollbarBoxBorder = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
-  var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n      ").concat(scrollbarBgDark, " ").concat(Math.floor(props.scrollbarPosY / window.innerHeight * 100), "% )");
+  var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n      ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
+  function handleMouseDown() {
+    setCursor("dragging");
+    console.log("gg");
+  }
+  function handleMouseUp() {
+    setCursor("pointer");
+  }
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       background: "linear-gradient(".concat(scrollbarBgDark, " 10%, 30%, ").concat(scrollbarBgLight, ")"),
+      border: "solid ".concat(scrollbarBorder, " 1px"),
       margin: "0",
-      width: "1%",
-      border: "solid ".concat(scrollbarBorder, " 1px")
+      width: "1%"
     },
     onClick: function onClick(event) {
-      return props.clickScroll(event);
+      return setClickY(event.nativeEvent.offsetY);
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
-    ref: props.ref,
+    // ref={ props.ref }
     style: {
       transition: "background 100ms ease-in-out",
       minHeight: "5px",
+      maxHeight: "".concat(visualViewport.height - 1, "px"),
       position: "relative",
-      top: props.scrollbarPosY,
+      top: clickY,
       right: 0,
       height: "".concat(props.scrollbarHeight, "px"),
       justifyContent: "center",
@@ -37301,13 +37364,12 @@ function Scrollbar(props) {
       background: colorTransitionStyle,
       border: "solid ".concat(scrollbarBoxBorder, " 1px"),
       borderRadius: "10px",
-      cursor: props.cursor,
+      cursor: cursor,
       boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)"
     },
     id: "scrollbar",
-    onMouseDown: function onMouseDown() {
-      return props.handleMouseDown();
-    }
+    onMouseDown: handleMouseDown,
+    onMouseUp: handleMouseUp
   }));
 }
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js","../app/store":"app/store.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
@@ -37656,18 +37718,21 @@ function Scroll(props) {
       case null:
         return;
       default:
+        console.log("scroll added");
         var _ref$current$getBound2 = ref.current.getBoundingClientRect(),
           height = _ref$current$getBound2.height;
         dispatcher((0, _store.changeParameter)({
           "name": "scrollHeight",
           "value": Math.round(height)
         }));
+        props.scrollRef.current = document.getElementById("scroll");
         clearInterval(scrollIntervalId);
         return;
     }
   }
   (0, _react.useLayoutEffect)(function () {
     window.visualViewport.addEventListener("resize", zoomHandle);
+    addScroll();
     return function () {
       window.visualViewport.removeEventListener("resize", zoomHandle);
     };
@@ -37996,14 +38061,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = ScreenMain;
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
 var _Scroll = _interopRequireDefault(require("../Components/Scroll"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 function ScreenMain(props) {
+  var scrollRef = (0, _react.useRef)();
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
-    scroll: true
-  }, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.default, null));
+    scroll: true,
+    scrollRef: scrollRef
+  }, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.default, {
+    scrollRef: scrollRef
+  }));
 }
 ;
 },{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","../Components/Scroll":"Components/Scroll.js"}],"Screens/ScreenDiscussion.js":[function(require,module,exports) {
@@ -39126,5 +39197,174 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
   path: "cards",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Screens/CardScreen":"Screens/CardScreen.js"}]},{},["index.jsx"], null)
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./App":"App.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Screens/CardScreen":"Screens/CardScreen.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var global = arguments[3];
+var OVERLAY_ID = '__parcel__error__overlay__';
+var OldModule = module.bundle.Module;
+function Module(moduleName) {
+  OldModule.call(this, moduleName);
+  this.hot = {
+    data: module.bundle.hotData,
+    _acceptCallbacks: [],
+    _disposeCallbacks: [],
+    accept: function (fn) {
+      this._acceptCallbacks.push(fn || function () {});
+    },
+    dispose: function (fn) {
+      this._disposeCallbacks.push(fn);
+    }
+  };
+  module.bundle.hotData = null;
+}
+module.bundle.Module = Module;
+var checkedAssets, assetsToAccept;
+var parent = module.bundle.parent;
+if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
+  var hostname = "" || location.hostname;
+  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65423" + '/');
+  ws.onmessage = function (event) {
+    checkedAssets = {};
+    assetsToAccept = [];
+    var data = JSON.parse(event.data);
+    if (data.type === 'update') {
+      var handled = false;
+      data.assets.forEach(function (asset) {
+        if (!asset.isNew) {
+          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
+          if (didAccept) {
+            handled = true;
+          }
+        }
+      });
+
+      // Enable HMR for CSS by default.
+      handled = handled || data.assets.every(function (asset) {
+        return asset.type === 'css' && asset.generated.js;
+      });
+      if (handled) {
+        console.clear();
+        data.assets.forEach(function (asset) {
+          hmrApply(global.parcelRequire, asset);
+        });
+        assetsToAccept.forEach(function (v) {
+          hmrAcceptRun(v[0], v[1]);
+        });
+      } else if (location.reload) {
+        // `location` global exists in a web worker context but lacks `.reload()` function.
+        location.reload();
+      }
+    }
+    if (data.type === 'reload') {
+      ws.close();
+      ws.onclose = function () {
+        location.reload();
+      };
+    }
+    if (data.type === 'error-resolved') {
+      console.log('[parcel] ✨ Error resolved');
+      removeErrorOverlay();
+    }
+    if (data.type === 'error') {
+      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
+      removeErrorOverlay();
+      var overlay = createErrorOverlay(data);
+      document.body.appendChild(overlay);
+    }
+  };
+}
+function removeErrorOverlay() {
+  var overlay = document.getElementById(OVERLAY_ID);
+  if (overlay) {
+    overlay.remove();
+  }
+}
+function createErrorOverlay(data) {
+  var overlay = document.createElement('div');
+  overlay.id = OVERLAY_ID;
+
+  // html encode message and stack trace
+  var message = document.createElement('div');
+  var stackTrace = document.createElement('pre');
+  message.innerText = data.error.message;
+  stackTrace.innerText = data.error.stack;
+  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
+  return overlay;
+}
+function getParents(bundle, id) {
+  var modules = bundle.modules;
+  if (!modules) {
+    return [];
+  }
+  var parents = [];
+  var k, d, dep;
+  for (k in modules) {
+    for (d in modules[k][1]) {
+      dep = modules[k][1][d];
+      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
+        parents.push(k);
+      }
+    }
+  }
+  if (bundle.parent) {
+    parents = parents.concat(getParents(bundle.parent, id));
+  }
+  return parents;
+}
+function hmrApply(bundle, asset) {
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+  if (modules[asset.id] || !bundle.parent) {
+    var fn = new Function('require', 'module', 'exports', asset.generated.js);
+    asset.isNew = !modules[asset.id];
+    modules[asset.id] = [fn, asset.deps];
+  } else if (bundle.parent) {
+    hmrApply(bundle.parent, asset);
+  }
+}
+function hmrAcceptCheck(bundle, id) {
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+  if (!modules[id] && bundle.parent) {
+    return hmrAcceptCheck(bundle.parent, id);
+  }
+  if (checkedAssets[id]) {
+    return;
+  }
+  checkedAssets[id] = true;
+  var cached = bundle.cache[id];
+  assetsToAccept.push([bundle, id]);
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    return true;
+  }
+  return getParents(global.parcelRequire, id).some(function (id) {
+    return hmrAcceptCheck(global.parcelRequire, id);
+  });
+}
+function hmrAcceptRun(bundle, id) {
+  var cached = bundle.cache[id];
+  bundle.hotData = {};
+  if (cached) {
+    cached.hot.data = bundle.hotData;
+  }
+  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
+    cached.hot._disposeCallbacks.forEach(function (cb) {
+      cb(bundle.hotData);
+    });
+  }
+  delete bundle.cache[id];
+  bundle(id);
+  cached = bundle.cache[id];
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    cached.hot._acceptCallbacks.forEach(function (cb) {
+      cb();
+    });
+    return true;
+  }
+}
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

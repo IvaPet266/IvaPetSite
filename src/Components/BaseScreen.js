@@ -14,7 +14,7 @@ export default function BaseScreen( props ) {
   const dispatcher = useDispatch();
 
   function changeScrollbarSize () {
-    setScrollbarHeight( Math.min( Math.round( (visualViewport.height ** 2) / scrollHeight ), visualViewport.height ) );
+    setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), visualViewport.height ) );
     if ( scrollbarHeight == visualViewport.height ) setScrollWidth( 100 );
   };
 
@@ -22,8 +22,9 @@ export default function BaseScreen( props ) {
     if ( scrollHeight !== null ) {
       const scroll = document.getElementById( "scroll" );
       dispatcher( changeParameter( { name: "scrollHeight", value: scroll.style.height } ) );
+      changeScrollbarSize()
     }
-  }, [ scrollHeight ])
+  }, [ scrollHeight, props.scrollRef.current ])
 
   useEffect(() => {
     changeScrollbarSize()
@@ -166,6 +167,7 @@ function Scrollbar( props ) {
         style={{ 
           transition:     "background 100ms ease-in-out",
           minHeight:      "5px", 
+          maxHeight:      `${ visualViewport.height - 1 }px`,
           position:       "relative", 
           top:            clickY, 
           right:          0, 
@@ -175,7 +177,7 @@ function Scrollbar( props ) {
           background:     colorTransitionStyle, 
           border:         `solid ${ scrollbarBoxBorder } 1px`,
           borderRadius:   "10px", 
-          cursor:      cursor, 
+          cursor:         cursor, 
           boxShadow:      "inset 0 0 8px rgba(0, 0, 0, 0.2)",
         }} 
         id="scrollbar"
