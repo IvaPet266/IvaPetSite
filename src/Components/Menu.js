@@ -12,21 +12,6 @@ export default function Menu( props ) {
 
   const location = useLocation();
 
-  const text = {
-    "eng": {
-      "mainScreen": "Main",
-      "competitionsScreen": "Competitions",
-      "subscriptionsScreen": "Subscription",
-      "discussionScreen": "Discussion"
-    },
-    "rus": {
-      "mainScreen": "Главная",
-      "competitionsScreen": "Конкурсы",
-      "subscriptionsScreen": "Подписки",
-      "discussionScreen": "Обсуждение"
-    }
-  };
-
   return (
     <nav>
       <div id="menu" style={{

@@ -36949,20 +36949,6 @@ function Menu(props) {
     return state.colorTheme.lines;
   });
   var location = (0, _reactRouter.useLocation)();
-  var text = {
-    "eng": {
-      "mainScreen": "Main",
-      "competitionsScreen": "Competitions",
-      "subscriptionsScreen": "Subscription",
-      "discussionScreen": "Discussion"
-    },
-    "rus": {
-      "mainScreen": "Главная",
-      "competitionsScreen": "Конкурсы",
-      "subscriptionsScreen": "Подписки",
-      "discussionScreen": "Обсуждение"
-    }
-  };
   return /*#__PURE__*/_react.default.createElement("nav", null, /*#__PURE__*/_react.default.createElement("div", {
     id: "menu",
     style: {
