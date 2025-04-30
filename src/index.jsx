@@ -1,25 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import store from './app/store'
-import { Provider } from 'react-redux'
-import ProviderScreen, { useScreen } from "./Components/ProviderScreen";
-import ErrorBoundary from "./Components/ErrorBoundry";
+import React                            from "react";
+import ReactDOM                         from "react-dom/client";
+import store                            from './app/store'
+import { Provider }                     from 'react-redux'  
+import ProviderScreen, { useScreen }    from "./Components/ProviderScreen";
+import ErrorBoundary                    from "./Components/ErrorBoundry";
 import { BrowserRouter, Route, Routes } from "react-router";
+// import App from "./App";
 
-import ScreenContests from "./Screens/ScreenContests";
+import ScreenContests   from "./Screens/ScreenContests";
 import ScreenDiscussion from "./Screens/ScreenDiscussion";
-import ScreenMain from "./Screens/ScreenMain";
-import ScreenProfile from "./Screens/ScreenProfile";
-import ScreenNewPost from "./Screens/ScreenNewPost";
-import ScreenSearch from "./Screens/ScreenSearch";
-import CardScreen from "./Screens/CardScreen";
+import ScreenMain       from "./Screens/ScreenMain";
+import ScreenProfile    from "./Screens/ScreenProfile";
+import ScreenNewPost    from "./Screens/ScreenNewPost";
+import ScreenSearch     from "./Screens/ScreenSearch";
+import CardScreen       from "./Components/CardScreen";
 
 
 ReactDOM.createRoot( document.getElementById( "app" ) ).render( 
     <ErrorBoundary>
         <Provider store={ store }>
-            {/* <ProviderScreen> */}
                 <BrowserRouter> 
                     <Routes>
                         {/* <Route path="/" element={ <App/> }> */}
@@ -36,12 +35,10 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                             <Route path="settings"/>
                             <Route path="support"/>
                         </Route>
-                        <Route path="cards" element={ <CardScreen/> }/>
-                        {/* </Route> */}
+                        <Route path="cards/:cardId" element={ <CardScreen/> }>
+                        </Route>
                     </Routes>
                 </BrowserRouter>
-                {/* <App/> */}
-            {/* </ProviderScreen> */}
         </Provider>
     </ErrorBoundary>
 );

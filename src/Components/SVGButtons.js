@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useScreen } from './ProviderScreen';
-import { useSelector } from 'react-redux';                                                //!
-import { Link } from 'react-router';
+import { useScreen }                          from './ProviderScreen';
+import { useSelector }                        from 'react-redux';  
+import { Link }                               from 'react-router';
 
 export default function SVGButton( props ) {
 
-    const bg_inactive = useSelector( ( state ) => state.colorTheme.fill_inactive );       //!   
-    const bg_active = useSelector( ( state ) => state.colorTheme.fill_active );           //!
-    const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive ); //!           
-    const stroke_active = useSelector( ( state ) => state.colorTheme.stroke_active );     //!       
+    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );       //!   
+    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );         //!
+    const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive );     //!           
+    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );       //!       
 
-    const [ bgColor, setBgColor ] = useState( bg_inactive );
+    const [ bgColor, setBgColor ]         = useState( bg_inactive );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
+    const [ fillColor, setFillColor ]     = useState( bg_inactive );
     
     const border = props.border ? `solid 3px ${ bg_active }` : "none";
     const margin = props.border ? "0 0 5px 5px"  : "8px";
-    const [ fillColor, setFillColor ] = useState( bg_inactive );
 
-    const fill = props.border ? fillColor : bgColor;
+    const fill            = props.border ? fillColor : bgColor;
     const backgroundColor = props.border ? fillColor : "transparent";
 
     useEffect(() => {
@@ -38,14 +38,17 @@ export default function SVGButton( props ) {
             onClick={ () => {
                 if ( !props.menu ) console.log("send message");
             }}
-            style={{
+            style  ={{
                 backgroundColor,
-                margin, width: props.w, height: props.h, 
+                margin,
+                width:      props.w, 
+                height:     props.h, 
                 transition: "all 300ms ease-out",
-                border: "none",
+                border:     "none",
                 alignItems: "center",
-                alignSelf: "center",
-                cursor: "pointer", padding: "0px"
+                alignSelf:  "center",
+                cursor:     "pointer", 
+                padding:    "0px"
             }}>
             <svg 
                 onMouseOver={() => { 
@@ -53,20 +56,29 @@ export default function SVGButton( props ) {
                     setStrokeColor( "white" );
                     setFillColor( bg_active );
                 }}
-                onMouseOut={() => { 
+                onMouseOut ={() => { 
                     if ( !props.isActive ) {
                         setBgColor( bg_inactive ); 
                         setStrokeColor( stroke_inactive );
                         setFillColor( bg_inactive ); 
                     }
                 }}
-                style={{ transition: "all 300ms ease-out", border, fill }}
-                width={ props.w } height={ props.h } viewBox={`0 0 ${ props.w } ${ props.h }`} xmlns="http://www.w3.org/2000/svg">
-                    <path style={{ 
-                        transition: "all 300ms ease-out", 
-                        stroke: strokeColor, fill, pointerEvents: "none", strokeWidth:"4", 
-                        strokeLinecap:"round", strokeLinejoin:"round" }}
-                        d={ props.d }
+                style      ={{ transition: "all 300ms ease-out", border, fill }}
+                width      ={ props.w } 
+                height     ={ props.h } 
+                viewBox    ={`0 0 ${ props.w } ${ props.h }`} 
+                xmlns      ="http://www.w3.org/2000/svg">
+                    <path 
+                        style={{ 
+                            transition:     "all 300ms ease-out", 
+                            stroke:         strokeColor, 
+                            fill, 
+                            pointerEvents:  "none", 
+                            strokeWidth:    "4", 
+                            strokeLinecap:  "round", 
+                            strokeLinejoin: "round" 
+                        }}
+                        d    ={ props.d }
                     />
                     { props.children }
             </svg>
@@ -76,12 +88,12 @@ export default function SVGButton( props ) {
 
 export function SVGButton2Paths ( props ) {
 
-    const bg_inactive = useSelector( ( state ) => state.colorTheme.fill_inactive );       //! 
-    const bg_active = useSelector( ( state ) => state.colorTheme.fill_active );           //! 
+    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );       //! 
+    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );           //! 
     const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive ); //!
-    const stroke_active = useSelector( ( state ) => state.colorTheme.stroke_active );     //! 
+    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );     //! 
 
-    const [ bgColor, setBgColor ] = useState( bg_inactive );
+    const [ bgColor, setBgColor ]         = useState( bg_inactive );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
 
     useEffect(() => {
@@ -106,28 +118,40 @@ export function SVGButton2Paths ( props ) {
                 alignSelf: "center",
                 cursor: "pointer"
             }}>
-            <svg onMouseOver={() => { 
+            <svg 
+                onMouseOver={() => { 
                     setBgColor( stroke_inactive ); 
                     setStrokeColor( "white" ) 
-                }} onMouseOut={() => { 
+                }} 
+                onMouseOut ={() => { 
                     if ( !props.isActive ) {
                         setBgColor( bg_inactive ); 
                         setStrokeColor( stroke_inactive ) 
                     }
-                }} style={{ transition: "all 300ms ease-out" }} 
-                width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path style={{
-                        transition: "all 300ms ease-out", 
-                        fill: bgColor, pointerEvents: "none"
+                }} 
+                style      ={{ transition: "all 300ms ease-out" }} 
+                width      ="70" 
+                height     ="70" 
+                viewBox    ="0 0 70 70" 
+                fill       ="none"
+                xmlns      ="http://www.w3.org/2000/svg">
+                    <path 
+                        style={{
+                            transition:    "all 300ms ease-out", 
+                            fill:          bgColor, 
+                            pointerEvents: "none"
                         }}
-                        d={ props.d1 }/>
-                    <path style={{ 
-                        transition: "all 300ms ease-out", 
-                        stroke: strokeColor, 
-                        pointerEvents: "none", strokeWidth: "4", 
-                        strokeLinecap: "round", strokeLinejoin: "round" 
+                        d    ={ props.d1 }/>
+                    <path 
+                        style={{ 
+                            transition:     "all 300ms ease-out", 
+                            stroke:         strokeColor, 
+                            pointerEvents:  "none",
+                            strokeWidth:    "4", 
+                            strokeLinecap:  "round", 
+                            strokeLinejoin: "round" 
                         }}
-                        d={ props.d2 }/>
+                        d    ={ props.d2 }/>
             </svg>
         </button>
     )

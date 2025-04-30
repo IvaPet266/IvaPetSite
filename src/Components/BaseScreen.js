@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Menu from './Menu'
-import { changeParameter } from '../app/store';
+import { useDispatch, useSelector }                            from 'react-redux';
+import { changeParameter }                                     from '../app/store';
+import Menu                                                    from './Menu'
 
 
 export default function BaseScreen( props ) {

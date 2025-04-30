@@ -1,47 +1,44 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';   //!
-import Container from './Card';
-import cat from  '../imgs/cards/cat.jpg';
-import cat1 from '../imgs/cards/cat1.jpg';
-import cat2 from '../imgs/cards/cat2.jpg';
-import dog from '../imgs/cards/dog.jpg';
-import dog1 from '../imgs/cards/dog1.jpg';
-import { changeColorTheme, changeParameter, changeFilter } from '../app/store';
-import { NavLink, useLocation, useParams } from 'react-router';
-import CardScreen from '../Screens/CardScreen';
+import { useDispatch, useSelector }                            from 'react-redux';   //!
+import Container                                               from './Card';
+import { changeColorTheme, changeParameter, changeFilter }     from '../app/store';
+import { NavLink, useLocation, useParams }                     from 'react-router';
+import CardScreen                                              from './CardScreen';
 
 
 const filters = {
-    likes : null,
-    reposts : null,
-    saves : null,
-    author : null,
+    likes:    null,
+    reposts:  null,
+    saves:    null,
+    author:   null,
     category: null,
-    hashtags : [],
+    hashtags: [],
 }
 
 export default function Scroll( props ) {
-    const [ cardWidth, setCardWidth ] = useState( "200px" );
-    const [ padding, setPadding ] = useState( null );
-    const [ CARDS, setCARDS ] = useState( null );
-    const ref = useRef( null );
+    const [ cardWidth, setCardWidth ]     = useState( "200px" );
+    const [ padding, setPadding ]         = useState( null );
+    const [ CARDS, setCARDS ]             = useState( null );
     const [ defaultText, setDefaultText ] = useState( "Wait a second!" );
+    const [ scroll, setScroll ]           = useState( document.getElementById( "scroll" ));
 
-    const textColor = useSelector( ( state ) => state.colorTheme.fill_inactive );
-    const scrollPosY = useSelector( ( state ) => state.configParams.scroll );
+    const ref = useRef( null );
     const dispatcher = useDispatch();
-
+    let params = useParams();
     const location = useLocation();
 
-    const likesFilter = useSelector( ( state ) => state.filters.likes );
-    const repostsFilter = useSelector( ( state ) => state.filters.reposts );
-    const savesFilter = useSelector( ( state ) => state.filters.saves );
-    const authorFilter = useSelector( ( state ) => state.filters.author );
+    const textColor      = useSelector( ( state ) => state.colorTheme.fill_inactive );
+    const scrollPosY     = useSelector( ( state ) => state.configParams.scroll );
+
+    const likesFilter    = useSelector( ( state ) => state.filters.likes );
+    const repostsFilter  = useSelector( ( state ) => state.filters.reposts );
+    const savesFilter    = useSelector( ( state ) => state.filters.saves );
+    const authorFilter   = useSelector( ( state ) => state.filters.author );
     const categoryFilter = useSelector( ( state ) => state.filters.category );
     const hashtagsFilter = useSelector( ( state ) => state.filters.hashtags );
 
-    const [ scroll, setScroll ] = useState( document.getElementById( "scroll" ));
-  
+
+
     let scrollIntervalId
     useEffect(() => {
         if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 )
@@ -105,35 +102,44 @@ export default function Scroll( props ) {
                 <>
                     <Filters/>
                     <div
-                        ref={ ref }
+                        ref  ={ ref }
                         style={{
-                            padding: `0px ${ padding }px`, display: "flex",
-                            flexWrap: "wrap", position: "relative",
-                            justifyContent: "center", top: scrollPosY,
-                        }} id="scroll">
+                            padding:        `0px ${ padding }px`, 
+                            display:        "flex",
+                            flexWrap:       "wrap", 
+                            position:       "relative",
+                            justifyContent: "center", 
+                            top:            scrollPosY,
+                        }} 
+                        id   ="scroll">
                         
                         { CARDS.map( ( value, index ) => {
                             const author = checkFilters( authorFilter, value[ "author" ] );
                             const category = checkFilters( categoryFilter, value[ "category" ] );
-                            // let params = useParams();
-                            // params.id = index;
+                            params.cardId = index;
                             if ( value[ "likes_amount" ] >= likesFilter && author && category )
                                 return (
-                                    <NavLink to={`cards/${ index }`} key={ index }> {/* //! */}
+                                    <NavLink 
+                                        to ={ `cards/${ params.cardId }` } 
+                                        key={ index }> {/* //! */}
                                         { ( isActive ) => {
                                             if ( isActive ) return (
                                             <CardScreen>
                                                 <Container 
-                                                    key={ index } img={ value[ "image" ] } 
-                                                    title={ value[ "title" ] } author={ value[ "author" ] }
-                                                    category={ value[ "category" ] }
+                                                    key         ={ index } 
+                                                    img         ={ value[ "image" ] } 
+                                                    title       ={ value[ "title" ] } 
+                                                    author      ={ value[ "author" ] }
+                                                    category    ={ value[ "category" ] }
                                                     text_content={ value[ "text_content" ] }/> 
                                             </CardScreen>)
                                         }}
                                         <Container 
-                                            key={ index } img={ value[ "image" ] } 
-                                            title={ value[ "title" ] } author={ value[ "author" ] }
-                                            category={ value[ "category" ] }
+                                            key         ={ index } 
+                                            img         ={ value[ "image" ] } 
+                                            title       ={ value[ "title" ] } 
+                                            author      ={ value[ "author" ] }
+                                            category    ={ value[ "category" ] }
                                             text_content={ value[ "text_content" ] }/> 
                                     </NavLink>
                                 )
@@ -155,80 +161,110 @@ function checkFilters( a, a1 ) {
 }
 
 export function Filters() {
-    const filtersBg = useSelector( ( state ) => state.colorTheme.fill_inactive ); 
-    const menuBg = useSelector( ( state ) => state.colorTheme.fill_active );
-    const lines = useSelector( ( state ) => state.colorTheme.lines ); 
+    const filtersBg    = useSelector( ( state ) => state.colorTheme.fill_inactive ); 
+    const menuBg       = useSelector( ( state ) => state.colorTheme.fill_active );
+    const lines        = useSelector( ( state ) => state.colorTheme.lines ); 
     const storeFilters = useSelector( ( state ) => state.configParams.filters ); 
+
     const dispatch = useDispatch();
 
-    const [ filtersBtnText, setFiltersBtnText ] = useState( '>>' );
-    const [ filtersBtnColor, setFiltersBtnColor ] = useState( filtersBg );
-    const [ filtersBorder, setFiltersBorder ] = useState( "none" );
+    const [ filtersBtnText, setFiltersBtnText ]           = useState( '>>' );
+    const [ filtersBtnColor, setFiltersBtnColor ]         = useState( filtersBg );
+    const [ filtersBorder, setFiltersBorder ]             = useState( "none" );
     const [ filtersBtnTextColor, setFiltersBtnTextColor ] = useState( menuBg );
 
-    const [ resetBgColor, setResetBgColor ] = useState( menuBg );
-    const [ resetColor, setResetColor ] = useState( filtersBg );
-    const [ resetBorder, setResetBorder ] = useState( "none" );
+    const [ resetBgColor, setResetBgColor ]               = useState( menuBg );
+    const [ resetColor, setResetColor ]                   = useState( filtersBg );
+    const [ resetBorder, setResetBorder ]                 = useState( "none" );
 
-    const [ confirmColor, setConfirmColor ] = useState( filtersBg );
-    const [ confirmBgColor, setConfirmBgColor ] = useState( menuBg );
-    const [ confirmBorder, setConfirmBorder ] = useState( "none" );
+    const [ confirmColor, setConfirmColor ]               = useState( filtersBg );
+    const [ confirmBgColor, setConfirmBgColor ]           = useState( menuBg );
+    const [ confirmBorder, setConfirmBorder ]             = useState( "none" );
     
     switch ( storeFilters ) {
         case true: 
             return (
-                <div style={{
-                    height: "60px", width: "100%", padding: "5px", background: filtersBg, display: "flex", flexDirection: "row", 
-                    justifyContent: "space-between", border: `solid 1px ${ lines }` 
-                }}>
-                    <FilterDiv name="Likes" type="number"/>
-                    <FilterDiv name="Reposts" type="number"/>
-                    <FilterDiv name="Saves" type="number"/>
-                    <FilterDiv name="Author" type="text"/>
+                <div 
+                    style={{
+                        height:         "60px", 
+                        width:          "100%", 
+                        padding:        "5px",
+                        background:     filtersBg, 
+                        display:        "flex", 
+                        flexDirection:  "row", 
+                        justifyContent: "space-between", 
+                        border:         `solid 1px ${ lines }` 
+                    }}>
+                    <FilterDiv name="Likes"    type="number"/>
+                    <FilterDiv name="Reposts"  type="number"/>
+                    <FilterDiv name="Saves"    type="number"/>
+                    <FilterDiv name="Author"   type="text"/>
                     <FilterDiv name="Hashtags" type="text"/>
                     <FilterDiv name="Category" type=""/>
-                    <input style={{ 
-                        transition: "all 300ms ease-out", backgroundColor: resetBgColor, 
-                        color: resetColor, border: resetBorder, cursor: "pointer" 
+                    <input 
+                        style       ={{ 
+                            transition:      "all 300ms ease-out", 
+                            backgroundColor: resetBgColor, 
+                            color:           resetColor, 
+                            border:          resetBorder, 
+                            cursor:          "pointer" 
                         }} 
-                        type="reset" onClick={() => {
-                            filters.likes = null;
-                            filters.reposts = null;
-                            filters.saves = null;
-                            filters.author = null;
+                        type        ="reset" 
+                        onClick     ={() => { 
+                            filters.likes    = null;
+                            filters.reposts  = null;
+                            filters.saves    = null;
+                            filters.author   = null;
                             filters.category = null;
                             filters.hashtags = [];
                             for ( const filter of [ "likes", "repostsFilter", "saves", "author", "category", "hashtags" ] ) {
                                 dispatch( changeFilter( { name: filter, value: null } ))
                             }
-                        }} onMouseEnter={() => {
+                        }} 
+                        onMouseEnter={() => {
                             setResetBgColor( filtersBg );
                             setResetColor( menuBg );
                             setResetBorder( `solid 1px ${ menuBg }`);
-                        }} onMouseLeave={() => {
+                        }} 
+                        onMouseLeave={() => {
                             setResetBgColor( menuBg );
                             setResetColor( filtersBg );
                             setResetBorder( "none" );
-                        }} value="Reset"/>
-                    <button style={{ 
-                            transition: "all 300ms ease-out", backgroundColor: confirmBgColor, 
-                            color: confirmColor, border: confirmBorder, cursor: "pointer" 
-                        }} onMouseEnter={() => {
+                        }} 
+                        value       ="Reset"/>
+                    <button 
+                        style       ={{ 
+                            transition:      "all 300ms ease-out", 
+                            backgroundColor: confirmBgColor, 
+                            color:           confirmColor, 
+                            border:          confirmBorder, 
+                            cursor:          "pointer" 
+                        }} 
+                        onMouseEnter={() => {
                             setConfirmBgColor( filtersBg );
                             setConfirmColor( menuBg );
                             setConfirmBorder( `solid 1px ${ menuBg }`);
-                        }} onMouseLeave={() => {
+                        }} 
+                        onMouseLeave={() => {
                             setConfirmBgColor( menuBg );
                             setConfirmColor( filtersBg );
                             setConfirmBorder( "none" );
-                        }} onClick={() => {
+                        }} 
+                        onClick     ={() => {
                             for ( const filter of [ "likes", "repostsFilter", "saves", "author", "category", "hashtags" ] ) {
                                 dispatch( changeFilter( { name: filter, value: filters[ filter ] } ))
                             }
-                        }}>Confirm</button>
-                    <button style={{ 
-                        transition: "all 300ms ease-out", background: filtersBtnColor, 
-                        border: filtersBorder, color: filtersBtnTextColor, cursor: "pointer" }} 
+                        }}>
+                            Confirm
+                    </button>
+                    <button 
+                        style={{ 
+                            transition: "all 300ms ease-out", 
+                            background: filtersBtnColor, 
+                            border:     filtersBorder, 
+                            color:      filtersBtnTextColor, 
+                            cursor:     "pointer" 
+                        }} 
                         onMouseEnter={() => {
                             setFiltersBtnColor( filtersBg );
                             setFiltersBorder( `solid 1px ${ menuBg }` );
@@ -239,18 +275,25 @@ export function Filters() {
                             setFiltersBorder( "none" );
                             setFiltersBtnTextColor( filtersBg );
                         }}
-                        onClick={() => {
+                        onClick     ={() => {
                             dispatch( changeParameter( { "name": "filters", "value": !storeFilters }) );
                             setFiltersBtnText( ">>" )
-                            }}>{ filtersBtnText }
+                        }}>
+                            { filtersBtnText }
                     </button> 
                 </div>
             )
         default: {
             return (
-                <button style={{ 
-                    height: "60px", transition: "all 300ms ease-out", background: filtersBtnColor,
-                    border: filtersBorder, color: filtersBtnTextColor, cursor: "pointer" }} 
+                <button 
+                    style={{ 
+                        height:     "60px", 
+                        transition: "all 300ms ease-out", 
+                        background: filtersBtnColor,
+                        border:     filtersBorder, 
+                        color:      filtersBtnTextColor, 
+                        cursor:     "pointer" 
+                    }} 
                     onMouseEnter={() => {
                         setFiltersBtnColor( menuBg );
                         setFiltersBorder( `solid 1px ${ filtersBg }` );
@@ -261,7 +304,7 @@ export function Filters() {
                         setFiltersBorder( "none" );
                         setFiltersBtnTextColor( menuBg );
                     }}
-                    onClick={() => {
+                    onClick     ={() => {
                         dispatch( changeParameter( { "name": "filters", "value": !storeFilters }) );
                         setFiltersBtnText( "<<" )
                         }}>{ filtersBtnText }
@@ -274,13 +317,18 @@ export function Filters() {
 export function FilterDiv( props ) {
     const filter = useSelector( ( state ) => state.filters[ props.name.toLowerCase() ])
     return (
-        <div id={`${ props.name }Filter`} 
+        <div 
+            id   ={ `${ props.name }Filter` } 
             style={{
-                background: "transparent", display: "flex", 
-                flexDirection: "row", alignItems: "center" }}>
+                background:    "transparent", 
+                display:       "flex", 
+                flexDirection: "row", 
+                alignItems:    "center" 
+            }}>
             <h5>{ props.name }</h5>
-            <input style={{ height: "60%", width: "50px", margin: "5px" }} 
-                type={ props.type } value={ filter }
+            <input 
+                style   ={{ height: "60%", width: "50px", margin: "5px" }} 
+                type    ={ props.type } value={ filter }
                 onChange={( state ) => {
                     filters[ props.name.toLowerCase() ] = state.target.value ;
                 }}/>
