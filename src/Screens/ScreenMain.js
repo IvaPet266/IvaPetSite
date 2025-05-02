@@ -3,11 +3,11 @@ import BaseScreen        from '../Components/BaseScreen';
 import Scroll            from '../Components/Scroll';
 
 export default function ScreenMain( props ) {
-  const scrollRef = useRef();
+  const scroll = null;
   return (
-    <BaseScreen scroll={ true } scrollRef={ scrollRef }>
+    <BaseScreen scroll={ true } scrollDiv={ scroll }>
       { props.children }
-      <Scroll scrollRef={ scrollRef }/>
+      <Scroll scroll={ scroll }/>
     </BaseScreen>
   )
 };

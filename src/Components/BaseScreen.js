@@ -14,6 +14,7 @@ export default function BaseScreen( props ) {
   const dispatcher = useDispatch();
 
   function changeScrollbarSize () {
+    console.log(`visualViewport.height -> ${visualViewport.height} | scrollHeight -> ${scrollHeight} |  ( visualViewport.height ** 2 ) / scrollHeight = ${ ( visualViewport.height ** 2 ) / scrollHeight } `);
     setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), visualViewport.height ) );
     if ( scrollbarHeight == visualViewport.height ) setScrollWidth( 100 );
   };
@@ -23,12 +24,12 @@ export default function BaseScreen( props ) {
       const scroll = document.getElementById( "scroll" );
       dispatcher( changeParameter( { name: "scrollHeight", value: scroll.style.height } ) );
       changeScrollbarSize()
-    }
-  }, [ scrollHeight, props.scrollRef.current ])
+    } else setScrollWidth( 100 )
+  }, [ scrollHeight, props.scrollDiv ])
 
   useEffect(() => {
     changeScrollbarSize()
-  }, [ scrollHeight, visualViewport.width, visualViewport.height ])
+  }, [ scrollHeight, visualViewport.width, visualViewport.height, props.scrollDiv ])
 
   // function addScroll() {
   //   setScroll( document.getElementById( "scroll" ));

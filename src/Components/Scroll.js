@@ -20,7 +20,7 @@ export default function Scroll( props ) {
     const [ padding, setPadding ]         = useState( null );
     const [ CARDS, setCARDS ]             = useState( null );
     const [ defaultText, setDefaultText ] = useState( "Wait a second!" );
-    const [ scroll, setScroll ]           = useState( document.getElementById( "scroll" ));
+    const [ scroll, setScroll ]           = useState( null );
 
     const ref = useRef( null );
     const dispatcher = useDispatch();
@@ -42,7 +42,7 @@ export default function Scroll( props ) {
     let scrollIntervalId
     useEffect(() => {
         if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 )
-    }, [ scroll ])
+    }, [])
 
     const zoomHandle = () => {
         const { width, height } = ref.current.getBoundingClientRect();
@@ -64,16 +64,17 @@ export default function Scroll( props ) {
             default:
                 console.log("scroll added");
                 const { height } = ref.current.getBoundingClientRect();
+                console.log(height);
                 dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) );
-                props.scrollRef.current = document.getElementById( "scroll" );
+                props.scroll = document.getElementById( "scroll" );
                 clearInterval( scrollIntervalId );
                 return;
         }
-      }
+    }
 
     useLayoutEffect(() => {  
         window.visualViewport.addEventListener( "resize", zoomHandle );
-        addScroll()
+        addScroll();
         return () => {
             window.visualViewport.removeEventListener( "resize", zoomHandle );
         }
@@ -114,9 +115,9 @@ export default function Scroll( props ) {
                         id   ="scroll">
                         
                         { CARDS.map( ( value, index ) => {
-                            const author = checkFilters( authorFilter, value[ "author" ] );
+                            const author   = checkFilters( authorFilter, value[ "author" ] );
                             const category = checkFilters( categoryFilter, value[ "category" ] );
-                            params.cardId = index;
+                            params.cardId  = index;
                             if ( value[ "likes_amount" ] >= likesFilter && author && category )
                                 return (
                                     <NavLink 
@@ -124,15 +125,16 @@ export default function Scroll( props ) {
                                         key={ index }> {/* //! */}
                                         { ( isActive ) => {
                                             if ( isActive ) return (
-                                            <CardScreen>
-                                                <Container 
-                                                    key         ={ index } 
-                                                    img         ={ value[ "image" ] } 
-                                                    title       ={ value[ "title" ] } 
-                                                    author      ={ value[ "author" ] }
-                                                    category    ={ value[ "category" ] }
-                                                    text_content={ value[ "text_content" ] }/> 
-                                            </CardScreen>)
+                                                <CardScreen>
+                                                    <Container 
+                                                        key         ={ index } 
+                                                        img         ={ value[ "image" ] } 
+                                                        title       ={ value[ "title" ] } 
+                                                        author      ={ value[ "author" ] }
+                                                        category    ={ value[ "category" ] }
+                                                        text_content={ value[ "text_content" ] }/> 
+                                                </CardScreen>
+                                            )
                                         }}
                                         <Container 
                                             key         ={ index } 
@@ -286,7 +288,7 @@ export function Filters() {
         default: {
             return (
                 <button 
-                    style={{ 
+                    style       ={{ 
                         height:     "60px", 
                         transition: "all 300ms ease-out", 
                         background: filtersBtnColor,
@@ -307,7 +309,8 @@ export function Filters() {
                     onClick     ={() => {
                         dispatch( changeParameter( { "name": "filters", "value": !storeFilters }) );
                         setFiltersBtnText( "<<" )
-                        }}>{ filtersBtnText }
+                    }}>
+                        { filtersBtnText }
                 </button> 
             )
         }
