@@ -5,17 +5,23 @@ import Menu                                                    from './Menu'
 
 
 export default function BaseScreen( props ) {
+
+  const baseRef = useRef( null );
+
   const bg_color     = useSelector( ( state ) => state.colorTheme.fill_active );
   const scrollHeight = useSelector( ( state ) => state.configParams.scrollHeight );
 
   const [ scrollWidth, setScrollWidth ]         = useState( 99 );
   const [ scrollbarHeight, setScrollbarHeight ] = useState( 90 );
+  const [ scrollPosition, setScrollPosition ]   = useState( 0 );
+  const [ scrollEvent, setScrollEvent ]         = useState( null );
 
   const dispatcher = useDispatch();
 
   function changeScrollbarSize () {
     console.log(`visualViewport.height -> ${visualViewport.height} | scrollHeight -> ${scrollHeight} |  ( visualViewport.height ** 2 ) / scrollHeight = ${ ( visualViewport.height ** 2 ) / scrollHeight } `);
-    setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), visualViewport.height ) );
+    // setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), visualViewport.height ) );
+    setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), 10 ) );
     if ( scrollbarHeight == visualViewport.height ) setScrollWidth( 100 );
   };
 
@@ -30,6 +36,13 @@ export default function BaseScreen( props ) {
   useEffect(() => {
     changeScrollbarSize()
   }, [ scrollHeight, visualViewport.width, visualViewport.height, props.scrollDiv ])
+
+  function onWheel ( event ) {
+    if ( baseRef.current ) {
+      console.log(event)
+      setScrollEvent( event.nativeEvent )
+    }
+  }
 
   // function addScroll() {
   //   setScroll( document.getElementById( "scroll" ));
@@ -95,16 +108,17 @@ export default function BaseScreen( props ) {
   //   return () => window.visualViewport.removeEventListener( "resize", changeScrollbarSize );
   // }, [])
 
-
-
   return (
-    <div style={{ 
+    <div 
+      style  ={{ 
         display:         "flex", 
         flexDirection:   "row", 
         height:          "100vh", 
         width:           "100vw", 
         backgroundColor: bg_color 
-      }}>
+      }}
+      onWheel={ onWheel }
+      ref    ={ baseRef }>
       <div style={{ 
           display:       "flex", 
           flexDirection: "column", 
@@ -114,7 +128,8 @@ export default function BaseScreen( props ) {
         <Menu/>
         <div style={{ 
             backgroundColor: bg_color, 
-            overflow:        "hidden"
+            overflow:        "hidden",
+            top:             `${ scrollPosition }%`
           }}>
           { props.children }
         </div>
@@ -122,9 +137,9 @@ export default function BaseScreen( props ) {
       { props.scroll && (
         <>
           <Scrollbar 
-            scrollbarHeight={ scrollbarHeight }
-            // cursor={ cursor } 
-            // handleMouseDown={ handleMouseDown }
+            scrollEvent      ={ scrollEvent }
+            scrollbarHeight  ={ scrollbarHeight }
+            setScrollPosition={ ( position ) => setScrollPosition( position ) }
           />
         </>
       )}
@@ -135,6 +150,9 @@ export default function BaseScreen( props ) {
 
 function Scrollbar( props ) {
 
+  const sliderRef = useRef( null );
+  const blockRef  = useRef( null );
+  
   const [ clickY, setClickY ] = useState( 0 );
   const [ cursor, setCursor ] = useState( "pointer" );
 
@@ -145,27 +163,35 @@ function Scrollbar( props ) {
 
   const colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
       ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
-      
-  function handleMouseDown() {
-    setCursor( "dragging" );
-    console.log("gg");
-  }
 
-  function handleMouseUp() {
-    setCursor( "pointer" )
-  }
+  const PADDING = 2;
 
+  useEffect( () => {
+    if ( props.scrollEvent && blockRef.current && sliderRef.current ){
+      const maxScroll = blockRef.current.clientHeight - sliderRef.current.clientHeight - PADDING;
+
+      setClickY( ( prev ) => Math.min( Math.max( PADDING, prev + props.scrollEvent.deltaY * 0.1 ), maxScroll - PADDING));
+      const scrollDiv = document.getElementById( "scrollDiv" );
+      console.log(scrollDiv ,scrollDiv.style.height)
+      props.setScrollPosition( ( clickY / scrollDiv.style.height ) * 100 );
+    }
+  }, [ props.scrollEvent ])
+  
   return (
-    <div style={{ 
-      background: `linear-gradient(${ scrollbarBgDark } 10%, 30%, ${ scrollbarBgLight })`, 
-      border:     `solid ${ scrollbarBorder } 1px`, 
-      margin:     "0", 
-      width:      "1%", 
+    <div 
+      id      ="scrollDiv"
+      style   ={{ 
+        background: `linear-gradient(${ scrollbarBgDark } 10%, 30%, ${ scrollbarBgLight })`, 
+        border:     `solid ${ scrollbarBorder } 1px`, 
+        margin:     "0", 
+        width:      "1%", 
       }} 
-      onClick={( event ) => setClickY( event.nativeEvent.offsetY  )}>
+      onClick ={( event ) => setClickY( event.nativeEvent.offsetY  )}
+      ref     ={ blockRef }
+      >
       <div 
-      // ref={ props.ref }
-        style={{ 
+        ref        ={ sliderRef }
+        style      ={{ 
           transition:     "background 100ms ease-in-out",
           minHeight:      "5px", 
           maxHeight:      `${ visualViewport.height - 1 }px`,
@@ -180,10 +206,7 @@ function Scrollbar( props ) {
           borderRadius:   "10px", 
           cursor:         cursor, 
           boxShadow:      "inset 0 0 8px rgba(0, 0, 0, 0.2)",
-        }} 
-        id="scrollbar"
-        onMouseDown={ handleMouseDown }
-        onMouseUp  ={ handleMouseUp }
+        }}
       />
     </div>
   )

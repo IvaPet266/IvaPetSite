@@ -37243,6 +37243,7 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function BaseScreen(props) {
+  var baseRef = (0, _react.useRef)(null);
   var bg_color = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
   });
@@ -37257,10 +37258,19 @@ function BaseScreen(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     scrollbarHeight = _useState4[0],
     setScrollbarHeight = _useState4[1];
+  var _useState5 = (0, _react.useState)(0),
+    _useState6 = _slicedToArray(_useState5, 2),
+    scrollPosition = _useState6[0],
+    _setScrollPosition = _useState6[1];
+  var _useState7 = (0, _react.useState)(null),
+    _useState8 = _slicedToArray(_useState7, 2),
+    scrollEvent = _useState8[0],
+    setScrollEvent = _useState8[1];
   var dispatcher = (0, _reactRedux.useDispatch)();
   function changeScrollbarSize() {
     console.log("visualViewport.height -> ".concat(visualViewport.height, " | scrollHeight -> ").concat(scrollHeight, " |  ( visualViewport.height ** 2 ) / scrollHeight = ").concat(Math.pow(visualViewport.height, 2) / scrollHeight, " "));
-    setScrollbarHeight(Math.min(Math.round(Math.pow(visualViewport.height, 2) / scrollHeight), visualViewport.height));
+    // setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), visualViewport.height ) );
+    setScrollbarHeight(Math.min(Math.round(Math.pow(visualViewport.height, 2) / scrollHeight), 10));
     if (scrollbarHeight == visualViewport.height) setScrollWidth(100);
   }
   ;
@@ -37277,6 +37287,12 @@ function BaseScreen(props) {
   (0, _react.useEffect)(function () {
     changeScrollbarSize();
   }, [scrollHeight, visualViewport.width, visualViewport.height, props.scrollDiv]);
+  function onWheel(event) {
+    if (baseRef.current) {
+      console.log(event);
+      setScrollEvent(event.nativeEvent);
+    }
+  }
 
   // function addScroll() {
   //   setScroll( document.getElementById( "scroll" ));
@@ -37349,7 +37365,9 @@ function BaseScreen(props) {
       height: "100vh",
       width: "100vw",
       backgroundColor: bg_color
-    }
+    },
+    onWheel: onWheel,
+    ref: baseRef
   }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "flex",
@@ -37360,24 +37378,29 @@ function BaseScreen(props) {
   }, /*#__PURE__*/_react.default.createElement(_Menu.default, null), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       backgroundColor: bg_color,
-      overflow: "hidden"
+      overflow: "hidden",
+      top: "".concat(scrollPosition, "%")
     }
   }, props.children)), props.scroll && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(Scrollbar, {
-    scrollbarHeight: scrollbarHeight
-    // cursor={ cursor } 
-    // handleMouseDown={ handleMouseDown }
+    scrollEvent: scrollEvent,
+    scrollbarHeight: scrollbarHeight,
+    setScrollPosition: function setScrollPosition(position) {
+      return _setScrollPosition(position);
+    }
   })));
 }
 ;
 function Scrollbar(props) {
-  var _useState5 = (0, _react.useState)(0),
-    _useState6 = _slicedToArray(_useState5, 2),
-    clickY = _useState6[0],
-    setClickY = _useState6[1];
-  var _useState7 = (0, _react.useState)("pointer"),
-    _useState8 = _slicedToArray(_useState7, 2),
-    cursor = _useState8[0],
-    setCursor = _useState8[1];
+  var sliderRef = (0, _react.useRef)(null);
+  var blockRef = (0, _react.useRef)(null);
+  var _useState9 = (0, _react.useState)(0),
+    _useState10 = _slicedToArray(_useState9, 2),
+    clickY = _useState10[0],
+    setClickY = _useState10[1];
+  var _useState11 = (0, _react.useState)("pointer"),
+    _useState12 = _slicedToArray(_useState11, 2),
+    cursor = _useState12[0],
+    setCursor = _useState12[1];
   var scrollbarBgLight = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
   });
@@ -37391,14 +37414,20 @@ function Scrollbar(props) {
     return state.colorTheme.stroke_active;
   });
   var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n      ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
-  function handleMouseDown() {
-    setCursor("dragging");
-    console.log("gg");
-  }
-  function handleMouseUp() {
-    setCursor("pointer");
-  }
+  var PADDING = 2;
+  (0, _react.useEffect)(function () {
+    if (props.scrollEvent && blockRef.current && sliderRef.current) {
+      var maxScroll = blockRef.current.clientHeight - sliderRef.current.clientHeight - PADDING;
+      setClickY(function (prev) {
+        return Math.min(Math.max(PADDING, prev + props.scrollEvent.deltaY * 0.1), maxScroll - PADDING);
+      });
+      var scrollDiv = document.getElementById("scrollDiv");
+      console.log(scrollDiv, scrollDiv.style.height);
+      props.setScrollPosition(clickY / scrollDiv.style.height * 100);
+    }
+  }, [props.scrollEvent]);
   return /*#__PURE__*/_react.default.createElement("div", {
+    id: "scrollDiv",
     style: {
       background: "linear-gradient(".concat(scrollbarBgDark, " 10%, 30%, ").concat(scrollbarBgLight, ")"),
       border: "solid ".concat(scrollbarBorder, " 1px"),
@@ -37407,9 +37436,10 @@ function Scrollbar(props) {
     },
     onClick: function onClick(event) {
       return setClickY(event.nativeEvent.offsetY);
-    }
+    },
+    ref: blockRef
   }, /*#__PURE__*/_react.default.createElement("div", {
-    // ref={ props.ref }
+    ref: sliderRef,
     style: {
       transition: "background 100ms ease-in-out",
       minHeight: "5px",
@@ -37425,10 +37455,7 @@ function Scrollbar(props) {
       borderRadius: "10px",
       cursor: cursor,
       boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)"
-    },
-    id: "scrollbar",
-    onMouseDown: handleMouseDown,
-    onMouseUp: handleMouseUp
+    }
   }));
 }
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js","./Menu":"Components/Menu.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
