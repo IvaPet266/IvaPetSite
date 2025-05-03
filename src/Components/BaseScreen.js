@@ -2,111 +2,48 @@ import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector }                            from 'react-redux';
 import { changeParameter }                                     from '../app/store';
 import Menu                                                    from './Menu'
+import { current } from '@reduxjs/toolkit';
 
+
+const PADDING = 2;
+const menuHeight = 100;
 
 export default function BaseScreen( props ) {
 
-  const baseRef = useRef( null );
+  const baseRef    = useRef( null );
+  const contentRef = useRef( null );
 
   const bg_color     = useSelector( ( state ) => state.colorTheme.fill_active );
-  const scrollHeight = useSelector( ( state ) => state.configParams.scrollHeight );
+  const cards        = useSelector( ( state ) => state.configParams.cards )
 
-  const [ scrollWidth, setScrollWidth ]         = useState( 99 );
-  const [ scrollbarHeight, setScrollbarHeight ] = useState( 90 );
-  const [ scrollPosition, setScrollPosition ]   = useState( 0 );
+  const [ contentWidth, setContentWidth ]       = useState( 99 );
+  const [ scrollbarHeight, setScrollbarHeight ] = useState( PADDING );
   const [ scrollEvent, setScrollEvent ]         = useState( null );
 
-  const dispatcher = useDispatch();
-
   function changeScrollbarSize () {
-    console.log(`visualViewport.height -> ${visualViewport.height} | scrollHeight -> ${scrollHeight} |  ( visualViewport.height ** 2 ) / scrollHeight = ${ ( visualViewport.height ** 2 ) / scrollHeight } `);
-    // setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), visualViewport.height ) );
-    setScrollbarHeight( Math.min( Math.round( ( visualViewport.height ** 2 ) / scrollHeight ), 10 ) );
-    if ( scrollbarHeight == visualViewport.height ) setScrollWidth( 100 );
+    setScrollbarHeight( baseRef.current.clientHeight / contentRef.current.scrollHeight )
+    if ( scrollbarHeight == visualViewport.height - PADDING * 2 ) setContentWidth( 100 );
   };
-
-  useLayoutEffect(() => {
-    if ( scrollHeight !== null ) {
-      const scroll = document.getElementById( "scroll" );
-      dispatcher( changeParameter( { name: "scrollHeight", value: scroll.style.height } ) );
-      changeScrollbarSize()
-    } else setScrollWidth( 100 )
-  }, [ scrollHeight, props.scrollDiv ])
 
   useEffect(() => {
     changeScrollbarSize()
-  }, [ scrollHeight, visualViewport.width, visualViewport.height, props.scrollDiv ])
+  }, [ visualViewport.width, visualViewport.height, cards, contentRef.current ])
 
   function onWheel ( event ) {
     if ( baseRef.current ) {
-      console.log(event)
       setScrollEvent( event.nativeEvent )
     }
+  };
+
+  useLayoutEffect( () => {
+    window.addEventListener( "resize", changeScrollbarSize )
+  })
+
+  function scrollTo ( percent ) {
+    if ( contentRef.current ) {
+      contentRef.current.scroll( 0, percent * contentRef.current.scrollHeight );
+    }
   }
-
-  // function addScroll() {
-  //   setScroll( document.getElementById( "scroll" ));
-
-  //   switch ( scrollHeight ) {
-  //     case null: return;
-  //     default:
-  //       if ( scroll !== null ) {
-  //         changeScrollbarSize();
-  //         clearInterval( scrollIntervalId );
-  //         window.addEventListener( "scroll", handleScroll );
-  //         window.addEventListener( 'wheel', handleWheel );
-  //         return;
-  //       }
-  //   }
-  // };
-  // let scrollIntervalId;
-  // useEffect(() => {
-  //   if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 );
-  // }, [ scroll ]);
-
-  // function handleMouseDown () {
-  //   isDragged = true;
-  //   setCursor( "dragging" );
-  //   document.addEventListener( "mousemove", ( event ) => handleMouseUp( event, false ) );
-  //   document.addEventListener( "mouseup", ( event ) => handleMouseUp( event ) );
-  // };
-  
-  // function handleMouseUp ( event, mouseup=true ) {
-  //   if ( isDragged ) {
-  //     const posY = event.clientY < 0 ? 0 : ( event.clientY > scrollHeight ? scrollHeight : event.clientY );
-  
-  //     setClickY( posY );
-  //     const d = Math.round( ( posY * scrollHeight ) / window.innerHeight );
-  
-  //     dispatcher( changeParameter( { "name": "scroll", "value": -1 * d } ) );
-  //   }
-  //   if ( mouseup ) {
-  //     document.removeEventListener( "mousemove", ( event ) => handleMouseUp( event, false ) );
-  //     document.removeEventListener( "mouseup", ( event ) => handleMouseUp( event ) );
-  //     isDragged = false;
-  //   }
-  // };  
-
-  // function handleScroll () {
-  //   console.log("scroll");
-  // }
-
-  // function handleWheel ( event ) {
-  //   console.log("wheel");
-  //   const scrollPosition = ClickY + event.deltaY;
-  //   setClickY( scrollPosition )
-
-  //   const d = Math.round( ( scrollPosition * scrollHeight ) / window.innerHeight );
-  //   dispatcher( changeParameter( { "name": "scroll", "value": -1 * d } ) );
-  // };
-
-  // useLayoutEffect(() => {
-  //   !props.scroll && scrollWidth !== 100 && setScrollWidth( 100 );
-  //   scrollWidth !== 99 && setScrollWidth( 99 )
-  //   window.visualViewport.addEventListener( "scroll", ( event ) => handleScroll( event ) );
-  //   window.visualViewport.addEventListener( "resize", changeScrollbarSize );
-  //   return () => window.visualViewport.removeEventListener( "resize", changeScrollbarSize );
-  // }, [])
 
   return (
     <div 
@@ -122,15 +59,17 @@ export default function BaseScreen( props ) {
       <div style={{ 
           display:       "flex", 
           flexDirection: "column", 
-          width:         `${ scrollWidth }%`, 
+          width:         `${ contentWidth }%`, 
           height:        "100vh" 
         }}>
         <Menu/>
-        <div style={{ 
+        <div 
+          style={{ 
             backgroundColor: bg_color, 
-            overflow:        "hidden",
-            top:             `${ scrollPosition }%`
-          }}>
+            overflow:        "hidden"
+          }}
+          ref  ={ contentRef } 
+          >
           { props.children }
         </div>
       </div>
@@ -139,7 +78,7 @@ export default function BaseScreen( props ) {
           <Scrollbar 
             scrollEvent      ={ scrollEvent }
             scrollbarHeight  ={ scrollbarHeight }
-            setScrollPosition={ ( position ) => setScrollPosition( position ) }
+            scrollTo         ={ scrollTo }
           />
         </>
       )}
@@ -153,8 +92,9 @@ function Scrollbar( props ) {
   const sliderRef = useRef( null );
   const blockRef  = useRef( null );
   
-  const [ clickY, setClickY ] = useState( 0 );
-  const [ cursor, setCursor ] = useState( "pointer" );
+  const [ clickY, setClickY ]             = useState( PADDING );
+  const [ cursor, setCursor ]             = useState( "pointer" );
+  const [ sliderHeight, setSliderHeight ] = useState( 5 );
 
   const scrollbarBgLight   = useSelector( ( state ) => state.colorTheme.fill_inactive );
   const scrollbarBgDark    = useSelector( ( state ) => state.colorTheme.fill_active );
@@ -164,18 +104,21 @@ function Scrollbar( props ) {
   const colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
       ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
 
-  const PADDING = 2;
-
   useEffect( () => {
     if ( props.scrollEvent && blockRef.current && sliderRef.current ){
       const maxScroll = blockRef.current.clientHeight - sliderRef.current.clientHeight - PADDING;
-
       setClickY( ( prev ) => Math.min( Math.max( PADDING, prev + props.scrollEvent.deltaY * 0.1 ), maxScroll - PADDING));
-      const scrollDiv = document.getElementById( "scrollDiv" );
-      console.log(scrollDiv ,scrollDiv.style.height)
-      props.setScrollPosition( ( clickY / scrollDiv.style.height ) * 100 );
     }
-  }, [ props.scrollEvent ])
+  }, [ props.scrollEvent ]); 
+
+  useEffect( () => {
+    setSliderHeight( ( blockRef.current.clientHeight - PADDING * 2 - menuHeight ) * props.scrollbarHeight  )
+  }, [ props.scrollbarHeight ]);
+
+  useEffect( () => {
+    props.scrollTo( ( clickY + PADDING + menuHeight ) / ( blockRef.current.clientHeight - PADDING * 2 ) )
+  }, [ clickY, sliderHeight ]);
+
   
   return (
     <div 
@@ -198,7 +141,7 @@ function Scrollbar( props ) {
           position:       "relative", 
           top:            clickY, 
           right:          0, 
-          height:         `${ props.scrollbarHeight }px`, 
+          height:         `${ sliderHeight }px`, 
           justifyContent: "center", 
           alignItems:     "center", 
           background:     colorTransitionStyle, 

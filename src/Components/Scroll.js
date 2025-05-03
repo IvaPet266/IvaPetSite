@@ -37,52 +37,24 @@ export default function Scroll( props ) {
     const categoryFilter = useSelector( ( state ) => state.filters.category );
     const hashtagsFilter = useSelector( ( state ) => state.filters.hashtags );
 
-
-
-    let scrollIntervalId
-    useEffect(() => {
-        if ( scroll === null ) scrollIntervalId = setInterval( addScroll, 250 )
-    }, [])
-
     const zoomHandle = () => {
         const { width, height } = ref.current.getBoundingClientRect();
         let w = Math.max( width * 0.25, 150 );
 
-        dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) )
         const cardAmount = Math.floor( width / w );
         setPadding( ( width - ( cardAmount * w ) ) * 0.5 );
 
         setCardWidth( `${w}px` );
     };
 
-    function addScroll() {
-        setScroll( document.getElementById( "scroll" ));
-    
-        switch ( scroll ) {
-            case null:
-                return;
-            default:
-                console.log("scroll added");
-                const { height } = ref.current.getBoundingClientRect();
-                console.log(height);
-                dispatcher( changeParameter( { "name": "scrollHeight", "value": Math.round( height ) }) );
-                props.scroll = document.getElementById( "scroll" );
-                clearInterval( scrollIntervalId );
-                return;
-        }
-    }
-
     useLayoutEffect(() => {  
         window.visualViewport.addEventListener( "resize", zoomHandle );
-        addScroll();
         return () => {
             window.visualViewport.removeEventListener( "resize", zoomHandle );
         }
     }, []);
 
-    // useEffect(() => {
-    //     addScroll()
-    // }, [ scroll, scroll.children.length ])
+
 
     useEffect(() => {(
         async () => {
@@ -96,6 +68,10 @@ export default function Scroll( props ) {
         }
         )}, []
     );
+
+    useEffect( () => {
+        dispatcher( changeParameter( { "name": "cards", "value": CARDS }) )
+    }, [ CARDS ])
 
     switch ( CARDS !== null ) {
         case true:
@@ -113,7 +89,6 @@ export default function Scroll( props ) {
                             top:            scrollPosY,
                         }} 
                         id   ="scroll">
-                        
                         { CARDS.map( ( value, index ) => {
                             const author   = checkFilters( authorFilter, value[ "author" ] );
                             const category = checkFilters( categoryFilter, value[ "category" ] );

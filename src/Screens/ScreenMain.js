@@ -5,9 +5,9 @@ import Scroll            from '../Components/Scroll';
 export default function ScreenMain( props ) {
   const scroll = null;
   return (
-    <BaseScreen scroll={ true } scrollDiv={ scroll }>
+    <BaseScreen scroll={ true }>
       { props.children }
-      <Scroll scroll={ scroll }/>
+      <Scroll/>
     </BaseScreen>
   )
 };

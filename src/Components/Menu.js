@@ -14,7 +14,8 @@ export default function Menu( props ) {
 
   return (
     <nav>
-      <div id="menu" 
+      <div 
+        id   ="menu" 
         style={{
           display:        "flex", 
           flexDirection:  "row", 
