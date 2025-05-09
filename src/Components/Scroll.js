@@ -95,30 +95,9 @@ export default function Scroll( props ) {
                             params.cardId  = index;
                             if ( value[ "likes_amount" ] >= likesFilter && author && category )
                                 return (
-                                    <NavLink 
-                                        to ={ `cards/${ params.cardId }` } 
-                                        key={ index }> {/* //! */}
-                                        { ( isActive ) => {
-                                            if ( isActive ) return (
-                                                <CardScreen>
-                                                    <Container 
-                                                        key         ={ index } 
-                                                        img         ={ value[ "image" ] } 
-                                                        title       ={ value[ "title" ] } 
-                                                        author      ={ value[ "author" ] }
-                                                        category    ={ value[ "category" ] }
-                                                        text_content={ value[ "text_content" ] }/> 
-                                                </CardScreen>
-                                            )
-                                        }}
-                                        <Container 
-                                            key         ={ index } 
-                                            img         ={ value[ "image" ] } 
-                                            title       ={ value[ "title" ] } 
-                                            author      ={ value[ "author" ] }
-                                            category    ={ value[ "category" ] }
-                                            text_content={ value[ "text_content" ] }/> 
-                                    </NavLink>
+                                    <Container 
+                                        key  ={ index } 
+                                        value={ value }/> 
                                 )
                             })}
                     </div>

@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { useDispatch, useSelector }                            from 'react-redux';
-import { changeParameter }                                     from '../app/store';
+import { useSelector }                                         from 'react-redux';
 import Menu                                                    from './Menu'
-import { current } from '@reduxjs/toolkit';
 
 
-const PADDING = 2;
-const menuHeight = 100;
+// const PADDING = 2;
+// const menuHeight = 100;
 
 export default function BaseScreen( props ) {
 
@@ -17,12 +15,14 @@ export default function BaseScreen( props ) {
   const cards        = useSelector( ( state ) => state.configParams.cards )
 
   const [ contentWidth, setContentWidth ]       = useState( 99 );
-  const [ scrollbarHeight, setScrollbarHeight ] = useState( PADDING );
+  const [ scrollbarHeight, setScrollbarHeight ] = useState( 0 );
   const [ scrollEvent, setScrollEvent ]         = useState( null );
 
   function changeScrollbarSize () {
-    setScrollbarHeight( baseRef.current.clientHeight / contentRef.current.scrollHeight )
-    if ( scrollbarHeight == visualViewport.height - PADDING * 2 ) setContentWidth( 100 );
+    if ( baseRef.current && contentRef.current ) {
+      setScrollbarHeight( baseRef.current.clientHeight / contentRef.current.scrollHeight )
+      if ( scrollbarHeight == visualViewport.height ) setContentWidth( 100 );
+    }
   };
 
   useEffect(() => {
@@ -36,11 +36,16 @@ export default function BaseScreen( props ) {
   };
 
   useLayoutEffect( () => {
-    window.addEventListener( "resize", changeScrollbarSize )
+    window.addEventListener( "resize", changeScrollbarSize );
+    if ( !props.scroll ) {
+      window.removeEventListener( "resize", changeScrollbarSize );
+      setContentWidth( 100 )
+    }
   })
 
   function scrollTo ( percent ) {
     if ( contentRef.current ) {
+      console.log(percent, contentRef.current.scrollHeight );
       contentRef.current.scroll( 0, percent * contentRef.current.scrollHeight );
     }
   }
@@ -92,7 +97,7 @@ function Scrollbar( props ) {
   const sliderRef = useRef( null );
   const blockRef  = useRef( null );
   
-  const [ clickY, setClickY ]             = useState( PADDING );
+  const [ clickY, setClickY ]             = useState( 0 );
   const [ cursor, setCursor ]             = useState( "pointer" );
   const [ sliderHeight, setSliderHeight ] = useState( 5 );
 
@@ -106,17 +111,21 @@ function Scrollbar( props ) {
 
   useEffect( () => {
     if ( props.scrollEvent && blockRef.current && sliderRef.current ){
-      const maxScroll = blockRef.current.clientHeight - sliderRef.current.clientHeight - PADDING;
-      setClickY( ( prev ) => Math.min( Math.max( PADDING, prev + props.scrollEvent.deltaY * 0.1 ), maxScroll - PADDING));
+      const maxScroll = blockRef.current.clientHeight - sliderRef.current.clientHeight;
+      setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.scrollEvent.deltaY * 0.1 ), maxScroll ));
     }
   }, [ props.scrollEvent ]); 
 
   useEffect( () => {
-    setSliderHeight( ( blockRef.current.clientHeight - PADDING * 2 - menuHeight ) * props.scrollbarHeight  )
+    if ( blockRef.current ) {
+      setSliderHeight( blockRef.current.clientHeight * props.scrollbarHeight  )
+    }
   }, [ props.scrollbarHeight ]);
 
   useEffect( () => {
-    props.scrollTo( ( clickY + PADDING + menuHeight ) / ( blockRef.current.clientHeight - PADDING * 2 ) )
+    if ( blockRef.current && sliderRef.current ) {
+      props.scrollTo( clickY / ( blockRef.current.clientHeight - sliderRef.current.clientHeight ) )
+    }
   }, [ clickY, sliderHeight ]);
 
   

@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector }                from 'react-redux';
+import { useNavigate } from 'react-router';
 
 export default function Container( props ) {
+
+    const { image, title, author, category, text_content } = props.value;
+
+    let navigate = useNavigate();
     
     const [ focused, setFocused ]       = useState( false );
     const [ filter, setFilter ]         = useState( "none" );
     const [ textFilter, setTextFilter ] = useState( "none" );
     const [ textStyle, setTextStyle ]   = useState( { color: "black", background: "transparent" } );
+    
     const lines = useSelector( ( state ) => state.colorTheme.lines );
 
     const margin = 10;
 
-    const title = props.title.length < 30 ? props.title : `${ props.title.slice( 0, 27 ) }...`
+    // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
 
     return (
         <div 
@@ -19,7 +25,8 @@ export default function Container( props ) {
                 display:      "inline-block", /* ? */
                 background:   "grey", 
                 overflow:     "hidden",
-                width:        `${ props.width - margin }px`,
+                cursor:       "pointer",
+                // width:        `${ props.width - margin }px`,
                 margin:       `${ margin * 0.25 }px ${ margin * 0.5 }px`,
                 minHeihgt:    "250px", 
                 maxHeight:    "250px",
@@ -40,10 +47,10 @@ export default function Container( props ) {
                 setTextFilter( "none" );                                    
                 setTextStyle( { color: "black" } );
             }} 
-            onClick     ={() => {console.log("card")}}>            
+            onClick     ={() => navigate( "cards" )}>            
             <div 
                 style={{ 
-                    padding:       "7px", 
+                    padding:       "2px", 
                     position:      "absolute",
                     bottom:        "5px", 
                     width:         "100%",
@@ -57,33 +64,52 @@ export default function Container( props ) {
                 <div 
                     className='CormorantInfant-serif' 
                     style    ={{ 
-                        display:       "flex", 
-                        flexDirection: "column", 
-                        padding:       "3px" 
+                        padding: "3px",
+                        width:   "100%"
                     }}>
                     <h5 
                         style={{ 
-                            position: "absolute", 
-                            bottom:   "10px", 
-                            color:    "white" 
+                            margin:       "2px",
+                            width:        "150px", 
+                            position:     "absolute",
+                            textOverflow: "ellipsis",
+                            whiteSpace:   "nowrap",
+                            overflow:     "hidden",
+                            bottom:       "20px",
+                            left:         "7px",
+                            right:        "50px",
+                            color:        "white" 
                         }}>
                             { title }
                     </h5>
-                    <span style={{ color: "white" }}>{ props.author }</span>
-                    <button></button>
+                    <span 
+                        style={{ 
+                            width:        "150px",
+                            position:     "absolute",
+                            textOverflow: "ellipsis",
+                            whiteSpace:   "nowrap",
+                            overflow:     "hidden",
+                            left:         "8px",
+                            bottom:       "5px",
+                            right:        "50px",
+                            color:        "white",
+                        }}>
+                            { author }
+                    </span>
                 </div>
                 <img 
                     style={{ 
                         position:        "absolute", 
-                        right:           "20px",
-                        height:          "30px", 
+                        bottom:          "4px",
+                        right:           "10px",
+                        height:          "30px",
                         width:           "30px",
                         backgroundColor: "white", 
                         borderRadius:    "25px" 
                     }}/>
             </div> 
             { (() => {
-                if ( props.category == "ARTWORK" ) {
+                if ( category == "ARTWORK" ) {
                     return (
                         <img 
                             style={{
@@ -98,16 +124,16 @@ export default function Container( props ) {
                                 filter:         filter, 
                                 boxShadow:      "none",
                             }} 
-                            src  ={ props.img }/>
+                            src  ={ image }/>
                     )
                 } else {
                     let textLimit;
-                    if ( props.category == "PROSE" ) textLimit = 340
+                    if ( category == "PROSE" ) textLimit = 340
                     else textLimit = 237
 
                     let text;
-                    if ( props.text_content.length > textLimit ) text = `${ props.text_content.slice( 0, textLimit-3 ) }...`
-                    else text = props.text_content;
+                    if ( text_content.length > textLimit ) text = `${ text_content.slice( 0, textLimit-3 ) }...`
+                    else text = text_content;
                     return (
                         <div style={{ 
                                 width:         "90%", 

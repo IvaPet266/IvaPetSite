@@ -37230,9 +37230,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = BaseScreen;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
-var _store = require("../app/store");
 var _Menu = _interopRequireDefault(require("./Menu"));
-var _toolkit = require("@reduxjs/toolkit");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
@@ -37242,8 +37240,9 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var PADDING = 2;
-var menuHeight = 100;
+// const PADDING = 2;
+// const menuHeight = 100;
+
 function BaseScreen(props) {
   var baseRef = (0, _react.useRef)(null);
   var contentRef = (0, _react.useRef)(null);
@@ -37257,7 +37256,7 @@ function BaseScreen(props) {
     _useState2 = _slicedToArray(_useState, 2),
     contentWidth = _useState2[0],
     setContentWidth = _useState2[1];
-  var _useState3 = (0, _react.useState)(PADDING),
+  var _useState3 = (0, _react.useState)(0),
     _useState4 = _slicedToArray(_useState3, 2),
     scrollbarHeight = _useState4[0],
     setScrollbarHeight = _useState4[1];
@@ -37266,8 +37265,10 @@ function BaseScreen(props) {
     scrollEvent = _useState6[0],
     setScrollEvent = _useState6[1];
   function changeScrollbarSize() {
-    setScrollbarHeight(baseRef.current.clientHeight / contentRef.current.scrollHeight);
-    if (scrollbarHeight == visualViewport.height - PADDING * 2) setContentWidth(100);
+    if (baseRef.current && contentRef.current) {
+      setScrollbarHeight(baseRef.current.clientHeight / contentRef.current.scrollHeight);
+      if (scrollbarHeight == visualViewport.height) setContentWidth(100);
+    }
   }
   ;
   (0, _react.useEffect)(function () {
@@ -37281,9 +37282,14 @@ function BaseScreen(props) {
   ;
   (0, _react.useLayoutEffect)(function () {
     window.addEventListener("resize", changeScrollbarSize);
+    if (!props.scroll) {
+      window.removeEventListener("resize", changeScrollbarSize);
+      setContentWidth(100);
+    }
   });
   function scrollTo(percent) {
     if (contentRef.current) {
+      console.log(percent, contentRef.current.scrollHeight);
       contentRef.current.scroll(0, percent * contentRef.current.scrollHeight);
     }
   }
@@ -37320,7 +37326,7 @@ function BaseScreen(props) {
 function Scrollbar(props) {
   var sliderRef = (0, _react.useRef)(null);
   var blockRef = (0, _react.useRef)(null);
-  var _useState7 = (0, _react.useState)(PADDING),
+  var _useState7 = (0, _react.useState)(0),
     _useState8 = _slicedToArray(_useState7, 2),
     clickY = _useState8[0],
     setClickY = _useState8[1];
@@ -37347,17 +37353,21 @@ function Scrollbar(props) {
   var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n      ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
   (0, _react.useEffect)(function () {
     if (props.scrollEvent && blockRef.current && sliderRef.current) {
-      var maxScroll = blockRef.current.clientHeight - sliderRef.current.clientHeight - PADDING;
+      var maxScroll = blockRef.current.clientHeight - sliderRef.current.clientHeight;
       setClickY(function (prev) {
-        return Math.min(Math.max(PADDING, prev + props.scrollEvent.deltaY * 0.1), maxScroll - PADDING);
+        return Math.min(Math.max(0, prev + props.scrollEvent.deltaY * 0.1), maxScroll);
       });
     }
   }, [props.scrollEvent]);
   (0, _react.useEffect)(function () {
-    setSliderHeight((blockRef.current.clientHeight - PADDING * 2 - menuHeight) * props.scrollbarHeight);
+    if (blockRef.current) {
+      setSliderHeight(blockRef.current.clientHeight * props.scrollbarHeight);
+    }
   }, [props.scrollbarHeight]);
   (0, _react.useEffect)(function () {
-    props.scrollTo((clickY + PADDING + menuHeight) / (blockRef.current.clientHeight - PADDING * 2));
+    if (blockRef.current && sliderRef.current) {
+      props.scrollTo(clickY / (blockRef.current.clientHeight - sliderRef.current.clientHeight));
+    }
   }, [clickY, sliderHeight]);
   return /*#__PURE__*/_react.default.createElement("div", {
     id: "scrollDiv",
@@ -37391,7 +37401,7 @@ function Scrollbar(props) {
     }
   }));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js","./Menu":"Components/Menu.js","@reduxjs/toolkit":"../node_modules/@reduxjs/toolkit/dist/redux-toolkit.legacy-esm.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37436,6 +37446,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Container;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
+var _reactRouter = require("react-router");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -37451,6 +37462,13 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function Container(props) {
+  var _props$value = props.value,
+    image = _props$value.image,
+    title = _props$value.title,
+    author = _props$value.author,
+    category = _props$value.category,
+    text_content = _props$value.text_content;
+  var navigate = (0, _reactRouter.useNavigate)();
   var _useState = (0, _react.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     focused = _useState2[0],
@@ -37474,14 +37492,17 @@ function Container(props) {
     return state.colorTheme.lines;
   });
   var margin = 10;
-  var title = props.title.length < 30 ? props.title : "".concat(props.title.slice(0, 27), "...");
+
+  // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
+
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "inline-block",
       /* ? */
       background: "grey",
       overflow: "hidden",
-      width: "".concat(props.width - margin, "px"),
+      cursor: "pointer",
+      // width:        `${ props.width - margin }px`,
       margin: "".concat(margin * 0.25, "px ").concat(margin * 0.5, "px"),
       minHeihgt: "250px",
       maxHeight: "250px",
@@ -37507,11 +37528,11 @@ function Container(props) {
       });
     },
     onClick: function onClick() {
-      console.log("card");
+      return navigate("cards");
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      padding: "7px",
+      padding: "2px",
       position: "absolute",
       bottom: "5px",
       width: "100%",
@@ -37525,31 +37546,46 @@ function Container(props) {
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "CormorantInfant-serif",
     style: {
-      display: "flex",
-      flexDirection: "column",
-      padding: "3px"
+      padding: "3px",
+      width: "100%"
     }
   }, /*#__PURE__*/_react.default.createElement("h5", {
     style: {
+      margin: "2px",
+      width: "150px",
       position: "absolute",
-      bottom: "10px",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      bottom: "20px",
+      left: "7px",
+      right: "50px",
       color: "white"
     }
   }, title), /*#__PURE__*/_react.default.createElement("span", {
     style: {
+      width: "150px",
+      position: "absolute",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      left: "8px",
+      bottom: "5px",
+      right: "50px",
       color: "white"
     }
-  }, props.author), /*#__PURE__*/_react.default.createElement("button", null)), /*#__PURE__*/_react.default.createElement("img", {
+  }, author)), /*#__PURE__*/_react.default.createElement("img", {
     style: {
       position: "absolute",
-      right: "20px",
+      bottom: "4px",
+      right: "10px",
       height: "30px",
       width: "30px",
       backgroundColor: "white",
       borderRadius: "25px"
     }
   })), function () {
-    if (props.category == "ARTWORK") {
+    if (category == "ARTWORK") {
       return /*#__PURE__*/_react.default.createElement("img", {
         style: {
           width: "100%",
@@ -37563,13 +37599,13 @@ function Container(props) {
           filter: filter,
           boxShadow: "none"
         },
-        src: props.img
+        src: image
       });
     } else {
       var textLimit;
-      if (props.category == "PROSE") textLimit = 340;else textLimit = 237;
+      if (category == "PROSE") textLimit = 340;else textLimit = 237;
       var text;
-      if (props.text_content.length > textLimit) text = "".concat(props.text_content.slice(0, textLimit - 3), "...");else text = props.text_content;
+      if (text_content.length > textLimit) text = "".concat(text_content.slice(0, textLimit - 3), "...");else text = text_content;
       return /*#__PURE__*/_react.default.createElement("div", {
         style: {
           width: "90%",
@@ -37594,7 +37630,7 @@ function Container(props) {
   }());
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js"}],"Components/CardScreen.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"Components/CardScreen.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37784,26 +37820,10 @@ function Scroll(props) {
         var author = checkFilters(authorFilter, value["author"]);
         var category = checkFilters(categoryFilter, value["category"]);
         params.cardId = index;
-        if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
-          to: "cards/".concat(params.cardId),
-          key: index
-        }, " ", function (isActive) {
-          if (isActive) return /*#__PURE__*/_react.default.createElement(_CardScreen.default, null, /*#__PURE__*/_react.default.createElement(_Card.default, {
-            key: index,
-            img: value["image"],
-            title: value["title"],
-            author: value["author"],
-            category: value["category"],
-            text_content: value["text_content"]
-          }));
-        }, /*#__PURE__*/_react.default.createElement(_Card.default, {
+        if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_Card.default, {
           key: index,
-          img: value["image"],
-          title: value["title"],
-          author: value["author"],
-          category: value["category"],
-          text_content: value["text_content"]
-        }));
+          value: value
+        });
       })));
     default:
       return /*#__PURE__*/_react.default.createElement("p", {
