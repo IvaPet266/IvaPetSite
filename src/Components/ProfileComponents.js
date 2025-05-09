@@ -135,7 +135,7 @@ export function ProfileContentsFill( props ) {
                 display:        "flex", 
                 flexDirection:  "row", 
                 padding:        "0px", 
-                justifyContent: "space-between"
+                justifyContent: "space-between",
             }} 
             onMouseEnter={() => {
                 props.setObjColor( props.activeContentsColor );
@@ -150,12 +150,18 @@ export function ProfileContentsFill( props ) {
                 }
             }} 
             onClick     ={() => {
-                props.setMenuSection( props.text )
+                if ( props.link != "none" ) {
+                    props.setMenuSection( props.text )
+                } else {
+                    console.log(`liked post №${props.postId}`);
+                }
             }}>
-            <ProfileLink 
-                link    ={ props.link } 
-                text    ={ props.text } 
-                objColor={ props.objColor }/>
+            { 
+                props.link != "none" && <ProfileLink 
+                    link    ={ props.link } 
+                    text    ={ props.text } 
+                    objColor={ props.objColor }/>
+            }
             <svg 
                 style  ={{ 
                     transition:    "all 300ms ease-out", 

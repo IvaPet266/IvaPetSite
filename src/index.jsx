@@ -35,7 +35,7 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                             <Route path="settings"/>
                             <Route path="support"/>
                         </Route>
-                        <Route path="cards/:cardId" element={ <CardScreen/> }>
+                        <Route path="cards?cardId=:cardId" element={ <CardScreen/> }>
                         </Route>
                     </Routes>
                 </BrowserRouter>

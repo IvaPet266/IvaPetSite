@@ -5,10 +5,10 @@ import { Link }                               from 'react-router';
 
 export default function SVGButton( props ) {
 
-    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );       //!   
-    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );         //!
-    const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive );     //!           
-    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );       //!       
+    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );     
+    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );    
+    const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive );           
+    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );         
 
     const [ bgColor, setBgColor ]         = useState( bg_inactive );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );

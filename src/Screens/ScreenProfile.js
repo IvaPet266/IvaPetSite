@@ -8,6 +8,7 @@ import { useLocation }                                          from 'react-rout
 export default function ScreenProfile( props ) {
 
   const { screen, setScreen } = useScreen();
+
   const location = useLocation();
 
   const menuBg        = useSelector ( ( state ) => state.colorTheme.fill_inactive );
@@ -95,7 +96,6 @@ export default function ScreenProfile( props ) {
     
   useEffect(() => {
     if ( location.pathname.indexOf( "profile" ) != -1 && location.pathname.indexOf( menuSection.toLowerCase() ) == -1 ) {
-
       const s = location.pathname.slice( location.pathname.indexOf( "profile" ) + 8 );
       setMenuSection( `${ s.slice( 0, 1 ).toUpperCase() }${ s.slice( 1, s.length ) }` )
     }
@@ -120,10 +120,10 @@ export default function ScreenProfile( props ) {
           </h5>
           <ProfileContentsFill
             setScreen            ={ ( state ) => setScreen( state ) }
-            setObjColor          ={( state ) => setCollectionsColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setCollectionsStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) } 
-            setObjFillSVG        ={( state ) => setCollectionsFillSVG( state ) }
+            setObjColor          ={ ( state ) => setCollectionsColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setCollectionsStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) } 
+            setObjFillSVG        ={ ( state ) => setCollectionsFillSVG( state ) }
             menuSection          ={ menuSection } 
             activeContentsColor  ={ "#FFF600" } 
             inactiveContentsColor={ menuTextColor } 
@@ -139,9 +139,9 @@ export default function ScreenProfile( props ) {
           />
           <ProfileContents
             setScreen            ={ ( state ) => setScreen( state ) } 
-            setObjColor          ={( state ) => setSavedColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setSavedStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) } 
+            setObjColor          ={ ( state ) => setSavedColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setSavedStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) } 
             menuSection          ={ menuSection } 
             activeContentsColor  ={ "#00BC13" } 
             inactiveContentsColor={ menuTextColor } 
@@ -155,10 +155,10 @@ export default function ScreenProfile( props ) {
           />
           <ProfileContentsFill
             setScreen            ={ ( state ) => setScreen( state ) }
-            setObjColor          ={( state ) => setLikedColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setLikedStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) } 
-            setObjFillSVG        ={( state ) => setLikedFillSVG( state ) } 
+            setObjColor          ={ ( state ) => setLikedColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setLikedStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) } 
+            setObjFillSVG        ={ ( state ) => setLikedFillSVG( state ) } 
             menuSection          ={ menuSection } 
             activeContentsColor  ={ "#B90000" } 
             inactiveContentsColor={ menuTextColor } 
@@ -174,9 +174,9 @@ export default function ScreenProfile( props ) {
           />
           <ProfileContents
             setScreen            ={ ( state ) => setScreen( state ) } 
-            setObjColor          ={( state ) => setRepostedColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setRepostedStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) } 
+            setObjColor          ={ ( state ) => setRepostedColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setRepostedStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) } 
             menuSection          ={ menuSection } 
             activeContentsColor  ={ "#4700AA" } 
             inactiveContentsColor={ menuTextColor } 
@@ -191,9 +191,9 @@ export default function ScreenProfile( props ) {
           <hr style={{ border: "none", width: "100%", backgroundColor: lines, marginTop: "26px" }} size="3"/>
           <ProfileContents
             setScreen            ={ ( state ) => setScreen( state ) } 
-            setObjColor          ={( state ) => setSettingsColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setSettingsStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) } 
+            setObjColor          ={ ( state ) => setSettingsColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setSettingsStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) } 
             menuSection          ={ menuSection } 
             activeContentsColor  ={ bioTextColor } 
             inactiveContentsColor={ menuTextColor } 
@@ -208,9 +208,9 @@ export default function ScreenProfile( props ) {
           />
           <ProfileContents
             setScreen            ={ ( state ) => setScreen( state ) }
-            setObjColor          ={( state ) => setPrivacyPColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setPrivacyPStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) } 
+            setObjColor          ={ ( state ) => setPrivacyPColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setPrivacyPStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) } 
             menuSection          ={ menuSection } 
             activeContentsColor  ={ bioTextColor } 
             inactiveContentsColor={ menuTextColor } 
@@ -224,9 +224,9 @@ export default function ScreenProfile( props ) {
           />
           <ProfileContents
             setScreen            ={ ( state ) => setScreen( state ) }
-            setObjColor          ={( state ) => setSupportSColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setSupportSStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) }
+            setObjColor          ={ ( state ) => setSupportSColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setSupportSStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) }
             menuSection          ={ menuSection } 
             activeContentsColor  ={ bioTextColor } 
             inactiveContentsColor={ menuTextColor } 
@@ -240,9 +240,9 @@ export default function ScreenProfile( props ) {
           />
           <ProfileContents
             setScreen            ={ ( state ) => setScreen( state ) }
-            setObjColor          ={( state ) => setLogOutColor( state ) } 
-            setObjStrokeSVG      ={( state ) => setLogOutStrokeSVG( state ) }
-            setMenuSection       ={( state ) => setMenuSection( state ) } 
+            setObjColor          ={ ( state ) => setLogOutColor( state ) } 
+            setObjStrokeSVG      ={ ( state ) => setLogOutStrokeSVG( state ) }
+            setMenuSection       ={ ( state ) => setMenuSection( state ) } 
             menuSection          ={ menuSection } 
             activeContentsColor  ={ bioTextColor } 
             inactiveContentsColor={ menuTextColor } 

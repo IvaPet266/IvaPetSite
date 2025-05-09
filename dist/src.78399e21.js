@@ -36885,17 +36885,16 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function SVGButton(props) {
   var bg_inactive = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
-  }); //!   
+  });
   var bg_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
-  }); //!
+  });
   var stroke_inactive = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_inactive;
-  }); //!           
+  });
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
-  }); //!       
-
+  });
   var _useState = (0, _react.useState)(bg_inactive),
     _useState2 = _slicedToArray(_useState, 2),
     bgColor = _useState2[0],
@@ -37437,7 +37436,510 @@ function ScreenDiscussion(props) {
   }, "ScreenDiscussion"));
 }
 ;
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Components/Card.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Components/ProfileComponents.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Lines = Lines;
+exports.MainProfileDiv = MainProfileDiv;
+exports.ProfileContents = ProfileContents;
+exports.ProfileContentsFill = ProfileContentsFill;
+exports.ProfileLink = ProfileLink;
+var _react = _interopRequireWildcard(require("react"));
+var _reactRedux = require("react-redux");
+var _store = require("../app/store");
+var _SVGButtons = _interopRequireDefault(require("./SVGButtons"));
+var _reactRouter = require("react-router");
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+// import { Link } from "react-router"
+
+function ProfileLink(props) {
+  switch (props.link) {
+    case false:
+      return /*#__PURE__*/_react.default.createElement("button", {
+        style: {
+          background: "transparent",
+          border: "none",
+          margin: "0px",
+          padding: "2px",
+          cursor: "pointer"
+        }
+      }, /*#__PURE__*/_react.default.createElement("span", {
+        className: "CormorantInfant-serif",
+        style: {
+          pointerEvents: "none",
+          transition: "color 300ms ease-out",
+          fontWeight: "bold",
+          color: props.objColor,
+          fontSize: "25px"
+        }
+      }, props.text));
+    default:
+      return /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
+        to: "/profile/".concat(props.link)
+      }, /*#__PURE__*/_react.default.createElement("button", {
+        style: {
+          background: "transparent",
+          border: "none",
+          margin: "0px",
+          padding: "2px",
+          cursor: "pointer"
+        }
+      }, /*#__PURE__*/_react.default.createElement("span", {
+        className: "CormorantInfant-serif",
+        style: {
+          pointerEvents: "none",
+          transition: "color 300ms ease-out",
+          fontWeight: "bold",
+          color: props.objColor,
+          fontSize: "25px"
+        }
+      }, props.text)));
+  }
+}
+function ProfileContents(props) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      justifyContent: "space-between"
+    },
+    onMouseEnter: function onMouseEnter() {
+      props.setObjColor(props.activeContentsColor);
+      props.setObjStrokeSVG(props.activeContentsColor);
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (props.menuSection != props.text) {
+        props.setObjColor(props.inactiveContentsColor);
+        props.setObjStrokeSVG(props.inactiveContentsColor);
+      }
+    },
+    onClick: function onClick() {
+      if (props.text == "Privacy Policy") window.open("https://2048game.com/ru/", "_blank");else if (props.text == "Log Out") console.log("Log Out");else {
+        props.setMenuSection(props.text);
+      }
+    }
+  }, /*#__PURE__*/_react.default.createElement(ProfileLink, {
+    link: props.link,
+    text: props.text,
+    objColor: props.objColor
+  }), /*#__PURE__*/_react.default.createElement("svg", {
+    style: {
+      transition: "all 300ms ease-out",
+      pointerEvents: "none",
+      margin: "0px",
+      paddingRight: "5px",
+      alignSelf: "center",
+      cursor: "pointer"
+    },
+    width: props.w,
+    height: props.h,
+    viewBox: "0 0 ".concat(props.w, " ").concat(props.h),
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: props.contentsColor,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: props.d
+  }), props.d1 && /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: props.contentsColor,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: props.d1
+  })));
+}
+function ProfileContentsFill(props) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      justifyContent: "space-between"
+    },
+    onMouseEnter: function onMouseEnter() {
+      props.setObjColor(props.activeContentsColor);
+      props.setObjFillSVG(props.activeContentsColor);
+      props.setObjStrokeSVG(props.lines);
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (props.menuSection != props.text) {
+        props.setObjColor(props.inactiveContentsColor);
+        props.setObjFillSVG("none");
+        props.setObjStrokeSVG(props.inactiveContentsColor);
+      }
+    },
+    onClick: function onClick() {
+      if (props.link != "none") {
+        props.setMenuSection(props.text);
+      } else {
+        console.log("liked post \u2116".concat(props.postId));
+      }
+    }
+  }, props.link != "none" && /*#__PURE__*/_react.default.createElement(ProfileLink, {
+    link: props.link,
+    text: props.text,
+    objColor: props.objColor
+  }), /*#__PURE__*/_react.default.createElement("svg", {
+    style: {
+      transition: "all 300ms ease-out",
+      pointerEvents: "none",
+      margin: "0px",
+      paddingRight: "5px",
+      alignSelf: "center",
+      cursor: "pointer"
+    },
+    width: props.w,
+    height: props.h,
+    viewBox: "0 0 ".concat(props.w, " ").concat(props.h),
+    fill: props.objFillSVG,
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: props.contentsColor,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: props.d
+  }), props.d1 && /*#__PURE__*/_react.default.createElement("path", {
+    style: {
+      transition: "stroke 300ms ease-out",
+      stroke: props.contentsColor,
+      strokeWidth: "3",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    d: props.d1
+  })));
+}
+function MainProfileDiv(props) {
+  var userName = (0, _reactRedux.useSelector)(function (state) {
+    return state.userData.userName;
+  });
+  var userBio = (0, _reactRedux.useSelector)(function (state) {
+    return state.userData.userBio;
+  });
+  var menuBg = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var divBg = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_active;
+  });
+  var bioTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_active;
+  });
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  var _useState = (0, _react.useState)("white"),
+    _useState2 = _slicedToArray(_useState, 2),
+    textColor = _useState2[0],
+    setTextColor = _useState2[1];
+  var _useState3 = (0, _react.useState)("12px"),
+    _useState4 = _slicedToArray(_useState3, 2),
+    fontSize = _useState4[0],
+    setFontSize = _useState4[1];
+  var _useState5 = (0, _react.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    text = _useState6[0],
+    setText = _useState6[1];
+  var _useState7 = (0, _react.useState)(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    placeholder = _useState8[0],
+    setPlaceholder = _useState8[1];
+  var _useState9 = (0, _react.useState)(menuBg),
+    _useState10 = _slicedToArray(_useState9, 2),
+    confirmColor = _useState10[0],
+    setConfirmColor = _useState10[1];
+  var _useState11 = (0, _react.useState)('#aaaacc'),
+    _useState12 = _slicedToArray(_useState11, 2),
+    inputValue = _useState12[0],
+    setInputValue = _useState12[1]; // Начальное значение цвета
+  var dispatcher = (0, _reactRedux.useDispatch)();
+  var handleConfirmClick = function handleConfirmClick() {
+    dispatcher((0, _store.changeColorTheme)({
+      "name": "fill_inactive",
+      "value": "#".concat(inputValue.slice(1))
+    }), {});
+    var value = "#".concat(Math.abs(parseInt(inputValue.replace('#', '0x'), 16) - parseInt("#7D8276".replace('#', '0x'), 16)).toString(16));
+    dispatcher((0, _store.changeColorTheme)({
+      "name": "fill_active",
+      "value": value
+    }), {});
+    dispatcher((0, _store.changeColorTheme)({
+      "name": "stroke_inactive",
+      "value": value
+    }), {});
+  };
+  var placeholderState = false;
+  (0, _react.useEffect)(function () {
+    if (userBio.length > 60) {
+      setText(userBio.slice(0, 56));
+      setPlaceholder('...');
+      placeholderState = true;
+    } else {
+      setText(userBio);
+    }
+  }, []);
+  switch (props.instance) {
+    case "Settings":
+      {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "80%",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "5px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("h2", {
+          style: {
+            color: menuBg,
+            fontSize: "35px",
+            margin: "0px",
+            textAlign: "center"
+          }
+        }, "Settings"), /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "80%",
+            display: "flex",
+            flexDirection: "row",
+            padding: "0px",
+            justifyContent: "space-between"
+          }
+        }, /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            display: "grid",
+            placeItems: "center"
+          }
+        }, /*#__PURE__*/_react.default.createElement("h5", {
+          style: {
+            color: menuBg,
+            fontSize: "25px",
+            margin: "0px",
+            textAlign: "center",
+            lineHeight: "35px"
+          }
+        }, "Color Theme")), /*#__PURE__*/_react.default.createElement("input", {
+          id: "colorThemeInput",
+          type: "color",
+          value: inputValue,
+          onChange: function onChange(event) {
+            return setInputValue(event.target.value);
+          },
+          style: {
+            border: "solid 1px black",
+            backgroundColor: "transparent",
+            width: "80px",
+            height: "50px",
+            cursor: "pointer"
+          }
+        })), /*#__PURE__*/_react.default.createElement("button", {
+          style: {
+            transition: "all 300ms ease-out",
+            border: "none",
+            backgroundColor: "transparent",
+            color: confirmColor,
+            cursor: "pointer"
+          },
+          onMouseEnter: function onMouseEnter() {
+            return setConfirmColor(bioTextColor);
+          },
+          onMouseLeave: function onMouseLeave() {
+            return setConfirmColor(menuBg);
+          },
+          onClick: handleConfirmClick
+        }, "Confirm"));
+      }
+    case "Support Service":
+      return /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          width: "80%",
+          height: "100vh",
+          display: "flex",
+          backgroundColor: menuBg,
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: "5px",
+          justifyContent: "space-between"
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          backgroundColor: divBg,
+          width: "100%",
+          border: "solid 2px ".concat(lines),
+          borderTop: "none"
+        }
+      }, /*#__PURE__*/_react.default.createElement("h1", {
+        style: {
+          textAlign: "center",
+          // Это добавлено для центрирования текста
+          color: menuBg,
+          margin: "0px",
+          fontSize: "40px"
+        }
+      }, "Support Service")), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          display: "flex",
+          flexDirection: "row"
+        }
+      }, /*#__PURE__*/_react.default.createElement("input", {
+        style: {
+          boxSizing: "border-box",
+          marginLeft: "5px",
+          fontSize: "30px",
+          marginBottom: "5px",
+          width: "68vw",
+          color: divBg
+        },
+        type: "text"
+      }), /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
+        border: true,
+        w: "48",
+        h: "48",
+        d: "M10 24H38M38 24L24 10M38 24L24 38"
+      })));
+    default:
+      {
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "80%",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "5px"
+          }
+        }, /*#__PURE__*/_react.default.createElement("img", {
+          style: {
+            height: "100px",
+            width: "100px",
+            background: "transparent",
+            backgroundColor: "black",
+            borderRadius: "50%"
+          }
+        }), /*#__PURE__*/_react.default.createElement("p", {
+          style: {
+            margin: "5px",
+            color: bioTextColor
+          }
+        }, "@", userName), /*#__PURE__*/_react.default.createElement("div", {
+          className: "CormorantInfant-serif",
+          style: {
+            padding: "0px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }
+        }, /*#__PURE__*/_react.default.createElement("p", {
+          style: {
+            margin: "0px",
+            width: "180px",
+            textAlign: "center",
+            color: bioTextColor
+          }
+        }, text), /*#__PURE__*/_react.default.createElement("button", {
+          style: {
+            background: "transparent",
+            border: "none",
+            margin: "0px",
+            fontSize: fontSize,
+            transition: "all 300ms ease-out",
+            color: textColor
+          },
+          onMouseEnter: function onMouseEnter() {
+            setTextColor("grey");
+            if (placeholder == '...') setPlaceholder("show more");
+          },
+          onMouseLeave: function onMouseLeave() {
+            setTextColor("white");
+            if (placeholder == 'show more') setPlaceholder("...");
+          },
+          onClick: function onClick() {
+            if (placeholderState) {
+              if (placeholder == 'show more') {
+                setText(userBio);
+                setPlaceholder('show less');
+              } else {
+                setText(userBio.slice(0, 56));
+                setPlaceholder('show more');
+              }
+            }
+          }
+        }, placeholder)), /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center"
+          }
+        }, /*#__PURE__*/_react.default.createElement(Lines, {
+          bg: bioTextColor
+        }), /*#__PURE__*/_react.default.createElement("h5", {
+          style: {
+            width: "20%",
+            color: bioTextColor,
+            fontSize: "25px",
+            textAlign: "center",
+            lineHeight: "35px",
+            margin: "0px 0px 0px 3px"
+          }
+        }, props.instance), /*#__PURE__*/_react.default.createElement(Lines, {
+          bg: bioTextColor
+        })));
+      }
+  }
+}
+function Lines(props) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "40%",
+      display: "flex",
+      flexDirection: "column"
+    }
+  }, /*#__PURE__*/_react.default.createElement("hr", {
+    style: {
+      border: "none",
+      margin: "2.5px",
+      width: "100%",
+      backgroundColor: props.bg
+    },
+    size: "3"
+  }), /*#__PURE__*/_react.default.createElement("hr", {
+    style: {
+      border: "none",
+      margin: "2.5px",
+      width: "100%",
+      backgroundColor: props.bg
+    },
+    size: "3"
+  }));
+}
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js","./SVGButtons":"Components/SVGButtons.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"Components/Card.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37447,6 +37949,7 @@ exports.default = Container;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _reactRouter = require("react-router");
+var _ProfileComponents = require("./ProfileComponents");
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -37488,6 +37991,15 @@ function Container(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     textStyle = _useState8[0],
     setTextStyle = _useState8[1];
+  var _useState9 = (0, _react.useState)("#BFBFBF"),
+    _useState10 = _slicedToArray(_useState9, 2),
+    SVGfill = _useState10[0],
+    setSVGfill = _useState10[1];
+  // const [isCircleHovered, setIsCircleHovered] = useState(false); // Отслеживаем состояние кружка //!
+
+  var menuTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_inactive;
+  });
   var lines = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.lines;
   });
@@ -37495,6 +38007,21 @@ function Container(props) {
 
   // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
 
+  function handleContainerHover(isEntered) {
+    setFocused(isEntered);
+    setFilter(isEntered ? 'brightness(30%) saturate(40%)' : 'none');
+    setTextFilter(isEntered ? 'brightness(30%) contrast(30%)' : 'none');
+    setTextStyle({
+      color: isEntered ? 'lightgrey' : 'black',
+      background: 'transparent'
+    });
+  }
+
+  // Отдельная обработка для кружка
+  function handleCircleHover(isEntered) {
+    setIsCircleHovered(isEntered);
+    setSVGfill(isEntered ? '#FFFFFF' : '#BFBFBF');
+  }
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "inline-block",
@@ -37512,25 +38039,61 @@ function Container(props) {
       borderRadius: "20px"
     },
     onMouseEnter: function onMouseEnter() {
-      setFocused(true);
-      setFilter("brightness(30%) saturate(40%)");
-      setTextFilter("brightness(30%) contrast(30%)");
-      setTextStyle({
-        color: "lightgrey"
-      });
+      return handleContainerHover(true);
     },
     onMouseOut: function onMouseOut() {
-      setFocused(false);
-      setFilter("none");
-      setTextFilter("none");
-      setTextStyle({
-        color: "black"
-      });
+      return handleContainerHover(false);
     },
     onClick: function onClick() {
-      return navigate("cards");
+      return navigate("cards/".concat(props.key));
     }
-  }, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("svg", {
+    onMouseEnter: function onMouseEnter(event) {
+      event.stopPropagation(); // Остановить всплытие события вверх
+      handleCircleHover(true);
+    },
+    onMouseOut: function onMouseOut(event) {
+      event.stopPropagation(); // Остановить всплытие события вверх
+      handleCircleHover(false);
+    },
+    viewBox: "0 0 40 40",
+    xmlns: "http://www.w3.org/2000/svg",
+    style: {
+      transition: "opacity 300ms ease-out",
+      opacity: Number(focused),
+      position: "absolute",
+      top: "5px",
+      right: "5px",
+      height: "40px",
+      width: "40px",
+      zIndex: 2,
+      pointerEvents: "none"
+    }
+  }, /*#__PURE__*/_react.default.createElement("circle", {
+    style: {
+      padding: "5px"
+    },
+    cx: "5",
+    cy: "5",
+    r: "5px",
+    fill: SVGfill
+  }), /*#__PURE__*/_react.default.createElement("circle", {
+    style: {
+      padding: "5px"
+    },
+    cx: "20",
+    cy: "5",
+    r: "5px",
+    fill: SVGfill
+  }), /*#__PURE__*/_react.default.createElement("circle", {
+    style: {
+      padding: "5px"
+    },
+    cx: "35",
+    cy: "5",
+    r: "5px",
+    fill: SVGfill
+  })), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       padding: "2px",
       position: "absolute",
@@ -37630,7 +38193,7 @@ function Container(props) {
   }());
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"Components/CardScreen.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./ProfileComponents":"Components/ProfileComponents.js"}],"Components/CardScreen.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38090,506 +38653,7 @@ function ScreenMain(props) {
   }, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.default, null));
 }
 ;
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","../Components/Scroll":"Components/Scroll.js"}],"Components/ProfileComponents.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Lines = Lines;
-exports.MainProfileDiv = MainProfileDiv;
-exports.ProfileContents = ProfileContents;
-exports.ProfileContentsFill = ProfileContentsFill;
-exports.ProfileLink = ProfileLink;
-var _react = _interopRequireWildcard(require("react"));
-var _reactRedux = require("react-redux");
-var _store = require("../app/store");
-var _SVGButtons = _interopRequireDefault(require("./SVGButtons"));
-var _reactRouter = require("react-router");
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-// import { Link } from "react-router"
-
-function ProfileLink(props) {
-  switch (props.link) {
-    case false:
-      return /*#__PURE__*/_react.default.createElement("button", {
-        style: {
-          background: "transparent",
-          border: "none",
-          margin: "0px",
-          padding: "2px",
-          cursor: "pointer"
-        }
-      }, /*#__PURE__*/_react.default.createElement("span", {
-        className: "CormorantInfant-serif",
-        style: {
-          pointerEvents: "none",
-          transition: "color 300ms ease-out",
-          fontWeight: "bold",
-          color: props.objColor,
-          fontSize: "25px"
-        }
-      }, props.text));
-    default:
-      return /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
-        to: "/profile/".concat(props.link)
-      }, /*#__PURE__*/_react.default.createElement("button", {
-        style: {
-          background: "transparent",
-          border: "none",
-          margin: "0px",
-          padding: "2px",
-          cursor: "pointer"
-        }
-      }, /*#__PURE__*/_react.default.createElement("span", {
-        className: "CormorantInfant-serif",
-        style: {
-          pointerEvents: "none",
-          transition: "color 300ms ease-out",
-          fontWeight: "bold",
-          color: props.objColor,
-          fontSize: "25px"
-        }
-      }, props.text)));
-  }
-}
-function ProfileContents(props) {
-  return /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      padding: "0px",
-      justifyContent: "space-between"
-    },
-    onMouseEnter: function onMouseEnter() {
-      props.setObjColor(props.activeContentsColor);
-      props.setObjStrokeSVG(props.activeContentsColor);
-    },
-    onMouseLeave: function onMouseLeave() {
-      if (props.menuSection != props.text) {
-        props.setObjColor(props.inactiveContentsColor);
-        props.setObjStrokeSVG(props.inactiveContentsColor);
-      }
-    },
-    onClick: function onClick() {
-      if (props.text == "Privacy Policy") window.open("https://2048game.com/ru/", "_blank");else if (props.text == "Log Out") console.log("Log Out");else {
-        props.setMenuSection(props.text);
-      }
-    }
-  }, /*#__PURE__*/_react.default.createElement(ProfileLink, {
-    link: props.link,
-    text: props.text,
-    objColor: props.objColor
-  }), /*#__PURE__*/_react.default.createElement("svg", {
-    style: {
-      transition: "all 300ms ease-out",
-      pointerEvents: "none",
-      margin: "0px",
-      paddingRight: "5px",
-      alignSelf: "center",
-      cursor: "pointer"
-    },
-    width: props.w,
-    height: props.h,
-    viewBox: "0 0 ".concat(props.w, " ").concat(props.h),
-    fill: "none",
-    xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/_react.default.createElement("path", {
-    style: {
-      transition: "stroke 300ms ease-out",
-      stroke: props.contentsColor,
-      strokeWidth: "3",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    },
-    d: props.d
-  }), props.d1 && /*#__PURE__*/_react.default.createElement("path", {
-    style: {
-      transition: "stroke 300ms ease-out",
-      stroke: props.contentsColor,
-      strokeWidth: "3",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    },
-    d: props.d1
-  })));
-}
-function ProfileContentsFill(props) {
-  return /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "row",
-      padding: "0px",
-      justifyContent: "space-between"
-    },
-    onMouseEnter: function onMouseEnter() {
-      props.setObjColor(props.activeContentsColor);
-      props.setObjFillSVG(props.activeContentsColor);
-      props.setObjStrokeSVG(props.lines);
-    },
-    onMouseLeave: function onMouseLeave() {
-      if (props.menuSection != props.text) {
-        props.setObjColor(props.inactiveContentsColor);
-        props.setObjFillSVG("none");
-        props.setObjStrokeSVG(props.inactiveContentsColor);
-      }
-    },
-    onClick: function onClick() {
-      props.setMenuSection(props.text);
-    }
-  }, /*#__PURE__*/_react.default.createElement(ProfileLink, {
-    link: props.link,
-    text: props.text,
-    objColor: props.objColor
-  }), /*#__PURE__*/_react.default.createElement("svg", {
-    style: {
-      transition: "all 300ms ease-out",
-      pointerEvents: "none",
-      margin: "0px",
-      paddingRight: "5px",
-      alignSelf: "center",
-      cursor: "pointer"
-    },
-    width: props.w,
-    height: props.h,
-    viewBox: "0 0 ".concat(props.w, " ").concat(props.h),
-    fill: props.objFillSVG,
-    xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/_react.default.createElement("path", {
-    style: {
-      transition: "stroke 300ms ease-out",
-      stroke: props.contentsColor,
-      strokeWidth: "3",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    },
-    d: props.d
-  }), props.d1 && /*#__PURE__*/_react.default.createElement("path", {
-    style: {
-      transition: "stroke 300ms ease-out",
-      stroke: props.contentsColor,
-      strokeWidth: "3",
-      strokeLinecap: "round",
-      strokeLinejoin: "round"
-    },
-    d: props.d1
-  })));
-}
-function MainProfileDiv(props) {
-  var userName = (0, _reactRedux.useSelector)(function (state) {
-    return state.userData.userName;
-  });
-  var userBio = (0, _reactRedux.useSelector)(function (state) {
-    return state.userData.userBio;
-  });
-  var menuBg = (0, _reactRedux.useSelector)(function (state) {
-    return state.colorTheme.fill_inactive;
-  });
-  var divBg = (0, _reactRedux.useSelector)(function (state) {
-    return state.colorTheme.fill_active;
-  });
-  var bioTextColor = (0, _reactRedux.useSelector)(function (state) {
-    return state.colorTheme.stroke_active;
-  });
-  var lines = (0, _reactRedux.useSelector)(function (state) {
-    return state.colorTheme.lines;
-  });
-  var _useState = (0, _react.useState)("white"),
-    _useState2 = _slicedToArray(_useState, 2),
-    textColor = _useState2[0],
-    setTextColor = _useState2[1];
-  var _useState3 = (0, _react.useState)("12px"),
-    _useState4 = _slicedToArray(_useState3, 2),
-    fontSize = _useState4[0],
-    setFontSize = _useState4[1];
-  var _useState5 = (0, _react.useState)(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    text = _useState6[0],
-    setText = _useState6[1];
-  var _useState7 = (0, _react.useState)(''),
-    _useState8 = _slicedToArray(_useState7, 2),
-    placeholder = _useState8[0],
-    setPlaceholder = _useState8[1];
-  var _useState9 = (0, _react.useState)(menuBg),
-    _useState10 = _slicedToArray(_useState9, 2),
-    confirmColor = _useState10[0],
-    setConfirmColor = _useState10[1];
-  var _useState11 = (0, _react.useState)('#aaaacc'),
-    _useState12 = _slicedToArray(_useState11, 2),
-    inputValue = _useState12[0],
-    setInputValue = _useState12[1]; // Начальное значение цвета
-  var dispatcher = (0, _reactRedux.useDispatch)();
-  var handleConfirmClick = function handleConfirmClick() {
-    dispatcher((0, _store.changeColorTheme)({
-      "name": "fill_inactive",
-      "value": "#".concat(inputValue.slice(1))
-    }), {});
-    var value = "#".concat(Math.abs(parseInt(inputValue.replace('#', '0x'), 16) - parseInt("#7D8276".replace('#', '0x'), 16)).toString(16));
-    dispatcher((0, _store.changeColorTheme)({
-      "name": "fill_active",
-      "value": value
-    }), {});
-    dispatcher((0, _store.changeColorTheme)({
-      "name": "stroke_inactive",
-      "value": value
-    }), {});
-  };
-  var placeholderState = false;
-  (0, _react.useEffect)(function () {
-    if (userBio.length > 60) {
-      setText(userBio.slice(0, 56));
-      setPlaceholder('...');
-      placeholderState = true;
-    } else {
-      setText(userBio);
-    }
-  }, []);
-  switch (props.instance) {
-    case "Settings":
-      {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            width: "80%",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "5px"
-          }
-        }, /*#__PURE__*/_react.default.createElement("h2", {
-          style: {
-            color: menuBg,
-            fontSize: "35px",
-            margin: "0px",
-            textAlign: "center"
-          }
-        }, "Settings"), /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            width: "80%",
-            display: "flex",
-            flexDirection: "row",
-            padding: "0px",
-            justifyContent: "space-between"
-          }
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            display: "grid",
-            placeItems: "center"
-          }
-        }, /*#__PURE__*/_react.default.createElement("h5", {
-          style: {
-            color: menuBg,
-            fontSize: "25px",
-            margin: "0px",
-            textAlign: "center",
-            lineHeight: "35px"
-          }
-        }, "Color Theme")), /*#__PURE__*/_react.default.createElement("input", {
-          id: "colorThemeInput",
-          type: "color",
-          value: inputValue,
-          onChange: function onChange(event) {
-            return setInputValue(event.target.value);
-          },
-          style: {
-            border: "solid 1px black",
-            backgroundColor: "transparent",
-            width: "80px",
-            height: "50px",
-            cursor: "pointer"
-          }
-        })), /*#__PURE__*/_react.default.createElement("button", {
-          style: {
-            transition: "all 300ms ease-out",
-            border: "none",
-            backgroundColor: "transparent",
-            color: confirmColor,
-            cursor: "pointer"
-          },
-          onMouseEnter: function onMouseEnter() {
-            return setConfirmColor(bioTextColor);
-          },
-          onMouseLeave: function onMouseLeave() {
-            return setConfirmColor(menuBg);
-          },
-          onClick: handleConfirmClick
-        }, "Confirm"));
-      }
-    case "Support Service":
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          width: "80%",
-          height: "100vh",
-          display: "flex",
-          backgroundColor: menuBg,
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: "5px",
-          justifyContent: "space-between"
-        }
-      }, /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          backgroundColor: divBg,
-          width: "100%",
-          border: "solid 2px ".concat(lines),
-          borderTop: "none"
-        }
-      }, /*#__PURE__*/_react.default.createElement("h1", {
-        style: {
-          textAlign: "center",
-          // Это добавлено для центрирования текста
-          color: menuBg,
-          margin: "0px",
-          fontSize: "40px"
-        }
-      }, "Support Service")), /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          display: "flex",
-          flexDirection: "row"
-        }
-      }, /*#__PURE__*/_react.default.createElement("input", {
-        style: {
-          boxSizing: "border-box",
-          marginLeft: "5px",
-          fontSize: "30px",
-          marginBottom: "5px",
-          width: "68vw",
-          color: divBg
-        },
-        type: "text"
-      }), /*#__PURE__*/_react.default.createElement(_SVGButtons.default, {
-        border: true,
-        w: "48",
-        h: "48",
-        d: "M10 24H38M38 24L24 10M38 24L24 38"
-      })));
-    default:
-      {
-        return /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            width: "80%",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "5px"
-          }
-        }, /*#__PURE__*/_react.default.createElement("img", {
-          style: {
-            height: "100px",
-            width: "100px",
-            background: "transparent",
-            backgroundColor: "black",
-            borderRadius: "50%"
-          }
-        }), /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            margin: "5px",
-            color: bioTextColor
-          }
-        }, "@", userName), /*#__PURE__*/_react.default.createElement("div", {
-          className: "CormorantInfant-serif",
-          style: {
-            padding: "0px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
-          }
-        }, /*#__PURE__*/_react.default.createElement("p", {
-          style: {
-            margin: "0px",
-            width: "180px",
-            textAlign: "center",
-            color: bioTextColor
-          }
-        }, text), /*#__PURE__*/_react.default.createElement("button", {
-          style: {
-            background: "transparent",
-            border: "none",
-            margin: "0px",
-            fontSize: fontSize,
-            transition: "all 300ms ease-out",
-            color: textColor
-          },
-          onMouseEnter: function onMouseEnter() {
-            setTextColor("grey");
-            if (placeholder == '...') setPlaceholder("show more");
-          },
-          onMouseLeave: function onMouseLeave() {
-            setTextColor("white");
-            if (placeholder == 'show more') setPlaceholder("...");
-          },
-          onClick: function onClick() {
-            if (placeholderState) {
-              if (placeholder == 'show more') {
-                setText(userBio);
-                setPlaceholder('show less');
-              } else {
-                setText(userBio.slice(0, 56));
-                setPlaceholder('show more');
-              }
-            }
-          }
-        }, placeholder)), /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center"
-          }
-        }, /*#__PURE__*/_react.default.createElement(Lines, {
-          bg: bioTextColor
-        }), /*#__PURE__*/_react.default.createElement("h5", {
-          style: {
-            width: "20%",
-            color: bioTextColor,
-            fontSize: "25px",
-            textAlign: "center",
-            lineHeight: "35px",
-            margin: "0px 0px 0px 3px"
-          }
-        }, props.instance), /*#__PURE__*/_react.default.createElement(Lines, {
-          bg: bioTextColor
-        })));
-      }
-  }
-}
-function Lines(props) {
-  return /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "40%",
-      display: "flex",
-      flexDirection: "column"
-    }
-  }, /*#__PURE__*/_react.default.createElement("hr", {
-    style: {
-      border: "none",
-      margin: "2.5px",
-      width: "100%",
-      backgroundColor: props.bg
-    },
-    size: "3"
-  }), /*#__PURE__*/_react.default.createElement("hr", {
-    style: {
-      border: "none",
-      margin: "2.5px",
-      width: "100%",
-      backgroundColor: props.bg
-    },
-    size: "3"
-  }));
-}
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js","./SVGButtons":"Components/SVGButtons.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"Screens/ScreenProfile.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","../Components/Scroll":"Components/Scroll.js"}],"Screens/ScreenProfile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39070,7 +39134,7 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "support"
 })), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
-  path: "cards/:cardId",
+  path: "cards?cardId=:cardId",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
 },{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Components/CardScreen":"Components/CardScreen.js"}]},{},["index.jsx"], null)

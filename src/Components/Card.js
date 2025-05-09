@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector }                from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate }                from 'react-router';
+import { ProfileContentsFill }        from './ProfileComponents';
 
 export default function Container( props ) {
 
@@ -8,16 +9,35 @@ export default function Container( props ) {
 
     let navigate = useNavigate();
     
-    const [ focused, setFocused ]       = useState( false );
-    const [ filter, setFilter ]         = useState( "none" );
-    const [ textFilter, setTextFilter ] = useState( "none" );
-    const [ textStyle, setTextStyle ]   = useState( { color: "black", background: "transparent" } );
-    
-    const lines = useSelector( ( state ) => state.colorTheme.lines );
+    const [ focused, setFocused ]             = useState( false );
+    const [ filter, setFilter ]               = useState( "none" );
+    const [ textFilter, setTextFilter ]       = useState( "none" );
+    const [ textStyle, setTextStyle ]         = useState( { color: "black", background: "transparent" } );
+    const [ SVGfill, setSVGfill ]             = useState( "#BFBFBF" );
+    // const [isCircleHovered, setIsCircleHovered] = useState(false); // Отслеживаем состояние кружка //!
+
+    const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
+    const lines         = useSelector( ( state ) => state.colorTheme.lines );
 
     const margin = 10;
 
     // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
+
+    function handleContainerHover( isEntered ) {
+        setFocused( isEntered );
+        setFilter( isEntered ? 'brightness(30%) saturate(40%)' : 'none' );
+        setTextFilter( isEntered ? 'brightness(30%) contrast(30%)' : 'none' );
+        setTextStyle({
+            color: isEntered ? 'lightgrey' : 'black',
+            background: 'transparent'
+        });
+    }
+
+    // Отдельная обработка для кружка
+    function handleCircleHover( isEntered ) {
+        setIsCircleHovered( isEntered );
+        setSVGfill( isEntered ? '#FFFFFF' : '#BFBFBF' );
+    }
 
     return (
         <div 
@@ -35,19 +55,53 @@ export default function Container( props ) {
                 border:       `solid 1px ${ lines }`,
                 borderRadius: "20px",
             }} 
-            onMouseEnter={ () => {
-                setFocused( true );
-                setFilter( "brightness(30%) saturate(40%)" );
-                setTextFilter( "brightness(30%) contrast(30%)" );                       
-                setTextStyle( { color: "lightgrey" } )
-            }} 
-            onMouseOut  ={ () => {
-                setFocused( false );
-                setFilter( "none" );
-                setTextFilter( "none" );                                    
-                setTextStyle( { color: "black" } );
-            }} 
-            onClick     ={() => navigate( "cards" )}>            
+            onMouseEnter={() => handleContainerHover( true )}
+            onMouseOut  ={() => handleContainerHover( false )}
+            onClick     ={() => navigate( `cards/${ props.key }` )}>
+            <svg
+                onMouseEnter={( event ) => {
+                    event.stopPropagation(); // Остановить всплытие события вверх
+                    handleCircleHover( true );
+                }}
+                onMouseOut  ={( event ) => {
+                    event.stopPropagation(); // Остановить всплытие события вверх
+                    handleCircleHover( false );
+                }}
+                viewBox='0 0 40 40'
+                xmlns="http://www.w3.org/2000/svg"
+                style={{
+                    transition:    "opacity 300ms ease-out",
+                    opacity:       Number( focused ),
+                    position:      "absolute",
+                    top:           "5px",
+                    right:         "5px",
+                    height:        "40px",
+                    width:         "40px",
+                    zIndex:        2, 
+                    pointerEvents: "none",
+                }}>
+                <circle 
+                    style={{
+                        padding: "5px",
+                    }}
+                    cx="5" cy="5"
+                    r="5px" 
+                    fill={ SVGfill }/>
+                <circle 
+                    style={{
+                        padding: "5px",
+                    }}
+                    cx="20" cy="5"
+                    r="5px" 
+                    fill={ SVGfill }/>
+                <circle 
+                    style={{
+                        padding: "5px",
+                    }}
+                    cx="35" cy="5"
+                    r="5px" 
+                    fill={ SVGfill }/>
+            </svg>       
             <div 
                 style={{ 
                     padding:       "2px", 
