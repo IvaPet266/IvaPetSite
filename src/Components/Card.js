@@ -41,37 +41,9 @@ export default function Container( props ) {
     };
 
     function clickHandler( event ) {
-        // Получаем объект svg
-        const svg = document.getElementById('my-svg');
-      
-        // Координаты события клика относительно страницы
-        let x = event.clientX;
-        let y = event.clientY;
-      
-        // Преобразовываем координаты клика в локальную систему координат SVG
-        const point = svg.createSVGPoint();
-        point.x = x;
-        point.y = y;
-      
-        // Метод getScreenCTM() возвращает матрицу преобразования от локальных координат SVG к экранным координатам
-        const matrix = svg.getScreenCTM().inverse(); // Обращаем матрицу, чтобы сделать обратное преобразование
-        const transformedPoint = point.matrixTransform(matrix);
-      
-        // Определяем границы видимой части SVG (учитывая ширину и высоту)
-        const bbox = svg.getBBox();
-      
-        // Теперь проверяем, попали ли мы внутрь прямоугольника SVG
-        if (
-          transformedPoint.x >= bbox.x &&
-          transformedPoint.x <= bbox.x + bbox.width &&
-          transformedPoint.y >= bbox.y &&
-          transformedPoint.y <= bbox.y + bbox.height
-        ) {
-          console.log("Клик попал внутрь SVG");
-        } else {
-          console.log("Клик вне SVG");
-        }
-      };
+        const svg = document.getElementById('svg');
+              
+    };
 
     return (
         <div 

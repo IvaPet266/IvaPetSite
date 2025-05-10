@@ -38029,31 +38029,7 @@ function Container(props) {
   }
   ;
   function clickHandler(event) {
-    // Получаем объект svg
-    var svg = document.getElementById('my-svg');
-
-    // Координаты события клика относительно страницы
-    var x = event.clientX;
-    var y = event.clientY;
-
-    // Преобразовываем координаты клика в локальную систему координат SVG
-    var point = svg.createSVGPoint();
-    point.x = x;
-    point.y = y;
-
-    // Метод getScreenCTM() возвращает матрицу преобразования от локальных координат SVG к экранным координатам
-    var matrix = svg.getScreenCTM().inverse(); // Обращаем матрицу, чтобы сделать обратное преобразование
-    var transformedPoint = point.matrixTransform(matrix);
-
-    // Определяем границы видимой части SVG (учитывая ширину и высоту)
-    var bbox = svg.getBBox();
-
-    // Теперь проверяем, попали ли мы внутрь прямоугольника SVG
-    if (transformedPoint.x >= bbox.x && transformedPoint.x <= bbox.x + bbox.width && transformedPoint.y >= bbox.y && transformedPoint.y <= bbox.y + bbox.height) {
-      console.log("Клик попал внутрь SVG");
-    } else {
-      console.log("Клик вне SVG");
-    }
+    var svg = document.getElementById('svg');
   }
   ;
   return /*#__PURE__*/_react.default.createElement("div", {
