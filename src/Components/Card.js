@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector }                from 'react-redux';
 import { useNavigate }                from 'react-router';
-import { ProfileContentsFill }        from './ProfileComponents';
+import CardMenu                       from './CardMenu';
 
 export default function Container( props ) {
 
@@ -13,10 +13,7 @@ export default function Container( props ) {
     const [ filter, setFilter ]             = useState( "none" );
     const [ textFilter, setTextFilter ]     = useState( "none" );
     const [ textStyle, setTextStyle ]       = useState( { color: "black", background: "transparent" } );
-    const [ SVGfill, setSVGfill ]           = useState( "#BFBFBF" );
-    const [ SVGanimation, setSVGanimation ] = useState( "none" );
-    // const [isCircleHovered, setIsCircleHovered] = useState(false); // Отслеживаем состояние кружка //!
-
+   
     const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
     const lines         = useSelector( ( state ) => state.colorTheme.lines );
 
@@ -32,17 +29,6 @@ export default function Container( props ) {
             color: isEntered ? 'lightgrey' : 'black',
             background: 'transparent'
         });
-    };
-
-    // Отдельная обработка для кружка
-    function handleCircleHover( isEntered ) {
-        setIsCircleHovered( isEntered );
-        setSVGfill( isEntered ? '#FFFFFF' : '#BFBFBF' );
-    };
-
-    function clickHandler( event ) {
-        const svg = document.getElementById('svg');
-              
     };
 
     return (
@@ -63,56 +49,12 @@ export default function Container( props ) {
             }} 
             onMouseEnter={() => handleContainerHover( true )}
             onMouseOut  ={() => handleContainerHover( false )}
-            onClick     ={ clickHandler }>
-            <svg
-                id          ="more"
-                onMouseEnter={( event ) => {
-                    event.stopPropagation(); // Остановить всплытие события вверх
-                    handleCircleHover( true );
-                }}
-                onMouseOut  ={( event ) => {
-                    event.stopPropagation(); // Остановить всплытие события вверх
-                    handleCircleHover( false );
-                }}
-                viewBox='0 0 30 10'
-                xmlns  ="http://www.w3.org/2000/svg"
-                onClick={() => {
-                    setSVGanimation( "moreAnimation 500ms " )
-                }}
-                style={{
-                    transition:    "opacity 300ms ease-out",
-                    opacity:       Number( focused ),
-                    animation:     SVGanimation,
-                    position:      "absolute",
-                    top:           "7px",
-                    right:         "3px",
-                    height:        "10px",
-                    width:         "30px",
-                    zIndex:        2, 
-                    pointerEvents: "none",
-                }}>
-                <circle 
-                    style={{
-                        padding: "5px",
-                    }}
-                    cx="4" cy="4"
-                    r="4px" 
-                    fill={ SVGfill }/>
-                <circle 
-                    style={{
-                        padding: "5px",
-                    }}
-                    cx="14" cy="4"
-                    r="4px" 
-                    fill={ SVGfill }/>
-                <circle 
-                    style={{
-                        padding: "5px",
-                    }}
-                    cx="24" cy="4"
-                    r="4px" 
-                    fill={ SVGfill }/>
-            </svg>       
+            // onClick     ={ clickHandler }
+            >
+            <CardMenu 
+                handleContainerHover={ handleContainerHover }
+                focused             ={ focused }
+            />
             <div 
                 style={{ 
                     padding:       "2px", 

@@ -1,206 +1,78 @@
-import React, { useState, useEffect } from "react"
-import { useSelector, useDispatch }   from "react-redux"
-import { changeColorTheme }           from "../app/store"
-import SVGButton                      from "./SVGButtons"
-import { NavLink }                    from "react-router"
-// import { Link } from "react-router"
+import React, { useState, useEffect }                                     from "react"
+import { useSelector, useDispatch }                                       from "react-redux"
+import { changeColorTheme }                                               from "../app/store"
+import SVGButton                                                          from "./SVGButtons"
+import { NavLink }                                                        from "react-router"
+import { LinkButton, ProfileContentsSVG, Lines, BaseProfileComponentDiv } from "./ProfileMicroComponents"
 
 
 export function ProfileLink( props ) {
     switch ( props.link ){
         case false: 
             return (
-                <button 
-                    style={{ 
-                        background: "transparent", 
-                        border:     "none", 
-                        margin:     "0px", 
-                        padding:    "2px", 
-                        cursor:     "pointer" 
-                    }}>   
-                    <span className='CormorantInfant-serif' 
-                        style={{ 
-                            pointerEvents: "none", 
-                            transition:    "color 300ms ease-out", 
-                            fontWeight:    "bold", 
-                            color:         props.objColor, 
-                            fontSize:      "25px" 
-                        }}>
-                        { props.text }
-                    </span>
-                </button>
+                <LinkButton
+                    objColor={ props.objColor }
+                    text    ={ props.text } 
+                />
             )
         default:
             return (
                 <NavLink to={ `/profile/${ props.link }` }>
-                    <button 
-                        style={{ 
-                            background: "transparent", 
-                            border:     "none", 
-                            margin:     "0px", 
-                            padding:    "2px", 
-                            cursor:     "pointer" 
-                        }}>
-                        <span className='CormorantInfant-serif' 
-                            style={{ 
-                                pointerEvents: "none", 
-                                transition:    "color 300ms ease-out", 
-                                fontWeight:    "bold", 
-                                color:         props.objColor, 
-                                fontSize:      "25px" }}>
-                            { props.text }
-                        </span>
-                    </button>
+                    <LinkButton
+                       objColor={ props.objColor }
+                       text    ={ props.text } 
+                    />
                 </NavLink>
             )
     }
 }
 
-
-export function ProfileContents ( props ) {
-    return (
-        <div 
-            style       ={{ 
-                width:          "100%", 
-                display:        "flex", 
-                flexDirection:  "row", 
-                padding:        "0px", 
-                justifyContent: "space-between"
-            }} 
-            onMouseEnter={() => {
-                props.setObjColor( props.activeContentsColor )
-                props.setObjStrokeSVG( props.activeContentsColor )
-            }} 
-            onMouseLeave={() => {
-                if ( props.menuSection != props.text ) {
-                    props.setObjColor( props.inactiveContentsColor )
-                    props.setObjStrokeSVG( props.inactiveContentsColor )
-                }
-            }} 
-            onClick     ={() => {
-                if ( props.text == "Privacy Policy" ) window.open( "https://2048game.com/ru/", "_blank" )
-                else if ( props.text == "Log Out" ) console.log( "Log Out" )
-                else {
-                    props.setMenuSection( props.text );
-                }
-            }}>
-            <ProfileLink 
-                link    ={ props.link } 
-                text    ={ props.text } 
-                objColor={ props.objColor }/>
-            <svg 
-                style={{ 
-                    transition:    "all 300ms ease-out", 
-                    pointerEvents: "none", 
-                    margin:        "0px", 
-                    paddingRight:  "5px", 
-                    alignSelf:     "center", 
-                    cursor:        "pointer" 
-                }} 
-                width  ={ props.w } 
-                height ={ props.h } 
-                viewBox={ `0 0 ${ props.w } ${ props.h }` } 
-                fill   ="none" 
-                xmlns  ="http://www.w3.org/2000/svg">
-                <path 
-                    style={{ 
-                        transition:     "stroke 300ms ease-out", 
-                        stroke:         props.contentsColor,
-                        strokeWidth:    "3", 
-                        strokeLinecap:  "round", 
-                        strokeLinejoin: "round" 
-                    }}
-                    d    ={ props.d }/>
-                { 
-                    props.d1 && <path 
-                        style={{
-                            transition:     "stroke 300ms ease-out", 
-                            stroke:         props.contentsColor, 
-                            strokeWidth:    "3", 
-                            strokeLinecap:  "round", 
-                            strokeLinejoin: "round" 
-                        }}
-                        d    ={ props.d1 }/>
-                }
-            </svg>
-        </div>
-    )
-}
-  
-export function ProfileContentsFill( props ) {
-    return (
-        <div 
-            style       ={{ 
-                width:          "100%", 
-                display:        "flex", 
-                flexDirection:  "row", 
-                padding:        "0px", 
-                justifyContent: "space-between",
-            }} 
-            onMouseEnter={() => {
-                props.setObjColor( props.activeContentsColor );
-                props.setObjFillSVG( props.activeContentsColor );
-                props.setObjStrokeSVG( props.lines );
-            }} 
-            onMouseLeave={() => {
-                if ( props.menuSection != props.text ) {
-                    props.setObjColor( props.inactiveContentsColor );
-                    props.setObjFillSVG( "none" );
-                    props.setObjStrokeSVG( props.inactiveContentsColor );
-                }
-            }} 
-            onClick     ={() => {
-                if ( props.link != "none" ) {
-                    props.setMenuSection( props.text )
-                } else {
-                    console.log(`liked post №${props.postId}`);
-                }
-            }}>
-            { 
-                props.link != "none" && <ProfileLink 
-                    link    ={ props.link } 
-                    text    ={ props.text } 
-                    objColor={ props.objColor }/>
+export const ProfileContents = ( props ) => (
+    <div 
+        style       ={{ 
+            width:          "100%", 
+            display:        "flex", 
+            flexDirection:  "row", 
+            padding:        "0px", 
+            justifyContent: "space-between",
+        }} 
+        onMouseEnter={ () => {
+            props.setObjColor( props.activeContentsColor );
+            props.fill && props.setObjFillSVG( props.activeContentsColor );
+            props.setObjStrokeSVG( props.fill ? props.lines : props.activeContentsColor );
+        }}
+        onMouseLeave={ () => {
+            if ( props.menuSection != props.text ) {
+                props.setObjColor( props.inactiveContentsColor );
+                props.fill && props.setObjFillSVG( "none" );
+                props.setObjStrokeSVG( props.inactiveContentsColor );
             }
-            <svg 
-                style  ={{ 
-                    transition:    "all 300ms ease-out", 
-                    pointerEvents: "none", 
-                    margin:        "0px",
-                    paddingRight:  "5px", 
-                    alignSelf:     "center", 
-                    cursor:        "pointer" 
-                }} 
-                width  ={ props.w } 
-                height ={ props.h }
-                viewBox={`0 0 ${ props.w } ${ props.h }`} 
-                fill   ={ props.objFillSVG } 
-                xmlns  ="http://www.w3.org/2000/svg">
-                <path 
-                    style={{ 
-                        transition:     "stroke 300ms ease-out", 
-                        stroke:         props.contentsColor, 
-                        strokeWidth:    "3", 
-                        strokeLinecap:  "round", 
-                        strokeLinejoin: "round" 
-                    }}
-                    d    ={ props.d }
-                />
-                {
-                    props.d1 && <path 
-                        style={{
-                            transition:     "stroke 300ms ease-out",
-                            stroke:         props.contentsColor, 
-                            strokeWidth:    "3",
-                            strokeLinecap:  "round", 
-                            strokeLinejoin: "round"
-                        }}
-                        d    ={ props.d1 }/>
-                }
-            </svg>
-        </div>
-    )
-}
+        }}
+        onClick={ () => {
+            if ( props.text === 'Privacy Policy' ) {
+                window.open( 'https://2048game.com/ru/', '_blank' );
+            } else if ( props.text === 'Log Out' ) {
+                console.log('Log Out');
+            } else if ( props.link !== 'none' ) {
+                props.setMenuSection(props.text);
+            } else {
+                console.log(`Liked post №${props.postId}`);
+            }
+        }}>
+        {( props.fill === false || props.link !== "none" ) && (
+            <ProfileLink
+                link     = { props.link }
+                text     = { props.text }
+                objColor = { props.objColor }
+            />
+        )}
+        <ProfileContentsSVG
+            w={ props.w } h ={ props.h } 
+            d={ props.d } d1={ props.d1 }
+            contentsColor={ props.contentsColor }
+            objFillSVG   ={ props.fill ? props.objFillSVG : "none" }/>
+    </div>
+)
   
 export function MainProfileDiv ( props ) {
     
@@ -221,10 +93,10 @@ export function MainProfileDiv ( props ) {
     const dispatcher = useDispatch();
   
     const handleConfirmClick = () => {
-      dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue.slice( 1 ) }` } ), {} );
-      const value = `#${ Math.abs( parseInt( inputValue.replace( '#', '0x' ), 16 ) - parseInt( "#7D8276".replace( '#', '0x' ), 16 ) ).toString( 16 ) }`
-      dispatcher( changeColorTheme({ "name": "fill_active", "value": value } ), {} );
-      dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": value } ), {} );
+        dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue.slice( 1 ) }` } ), {} );
+        const value = `#${ Math.abs( parseInt( inputValue.replace( '#', '0x' ), 16 ) - parseInt( "#7D8276".replace( '#', '0x' ), 16 ) ).toString( 16 ) }`
+        dispatcher( changeColorTheme({ "name": "fill_active", "value": value } ), {} );
+        dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": value } ), {} );
     };
     
     let placeholderState = false;
@@ -240,15 +112,7 @@ export function MainProfileDiv ( props ) {
     switch ( props.instance ) {
         case "Settings": {
             return (
-                <div 
-                    style={{ 
-                        width:         "80%", 
-                        height:        "100vh", 
-                        display:       "flex", 
-                        flexDirection: "column", 
-                        alignItems:    "center", 
-                        marginTop:     "5px" 
-                    }}>
+                <BaseProfileComponentDiv>
                     <h2 
                         style={{ 
                             color:     menuBg, 
@@ -298,12 +162,12 @@ export function MainProfileDiv ( props ) {
                             color:           confirmColor, 
                             cursor:          "pointer" 
                         }} 
-                        onMouseEnter={() => setConfirmColor( bioTextColor )}
-                        onMouseLeave={() => setConfirmColor( menuBg )}
+                        onMouseEnter={ () => setConfirmColor( bioTextColor ) }
+                        onMouseLeave={ () => setConfirmColor( menuBg ) }
                         onClick     ={ handleConfirmClick }>
                             Confirm
                     </button>
-                </div>
+                </BaseProfileComponentDiv>
             )
         }
         case "Support Service": return (
@@ -312,10 +176,10 @@ export function MainProfileDiv ( props ) {
                     width:           "80%", 
                     height:          "100vh", 
                     display:         "flex", 
-                    backgroundColor: menuBg, 
                     flexDirection:   "column", 
                     alignItems:      "center", 
                     marginTop:       "5px", 
+                    backgroundColor: menuBg, 
                     justifyContent:  "space-between" 
                 }}>
                 <div 
@@ -356,15 +220,7 @@ export function MainProfileDiv ( props ) {
         )
         default: {
             return (
-                <div 
-                    style={{ 
-                        width:         "80%", 
-                        height:        "100vh", 
-                        display:       "flex", 
-                        flexDirection: "column", 
-                        alignItems:    "center", 
-                        marginTop:     "5px" 
-                    }}>
+                <BaseProfileComponentDiv>
                     <img 
                         style={{ 
                             height:          "100px", 
@@ -393,11 +249,11 @@ export function MainProfileDiv ( props ) {
                         </p>
                         <button 
                             style       ={{ 
-                                background: "transparent", 
+                                transition: "all 300ms ease-out", 
                                 border:     "none", 
+                                background: "transparent", 
                                 margin:     "0px", 
                                 fontSize:   fontSize, 
-                                transition: "all 300ms ease-out", 
                                 color:      textColor 
                             }}
                             onMouseEnter={ () => {
@@ -437,31 +293,8 @@ export function MainProfileDiv ( props ) {
                         </h5>
                         <Lines bg={ bioTextColor }/>
                     </div>
-                </div>
+                </BaseProfileComponentDiv>
             )
         }
     }
 }
-  
-export function Lines( props ) {
-    return (
-        <div style={{ width: "40%", display: "flex", flexDirection: "column" }}>
-            <hr 
-                style={{ 
-                    border:          "none", 
-                    margin:          "2.5px", 
-                    width:           "100%", 
-                    backgroundColor: props.bg 
-                }} 
-                size ="3"/>
-            <hr 
-                style={{ 
-                    border:          "none", 
-                    margin:          "2.5px", 
-                    width:           "100%", 
-                    backgroundColor: props.bg 
-                }} 
-                size ="3"/>
-        </div>
-    )
-  }
