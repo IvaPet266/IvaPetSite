@@ -37995,6 +37995,10 @@ function Container(props) {
     _useState10 = _slicedToArray(_useState9, 2),
     SVGfill = _useState10[0],
     setSVGfill = _useState10[1];
+  var _useState11 = (0, _react.useState)("none"),
+    _useState12 = _slicedToArray(_useState11, 2),
+    SVGanimation = _useState12[0],
+    setSVGanimation = _useState12[1];
   // const [isCircleHovered, setIsCircleHovered] = useState(false); // Отслеживаем состояние кружка //!
 
   var menuTextColor = (0, _reactRedux.useSelector)(function (state) {
@@ -38016,12 +38020,42 @@ function Container(props) {
       background: 'transparent'
     });
   }
+  ;
 
   // Отдельная обработка для кружка
   function handleCircleHover(isEntered) {
     setIsCircleHovered(isEntered);
     setSVGfill(isEntered ? '#FFFFFF' : '#BFBFBF');
   }
+  ;
+  function clickHandler(event) {
+    // Получаем объект svg
+    var svg = document.getElementById('my-svg');
+
+    // Координаты события клика относительно страницы
+    var x = event.clientX;
+    var y = event.clientY;
+
+    // Преобразовываем координаты клика в локальную систему координат SVG
+    var point = svg.createSVGPoint();
+    point.x = x;
+    point.y = y;
+
+    // Метод getScreenCTM() возвращает матрицу преобразования от локальных координат SVG к экранным координатам
+    var matrix = svg.getScreenCTM().inverse(); // Обращаем матрицу, чтобы сделать обратное преобразование
+    var transformedPoint = point.matrixTransform(matrix);
+
+    // Определяем границы видимой части SVG (учитывая ширину и высоту)
+    var bbox = svg.getBBox();
+
+    // Теперь проверяем, попали ли мы внутрь прямоугольника SVG
+    if (transformedPoint.x >= bbox.x && transformedPoint.x <= bbox.x + bbox.width && transformedPoint.y >= bbox.y && transformedPoint.y <= bbox.y + bbox.height) {
+      console.log("Клик попал внутрь SVG");
+    } else {
+      console.log("Клик вне SVG");
+    }
+  }
+  ;
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "inline-block",
@@ -38044,10 +38078,9 @@ function Container(props) {
     onMouseOut: function onMouseOut() {
       return handleContainerHover(false);
     },
-    onClick: function onClick() {
-      return navigate("cards/".concat(props.key));
-    }
+    onClick: clickHandler
   }, /*#__PURE__*/_react.default.createElement("svg", {
+    id: "more",
     onMouseEnter: function onMouseEnter(event) {
       event.stopPropagation(); // Остановить всплытие события вверх
       handleCircleHover(true);
@@ -38056,16 +38089,20 @@ function Container(props) {
       event.stopPropagation(); // Остановить всплытие события вверх
       handleCircleHover(false);
     },
-    viewBox: "0 0 40 40",
+    viewBox: "0 0 30 10",
     xmlns: "http://www.w3.org/2000/svg",
+    onClick: function onClick() {
+      setSVGanimation("moreAnimation 500ms ");
+    },
     style: {
       transition: "opacity 300ms ease-out",
       opacity: Number(focused),
+      animation: SVGanimation,
       position: "absolute",
-      top: "5px",
-      right: "5px",
-      height: "40px",
-      width: "40px",
+      top: "7px",
+      right: "3px",
+      height: "10px",
+      width: "30px",
       zIndex: 2,
       pointerEvents: "none"
     }
@@ -38073,25 +38110,25 @@ function Container(props) {
     style: {
       padding: "5px"
     },
-    cx: "5",
-    cy: "5",
-    r: "5px",
+    cx: "4",
+    cy: "4",
+    r: "4px",
     fill: SVGfill
   }), /*#__PURE__*/_react.default.createElement("circle", {
     style: {
       padding: "5px"
     },
-    cx: "20",
-    cy: "5",
-    r: "5px",
+    cx: "14",
+    cy: "4",
+    r: "4px",
     fill: SVGfill
   }), /*#__PURE__*/_react.default.createElement("circle", {
     style: {
       padding: "5px"
     },
-    cx: "35",
-    cy: "5",
-    r: "5px",
+    cx: "24",
+    cy: "4",
+    r: "4px",
     fill: SVGfill
   })), /*#__PURE__*/_react.default.createElement("div", {
     style: {

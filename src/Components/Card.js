@@ -9,11 +9,12 @@ export default function Container( props ) {
 
     let navigate = useNavigate();
     
-    const [ focused, setFocused ]             = useState( false );
-    const [ filter, setFilter ]               = useState( "none" );
-    const [ textFilter, setTextFilter ]       = useState( "none" );
-    const [ textStyle, setTextStyle ]         = useState( { color: "black", background: "transparent" } );
-    const [ SVGfill, setSVGfill ]             = useState( "#BFBFBF" );
+    const [ focused, setFocused ]           = useState( false );
+    const [ filter, setFilter ]             = useState( "none" );
+    const [ textFilter, setTextFilter ]     = useState( "none" );
+    const [ textStyle, setTextStyle ]       = useState( { color: "black", background: "transparent" } );
+    const [ SVGfill, setSVGfill ]           = useState( "#BFBFBF" );
+    const [ SVGanimation, setSVGanimation ] = useState( "none" );
     // const [isCircleHovered, setIsCircleHovered] = useState(false); // Отслеживаем состояние кружка //!
 
     const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
@@ -31,13 +32,46 @@ export default function Container( props ) {
             color: isEntered ? 'lightgrey' : 'black',
             background: 'transparent'
         });
-    }
+    };
 
     // Отдельная обработка для кружка
     function handleCircleHover( isEntered ) {
         setIsCircleHovered( isEntered );
         setSVGfill( isEntered ? '#FFFFFF' : '#BFBFBF' );
-    }
+    };
+
+    function clickHandler( event ) {
+        // Получаем объект svg
+        const svg = document.getElementById('my-svg');
+      
+        // Координаты события клика относительно страницы
+        let x = event.clientX;
+        let y = event.clientY;
+      
+        // Преобразовываем координаты клика в локальную систему координат SVG
+        const point = svg.createSVGPoint();
+        point.x = x;
+        point.y = y;
+      
+        // Метод getScreenCTM() возвращает матрицу преобразования от локальных координат SVG к экранным координатам
+        const matrix = svg.getScreenCTM().inverse(); // Обращаем матрицу, чтобы сделать обратное преобразование
+        const transformedPoint = point.matrixTransform(matrix);
+      
+        // Определяем границы видимой части SVG (учитывая ширину и высоту)
+        const bbox = svg.getBBox();
+      
+        // Теперь проверяем, попали ли мы внутрь прямоугольника SVG
+        if (
+          transformedPoint.x >= bbox.x &&
+          transformedPoint.x <= bbox.x + bbox.width &&
+          transformedPoint.y >= bbox.y &&
+          transformedPoint.y <= bbox.y + bbox.height
+        ) {
+          console.log("Клик попал внутрь SVG");
+        } else {
+          console.log("Клик вне SVG");
+        }
+      };
 
     return (
         <div 
@@ -57,8 +91,9 @@ export default function Container( props ) {
             }} 
             onMouseEnter={() => handleContainerHover( true )}
             onMouseOut  ={() => handleContainerHover( false )}
-            onClick     ={() => navigate( `cards/${ props.key }` )}>
+            onClick     ={ clickHandler }>
             <svg
+                id          ="more"
                 onMouseEnter={( event ) => {
                     event.stopPropagation(); // Остановить всплытие события вверх
                     handleCircleHover( true );
@@ -67,16 +102,20 @@ export default function Container( props ) {
                     event.stopPropagation(); // Остановить всплытие события вверх
                     handleCircleHover( false );
                 }}
-                viewBox='0 0 40 40'
-                xmlns="http://www.w3.org/2000/svg"
+                viewBox='0 0 30 10'
+                xmlns  ="http://www.w3.org/2000/svg"
+                onClick={() => {
+                    setSVGanimation( "moreAnimation 500ms " )
+                }}
                 style={{
                     transition:    "opacity 300ms ease-out",
                     opacity:       Number( focused ),
+                    animation:     SVGanimation,
                     position:      "absolute",
-                    top:           "5px",
-                    right:         "5px",
-                    height:        "40px",
-                    width:         "40px",
+                    top:           "7px",
+                    right:         "3px",
+                    height:        "10px",
+                    width:         "30px",
                     zIndex:        2, 
                     pointerEvents: "none",
                 }}>
@@ -84,22 +123,22 @@ export default function Container( props ) {
                     style={{
                         padding: "5px",
                     }}
-                    cx="5" cy="5"
-                    r="5px" 
+                    cx="4" cy="4"
+                    r="4px" 
                     fill={ SVGfill }/>
                 <circle 
                     style={{
                         padding: "5px",
                     }}
-                    cx="20" cy="5"
-                    r="5px" 
+                    cx="14" cy="4"
+                    r="4px" 
                     fill={ SVGfill }/>
                 <circle 
                     style={{
                         padding: "5px",
                     }}
-                    cx="35" cy="5"
-                    r="5px" 
+                    cx="24" cy="4"
+                    r="4px" 
                     fill={ SVGfill }/>
             </svg>       
             <div 
