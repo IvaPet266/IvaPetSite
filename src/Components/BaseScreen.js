@@ -45,7 +45,6 @@ export default function BaseScreen( props ) {
 
   function scrollTo ( percent ) {
     if ( contentRef.current ) {
-      console.log(percent, contentRef.current.scrollHeight );
       contentRef.current.scroll( 0, percent * contentRef.current.scrollHeight );
     }
   }
@@ -90,7 +89,6 @@ export default function BaseScreen( props ) {
     </div>
   )
 };
-
 
 function Scrollbar( props ) {
 
