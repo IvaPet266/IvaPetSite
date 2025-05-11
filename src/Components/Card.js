@@ -54,6 +54,7 @@ export default function Container( props ) {
             <CardMenu 
                 handleContainerHover={ handleContainerHover }
                 focused             ={ focused }
+                category            ={ category }
             />
             <div 
                 style={{ 

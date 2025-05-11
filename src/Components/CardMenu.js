@@ -5,7 +5,7 @@ const ANIMATION_DURATION = 300
 
 export default function CardMenu({
     handleContainerHover,
-    focused 
+    focused, category
 }) {
 
     const [ SVGfill, setSVGfill ]             = useState( "white" ); //useState( "#BFBFBF" );
@@ -115,10 +115,25 @@ export default function CardMenu({
                     onMouseLeave={ () => setDownloadFill( "#BFBFBF" ) }
                     onClick={ downloadPost }
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                    {( 
-                        downloadState && 
-                        <path d="M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"/> 
-                        ) || <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/> 
+                    {
+                        (() => {
+                            switch ( downloadState ) {
+                                case false:
+                                    if ( category === "ARTWORK" ) return <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/> 
+                                    else { 
+                                            console.log( "not ARTWORK; false" );
+                                            return (
+                                                <path d="M0 0h24v24H0V0z" fill="none"/>
+                                                // <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/>                 
+                                            )
+                                        }
+                                default: return <path d="M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"/> 
+                            }
+                        })()
+                    }
+                    {
+                        !downloadState && category !== "ARTWORK" && 
+                        <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/>                 
                     }
                 </svg>
                 <MenuSVG handleContainerHover={ handleContainerHover } setSVGfill={ setShareFill } SVGfill={ shareFill } top="59px"

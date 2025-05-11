@@ -37457,7 +37457,8 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var ANIMATION_DURATION = 300;
 function CardMenu(_ref) {
   var handleContainerHover = _ref.handleContainerHover,
-    focused = _ref.focused;
+    focused = _ref.focused,
+    category = _ref.category;
   var _useState = (0, _react.useState)("white"),
     _useState2 = _slicedToArray(_useState, 2),
     SVGfill = _useState2[0],
@@ -37598,10 +37599,27 @@ function CardMenu(_ref) {
     onClick: downloadPost,
     xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 -960 960 960"
-  }, downloadState && /*#__PURE__*/_react.default.createElement("path", {
-    d: "M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"
-  }) || /*#__PURE__*/_react.default.createElement("path", {
-    d: "M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
+  }, function () {
+    switch (downloadState) {
+      case false:
+        if (category === "ARTWORK") return /*#__PURE__*/_react.default.createElement("path", {
+          d: "M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
+        });else {
+          console.log("not ARTWORK; false");
+          return /*#__PURE__*/_react.default.createElement("path", {
+            d: "M0 0h24v24H0V0z",
+            fill: "none"
+          })
+          // <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/>                 
+          ;
+        }
+      default:
+        return /*#__PURE__*/_react.default.createElement("path", {
+          d: "M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"
+        });
+    }
+  }(), !downloadState && category !== "ARTWORK" && /*#__PURE__*/_react.default.createElement("path", {
+    d: "M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
   })), /*#__PURE__*/_react.default.createElement(MenuSVG, {
     handleContainerHover: handleContainerHover,
     setSVGfill: setShareFill,
@@ -37753,7 +37771,8 @@ function Container(props) {
     // onClick     ={ clickHandler }
   }, /*#__PURE__*/_react.default.createElement(_CardMenu.default, {
     handleContainerHover: handleContainerHover,
-    focused: focused
+    focused: focused,
+    category: category
   }), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       padding: "2px",
