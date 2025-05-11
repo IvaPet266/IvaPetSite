@@ -134,9 +134,9 @@ export function MainProfileDiv ( props ) {
                                 style={{ 
                                     color:      menuBg, 
                                     fontSize:   "25px", 
-                                    margin:     "0px", 
                                     textAlign:  "center", 
-                                    lineHeight: "35px" 
+                                    lineHeight: "35px", 
+                                    margin:     "0px", 
                                 }}>
                                     Color Theme
                             </h5>

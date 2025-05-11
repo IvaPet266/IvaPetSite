@@ -50,30 +50,30 @@ export default function CardMenu({
                 width:         "30px",
                 zIndex:        1, 
             }}>
-            <circle 
-                style={{
-                    padding:       "5px",
-                    pointerEvents: "none",
-                }}
-                cx="4" cy="4"
-                r="4px" 
-                fill={ SVGfill }/>
-            <circle 
-                style={{
-                    padding:       "5px",
-                    pointerEvents: "none",
-                }}
-                cx="14" cy="4"
-                r="4px" 
-                fill={ SVGfill }/>
-            <circle 
-                style={{
-                    padding:       "5px",
-                    pointerEvents: "none",
-                }}
-                cx="24" cy="4"
-                r="4px" 
-                fill={ SVGfill }/>
+            <CardCircle
+                cx="4"   cy  ="4"
+                r ="4px" fill={ SVGfill }
+            />
+            <CardCircle
+                cx="14"  cy  ="4"
+                r ="4px" fill={ SVGfill }
+            />
+            <CardCircle
+                cx="24"  cy  ="4"
+                r ="4px" fill={ SVGfill }
+            />
         </svg>       
     )
 }
+
+export const CardCircle = ({
+    cx, cy, r, fill
+}) => (
+    <circle 
+        style={{
+            padding:       "5px",
+            pointerEvents: "none",
+        }}
+        cx={ cx } cy  ={ cy }
+        r ={ r }  fill={ fill }/>
+)
