@@ -7,7 +7,6 @@ export default function CardMenu({
     handleContainerHover,
     focused 
 }) {
-    
 
     const [ SVGfill, setSVGfill ]             = useState( "white" ); //useState( "#BFBFBF" );
     const [ rotateDegree, setRotateDegree ]   = useState( 0 );
