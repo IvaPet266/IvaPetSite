@@ -37487,18 +37487,26 @@ function CardMenu(_ref) {
     _useState14 = _slicedToArray(_useState13, 2),
     likeFill = _useState14[0],
     setLikeFill = _useState14[1];
-  var _useState15 = (0, _react.useState)("#BFBFBF"),
+  var _useState15 = (0, _react.useState)(false),
     _useState16 = _slicedToArray(_useState15, 2),
-    downloadFill = _useState16[0],
-    setDownloadFill = _useState16[1];
-  var _useState17 = (0, _react.useState)(false),
+    likedState = _useState16[0],
+    setLikedState = _useState16[1];
+  var _useState17 = (0, _react.useState)("#BFBFBF"),
     _useState18 = _slicedToArray(_useState17, 2),
-    downloadState = _useState18[0],
-    setDownloadState = _useState18[1];
+    downloadFill = _useState18[0],
+    setDownloadFill = _useState18[1];
   var _useState19 = (0, _react.useState)("#BFBFBF"),
     _useState20 = _slicedToArray(_useState19, 2),
     shareFill = _useState20[0],
     setShareFill = _useState20[1];
+  var _useState21 = (0, _react.useState)(false),
+    _useState22 = _slicedToArray(_useState21, 2),
+    downloadState = _useState22[0],
+    setDownloadState = _useState22[1];
+  var _useState23 = (0, _react.useState)(false),
+    _useState24 = _slicedToArray(_useState23, 2),
+    categoryState = _useState24[0],
+    setCategoryState = _useState24[1];
   (0, _react.useEffect)(function () {
     console.log(focused);
     if (focused === false) {
@@ -37568,7 +37576,7 @@ function CardMenu(_ref) {
       opacity: Number(focused),
       position: "absolute",
       top: "7px",
-      right: "3px",
+      right: "2px",
       width: "30px",
       height: "".concat(menuHeight, "px"),
       zIndex: 2
@@ -37578,6 +37586,8 @@ function CardMenu(_ref) {
     setSVGfill: setLikeFill,
     SVGfill: likeFill,
     top: "1px",
+    activeState: likedState,
+    setActiveState: setLikedState,
     d: "m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"
   }), /*#__PURE__*/_react.default.createElement("svg", {
     style: {
@@ -37606,19 +37616,18 @@ function CardMenu(_ref) {
           d: "M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
         });else {
           console.log("not ARTWORK; false");
-          return /*#__PURE__*/_react.default.createElement("path", {
-            d: "M0 0h24v24H0V0z",
-            fill: "none"
-          })
-          // <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/>                 
-          ;
+          if (!categoryState) setCategoryState(true);
+          return;
         }
       default:
         return /*#__PURE__*/_react.default.createElement("path", {
           d: "M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"
         });
     }
-  }(), !downloadState && category !== "ARTWORK" && /*#__PURE__*/_react.default.createElement("path", {
+  }(), !downloadState && categoryState && /*#__PURE__*/_react.default.createElement("path", {
+    d: "M0 0h24v24H0V0z",
+    fill: "none"
+  }) && /*#__PURE__*/_react.default.createElement("path", {
     d: "M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
   })), /*#__PURE__*/_react.default.createElement(MenuSVG, {
     handleContainerHover: handleContainerHover,
@@ -37649,7 +37658,9 @@ var MenuSVG = exports.MenuSVG = function MenuSVG(_ref3) {
     SVGfill = _ref3.SVGfill,
     setSVGfill = _ref3.setSVGfill,
     top = _ref3.top,
-    d = _ref3.d;
+    d = _ref3.d,
+    setActiveState = _ref3.setActiveState,
+    activeState = _ref3.activeState;
   return /*#__PURE__*/_react.default.createElement("svg", {
     style: {
       transition: "".concat(ANIMATION_DURATION, "ms ease-out"),
@@ -37666,6 +37677,9 @@ var MenuSVG = exports.MenuSVG = function MenuSVG(_ref3) {
     },
     onMouseLeave: function onMouseLeave() {
       return setSVGfill("#BFBFBF");
+    },
+    onClick: function onClick() {
+      return setActiveState(!activeState);
     },
     xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 -960 960 960"

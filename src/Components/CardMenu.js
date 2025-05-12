@@ -16,9 +16,11 @@ export default function CardMenu({
     const [ pointerEvents, setPointerEvents ] = useState( "none" );
 
     const [ likeFill, setLikeFill ]           = useState( "#BFBFBF" );
+    const [ likedState, setLikedState ]       = useState( false );
     const [ downloadFill, setDownloadFill ]   = useState( "#BFBFBF" );
-    const [ downloadState, setDownloadState ] = useState( false );
     const [ shareFill, setShareFill ]         = useState( "#BFBFBF" );
+    const [ downloadState, setDownloadState ] = useState( false );
+    const [ categoryState, setCategoryState ] = useState( false );
 
     useEffect(() => {
         console.log(focused);
@@ -91,12 +93,12 @@ export default function CardMenu({
                     opacity:       Number( focused ),
                     position:      "absolute",
                     top:           "7px",
-                    right:         "3px",
+                    right:         "2px",
                     width:         "30px",
                     height:        `${ menuHeight }px`,
                     zIndex:        2,
                 }}> 
-                <MenuSVG handleContainerHover={ handleContainerHover } setSVGfill={ setLikeFill } SVGfill={ likeFill } top="1px"
+                <MenuSVG handleContainerHover={ handleContainerHover } setSVGfill={ setLikeFill } SVGfill={ likeFill } top="1px" activeState={ likedState } setActiveState={ setLikedState }
                     d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"/>
                 <svg 
                     style={{
@@ -122,17 +124,16 @@ export default function CardMenu({
                                     if ( category === "ARTWORK" ) return <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/> 
                                     else { 
                                             console.log( "not ARTWORK; false" );
-                                            return (
-                                                <path d="M0 0h24v24H0V0z" fill="none"/>
-                                                // <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/>                 
-                                            )
+                                            if ( !categoryState ) setCategoryState( true );
+                                            return;
                                         }
                                 default: return <path d="M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"/> 
                             }
                         })()
                     }
                     {
-                        !downloadState && category !== "ARTWORK" && 
+                        !downloadState && categoryState && 
+                        <path d="M0 0h24v24H0V0z" fill="none"/> &&
                         <path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/>                 
                     }
                 </svg>
@@ -160,7 +161,9 @@ export const MenuSVG = ({
     SVGfill,
     setSVGfill,
     top,
-    d
+    d,
+    setActiveState,
+    activeState
 }) => (
     <svg 
         style={{
@@ -177,6 +180,7 @@ export const MenuSVG = ({
             handleContainerHover( true )
         }}
         onMouseLeave={ () => setSVGfill( "#BFBFBF" )}
+        onClick     ={ () => setActiveState( !activeState )}
         xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
         <path d={ d }/>
     </svg>
