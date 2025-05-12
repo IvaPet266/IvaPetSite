@@ -5,7 +5,8 @@ const ANIMATION_DURATION = 300
 
 export default function CardMenu({
     handleContainerHover,
-    focused, category
+    focused, category, 
+    key, author, src
 }) {
 
     const [ SVGfill, setSVGfill ]             = useState( "white" ); //useState( "#BFBFBF" );
@@ -22,8 +23,10 @@ export default function CardMenu({
     const [ downloadState, setDownloadState ] = useState( false );
     const [ categoryState, setCategoryState ] = useState( false );
 
+    const filename = `${ author }-${ key }.jpg`
+
     useEffect(() => {
-        console.log(focused);
+        console.log( focused );
         if ( focused === false ) {
             // setPointerEvents( "none" );
             setIsActive( false );
@@ -49,8 +52,32 @@ export default function CardMenu({
     };
 
     function downloadPost() {
-        setDownloadState( true );
+        const status = downloadImage( src, filename )
+        if ( status ) setDownloadState( true );
         console.log("download");
+    };
+
+    async function downloadImage( url, filename ) {
+        try {
+            const response = await fetch( url );
+            
+            if ( !response.ok ) throw new Error( `Error: ${ response.status }` );
+        
+            const blob = await response.blob();
+            
+            const objectUrl = URL.createObjectURL( blob );
+        
+
+            const anchorElement = document.createElement('a');
+            anchorElement.href = objectUrl;
+            anchorElement.download = filename;
+            anchorElement.click(); 
+            
+            setTimeout( () => URL.revokeObjectURL( objectUrl ), 100 );
+            return true;
+        } catch ( error ) {
+            console.error( error.message || error );
+        }
     }
 
     return (

@@ -55,6 +55,9 @@ export default function Container( props ) {
                 handleContainerHover={ handleContainerHover }
                 focused             ={ focused }
                 category            ={ category }
+                key                 ={ props.key } 
+                author              ={ author }
+                src                 ={ image }
             />
             <div 
                 style={{ 
@@ -144,7 +147,7 @@ export default function Container( props ) {
                     else text = text_content;
                     return (
                         <div style={{ 
-                                width:         "90%", 
+                                width:         "95%", 
                                 height:        "100%",
                                 transition:    "all 300ms ease-out",
                                 borderRadius:  "20px", 

@@ -20495,8 +20495,7 @@ exports.shallowEqual = shallowEqual;
 exports.useStore = exports.useSelector = exports.useDispatch = void 0;
 var React = _interopRequireWildcard(require("react"));
 var _withSelector = require("use-sync-external-store/with-selector.js");
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -21538,8 +21537,7 @@ exports.useScreen = void 0;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _store = require("../app/store");
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -21623,723 +21621,7 @@ var ErrorBoundary = exports.default = /*#__PURE__*/function (_React$Component) {
     }
   }]);
 }(_react.default.Component);
-},{"react":"../node_modules/react/index.js"}],"../node_modules/turbo-stream/dist/utils.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createLineSplittingTransform = exports.Deferred = exports.TYPE_PREVIOUS_RESOLVED = exports.TYPE_URL = exports.TYPE_SYMBOL = exports.TYPE_SET = exports.TYPE_REGEXP = exports.TYPE_PROMISE = exports.TYPE_NULL_OBJECT = exports.TYPE_MAP = exports.TYPE_ERROR = exports.TYPE_DATE = exports.TYPE_BIGINT = exports.UNDEFINED = exports.POSITIVE_INFINITY = exports.NULL = exports.NEGATIVE_ZERO = exports.NEGATIVE_INFINITY = exports.NAN = exports.HOLE = void 0;
-exports.HOLE = -1;
-exports.NAN = -2;
-exports.NEGATIVE_INFINITY = -3;
-exports.NEGATIVE_ZERO = -4;
-exports.NULL = -5;
-exports.POSITIVE_INFINITY = -6;
-exports.UNDEFINED = -7;
-exports.TYPE_BIGINT = "B";
-exports.TYPE_DATE = "D";
-exports.TYPE_ERROR = "E";
-exports.TYPE_MAP = "M";
-exports.TYPE_NULL_OBJECT = "N";
-exports.TYPE_PROMISE = "P";
-exports.TYPE_REGEXP = "R";
-exports.TYPE_SET = "S";
-exports.TYPE_SYMBOL = "Y";
-exports.TYPE_URL = "U";
-exports.TYPE_PREVIOUS_RESOLVED = "Z";
-class Deferred {
-    promise;
-    resolve;
-    reject;
-    constructor() {
-        this.promise = new Promise((resolve, reject) => {
-            this.resolve = resolve;
-            this.reject = reject;
-        });
-    }
-}
-exports.Deferred = Deferred;
-function createLineSplittingTransform() {
-    const decoder = new TextDecoder();
-    let leftover = "";
-    return new TransformStream({
-        transform(chunk, controller) {
-            const str = decoder.decode(chunk, { stream: true });
-            const parts = (leftover + str).split("\n");
-            // The last part might be a partial line, so keep it for the next chunk.
-            leftover = parts.pop() || "";
-            for (const part of parts) {
-                controller.enqueue(part);
-            }
-        },
-        flush(controller) {
-            // If there's any leftover data, enqueue it before closing.
-            if (leftover) {
-                controller.enqueue(leftover);
-            }
-        },
-    });
-}
-exports.createLineSplittingTransform = createLineSplittingTransform;
-
-},{}],"../node_modules/turbo-stream/dist/flatten.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.flatten = void 0;
-const utils_js_1 = require("./utils.js");
-function flatten(input) {
-    const { indices } = this;
-    const existing = indices.get(input);
-    if (existing)
-        return [existing];
-    if (input === undefined)
-        return utils_js_1.UNDEFINED;
-    if (input === null)
-        return utils_js_1.NULL;
-    if (Number.isNaN(input))
-        return utils_js_1.NAN;
-    if (input === Number.POSITIVE_INFINITY)
-        return utils_js_1.POSITIVE_INFINITY;
-    if (input === Number.NEGATIVE_INFINITY)
-        return utils_js_1.NEGATIVE_INFINITY;
-    if (input === 0 && 1 / input < 0)
-        return utils_js_1.NEGATIVE_ZERO;
-    const index = this.index++;
-    indices.set(input, index);
-    stringify.call(this, input, index);
-    return index;
-}
-exports.flatten = flatten;
-function stringify(input, index) {
-    const { deferred, plugins, postPlugins } = this;
-    const str = this.stringified;
-    const stack = [[input, index]];
-    while (stack.length > 0) {
-        const [input, index] = stack.pop();
-        const partsForObj = (obj) => Object.keys(obj)
-            .map((k) => `"_${flatten.call(this, k)}":${flatten.call(this, obj[k])}`)
-            .join(",");
-        let error = null;
-        switch (typeof input) {
-            case "boolean":
-            case "number":
-            case "string":
-                str[index] = JSON.stringify(input);
-                break;
-            case "bigint":
-                str[index] = `["${utils_js_1.TYPE_BIGINT}","${input}"]`;
-                break;
-            case "symbol": {
-                const keyFor = Symbol.keyFor(input);
-                if (!keyFor) {
-                    error = new Error("Cannot encode symbol unless created with Symbol.for()");
-                }
-                else {
-                    str[index] = `["${utils_js_1.TYPE_SYMBOL}",${JSON.stringify(keyFor)}]`;
-                }
-                break;
-            }
-            case "object": {
-                if (!input) {
-                    str[index] = `${utils_js_1.NULL}`;
-                    break;
-                }
-                const isArray = Array.isArray(input);
-                let pluginHandled = false;
-                if (!isArray && plugins) {
-                    for (const plugin of plugins) {
-                        const pluginResult = plugin(input);
-                        if (Array.isArray(pluginResult)) {
-                            pluginHandled = true;
-                            const [pluginIdentifier, ...rest] = pluginResult;
-                            str[index] = `[${JSON.stringify(pluginIdentifier)}`;
-                            if (rest.length > 0) {
-                                str[index] += `,${rest
-                                    .map((v) => flatten.call(this, v))
-                                    .join(",")}`;
-                            }
-                            str[index] += "]";
-                            break;
-                        }
-                    }
-                }
-                if (!pluginHandled) {
-                    let result = isArray ? "[" : "{";
-                    if (isArray) {
-                        for (let i = 0; i < input.length; i++)
-                            result +=
-                                (i ? "," : "") +
-                                    (i in input ? flatten.call(this, input[i]) : utils_js_1.HOLE);
-                        str[index] = `${result}]`;
-                    }
-                    else if (input instanceof Date) {
-                        str[index] = `["${utils_js_1.TYPE_DATE}",${input.getTime()}]`;
-                    }
-                    else if (input instanceof URL) {
-                        str[index] = `["${utils_js_1.TYPE_URL}",${JSON.stringify(input.href)}]`;
-                    }
-                    else if (input instanceof RegExp) {
-                        str[index] = `["${utils_js_1.TYPE_REGEXP}",${JSON.stringify(input.source)},${JSON.stringify(input.flags)}]`;
-                    }
-                    else if (input instanceof Set) {
-                        if (input.size > 0) {
-                            str[index] = `["${utils_js_1.TYPE_SET}",${[...input]
-                                .map((val) => flatten.call(this, val))
-                                .join(",")}]`;
-                        }
-                        else {
-                            str[index] = `["${utils_js_1.TYPE_SET}"]`;
-                        }
-                    }
-                    else if (input instanceof Map) {
-                        if (input.size > 0) {
-                            str[index] = `["${utils_js_1.TYPE_MAP}",${[...input]
-                                .flatMap(([k, v]) => [
-                                flatten.call(this, k),
-                                flatten.call(this, v),
-                            ])
-                                .join(",")}]`;
-                        }
-                        else {
-                            str[index] = `["${utils_js_1.TYPE_MAP}"]`;
-                        }
-                    }
-                    else if (input instanceof Promise) {
-                        str[index] = `["${utils_js_1.TYPE_PROMISE}",${index}]`;
-                        deferred[index] = input;
-                    }
-                    else if (input instanceof Error) {
-                        str[index] = `["${utils_js_1.TYPE_ERROR}",${JSON.stringify(input.message)}`;
-                        if (input.name !== "Error") {
-                            str[index] += `,${JSON.stringify(input.name)}`;
-                        }
-                        str[index] += "]";
-                    }
-                    else if (Object.getPrototypeOf(input) === null) {
-                        str[index] = `["${utils_js_1.TYPE_NULL_OBJECT}",{${partsForObj(input)}}]`;
-                    }
-                    else if (isPlainObject(input)) {
-                        str[index] = `{${partsForObj(input)}}`;
-                    }
-                    else {
-                        error = new Error("Cannot encode object with prototype");
-                    }
-                }
-                break;
-            }
-            default: {
-                const isArray = Array.isArray(input);
-                let pluginHandled = false;
-                if (!isArray && plugins) {
-                    for (const plugin of plugins) {
-                        const pluginResult = plugin(input);
-                        if (Array.isArray(pluginResult)) {
-                            pluginHandled = true;
-                            const [pluginIdentifier, ...rest] = pluginResult;
-                            str[index] = `[${JSON.stringify(pluginIdentifier)}`;
-                            if (rest.length > 0) {
-                                str[index] += `,${rest
-                                    .map((v) => flatten.call(this, v))
-                                    .join(",")}`;
-                            }
-                            str[index] += "]";
-                            break;
-                        }
-                    }
-                }
-                if (!pluginHandled) {
-                    error = new Error("Cannot encode function or unexpected type");
-                }
-            }
-        }
-        if (error) {
-            let pluginHandled = false;
-            if (postPlugins) {
-                for (const plugin of postPlugins) {
-                    const pluginResult = plugin(input);
-                    if (Array.isArray(pluginResult)) {
-                        pluginHandled = true;
-                        const [pluginIdentifier, ...rest] = pluginResult;
-                        str[index] = `[${JSON.stringify(pluginIdentifier)}`;
-                        if (rest.length > 0) {
-                            str[index] += `,${rest
-                                .map((v) => flatten.call(this, v))
-                                .join(",")}`;
-                        }
-                        str[index] += "]";
-                        break;
-                    }
-                }
-            }
-            if (!pluginHandled) {
-                throw error;
-            }
-        }
-    }
-}
-const objectProtoNames = Object.getOwnPropertyNames(Object.prototype)
-    .sort()
-    .join("\0");
-function isPlainObject(thing) {
-    const proto = Object.getPrototypeOf(thing);
-    return (proto === Object.prototype ||
-        proto === null ||
-        Object.getOwnPropertyNames(proto).sort().join("\0") === objectProtoNames);
-}
-
-},{"./utils.js":"../node_modules/turbo-stream/dist/utils.js"}],"../node_modules/turbo-stream/dist/unflatten.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.unflatten = void 0;
-const utils_js_1 = require("./utils.js");
-const globalObj = (typeof window !== "undefined"
-    ? window
-    : typeof globalThis !== "undefined"
-        ? globalThis
-        : undefined);
-function unflatten(parsed) {
-    const { hydrated, values } = this;
-    if (typeof parsed === "number")
-        return hydrate.call(this, parsed);
-    if (!Array.isArray(parsed) || !parsed.length)
-        throw new SyntaxError();
-    const startIndex = values.length;
-    for (const value of parsed) {
-        values.push(value);
-    }
-    hydrated.length = values.length;
-    return hydrate.call(this, startIndex);
-}
-exports.unflatten = unflatten;
-function hydrate(index) {
-    const { hydrated, values, deferred, plugins } = this;
-    let result;
-    const stack = [
-        [
-            index,
-            (v) => {
-                result = v;
-            },
-        ],
-    ];
-    let postRun = [];
-    while (stack.length > 0) {
-        const [index, set] = stack.pop();
-        switch (index) {
-            case utils_js_1.UNDEFINED:
-                set(undefined);
-                continue;
-            case utils_js_1.NULL:
-                set(null);
-                continue;
-            case utils_js_1.NAN:
-                set(NaN);
-                continue;
-            case utils_js_1.POSITIVE_INFINITY:
-                set(Infinity);
-                continue;
-            case utils_js_1.NEGATIVE_INFINITY:
-                set(-Infinity);
-                continue;
-            case utils_js_1.NEGATIVE_ZERO:
-                set(-0);
-                continue;
-        }
-        if (hydrated[index]) {
-            set(hydrated[index]);
-            continue;
-        }
-        const value = values[index];
-        if (!value || typeof value !== "object") {
-            hydrated[index] = value;
-            set(value);
-            continue;
-        }
-        if (Array.isArray(value)) {
-            if (typeof value[0] === "string") {
-                const [type, b, c] = value;
-                switch (type) {
-                    case utils_js_1.TYPE_DATE:
-                        set((hydrated[index] = new Date(b)));
-                        continue;
-                    case utils_js_1.TYPE_URL:
-                        set((hydrated[index] = new URL(b)));
-                        continue;
-                    case utils_js_1.TYPE_BIGINT:
-                        set((hydrated[index] = BigInt(b)));
-                        continue;
-                    case utils_js_1.TYPE_REGEXP:
-                        set((hydrated[index] = new RegExp(b, c)));
-                        continue;
-                    case utils_js_1.TYPE_SYMBOL:
-                        set((hydrated[index] = Symbol.for(b)));
-                        continue;
-                    case utils_js_1.TYPE_SET:
-                        const newSet = new Set();
-                        hydrated[index] = newSet;
-                        for (let i = 1; i < value.length; i++)
-                            stack.push([
-                                value[i],
-                                (v) => {
-                                    newSet.add(v);
-                                },
-                            ]);
-                        set(newSet);
-                        continue;
-                    case utils_js_1.TYPE_MAP:
-                        const map = new Map();
-                        hydrated[index] = map;
-                        for (let i = 1; i < value.length; i += 2) {
-                            const r = [];
-                            stack.push([
-                                value[i + 1],
-                                (v) => {
-                                    r[1] = v;
-                                },
-                            ]);
-                            stack.push([
-                                value[i],
-                                (k) => {
-                                    r[0] = k;
-                                },
-                            ]);
-                            postRun.push(() => {
-                                map.set(r[0], r[1]);
-                            });
-                        }
-                        set(map);
-                        continue;
-                    case utils_js_1.TYPE_NULL_OBJECT:
-                        const obj = Object.create(null);
-                        hydrated[index] = obj;
-                        for (const key of Object.keys(b).reverse()) {
-                            const r = [];
-                            stack.push([
-                                b[key],
-                                (v) => {
-                                    r[1] = v;
-                                },
-                            ]);
-                            stack.push([
-                                Number(key.slice(1)),
-                                (k) => {
-                                    r[0] = k;
-                                },
-                            ]);
-                            postRun.push(() => {
-                                obj[r[0]] = r[1];
-                            });
-                        }
-                        set(obj);
-                        continue;
-                    case utils_js_1.TYPE_PROMISE:
-                        if (hydrated[b]) {
-                            set((hydrated[index] = hydrated[b]));
-                        }
-                        else {
-                            const d = new utils_js_1.Deferred();
-                            deferred[b] = d;
-                            set((hydrated[index] = d.promise));
-                        }
-                        continue;
-                    case utils_js_1.TYPE_ERROR:
-                        const [, message, errorType] = value;
-                        let error = errorType && globalObj && globalObj[errorType]
-                            ? new globalObj[errorType](message)
-                            : new Error(message);
-                        hydrated[index] = error;
-                        set(error);
-                        continue;
-                    case utils_js_1.TYPE_PREVIOUS_RESOLVED:
-                        set((hydrated[index] = hydrated[b]));
-                        continue;
-                    default:
-                        // Run plugins at the end so we have a chance to resolve primitives
-                        // without running into a loop
-                        if (Array.isArray(plugins)) {
-                            const r = [];
-                            const vals = value.slice(1);
-                            for (let i = 0; i < vals.length; i++) {
-                                const v = vals[i];
-                                stack.push([
-                                    v,
-                                    (v) => {
-                                        r[i] = v;
-                                    },
-                                ]);
-                            }
-                            postRun.push(() => {
-                                for (const plugin of plugins) {
-                                    const result = plugin(value[0], ...r);
-                                    if (result) {
-                                        set((hydrated[index] = result.value));
-                                        return;
-                                    }
-                                }
-                                throw new SyntaxError();
-                            });
-                            continue;
-                        }
-                        throw new SyntaxError();
-                }
-            }
-            else {
-                const array = [];
-                hydrated[index] = array;
-                for (let i = 0; i < value.length; i++) {
-                    const n = value[i];
-                    if (n !== utils_js_1.HOLE) {
-                        stack.push([
-                            n,
-                            (v) => {
-                                array[i] = v;
-                            },
-                        ]);
-                    }
-                }
-                set(array);
-                continue;
-            }
-        }
-        else {
-            const object = {};
-            hydrated[index] = object;
-            for (const key of Object.keys(value).reverse()) {
-                const r = [];
-                stack.push([
-                    value[key],
-                    (v) => {
-                        r[1] = v;
-                    },
-                ]);
-                stack.push([
-                    Number(key.slice(1)),
-                    (k) => {
-                        r[0] = k;
-                    },
-                ]);
-                postRun.push(() => {
-                    object[r[0]] = r[1];
-                });
-            }
-            set(object);
-            continue;
-        }
-    }
-    while (postRun.length > 0) {
-        postRun.pop()();
-    }
-    return result;
-}
-
-},{"./utils.js":"../node_modules/turbo-stream/dist/utils.js"}],"../node_modules/turbo-stream/dist/turbo-stream.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.encode = exports.decode = void 0;
-const flatten_js_1 = require("./flatten.js");
-const unflatten_js_1 = require("./unflatten.js");
-const utils_js_1 = require("./utils.js");
-async function decode(readable, options) {
-    const { plugins } = options ?? {};
-    const done = new utils_js_1.Deferred();
-    const reader = readable
-        .pipeThrough((0, utils_js_1.createLineSplittingTransform)())
-        .getReader();
-    const decoder = {
-        values: [],
-        hydrated: [],
-        deferred: {},
-        plugins,
-    };
-    const decoded = await decodeInitial.call(decoder, reader);
-    let donePromise = done.promise;
-    if (decoded.done) {
-        done.resolve();
-    }
-    else {
-        donePromise = decodeDeferred
-            .call(decoder, reader)
-            .then(done.resolve)
-            .catch((reason) => {
-            for (const deferred of Object.values(decoder.deferred)) {
-                deferred.reject(reason);
-            }
-            done.reject(reason);
-        });
-    }
-    return {
-        done: donePromise.then(() => reader.closed),
-        value: decoded.value,
-    };
-}
-exports.decode = decode;
-async function decodeInitial(reader) {
-    const read = await reader.read();
-    if (!read.value) {
-        throw new SyntaxError();
-    }
-    let line;
-    try {
-        line = JSON.parse(read.value);
-    }
-    catch (reason) {
-        throw new SyntaxError();
-    }
-    return {
-        done: read.done,
-        value: unflatten_js_1.unflatten.call(this, line),
-    };
-}
-async function decodeDeferred(reader) {
-    let read = await reader.read();
-    while (!read.done) {
-        if (!read.value)
-            continue;
-        const line = read.value;
-        switch (line[0]) {
-            case utils_js_1.TYPE_PROMISE: {
-                const colonIndex = line.indexOf(":");
-                const deferredId = Number(line.slice(1, colonIndex));
-                const deferred = this.deferred[deferredId];
-                if (!deferred) {
-                    throw new Error(`Deferred ID ${deferredId} not found in stream`);
-                }
-                const lineData = line.slice(colonIndex + 1);
-                let jsonLine;
-                try {
-                    jsonLine = JSON.parse(lineData);
-                }
-                catch (reason) {
-                    throw new SyntaxError();
-                }
-                const value = unflatten_js_1.unflatten.call(this, jsonLine);
-                deferred.resolve(value);
-                break;
-            }
-            case utils_js_1.TYPE_ERROR: {
-                const colonIndex = line.indexOf(":");
-                const deferredId = Number(line.slice(1, colonIndex));
-                const deferred = this.deferred[deferredId];
-                if (!deferred) {
-                    throw new Error(`Deferred ID ${deferredId} not found in stream`);
-                }
-                const lineData = line.slice(colonIndex + 1);
-                let jsonLine;
-                try {
-                    jsonLine = JSON.parse(lineData);
-                }
-                catch (reason) {
-                    throw new SyntaxError();
-                }
-                const value = unflatten_js_1.unflatten.call(this, jsonLine);
-                deferred.reject(value);
-                break;
-            }
-            default:
-                throw new SyntaxError();
-        }
-        read = await reader.read();
-    }
-}
-function encode(input, options) {
-    const { plugins, postPlugins, signal } = options ?? {};
-    const encoder = {
-        deferred: {},
-        index: 0,
-        indices: new Map(),
-        stringified: [],
-        plugins,
-        postPlugins,
-        signal,
-    };
-    const textEncoder = new TextEncoder();
-    let lastSentIndex = 0;
-    const readable = new ReadableStream({
-        async start(controller) {
-            const id = flatten_js_1.flatten.call(encoder, input);
-            if (Array.isArray(id)) {
-                throw new Error("This should never happen");
-            }
-            if (id < 0) {
-                controller.enqueue(textEncoder.encode(`${id}\n`));
-            }
-            else {
-                controller.enqueue(textEncoder.encode(`[${encoder.stringified.join(",")}]\n`));
-                lastSentIndex = encoder.stringified.length - 1;
-            }
-            const seenPromises = new WeakSet();
-            while (Object.keys(encoder.deferred).length > 0) {
-                for (const [deferredId, deferred] of Object.entries(encoder.deferred)) {
-                    if (seenPromises.has(deferred))
-                        continue;
-                    seenPromises.add((encoder.deferred[Number(deferredId)] = raceSignal(deferred, encoder.signal)
-                        .then((resolved) => {
-                        const id = flatten_js_1.flatten.call(encoder, resolved);
-                        if (Array.isArray(id)) {
-                            controller.enqueue(textEncoder.encode(`${utils_js_1.TYPE_PROMISE}${deferredId}:[["${utils_js_1.TYPE_PREVIOUS_RESOLVED}",${id[0]}]]\n`));
-                            encoder.index++;
-                            lastSentIndex++;
-                        }
-                        else if (id < 0) {
-                            controller.enqueue(textEncoder.encode(`${utils_js_1.TYPE_PROMISE}${deferredId}:${id}\n`));
-                        }
-                        else {
-                            const values = encoder.stringified
-                                .slice(lastSentIndex + 1)
-                                .join(",");
-                            controller.enqueue(textEncoder.encode(`${utils_js_1.TYPE_PROMISE}${deferredId}:[${values}]\n`));
-                            lastSentIndex = encoder.stringified.length - 1;
-                        }
-                    }, (reason) => {
-                        if (!reason ||
-                            typeof reason !== "object" ||
-                            !(reason instanceof Error)) {
-                            reason = new Error("An unknown error occurred");
-                        }
-                        const id = flatten_js_1.flatten.call(encoder, reason);
-                        if (Array.isArray(id)) {
-                            controller.enqueue(textEncoder.encode(`${utils_js_1.TYPE_ERROR}${deferredId}:[["${utils_js_1.TYPE_PREVIOUS_RESOLVED}",${id[0]}]]\n`));
-                            encoder.index++;
-                            lastSentIndex++;
-                        }
-                        else if (id < 0) {
-                            controller.enqueue(textEncoder.encode(`${utils_js_1.TYPE_ERROR}${deferredId}:${id}\n`));
-                        }
-                        else {
-                            const values = encoder.stringified
-                                .slice(lastSentIndex + 1)
-                                .join(",");
-                            controller.enqueue(textEncoder.encode(`${utils_js_1.TYPE_ERROR}${deferredId}:[${values}]\n`));
-                            lastSentIndex = encoder.stringified.length - 1;
-                        }
-                    })
-                        .finally(() => {
-                        delete encoder.deferred[Number(deferredId)];
-                    })));
-                }
-                await Promise.race(Object.values(encoder.deferred));
-            }
-            await Promise.all(Object.values(encoder.deferred));
-            controller.close();
-        },
-    });
-    return readable;
-}
-exports.encode = encode;
-function raceSignal(promise, signal) {
-    if (!signal)
-        return promise;
-    if (signal.aborted)
-        return Promise.reject(signal.reason || new Error("Signal was aborted."));
-    const abort = new Promise((resolve, reject) => {
-        signal.addEventListener("abort", (event) => {
-            reject(signal.reason || new Error("Signal was aborted."));
-        });
-        promise.then(resolve).catch(reject);
-    });
-    abort.catch(() => { });
-    return Promise.race([abort, promise]);
-}
-
-},{"./flatten.js":"../node_modules/turbo-stream/dist/flatten.js","./unflatten.js":"../node_modules/turbo-stream/dist/unflatten.js","./utils.js":"../node_modules/turbo-stream/dist/utils.js"}],"../node_modules/cookie/dist/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"../node_modules/cookie/dist/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22795,8 +22077,7 @@ module.exports.parse = parse;
 module.exports.parseString = parseString;
 module.exports.splitCookiesString = splitCookiesString;
 
-},{}],"../node_modules/react-router/dist/development/chunk-BAXFHI7N.mjs":[function(require,module,exports) {
-var define;
+},{}],"../node_modules/react-router/dist/development/chunk-D4RADZKF.mjs":[function(require,module,exports) {
 var process = require("process");
 var global = arguments[3];
 "use strict";
@@ -22924,7 +22205,6 @@ var React6 = React3;
 var React11 = React3;
 var React12 = React3;
 var React13 = React3;
-var _turboStream = require("turbo-stream");
 var _cookie = require("cookie");
 var _setCookieParser = require("set-cookie-parser");
 var _excluded = ["sri"],
@@ -22936,10 +22216,12 @@ var _excluded = ["sri"],
   _excluded7 = ["discover", "fetcherKey", "navigate", "reloadDocument", "replace", "state", "method", "action", "onSubmit", "relative", "preventScrollReset", "viewTransition"],
   _excluded8 = ["getKey", "storageKey"],
   _excluded9 = ["secrets"];
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _objectWithoutProperties(e, t) { if (null == e) return {}; var o, r, i = _objectWithoutPropertiesLoose(e, t); if (Object.getOwnPropertySymbols) { var n = Object.getOwnPropertySymbols(e); for (r = 0; r < n.length; r++) o = n[r], -1 === t.indexOf(o) && {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]); } return i; }
 function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (-1 !== e.indexOf(n)) continue; t[n] = r[n]; } return t; }
+function _wrapNativeSuper(t) { var r = "function" == typeof Map ? new Map() : void 0; return _wrapNativeSuper = function _wrapNativeSuper(t) { if (null === t || !_isNativeFunction(t)) return t; if ("function" != typeof t) throw new TypeError("Super expression must either be null or a function"); if (void 0 !== r) { if (r.has(t)) return r.get(t); r.set(t, Wrapper); } function Wrapper() { return _construct(t, arguments, _getPrototypeOf(this).constructor); } return Wrapper.prototype = Object.create(t.prototype, { constructor: { value: Wrapper, enumerable: !1, writable: !0, configurable: !0 } }), _setPrototypeOf(Wrapper, t); }, _wrapNativeSuper(t); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _isNativeFunction(t) { try { return -1 !== Function.toString.call(t).indexOf("[native code]"); } catch (n) { return "function" == typeof t; } }
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
 function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
@@ -22948,7 +22230,7 @@ function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? O
 function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return r; }; var t, r = {}, e = Object.prototype, n = e.hasOwnProperty, o = "function" == typeof Symbol ? Symbol : {}, i = o.iterator || "@@iterator", a = o.asyncIterator || "@@asyncIterator", u = o.toStringTag || "@@toStringTag"; function c(t, r, e, n) { return Object.defineProperty(t, r, { value: e, enumerable: !n, configurable: !n, writable: !n }); } try { c({}, ""); } catch (t) { c = function c(t, r, e) { return t[r] = e; }; } function h(r, e, n, o) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype); return c(a, "_invoke", function (r, e, n) { var o = 1; return function (i, a) { if (3 === o) throw Error("Generator is already running"); if (4 === o) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var u = n.delegate; if (u) { var c = d(u, n); if (c) { if (c === f) continue; return c; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (1 === o) throw o = 4, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = 3; var h = s(r, e, n); if ("normal" === h.type) { if (o = n.done ? 4 : 2, h.arg === f) continue; return { value: h.arg, done: n.done }; } "throw" === h.type && (o = 4, n.method = "throw", n.arg = h.arg); } }; }(r, n, new Context(o || [])), !0), a; } function s(t, r, e) { try { return { type: "normal", arg: t.call(r, e) }; } catch (t) { return { type: "throw", arg: t }; } } r.wrap = h; var f = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var l = {}; c(l, i, function () { return this; }); var p = Object.getPrototypeOf, y = p && p(p(x([]))); y && y !== e && n.call(y, i) && (l = y); var v = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(l); function g(t) { ["next", "throw", "return"].forEach(function (r) { c(t, r, function (t) { return this._invoke(r, t); }); }); } function AsyncIterator(t, r) { function e(o, i, a, u) { var c = s(t[o], t, i); if ("throw" !== c.type) { var h = c.arg, f = h.value; return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function (t) { e("next", t, a, u); }, function (t) { e("throw", t, a, u); }) : r.resolve(f).then(function (t) { h.value = t, a(h); }, function (t) { return e("throw", t, a, u); }); } u(c.arg); } var o; c(this, "_invoke", function (t, n) { function i() { return new r(function (r, o) { e(t, n, r, o); }); } return o = o ? o.then(i, i) : i(); }, !0); } function d(r, e) { var n = e.method, o = r.i[n]; if (o === t) return e.delegate = null, "throw" === n && r.i.return && (e.method = "return", e.arg = t, d(r, e), "throw" === e.method) || "return" !== n && (e.method = "throw", e.arg = new TypeError("The iterator does not provide a '" + n + "' method")), f; var i = s(o, r.i, e.arg); if ("throw" === i.type) return e.method = "throw", e.arg = i.arg, e.delegate = null, f; var a = i.arg; return a ? a.done ? (e[r.r] = a.value, e.next = r.n, "return" !== e.method && (e.method = "next", e.arg = t), e.delegate = null, f) : a : (e.method = "throw", e.arg = new TypeError("iterator result is not an object"), e.delegate = null, f); } function w(t) { this.tryEntries.push(t); } function m(r) { var e = r[4] || {}; e.type = "normal", e.arg = t, r[4] = e; } function Context(t) { this.tryEntries = [[-1]], t.forEach(w, this), this.reset(!0); } function x(r) { if (null != r) { var e = r[i]; if (e) return e.call(r); if ("function" == typeof r.next) return r; if (!isNaN(r.length)) { var o = -1, a = function e() { for (; ++o < r.length;) if (n.call(r, o)) return e.value = r[o], e.done = !1, e; return e.value = t, e.done = !0, e; }; return a.next = a; } } throw new TypeError(_typeof(r) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, c(v, "constructor", GeneratorFunctionPrototype), c(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = c(GeneratorFunctionPrototype, u, "GeneratorFunction"), r.isGeneratorFunction = function (t) { var r = "function" == typeof t && t.constructor; return !!r && (r === GeneratorFunction || "GeneratorFunction" === (r.displayName || r.name)); }, r.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, c(t, u, "GeneratorFunction")), t.prototype = Object.create(v), t; }, r.awrap = function (t) { return { __await: t }; }, g(AsyncIterator.prototype), c(AsyncIterator.prototype, a, function () { return this; }), r.AsyncIterator = AsyncIterator, r.async = function (t, e, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(h(t, e, n, o), i); return r.isGeneratorFunction(e) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, g(v), c(v, u, "Generator"), c(v, i, function () { return this; }), c(v, "toString", function () { return "[object Generator]"; }), r.keys = function (t) { var r = Object(t), e = []; for (var n in r) e.unshift(n); return function t() { for (; e.length;) if ((n = e.pop()) in r) return t.value = n, t.done = !1, t; return t.done = !0, t; }; }, r.values = x, Context.prototype = { constructor: Context, reset: function reset(r) { if (this.prev = this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(m), !r) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0][4]; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(r) { if (this.done) throw r; var e = this; function n(t) { a.type = "throw", a.arg = r, e.next = t; } for (var o = e.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i[4], u = this.prev, c = i[1], h = i[2]; if (-1 === i[0]) return n("end"), !1; if (!c && !h) throw Error("try statement without catch or finally"); if (null != i[0] && i[0] <= u) { if (u < c) return this.method = "next", this.arg = t, n(c), !0; if (u < h) return n(h), !1; } } }, abrupt: function abrupt(t, r) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var n = this.tryEntries[e]; if (n[0] > -1 && n[0] <= this.prev && this.prev < n[2]) { var o = n; break; } } o && ("break" === t || "continue" === t) && o[0] <= r && r <= o[2] && (o = null); var i = o ? o[4] : {}; return i.type = t, i.arg = r, o ? (this.method = "next", this.next = o[2], f) : this.complete(i); }, complete: function complete(t, r) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && r && (this.next = r), f; }, finish: function finish(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[2] === t) return this.complete(e[4], e[3]), m(e), f; } }, catch: function _catch(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[0] === t) { var n = e[4]; if ("throw" === n.type) { var o = n.arg; m(e); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(r, e, n) { return this.delegate = { i: x(r), r: e, n: n }, "next" === this.method && (this.arg = t), f; } }, r; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _toArray(r) { return _arrayWithHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableRest(); }
@@ -22972,7 +22254,7 @@ function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
- * react-router v7.5.2
+ * react-router v7.6.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -23302,11 +22584,7 @@ function getUrlBasedHistory(getLocation, createHref2, validateLocation) {
     }
   }
   function createURL(to) {
-    var base = window2.location.origin !== "null" ? window2.location.origin : window2.location.href;
-    var href2 = typeof to === "string" ? to : createPath(to);
-    href2 = href2.replace(/ $/, "%20");
-    invariant(base, "No window.location.(origin|href) available to create URL for href: ".concat(href2));
-    return new URL(href2, base);
+    return createBrowserURLImpl(to);
   }
   var history = {
     get action() {
@@ -23345,6 +22623,20 @@ function getUrlBasedHistory(getLocation, createHref2, validateLocation) {
     }
   };
   return history;
+}
+function createBrowserURLImpl(to) {
+  var isAbsolute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var base = "http://localhost";
+  if (typeof window !== "undefined") {
+    base = window.location.origin !== "null" ? window.location.origin : window.location.href;
+  }
+  invariant(base, "No window.location.(origin|href) available to create URL");
+  var href2 = typeof to === "string" ? to : createPath(to);
+  href2 = href2.replace(/ $/, "%20");
+  if (!isAbsolute && href2.startsWith("//")) {
+    href2 = base + href2;
+  }
+  return new URL(href2, base);
 }
 
 // lib/router/utils.ts
@@ -23635,14 +22927,14 @@ function generatePath(originalPath) {
     path = path.replace(/\*$/, "/*");
   }
   var prefix = path.startsWith("/") ? "/" : "";
-  var stringify = function stringify(p) {
+  var stringify2 = function stringify2(p) {
     return p == null ? "" : typeof p === "string" ? p : String(p);
   };
   var segments = path.split(/\/+/).map(function (segment, index, array) {
     var isLastSegment = index === array.length - 1;
     if (isLastSegment && segment === "*") {
       var star = "*";
-      return stringify(params[star]);
+      return stringify2(params[star]);
     }
     var keyMatch = segment.match(/^:([\w-]+)(\??)$/);
     if (keyMatch) {
@@ -23651,7 +22943,7 @@ function generatePath(originalPath) {
         optional = _keyMatch[2];
       var param = params[key];
       invariant(optional === "?" || param != null, "Missing \":".concat(key, "\" param"));
-      return stringify(param);
+      return stringify2(param);
     }
     return segment.replace(/\?$/g, "");
   }).filter(function (segment) {
@@ -23952,6 +23244,7 @@ function createRouter(init) {
   var initialMatches = matchRoutes(dataRoutes, init.history.location, basename);
   var initialMatchesIsFOW = false;
   var initialErrors = null;
+  var initialized;
   if (initialMatches == null && !init.patchRoutesOnNavigation) {
     var error = getInternalRouterError(404, {
       pathname: init.history.location.pathname
@@ -23959,46 +23252,47 @@ function createRouter(init) {
     var _getShortCircuitMatch = getShortCircuitMatches(dataRoutes),
       matches = _getShortCircuitMatch.matches,
       route = _getShortCircuitMatch.route;
+    initialized = true;
     initialMatches = matches;
     initialErrors = _defineProperty({}, route.id, error);
-  }
-  if (initialMatches && !init.hydrationData) {
-    var fogOfWar = checkFogOfWar(initialMatches, dataRoutes, init.history.location.pathname);
-    if (fogOfWar.active) {
-      initialMatches = null;
-    }
-  }
-  var initialized;
-  if (!initialMatches) {
-    initialized = false;
-    initialMatches = [];
-    var _fogOfWar = checkFogOfWar(null, dataRoutes, init.history.location.pathname);
-    if (_fogOfWar.active && _fogOfWar.matches) {
-      initialMatchesIsFOW = true;
-      initialMatches = _fogOfWar.matches;
-    }
-  } else if (initialMatches.some(function (m) {
-    return m.route.lazy;
-  })) {
-    initialized = false;
-  } else if (!initialMatches.some(function (m) {
-    return m.route.loader;
-  })) {
-    initialized = true;
   } else {
-    var loaderData = init.hydrationData ? init.hydrationData.loaderData : null;
-    var errors = init.hydrationData ? init.hydrationData.errors : null;
-    if (errors) {
-      var idx = initialMatches.findIndex(function (m) {
-        return errors[m.route.id] !== void 0;
-      });
-      initialized = initialMatches.slice(0, idx + 1).every(function (m) {
-        return !shouldLoadRouteOnHydration(m.route, loaderData, errors);
-      });
+    if (initialMatches && !init.hydrationData) {
+      var fogOfWar = checkFogOfWar(initialMatches, dataRoutes, init.history.location.pathname);
+      if (fogOfWar.active) {
+        initialMatches = null;
+      }
+    }
+    if (!initialMatches) {
+      initialized = false;
+      initialMatches = [];
+      var _fogOfWar = checkFogOfWar(null, dataRoutes, init.history.location.pathname);
+      if (_fogOfWar.active && _fogOfWar.matches) {
+        initialMatchesIsFOW = true;
+        initialMatches = _fogOfWar.matches;
+      }
+    } else if (initialMatches.some(function (m) {
+      return m.route.lazy;
+    })) {
+      initialized = false;
+    } else if (!initialMatches.some(function (m) {
+      return m.route.loader;
+    })) {
+      initialized = true;
     } else {
-      initialized = initialMatches.every(function (m) {
-        return !shouldLoadRouteOnHydration(m.route, loaderData, errors);
-      });
+      var loaderData = init.hydrationData ? init.hydrationData.loaderData : null;
+      var errors = init.hydrationData ? init.hydrationData.errors : null;
+      if (errors) {
+        var idx = initialMatches.findIndex(function (m) {
+          return errors[m.route.id] !== void 0;
+        });
+        initialized = initialMatches.slice(0, idx + 1).every(function (m) {
+          return !shouldLoadRouteOnHydration(m.route, loaderData, errors);
+        });
+      } else {
+        initialized = initialMatches.every(function (m) {
+          return !shouldLoadRouteOnHydration(m.route, loaderData, errors);
+        });
+      }
     }
   }
   var router;
@@ -24498,7 +23792,7 @@ function createRouter(init) {
     }));
     return _startNavigation.apply(this, arguments);
   }
-  function handleAction(_x6, _x7, _x8, _x9, _x10, _x11, _x12) {
+  function handleAction(_x6, _x7, _x8, _x9, _x0, _x1, _x10) {
     return _handleAction.apply(this, arguments);
   }
   function _handleAction() {
@@ -24671,7 +23965,7 @@ function createRouter(init) {
             }
             return _context3.abrupt("return", {
               matches: matches,
-              pendingActionResult: [boundaryMatch.route.id, result]
+              pendingActionResult: [boundaryMatch.route.id, result, actionMatch.route.id]
             });
           case 63:
             return _context3.abrupt("return", {
@@ -24686,7 +23980,7 @@ function createRouter(init) {
     }));
     return _handleAction.apply(this, arguments);
   }
-  function handleLoaders(_x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22, _x23, _x24) {
+  function handleLoaders(_x11, _x12, _x13, _x14, _x15, _x16, _x17, _x18, _x19, _x20, _x21, _x22) {
     return _handleLoaders.apply(this, arguments);
   }
   function _handleLoaders() {
@@ -24892,7 +24186,7 @@ function createRouter(init) {
     });
     return new Map(state.fetchers);
   }
-  function fetch2(_x25, _x26, _x27, _x28) {
+  function fetch2(_x23, _x24, _x25, _x26) {
     return _fetch.apply(this, arguments);
   }
   function _fetch() {
@@ -24972,12 +24266,12 @@ function createRouter(init) {
     }));
     return _fetch.apply(this, arguments);
   }
-  function handleFetcherAction(_x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36, _x37, _x38) {
+  function handleFetcherAction(_x27, _x28, _x29, _x30, _x31, _x32, _x33, _x34, _x35, _x36) {
     return _handleFetcherAction.apply(this, arguments);
   }
   function _handleFetcherAction() {
     _handleFetcherAction = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee6(key, routeId, path, match, requestMatches, scopedContext, isFogOfWar, flushSync, preventScrollReset, submission) {
-      var detectAndHandle405Error, existingFetcher, abortController, fetchRequest, discoverResult, originatingLoadId, fetchMatches, actionResults, actionResult, nextLocation, revalidationRequest, routesToUse, matches, loadId, loadFetcher, _getMatchesToLoad2, dsMatches, revalidatingFetchers, abortPendingFetchRevalidations, _yield$callLoadersAnd2, loaderResults, fetcherResults, redirect2, _processLoaderData2, loaderData, errors, doneFetcher;
+      var detectAndHandle405Error, existingFetcher, abortController, fetchRequest, discoverResult, originatingLoadId, fetchMatches, actionResults, actionResult, nextLocation, revalidationRequest, routesToUse, matches, loadId, loadFetcher, _getMatchesToLoad2, dsMatches, revalidatingFetchers, abortPendingFetchRevalidations, _yield$callLoadersAnd2, loaderResults, fetcherResults, doneFetcher, redirect2, _processLoaderData2, loaderData, errors;
       return _regeneratorRuntime().wrap(function _callee6$(_context6) {
         while (1) switch (_context6.prev = _context6.next) {
           case 0:
@@ -25157,30 +24451,30 @@ function createRouter(init) {
             revalidatingFetchers.forEach(function (r) {
               return fetchControllers.delete(r.key);
             });
+            if (state.fetchers.has(key)) {
+              doneFetcher = getDoneFetcher(actionResult.data);
+              state.fetchers.set(key, doneFetcher);
+            }
             redirect2 = findRedirect(loaderResults);
             if (!redirect2) {
-              _context6.next = 88;
+              _context6.next = 89;
               break;
             }
             return _context6.abrupt("return", startRedirectNavigation(revalidationRequest, redirect2.result, false, {
               preventScrollReset: preventScrollReset
             }));
-          case 88:
+          case 89:
             redirect2 = findRedirect(fetcherResults);
             if (!redirect2) {
-              _context6.next = 92;
+              _context6.next = 93;
               break;
             }
             fetchRedirectIds.add(redirect2.key);
             return _context6.abrupt("return", startRedirectNavigation(revalidationRequest, redirect2.result, false, {
               preventScrollReset: preventScrollReset
             }));
-          case 92:
+          case 93:
             _processLoaderData2 = processLoaderData(state, matches, loaderResults, void 0, revalidatingFetchers, fetcherResults), loaderData = _processLoaderData2.loaderData, errors = _processLoaderData2.errors;
-            if (state.fetchers.has(key)) {
-              doneFetcher = getDoneFetcher(actionResult.data);
-              state.fetchers.set(key, doneFetcher);
-            }
             abortStaleFetchLoads(loadId);
             if (state.navigation.state === "loading" && loadId > pendingNavigationLoadId) {
               invariant(pendingAction, "Expected pending action");
@@ -25207,7 +24501,7 @@ function createRouter(init) {
     }));
     return _handleFetcherAction.apply(this, arguments);
   }
-  function handleFetcherLoader(_x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46, _x47, _x48) {
+  function handleFetcherLoader(_x37, _x38, _x39, _x40, _x41, _x42, _x43, _x44, _x45, _x46) {
     return _handleFetcherLoader.apply(this, arguments);
   }
   function _handleFetcherLoader() {
@@ -25318,7 +24612,7 @@ function createRouter(init) {
     }));
     return _handleFetcherLoader.apply(this, arguments);
   }
-  function startRedirectNavigation(_x49, _x50, _x51) {
+  function startRedirectNavigation(_x47, _x48, _x49) {
     return _startRedirectNavigation.apply(this, arguments);
   }
   function _startRedirectNavigation() {
@@ -25361,7 +24655,7 @@ function createRouter(init) {
             if (redirect2.response.headers.has("X-Remix-Reload-Document")) {
               isDocumentReload = true;
             } else if (ABSOLUTE_URL_REGEX.test(location)) {
-              url = init.history.createURL(location);
+              url = createBrowserURLImpl(location, true);
               isDocumentReload =
               // Hard reload if it's an absolute URL to a new origin
               url.origin !== routerWindow.location.origin ||
@@ -25421,7 +24715,7 @@ function createRouter(init) {
     }));
     return _startRedirectNavigation.apply(this, arguments);
   }
-  function callDataStrategy(_x52, _x53, _x54, _x55) {
+  function callDataStrategy(_x50, _x51, _x52, _x53) {
     return _callDataStrategy.apply(this, arguments);
   }
   function _callDataStrategy() {
@@ -25451,15 +24745,21 @@ function createRouter(init) {
             });
             return _context9.abrupt("return", dataResults);
           case 11:
+            if (!request.signal.aborted) {
+              _context9.next = 13;
+              break;
+            }
+            return _context9.abrupt("return", dataResults);
+          case 13:
             _i = 0, _Object$entries = Object.entries(results);
-          case 12:
+          case 14:
             if (!(_i < _Object$entries.length)) {
-              _context9.next = 25;
+              _context9.next = 27;
               break;
             }
             _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2), routeId = _Object$entries$_i[0], result = _Object$entries$_i[1];
             if (!isRedirectDataStrategyResult(result)) {
-              _context9.next = 19;
+              _context9.next = 21;
               break;
             }
             response = result.result;
@@ -25467,20 +24767,20 @@ function createRouter(init) {
               type: "redirect" /* redirect */,
               response: normalizeRelativeRoutingRedirectResponse(response, request, routeId, matches, basename)
             };
-            _context9.next = 22;
+            _context9.next = 24;
             break;
-          case 19:
-            _context9.next = 21;
-            return convertDataStrategyResultToDataResult(result);
           case 21:
+            _context9.next = 23;
+            return convertDataStrategyResultToDataResult(result);
+          case 23:
             dataResults[routeId] = _context9.sent;
-          case 22:
+          case 24:
             _i++;
-            _context9.next = 12;
+            _context9.next = 14;
             break;
-          case 25:
+          case 27:
             return _context9.abrupt("return", dataResults);
-          case 26:
+          case 28:
           case "end":
             return _context9.stop();
         }
@@ -25488,34 +24788,34 @@ function createRouter(init) {
     }));
     return _callDataStrategy.apply(this, arguments);
   }
-  function callLoadersAndMaybeResolveData(_x56, _x57, _x58, _x59) {
+  function callLoadersAndMaybeResolveData(_x54, _x55, _x56, _x57) {
     return _callLoadersAndMaybeResolveData.apply(this, arguments);
   }
   function _callLoadersAndMaybeResolveData() {
-    _callLoadersAndMaybeResolveData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11(matches, fetchersToLoad, request, scopedContext) {
+    _callLoadersAndMaybeResolveData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee1(matches, fetchersToLoad, request, scopedContext) {
       var loaderResultsPromise, fetcherResultsPromise, loaderResults, fetcherResults;
-      return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-        while (1) switch (_context11.prev = _context11.next) {
+      return _regeneratorRuntime().wrap(function _callee1$(_context1) {
+        while (1) switch (_context1.prev = _context1.next) {
           case 0:
             loaderResultsPromise = callDataStrategy(request, matches, scopedContext, null);
             fetcherResultsPromise = Promise.all(fetchersToLoad.map(/*#__PURE__*/function () {
-              var _ref10 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(f) {
+              var _ref0 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee0(f) {
                 var results, result;
-                return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-                  while (1) switch (_context10.prev = _context10.next) {
+                return _regeneratorRuntime().wrap(function _callee0$(_context0) {
+                  while (1) switch (_context0.prev = _context0.next) {
                     case 0:
                       if (!(f.matches && f.match && f.request && f.controller)) {
-                        _context10.next = 8;
+                        _context0.next = 8;
                         break;
                       }
-                      _context10.next = 3;
+                      _context0.next = 3;
                       return callDataStrategy(f.request, f.matches, scopedContext, f.key);
                     case 3:
-                      results = _context10.sent;
+                      results = _context0.sent;
                       result = results[f.match.route.id];
-                      return _context10.abrupt("return", _defineProperty({}, f.key, result));
+                      return _context0.abrupt("return", _defineProperty({}, f.key, result));
                     case 8:
-                      return _context10.abrupt("return", Promise.resolve(_defineProperty({}, f.key, {
+                      return _context0.abrupt("return", Promise.resolve(_defineProperty({}, f.key, {
                         type: "error" /* error */,
                         error: getInternalRouterError(404, {
                           pathname: f.path
@@ -25523,33 +24823,33 @@ function createRouter(init) {
                       })));
                     case 9:
                     case "end":
-                      return _context10.stop();
+                      return _context0.stop();
                   }
-                }, _callee10);
+                }, _callee0);
               }));
-              return function (_x64) {
-                return _ref10.apply(this, arguments);
+              return function (_x62) {
+                return _ref0.apply(this, arguments);
               };
             }()));
-            _context11.next = 4;
+            _context1.next = 4;
             return loaderResultsPromise;
           case 4:
-            loaderResults = _context11.sent;
-            _context11.next = 7;
+            loaderResults = _context1.sent;
+            _context1.next = 7;
             return fetcherResultsPromise;
           case 7:
-            fetcherResults = _context11.sent.reduce(function (acc, r) {
+            fetcherResults = _context1.sent.reduce(function (acc, r) {
               return Object.assign(acc, r);
             }, {});
-            return _context11.abrupt("return", {
+            return _context1.abrupt("return", {
               loaderResults: loaderResults,
               fetcherResults: fetcherResults
             });
           case 9:
           case "end":
-            return _context11.stop();
+            return _context1.stop();
         }
-      }, _callee11);
+      }, _callee1);
     }));
     return _callLoadersAndMaybeResolveData.apply(this, arguments);
   }
@@ -25814,20 +25114,20 @@ function createRouter(init) {
       matches: null
     };
   }
-  function discoverRoutes(_x60, _x61, _x62, _x63) {
+  function discoverRoutes(_x58, _x59, _x60, _x61) {
     return _discoverRoutes.apply(this, arguments);
   }
   function _discoverRoutes() {
-    _discoverRoutes = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee12(matches, pathname, signal, fetcherKey) {
+    _discoverRoutes = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee10(matches, pathname, signal, fetcherKey) {
       var partialMatches, _loop, _ret;
-      return _regeneratorRuntime().wrap(function _callee12$(_context13) {
-        while (1) switch (_context13.prev = _context13.next) {
+      return _regeneratorRuntime().wrap(function _callee10$(_context11) {
+        while (1) switch (_context11.prev = _context11.next) {
           case 0:
             if (init.patchRoutesOnNavigation) {
-              _context13.next = 2;
+              _context11.next = 2;
               break;
             }
-            return _context13.abrupt("return", {
+            return _context11.abrupt("return", {
               type: "success",
               matches: matches
             });
@@ -25835,14 +25135,14 @@ function createRouter(init) {
             partialMatches = matches;
             _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
               var isNonHMR, routesToUse, localManifest, newMatches, newPartialMatches;
-              return _regeneratorRuntime().wrap(function _loop$(_context12) {
-                while (1) switch (_context12.prev = _context12.next) {
+              return _regeneratorRuntime().wrap(function _loop$(_context10) {
+                while (1) switch (_context10.prev = _context10.next) {
                   case 0:
                     isNonHMR = inFlightDataRoutes == null;
                     routesToUse = inFlightDataRoutes || dataRoutes;
                     localManifest = manifest;
-                    _context12.prev = 3;
-                    _context12.next = 6;
+                    _context10.prev = 3;
+                    _context10.next = 6;
                     return init.patchRoutesOnNavigation({
                       signal: signal,
                       path: pathname,
@@ -25854,30 +25154,30 @@ function createRouter(init) {
                       }
                     });
                   case 6:
-                    _context12.next = 11;
+                    _context10.next = 11;
                     break;
                   case 8:
-                    _context12.prev = 8;
-                    _context12.t0 = _context12["catch"](3);
-                    return _context12.abrupt("return", {
+                    _context10.prev = 8;
+                    _context10.t0 = _context10["catch"](3);
+                    return _context10.abrupt("return", {
                       v: {
                         type: "error",
-                        error: _context12.t0,
+                        error: _context10.t0,
                         partialMatches: partialMatches
                       }
                     });
                   case 11:
-                    _context12.prev = 11;
+                    _context10.prev = 11;
                     if (isNonHMR && !signal.aborted) {
                       dataRoutes = _toConsumableArray(dataRoutes);
                     }
-                    return _context12.finish(11);
+                    return _context10.finish(11);
                   case 14:
                     if (!signal.aborted) {
-                      _context12.next = 16;
+                      _context10.next = 16;
                       break;
                     }
-                    return _context12.abrupt("return", {
+                    return _context10.abrupt("return", {
                       v: {
                         type: "aborted"
                       }
@@ -25885,10 +25185,10 @@ function createRouter(init) {
                   case 16:
                     newMatches = matchRoutes(routesToUse, pathname, basename);
                     if (!newMatches) {
-                      _context12.next = 19;
+                      _context10.next = 19;
                       break;
                     }
-                    return _context12.abrupt("return", {
+                    return _context10.abrupt("return", {
                       v: {
                         type: "success",
                         matches: newMatches
@@ -25899,10 +25199,10 @@ function createRouter(init) {
                     if (!(!newPartialMatches || partialMatches.length === newPartialMatches.length && partialMatches.every(function (m, i) {
                       return m.route.id === newPartialMatches[i].route.id;
                     }))) {
-                      _context12.next = 22;
+                      _context10.next = 22;
                       break;
                     }
-                    return _context12.abrupt("return", {
+                    return _context10.abrupt("return", {
                       v: {
                         type: "success",
                         matches: null
@@ -25912,31 +25212,31 @@ function createRouter(init) {
                     partialMatches = newPartialMatches;
                   case 23:
                   case "end":
-                    return _context12.stop();
+                    return _context10.stop();
                 }
               }, _loop, null, [[3, 8, 11, 14]]);
             });
           case 4:
             if (!true) {
-              _context13.next = 11;
+              _context11.next = 11;
               break;
             }
-            return _context13.delegateYield(_loop(), "t0", 6);
+            return _context11.delegateYield(_loop(), "t0", 6);
           case 6:
-            _ret = _context13.t0;
+            _ret = _context11.t0;
             if (!_ret) {
-              _context13.next = 9;
+              _context11.next = 9;
               break;
             }
-            return _context13.abrupt("return", _ret.v);
+            return _context11.abrupt("return", _ret.v);
           case 9:
-            _context13.next = 4;
+            _context11.next = 4;
             break;
           case 11:
           case "end":
-            return _context13.stop();
+            return _context11.stop();
         }
-      }, _callee12);
+      }, _callee10);
     }));
     return _discoverRoutes.apply(this, arguments);
   }
@@ -26002,12 +25302,12 @@ function createStaticHandler(routes, opts) {
   var basename = (opts ? opts.basename : null) || "/";
   var mapRouteProperties2 = (opts === null || opts === void 0 ? void 0 : opts.mapRouteProperties) || defaultMapRouteProperties;
   var dataRoutes = convertRoutesToDataRoutes(routes, mapRouteProperties2, void 0, manifest);
-  function query(_x65) {
+  function query(_x63) {
     return _query.apply(this, arguments);
   }
   function _query() {
-    _query = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee15(request) {
-      var _ref12,
+    _query = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee13(request) {
+      var _ref10,
         requestContext,
         filterMatchesToLoad,
         skipLoaderErrorBubbling,
@@ -26031,18 +25331,18 @@ function createStaticHandler(routes, opts) {
         renderedStaticContext,
         response,
         result,
-        _args16 = arguments;
-      return _regeneratorRuntime().wrap(function _callee15$(_context16) {
-        while (1) switch (_context16.prev = _context16.next) {
+        _args14 = arguments;
+      return _regeneratorRuntime().wrap(function _callee13$(_context14) {
+        while (1) switch (_context14.prev = _context14.next) {
           case 0:
-            _ref12 = _args16.length > 1 && _args16[1] !== undefined ? _args16[1] : {}, requestContext = _ref12.requestContext, filterMatchesToLoad = _ref12.filterMatchesToLoad, skipLoaderErrorBubbling = _ref12.skipLoaderErrorBubbling, skipRevalidation = _ref12.skipRevalidation, dataStrategy = _ref12.dataStrategy, respond = _ref12.unstable_respond;
+            _ref10 = _args14.length > 1 && _args14[1] !== undefined ? _args14[1] : {}, requestContext = _ref10.requestContext, filterMatchesToLoad = _ref10.filterMatchesToLoad, skipLoaderErrorBubbling = _ref10.skipLoaderErrorBubbling, skipRevalidation = _ref10.skipRevalidation, dataStrategy = _ref10.dataStrategy, respond = _ref10.unstable_respond;
             url = new URL(request.url);
             method = request.method;
             location = createLocation("", createPath(url), null, "default");
             matches = matchRoutes(dataRoutes, location, basename);
             requestContext = requestContext != null ? requestContext : new unstable_RouterContextProvider();
             if (!(!isValidMethod(method) && method !== "HEAD")) {
-              _context16.next = 13;
+              _context14.next = 13;
               break;
             }
             error = getInternalRouterError(405, {
@@ -26060,10 +25360,10 @@ function createStaticHandler(routes, opts) {
               loaderHeaders: {},
               actionHeaders: {}
             };
-            return _context16.abrupt("return", respond ? respond(staticContext) : staticContext);
+            return _context14.abrupt("return", respond ? respond(staticContext) : staticContext);
           case 13:
             if (matches) {
-              _context16.next = 18;
+              _context14.next = 18;
               break;
             }
             _error5 = getInternalRouterError(404, {
@@ -26081,20 +25381,20 @@ function createStaticHandler(routes, opts) {
               loaderHeaders: {},
               actionHeaders: {}
             };
-            return _context16.abrupt("return", respond ? respond(_staticContext) : _staticContext);
+            return _context14.abrupt("return", respond ? respond(_staticContext) : _staticContext);
           case 18:
             if (!(respond && matches.some(function (m) {
               return m.route.unstable_middleware || _typeof(m.route.lazy) === "object" && m.route.lazy.unstable_middleware;
             }))) {
-              _context16.next = 35;
+              _context14.next = 35;
               break;
             }
             invariant(requestContext instanceof unstable_RouterContextProvider, "When using middleware in `staticHandler.query()`, any provided `requestContext` must be an instance of `unstable_RouterContextProvider`");
-            _context16.prev = 20;
-            _context16.next = 23;
+            _context14.prev = 20;
+            _context14.next = 23;
             return loadLazyMiddlewareForMatches(matches, manifest, mapRouteProperties2);
           case 23:
-            _context16.next = 25;
+            _context14.next = 25;
             return runMiddlewarePipeline({
               request: request,
               matches: matches,
@@ -26102,124 +25402,123 @@ function createStaticHandler(routes, opts) {
               // If we're calling middleware then it must be enabled so we can cast
               // this to the proper type knowing it's not an `AppLoadContext`
               context: requestContext
-            }, true, /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+            }, true, /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
               var result2, res;
-              return _regeneratorRuntime().wrap(function _callee13$(_context14) {
-                while (1) switch (_context14.prev = _context14.next) {
+              return _regeneratorRuntime().wrap(function _callee11$(_context12) {
+                while (1) switch (_context12.prev = _context12.next) {
                   case 0:
-                    _context14.next = 2;
+                    _context12.next = 2;
                     return queryImpl(request, location, matches, requestContext, dataStrategy || null, skipLoaderErrorBubbling === true, null, filterMatchesToLoad || null, skipRevalidation === true);
                   case 2:
-                    result2 = _context14.sent;
+                    result2 = _context12.sent;
                     if (!isResponse(result2)) {
-                      _context14.next = 5;
+                      _context12.next = 5;
                       break;
                     }
-                    return _context14.abrupt("return", result2);
+                    return _context12.abrupt("return", result2);
                   case 5:
                     renderedStaticContext = _objectSpread({
                       location: location,
                       basename: basename
                     }, result2);
-                    _context14.next = 8;
+                    _context12.next = 8;
                     return respond(renderedStaticContext);
                   case 8:
-                    res = _context14.sent;
-                    return _context14.abrupt("return", res);
+                    res = _context12.sent;
+                    return _context12.abrupt("return", res);
                   case 10:
                   case "end":
-                    return _context14.stop();
+                    return _context12.stop();
                 }
-              }, _callee13);
+              }, _callee11);
             })), /*#__PURE__*/function () {
-              var _ref14 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee14(error, routeId) {
-                var loaderIdx, boundary;
-                return _regeneratorRuntime().wrap(function _callee14$(_context15) {
-                  while (1) switch (_context15.prev = _context15.next) {
+              var _ref12 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee12(error, routeId) {
+                var _matches$find, boundaryRouteId;
+                return _regeneratorRuntime().wrap(function _callee12$(_context13) {
+                  while (1) switch (_context13.prev = _context13.next) {
                     case 0:
                       if (!isResponse(error)) {
-                        _context15.next = 2;
+                        _context13.next = 2;
                         break;
                       }
-                      return _context15.abrupt("return", error);
+                      return _context13.abrupt("return", error);
                     case 2:
                       if (!renderedStaticContext) {
-                        _context15.next = 7;
+                        _context13.next = 7;
                         break;
                       }
                       if (routeId in renderedStaticContext.loaderData) {
                         renderedStaticContext.loaderData[routeId] = void 0;
                       }
-                      return _context15.abrupt("return", respond(getStaticContextFromError(dataRoutes, renderedStaticContext, error, findNearestBoundary(matches, routeId).route.id)));
+                      return _context13.abrupt("return", respond(getStaticContextFromError(dataRoutes, renderedStaticContext, error, skipLoaderErrorBubbling ? routeId : findNearestBoundary(matches, routeId).route.id)));
                     case 7:
-                      loaderIdx = matches.findIndex(function (m) {
-                        return m.route.loader;
-                      });
-                      boundary = loaderIdx >= 0 ? findNearestBoundary(matches, matches[loaderIdx].route.id) : findNearestBoundary(matches);
-                      return _context15.abrupt("return", respond({
+                      boundaryRouteId = skipLoaderErrorBubbling ? routeId : findNearestBoundary(matches, ((_matches$find = matches.find(function (m) {
+                        return m.route.id === routeId || m.route.loader;
+                      })) === null || _matches$find === void 0 ? void 0 : _matches$find.route.id) || routeId).route.id;
+                      return _context13.abrupt("return", respond({
                         matches: matches,
                         location: location,
                         basename: basename,
                         loaderData: {},
                         actionData: null,
-                        errors: _defineProperty({}, boundary.route.id, error),
+                        errors: _defineProperty({}, boundaryRouteId, error),
                         statusCode: isRouteErrorResponse(error) ? error.status : 500,
                         actionHeaders: {},
                         loaderHeaders: {}
                       }));
-                    case 10:
+                    case 9:
                     case "end":
-                      return _context15.stop();
+                      return _context13.stop();
                   }
-                }, _callee14);
+                }, _callee12);
               }));
-              return function (_x98, _x99) {
-                return _ref14.apply(this, arguments);
+              return function (_x96, _x97) {
+                return _ref12.apply(this, arguments);
               };
             }());
           case 25:
-            response = _context16.sent;
+            response = _context14.sent;
             invariant(isResponse(response), "Expected a response in query()");
-            return _context16.abrupt("return", response);
+            return _context14.abrupt("return", response);
           case 30:
-            _context16.prev = 30;
-            _context16.t0 = _context16["catch"](20);
-            if (!isResponse(_context16.t0)) {
-              _context16.next = 34;
+            _context14.prev = 30;
+            _context14.t0 = _context14["catch"](20);
+            if (!isResponse(_context14.t0)) {
+              _context14.next = 34;
               break;
             }
-            return _context16.abrupt("return", _context16.t0);
+            return _context14.abrupt("return", _context14.t0);
           case 34:
-            throw _context16.t0;
+            throw _context14.t0;
           case 35:
-            _context16.next = 37;
+            _context14.next = 37;
             return queryImpl(request, location, matches, requestContext, dataStrategy || null, skipLoaderErrorBubbling === true, null, filterMatchesToLoad || null, skipRevalidation === true);
           case 37:
-            result = _context16.sent;
+            result = _context14.sent;
             if (!isResponse(result)) {
-              _context16.next = 40;
+              _context14.next = 40;
               break;
             }
-            return _context16.abrupt("return", result);
+            return _context14.abrupt("return", result);
           case 40:
-            return _context16.abrupt("return", _objectSpread({
+            return _context14.abrupt("return", _objectSpread({
               location: location,
               basename: basename
             }, result));
           case 41:
           case "end":
-            return _context16.stop();
+            return _context14.stop();
         }
-      }, _callee15, null, [[20, 30]]);
+      }, _callee13, null, [[20, 30]]);
     }));
     return _query.apply(this, arguments);
   }
-  function queryRoute(_x66) {
+  function queryRoute(_x64) {
     return _queryRoute.apply(this, arguments);
   }
   function _queryRoute() {
-    _queryRoute = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee17(request) {
-      var _ref15,
+    _queryRoute = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee15(request) {
+      var _ref13,
         routeId,
         requestContext,
         dataStrategy,
@@ -26232,18 +25531,18 @@ function createStaticHandler(routes, opts) {
         response,
         result,
         error,
-        _args18 = arguments;
-      return _regeneratorRuntime().wrap(function _callee17$(_context18) {
-        while (1) switch (_context18.prev = _context18.next) {
+        _args16 = arguments;
+      return _regeneratorRuntime().wrap(function _callee15$(_context16) {
+        while (1) switch (_context16.prev = _context16.next) {
           case 0:
-            _ref15 = _args18.length > 1 && _args18[1] !== undefined ? _args18[1] : {}, routeId = _ref15.routeId, requestContext = _ref15.requestContext, dataStrategy = _ref15.dataStrategy, respond = _ref15.unstable_respond;
+            _ref13 = _args16.length > 1 && _args16[1] !== undefined ? _args16[1] : {}, routeId = _ref13.routeId, requestContext = _ref13.requestContext, dataStrategy = _ref13.dataStrategy, respond = _ref13.unstable_respond;
             url = new URL(request.url);
             method = request.method;
             location = createLocation("", createPath(url), null, "default");
             matches = matchRoutes(dataRoutes, location, basename);
             requestContext = requestContext != null ? requestContext : new unstable_RouterContextProvider();
             if (!(!isValidMethod(method) && method !== "HEAD" && method !== "OPTIONS")) {
-              _context18.next = 10;
+              _context16.next = 10;
               break;
             }
             throw getInternalRouterError(405, {
@@ -26251,7 +25550,7 @@ function createStaticHandler(routes, opts) {
             });
           case 10:
             if (matches) {
-              _context18.next = 12;
+              _context16.next = 12;
               break;
             }
             throw getInternalRouterError(404, {
@@ -26262,7 +25561,7 @@ function createStaticHandler(routes, opts) {
               return m.route.id === routeId;
             }) : getTargetMatch(matches, location);
             if (!(routeId && !match)) {
-              _context18.next = 17;
+              _context16.next = 17;
               break;
             }
             throw getInternalRouterError(403, {
@@ -26271,7 +25570,7 @@ function createStaticHandler(routes, opts) {
             });
           case 17:
             if (match) {
-              _context18.next = 19;
+              _context16.next = 19;
               break;
             }
             throw getInternalRouterError(404, {
@@ -26281,14 +25580,14 @@ function createStaticHandler(routes, opts) {
             if (!(respond && matches.some(function (m) {
               return m.route.unstable_middleware || _typeof(m.route.lazy) === "object" && m.route.lazy.unstable_middleware;
             }))) {
-              _context18.next = 27;
+              _context16.next = 27;
               break;
             }
             invariant(requestContext instanceof unstable_RouterContextProvider, "When using middleware in `staticHandler.queryRoute()`, any provided `requestContext` must be an instance of `unstable_RouterContextProvider`");
-            _context18.next = 23;
+            _context16.next = 23;
             return loadLazyMiddlewareForMatches(matches, manifest, mapRouteProperties2);
           case 23:
-            _context18.next = 25;
+            _context16.next = 25;
             return runMiddlewarePipeline({
               request: request,
               matches: matches,
@@ -26296,35 +25595,35 @@ function createStaticHandler(routes, opts) {
               // If we're calling middleware then it must be enabled so we can cast
               // this to the proper type knowing it's not an `AppLoadContext`
               context: requestContext
-            }, true, /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
+            }, true, /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
               var result2, error2, value;
-              return _regeneratorRuntime().wrap(function _callee16$(_context17) {
-                while (1) switch (_context17.prev = _context17.next) {
+              return _regeneratorRuntime().wrap(function _callee14$(_context15) {
+                while (1) switch (_context15.prev = _context15.next) {
                   case 0:
-                    _context17.next = 2;
+                    _context15.next = 2;
                     return queryImpl(request, location, matches, requestContext, dataStrategy || null, false, match, null, false);
                   case 2:
-                    result2 = _context17.sent;
+                    result2 = _context15.sent;
                     if (!isResponse(result2)) {
-                      _context17.next = 5;
+                      _context15.next = 5;
                       break;
                     }
-                    return _context17.abrupt("return", respond(result2));
+                    return _context15.abrupt("return", respond(result2));
                   case 5:
                     error2 = result2.errors ? Object.values(result2.errors)[0] : void 0;
                     if (!(error2 !== void 0)) {
-                      _context17.next = 8;
+                      _context15.next = 8;
                       break;
                     }
                     throw error2;
                   case 8:
                     value = result2.actionData ? Object.values(result2.actionData)[0] : Object.values(result2.loaderData)[0];
-                    return _context17.abrupt("return", typeof value === "string" ? new Response(value) : Response.json(value));
+                    return _context15.abrupt("return", typeof value === "string" ? new Response(value) : Response.json(value));
                   case 10:
                   case "end":
-                    return _context17.stop();
+                    return _context15.stop();
                 }
-              }, _callee16);
+              }, _callee14);
             })), function (error2) {
               if (isResponse(error2)) {
                 return respond(error2);
@@ -26335,117 +25634,117 @@ function createStaticHandler(routes, opts) {
               });
             });
           case 25:
-            response = _context18.sent;
-            return _context18.abrupt("return", response);
+            response = _context16.sent;
+            return _context16.abrupt("return", response);
           case 27:
-            _context18.next = 29;
+            _context16.next = 29;
             return queryImpl(request, location, matches, requestContext, dataStrategy || null, false, match, null, false);
           case 29:
-            result = _context18.sent;
+            result = _context16.sent;
             if (!isResponse(result)) {
-              _context18.next = 32;
+              _context16.next = 32;
               break;
             }
-            return _context18.abrupt("return", result);
+            return _context16.abrupt("return", result);
           case 32:
             error = result.errors ? Object.values(result.errors)[0] : void 0;
             if (!(error !== void 0)) {
-              _context18.next = 35;
+              _context16.next = 35;
               break;
             }
             throw error;
           case 35:
             if (!result.actionData) {
-              _context18.next = 37;
+              _context16.next = 37;
               break;
             }
-            return _context18.abrupt("return", Object.values(result.actionData)[0]);
+            return _context16.abrupt("return", Object.values(result.actionData)[0]);
           case 37:
             if (!result.loaderData) {
-              _context18.next = 39;
+              _context16.next = 39;
               break;
             }
-            return _context18.abrupt("return", Object.values(result.loaderData)[0]);
+            return _context16.abrupt("return", Object.values(result.loaderData)[0]);
           case 39:
-            return _context18.abrupt("return", void 0);
+            return _context16.abrupt("return", void 0);
           case 40:
           case "end":
-            return _context18.stop();
+            return _context16.stop();
         }
-      }, _callee17);
+      }, _callee15);
     }));
     return _queryRoute.apply(this, arguments);
   }
-  function queryImpl(_x67, _x68, _x69, _x70, _x71, _x72, _x73, _x74, _x75) {
+  function queryImpl(_x65, _x66, _x67, _x68, _x69, _x70, _x71, _x72, _x73) {
     return _queryImpl.apply(this, arguments);
   }
   function _queryImpl() {
-    _queryImpl = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee18(request, location, matches, requestContext, dataStrategy, skipLoaderErrorBubbling, routeMatch, filterMatchesToLoad, skipRevalidation) {
+    _queryImpl = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee16(request, location, matches, requestContext, dataStrategy, skipLoaderErrorBubbling, routeMatch, filterMatchesToLoad, skipRevalidation) {
       var result2, result;
-      return _regeneratorRuntime().wrap(function _callee18$(_context19) {
-        while (1) switch (_context19.prev = _context19.next) {
+      return _regeneratorRuntime().wrap(function _callee16$(_context17) {
+        while (1) switch (_context17.prev = _context17.next) {
           case 0:
             invariant(request.signal, "query()/queryRoute() requests must contain an AbortController signal");
-            _context19.prev = 1;
+            _context17.prev = 1;
             if (!isMutationMethod(request.method)) {
-              _context19.next = 7;
+              _context17.next = 7;
               break;
             }
-            _context19.next = 5;
+            _context17.next = 5;
             return submit(request, matches, routeMatch || getTargetMatch(matches, location), requestContext, dataStrategy, skipLoaderErrorBubbling, routeMatch != null, filterMatchesToLoad, skipRevalidation);
           case 5:
-            result2 = _context19.sent;
-            return _context19.abrupt("return", result2);
+            result2 = _context17.sent;
+            return _context17.abrupt("return", result2);
           case 7:
-            _context19.next = 9;
+            _context17.next = 9;
             return loadRouteData(request, matches, requestContext, dataStrategy, skipLoaderErrorBubbling, routeMatch, filterMatchesToLoad);
           case 9:
-            result = _context19.sent;
-            return _context19.abrupt("return", isResponse(result) ? result : _objectSpread(_objectSpread({}, result), {}, {
+            result = _context17.sent;
+            return _context17.abrupt("return", isResponse(result) ? result : _objectSpread(_objectSpread({}, result), {}, {
               actionData: null,
               actionHeaders: {}
             }));
           case 13:
-            _context19.prev = 13;
-            _context19.t0 = _context19["catch"](1);
-            if (!(isDataStrategyResult(_context19.t0) && isResponse(_context19.t0.result))) {
-              _context19.next = 19;
+            _context17.prev = 13;
+            _context17.t0 = _context17["catch"](1);
+            if (!(isDataStrategyResult(_context17.t0) && isResponse(_context17.t0.result))) {
+              _context17.next = 19;
               break;
             }
-            if (!(_context19.t0.type === "error" /* error */)) {
-              _context19.next = 18;
+            if (!(_context17.t0.type === "error" /* error */)) {
+              _context17.next = 18;
               break;
             }
-            throw _context19.t0.result;
+            throw _context17.t0.result;
           case 18:
-            return _context19.abrupt("return", _context19.t0.result);
+            return _context17.abrupt("return", _context17.t0.result);
           case 19:
-            if (!isRedirectResponse(_context19.t0)) {
-              _context19.next = 21;
+            if (!isRedirectResponse(_context17.t0)) {
+              _context17.next = 21;
               break;
             }
-            return _context19.abrupt("return", _context19.t0);
+            return _context17.abrupt("return", _context17.t0);
           case 21:
-            throw _context19.t0;
+            throw _context17.t0;
           case 22:
           case "end":
-            return _context19.stop();
+            return _context17.stop();
         }
-      }, _callee18, null, [[1, 13]]);
+      }, _callee16, null, [[1, 13]]);
     }));
     return _queryImpl.apply(this, arguments);
   }
-  function submit(_x76, _x77, _x78, _x79, _x80, _x81, _x82, _x83, _x84) {
+  function submit(_x74, _x75, _x76, _x77, _x78, _x79, _x80, _x81, _x82) {
     return _submit.apply(this, arguments);
   }
   function _submit() {
-    _submit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee19(request, matches, actionMatch, requestContext, dataStrategy, skipLoaderErrorBubbling, isRouteRequest, filterMatchesToLoad, skipRevalidation) {
+    _submit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee17(request, matches, actionMatch, requestContext, dataStrategy, skipLoaderErrorBubbling, isRouteRequest, filterMatchesToLoad, skipRevalidation) {
       var result, error, dsMatches, results, boundaryMatch, loaderRequest, _boundaryMatch, handlerContext2, handlerContext;
-      return _regeneratorRuntime().wrap(function _callee19$(_context20) {
-        while (1) switch (_context20.prev = _context20.next) {
+      return _regeneratorRuntime().wrap(function _callee17$(_context18) {
+        while (1) switch (_context18.prev = _context18.next) {
           case 0:
             if (!(!actionMatch.route.action && !actionMatch.route.lazy)) {
-              _context20.next = 7;
+              _context18.next = 7;
               break;
             }
             error = getInternalRouterError(405, {
@@ -26454,7 +25753,7 @@ function createStaticHandler(routes, opts) {
               routeId: actionMatch.route.id
             });
             if (!isRouteRequest) {
-              _context20.next = 4;
+              _context18.next = 4;
               break;
             }
             throw error;
@@ -26463,21 +25762,21 @@ function createStaticHandler(routes, opts) {
               type: "error" /* error */,
               error: error
             };
-            _context20.next = 13;
+            _context18.next = 13;
             break;
           case 7:
             dsMatches = getTargetedDataStrategyMatches(mapRouteProperties2, manifest, request, matches, actionMatch, [], requestContext);
-            _context20.next = 10;
+            _context18.next = 10;
             return callDataStrategy(request, dsMatches, isRouteRequest, requestContext, dataStrategy);
           case 10:
-            results = _context20.sent;
+            results = _context18.sent;
             result = results[actionMatch.route.id];
             if (request.signal.aborted) {
               throwStaticHandlerAbortedError(request, isRouteRequest);
             }
           case 13:
             if (!isRedirectResult(result)) {
-              _context20.next = 15;
+              _context18.next = 15;
               break;
             }
             throw new Response(null, {
@@ -26488,16 +25787,16 @@ function createStaticHandler(routes, opts) {
             });
           case 15:
             if (!isRouteRequest) {
-              _context20.next = 19;
+              _context18.next = 19;
               break;
             }
             if (!isErrorResult(result)) {
-              _context20.next = 18;
+              _context18.next = 18;
               break;
             }
             throw result.error;
           case 18:
-            return _context20.abrupt("return", {
+            return _context18.abrupt("return", {
               matches: [actionMatch],
               loaderData: {},
               actionData: _defineProperty({}, actionMatch.route.id, result.data),
@@ -26510,15 +25809,15 @@ function createStaticHandler(routes, opts) {
             });
           case 19:
             if (!skipRevalidation) {
-              _context20.next = 26;
+              _context18.next = 26;
               break;
             }
             if (!isErrorResult(result)) {
-              _context20.next = 25;
+              _context18.next = 25;
               break;
             }
             boundaryMatch = skipLoaderErrorBubbling ? actionMatch : findNearestBoundary(matches, actionMatch.route.id);
-            return _context20.abrupt("return", {
+            return _context18.abrupt("return", {
               statusCode: isRouteErrorResponse(result.error) ? result.error.status : result.statusCode != null ? result.statusCode : 500,
               actionData: null,
               actionHeaders: _objectSpread({}, result.headers ? _defineProperty({}, actionMatch.route.id, result.headers) : {}),
@@ -26528,7 +25827,7 @@ function createStaticHandler(routes, opts) {
               loaderHeaders: {}
             });
           case 25:
-            return _context20.abrupt("return", {
+            return _context18.abrupt("return", {
               actionData: _defineProperty({}, actionMatch.route.id, result.data),
               actionHeaders: result.headers ? _defineProperty({}, actionMatch.route.id, result.headers) : {},
               matches: matches,
@@ -26544,25 +25843,25 @@ function createStaticHandler(routes, opts) {
               signal: request.signal
             });
             if (!isErrorResult(result)) {
-              _context20.next = 33;
+              _context18.next = 33;
               break;
             }
             _boundaryMatch = skipLoaderErrorBubbling ? actionMatch : findNearestBoundary(matches, actionMatch.route.id);
-            _context20.next = 31;
+            _context18.next = 31;
             return loadRouteData(loaderRequest, matches, requestContext, dataStrategy, skipLoaderErrorBubbling, null, filterMatchesToLoad, [_boundaryMatch.route.id, result]);
           case 31:
-            handlerContext2 = _context20.sent;
-            return _context20.abrupt("return", _objectSpread(_objectSpread({}, handlerContext2), {}, {
+            handlerContext2 = _context18.sent;
+            return _context18.abrupt("return", _objectSpread(_objectSpread({}, handlerContext2), {}, {
               statusCode: isRouteErrorResponse(result.error) ? result.error.status : result.statusCode != null ? result.statusCode : 500,
               actionData: null,
               actionHeaders: _objectSpread({}, result.headers ? _defineProperty({}, actionMatch.route.id, result.headers) : {})
             }));
           case 33:
-            _context20.next = 35;
+            _context18.next = 35;
             return loadRouteData(loaderRequest, matches, requestContext, dataStrategy, skipLoaderErrorBubbling, null, filterMatchesToLoad);
           case 35:
-            handlerContext = _context20.sent;
-            return _context20.abrupt("return", _objectSpread(_objectSpread(_objectSpread({}, handlerContext), {}, {
+            handlerContext = _context18.sent;
+            return _context18.abrupt("return", _objectSpread(_objectSpread(_objectSpread({}, handlerContext), {}, {
               actionData: _defineProperty({}, actionMatch.route.id, result.data)
             }, result.statusCode ? {
               statusCode: result.statusCode
@@ -26571,24 +25870,24 @@ function createStaticHandler(routes, opts) {
             }));
           case 37:
           case "end":
-            return _context20.stop();
+            return _context18.stop();
         }
-      }, _callee19);
+      }, _callee17);
     }));
     return _submit.apply(this, arguments);
   }
-  function loadRouteData(_x85, _x86, _x87, _x88, _x89, _x90, _x91, _x92) {
+  function loadRouteData(_x83, _x84, _x85, _x86, _x87, _x88, _x89, _x90) {
     return _loadRouteData.apply(this, arguments);
   }
   function _loadRouteData() {
-    _loadRouteData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee20(request, matches, requestContext, dataStrategy, skipLoaderErrorBubbling, routeMatch, filterMatchesToLoad, pendingActionResult) {
+    _loadRouteData = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee18(request, matches, requestContext, dataStrategy, skipLoaderErrorBubbling, routeMatch, filterMatchesToLoad, pendingActionResult) {
       var isRouteRequest, dsMatches, maxIdx, results, handlerContext;
-      return _regeneratorRuntime().wrap(function _callee20$(_context21) {
-        while (1) switch (_context21.prev = _context21.next) {
+      return _regeneratorRuntime().wrap(function _callee18$(_context19) {
+        while (1) switch (_context19.prev = _context19.next) {
           case 0:
             isRouteRequest = routeMatch != null;
             if (!(isRouteRequest && !(routeMatch !== null && routeMatch !== void 0 && routeMatch.route.loader) && !(routeMatch !== null && routeMatch !== void 0 && routeMatch.route.lazy))) {
-              _context21.next = 3;
+              _context19.next = 3;
               break;
             }
             throw getInternalRouterError(400, {
@@ -26615,10 +25914,10 @@ function createStaticHandler(routes, opts) {
             if (!(!dataStrategy && !dsMatches.some(function (m) {
               return m.shouldLoad;
             }))) {
-              _context21.next = 6;
+              _context19.next = 6;
               break;
             }
-            return _context21.abrupt("return", {
+            return _context19.abrupt("return", {
               matches: matches,
               loaderData: {},
               errors: pendingActionResult && isErrorResult(pendingActionResult[1]) ? _defineProperty({}, pendingActionResult[0], pendingActionResult[1].error) : null,
@@ -26626,87 +25925,87 @@ function createStaticHandler(routes, opts) {
               loaderHeaders: {}
             });
           case 6:
-            _context21.next = 8;
+            _context19.next = 8;
             return callDataStrategy(request, dsMatches, isRouteRequest, requestContext, dataStrategy);
           case 8:
-            results = _context21.sent;
+            results = _context19.sent;
             if (request.signal.aborted) {
               throwStaticHandlerAbortedError(request, isRouteRequest);
             }
             handlerContext = processRouteLoaderData(matches, results, pendingActionResult, true, skipLoaderErrorBubbling);
-            return _context21.abrupt("return", _objectSpread(_objectSpread({}, handlerContext), {}, {
+            return _context19.abrupt("return", _objectSpread(_objectSpread({}, handlerContext), {}, {
               matches: matches
             }));
           case 12:
           case "end":
-            return _context21.stop();
+            return _context19.stop();
         }
-      }, _callee20);
+      }, _callee18);
     }));
     return _loadRouteData.apply(this, arguments);
   }
-  function callDataStrategy(_x93, _x94, _x95, _x96, _x97) {
+  function callDataStrategy(_x91, _x92, _x93, _x94, _x95) {
     return _callDataStrategy2.apply(this, arguments);
   }
   function _callDataStrategy2() {
-    _callDataStrategy2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee22(request, matches, isRouteRequest, requestContext, dataStrategy) {
+    _callDataStrategy2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee20(request, matches, isRouteRequest, requestContext, dataStrategy) {
       var results, dataResults;
-      return _regeneratorRuntime().wrap(function _callee22$(_context23) {
-        while (1) switch (_context23.prev = _context23.next) {
+      return _regeneratorRuntime().wrap(function _callee20$(_context21) {
+        while (1) switch (_context21.prev = _context21.next) {
           case 0:
-            _context23.next = 2;
+            _context21.next = 2;
             return callDataStrategyImpl(dataStrategy || defaultDataStrategy, request, matches, null, requestContext, true);
           case 2:
-            results = _context23.sent;
+            results = _context21.sent;
             dataResults = {};
-            _context23.next = 6;
+            _context21.next = 6;
             return Promise.all(matches.map(/*#__PURE__*/function () {
-              var _ref22 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee21(match) {
+              var _ref20 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee19(match) {
                 var result, response;
-                return _regeneratorRuntime().wrap(function _callee21$(_context22) {
-                  while (1) switch (_context22.prev = _context22.next) {
+                return _regeneratorRuntime().wrap(function _callee19$(_context20) {
+                  while (1) switch (_context20.prev = _context20.next) {
                     case 0:
                       if (match.route.id in results) {
-                        _context22.next = 2;
+                        _context20.next = 2;
                         break;
                       }
-                      return _context22.abrupt("return");
+                      return _context20.abrupt("return");
                     case 2:
                       result = results[match.route.id];
                       if (!isRedirectDataStrategyResult(result)) {
-                        _context22.next = 6;
+                        _context20.next = 6;
                         break;
                       }
                       response = result.result;
                       throw normalizeRelativeRoutingRedirectResponse(response, request, match.route.id, matches, basename);
                     case 6:
                       if (!(isResponse(result.result) && isRouteRequest)) {
-                        _context22.next = 8;
+                        _context20.next = 8;
                         break;
                       }
                       throw result;
                     case 8:
-                      _context22.next = 10;
+                      _context20.next = 10;
                       return convertDataStrategyResultToDataResult(result);
                     case 10:
-                      dataResults[match.route.id] = _context22.sent;
+                      dataResults[match.route.id] = _context20.sent;
                     case 11:
                     case "end":
-                      return _context22.stop();
+                      return _context20.stop();
                   }
-                }, _callee21);
+                }, _callee19);
               }));
-              return function (_x100) {
-                return _ref22.apply(this, arguments);
+              return function (_x98) {
+                return _ref20.apply(this, arguments);
               };
             }()));
           case 6:
-            return _context23.abrupt("return", dataResults);
+            return _context21.abrupt("return", dataResults);
           case 7:
           case "end":
-            return _context23.stop();
+            return _context21.stop();
         }
-      }, _callee22);
+      }, _callee20);
     }));
     return _callDataStrategy2.apply(this, arguments);
   }
@@ -26817,10 +26116,10 @@ function normalizeNavigateOptions(isFetcher, path, opts) {
       }
       var text = typeof opts.body === "string" ? opts.body : opts.body instanceof FormData || opts.body instanceof URLSearchParams ?
       // https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#plain-text-form-data
-      Array.from(opts.body.entries()).reduce(function (acc, _ref23) {
-        var _ref24 = _slicedToArray(_ref23, 2),
-          name = _ref24[0],
-          value = _ref24[1];
+      Array.from(opts.body.entries()).reduce(function (acc, _ref21) {
+        var _ref22 = _slicedToArray(_ref21, 2),
+          name = _ref22[0],
+          value = _ref22[1];
         return "".concat(acc).concat(name, "=").concat(value, "\n");
       }, "") : String(opts.body);
       return {
@@ -27026,7 +26325,7 @@ function shouldLoadRouteOnHydration(route, loaderData, errors) {
   if (!route.loader) {
     return false;
   }
-  var hasData = loaderData != null && loaderData[route.id] !== void 0;
+  var hasData = loaderData != null && route.id in loaderData;
   var hasError = errors != null && errors[route.id] !== void 0;
   if (!hasData && hasError) {
     return false;
@@ -27103,11 +26402,11 @@ function isSameRoute(newRoute, existingRoute) {
   });
 }
 var lazyRoutePropertyCache = /* @__PURE__ */new WeakMap();
-var loadLazyRouteProperty = function loadLazyRouteProperty(_ref25) {
-  var key = _ref25.key,
-    route = _ref25.route,
-    manifest = _ref25.manifest,
-    mapRouteProperties2 = _ref25.mapRouteProperties;
+var loadLazyRouteProperty = function loadLazyRouteProperty(_ref23) {
+  var key = _ref23.key,
+    route = _ref23.route,
+    manifest = _ref23.manifest,
+    mapRouteProperties2 = _ref23.mapRouteProperties;
   var routeToUpdate = manifest[route.id];
   invariant(routeToUpdate, "No route found in manifest");
   if (!routeToUpdate.lazy || _typeof(routeToUpdate.lazy) !== "object") {
@@ -27126,35 +26425,35 @@ var loadLazyRouteProperty = function loadLazyRouteProperty(_ref25) {
   if (cachedPromise) {
     return cachedPromise;
   }
-  var propertyPromise = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee23() {
+  var propertyPromise = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee21() {
     var isUnsupported, staticRouteValue, isStaticallyDefined, value;
-    return _regeneratorRuntime().wrap(function _callee23$(_context24) {
-      while (1) switch (_context24.prev = _context24.next) {
+    return _regeneratorRuntime().wrap(function _callee21$(_context22) {
+      while (1) switch (_context22.prev = _context22.next) {
         case 0:
           isUnsupported = isUnsupportedLazyRouteObjectKey(key);
           staticRouteValue = routeToUpdate[key];
           isStaticallyDefined = staticRouteValue !== void 0 && key !== "hasErrorBoundary";
           if (!isUnsupported) {
-            _context24.next = 8;
+            _context22.next = 8;
             break;
           }
           warning(!isUnsupported, "Route property " + key + " is not a supported lazy route property. This property will be ignored.");
           cache[key] = Promise.resolve();
-          _context24.next = 16;
+          _context22.next = 16;
           break;
         case 8:
           if (!isStaticallyDefined) {
-            _context24.next = 12;
+            _context22.next = 12;
             break;
           }
           warning(false, "Route \"".concat(routeToUpdate.id, "\" has a static property \"").concat(key, "\" defined. The lazy property will be ignored."));
-          _context24.next = 16;
+          _context22.next = 16;
           break;
         case 12:
-          _context24.next = 14;
+          _context22.next = 14;
           return lazyFn();
         case 14:
-          value = _context24.sent;
+          value = _context22.sent;
           if (value != null) {
             Object.assign(routeToUpdate, _defineProperty({}, key, value));
             Object.assign(routeToUpdate, mapRouteProperties2(routeToUpdate));
@@ -27170,9 +26469,9 @@ var loadLazyRouteProperty = function loadLazyRouteProperty(_ref25) {
           }
         case 17:
         case "end":
-          return _context24.stop();
+          return _context22.stop();
       }
-    }, _callee23);
+    }, _callee21);
   }))();
   cache[key] = propertyPromise;
   return propertyPromise;
@@ -27196,30 +26495,30 @@ function loadLazyRoute(route, type, manifest, mapRouteProperties2, lazyRouteProp
         lazyHandlerPromise: cachedPromise
       };
     }
-    var lazyRoutePromise2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee24() {
+    var lazyRoutePromise2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee22() {
       var lazyRoute, routeUpdates, lazyRouteProperty, lazyValue, isUnsupported, staticRouteValue, isStaticallyDefined;
-      return _regeneratorRuntime().wrap(function _callee24$(_context25) {
-        while (1) switch (_context25.prev = _context25.next) {
+      return _regeneratorRuntime().wrap(function _callee22$(_context23) {
+        while (1) switch (_context23.prev = _context23.next) {
           case 0:
             invariant(typeof route.lazy === "function", "No lazy route function found");
-            _context25.next = 3;
+            _context23.next = 3;
             return route.lazy();
           case 3:
-            lazyRoute = _context25.sent;
+            lazyRoute = _context23.sent;
             routeUpdates = {};
-            _context25.t0 = _regeneratorRuntime().keys(lazyRoute);
+            _context23.t0 = _regeneratorRuntime().keys(lazyRoute);
           case 6:
-            if ((_context25.t1 = _context25.t0()).done) {
-              _context25.next = 17;
+            if ((_context23.t1 = _context23.t0()).done) {
+              _context23.next = 17;
               break;
             }
-            lazyRouteProperty = _context25.t1.value;
+            lazyRouteProperty = _context23.t1.value;
             lazyValue = lazyRoute[lazyRouteProperty];
             if (!(lazyValue === void 0)) {
-              _context25.next = 11;
+              _context23.next = 11;
               break;
             }
-            return _context25.abrupt("continue", 6);
+            return _context23.abrupt("continue", 6);
           case 11:
             isUnsupported = isUnsupportedLazyRouteFunctionKey(lazyRouteProperty);
             staticRouteValue = routeToUpdate[lazyRouteProperty];
@@ -27234,7 +26533,7 @@ function loadLazyRoute(route, type, manifest, mapRouteProperties2, lazyRouteProp
             } else {
               routeUpdates[lazyRouteProperty] = lazyValue;
             }
-            _context25.next = 6;
+            _context23.next = 6;
             break;
           case 17:
             Object.assign(routeToUpdate, routeUpdates);
@@ -27243,9 +26542,9 @@ function loadLazyRoute(route, type, manifest, mapRouteProperties2, lazyRouteProp
             }));
           case 19:
           case "end":
-            return _context25.stop();
+            return _context23.stop();
         }
-      }, _callee24);
+      }, _callee22);
     }))();
     lazyRouteFunctionCache.set(routeToUpdate, lazyRoutePromise2);
     lazyRoutePromise2.catch(function () {});
@@ -27287,8 +26586,8 @@ function isNonNullable(value) {
   return value !== void 0;
 }
 function loadLazyMiddlewareForMatches(matches, manifest, mapRouteProperties2) {
-  var promises = matches.map(function (_ref28) {
-    var route = _ref28.route;
+  var promises = matches.map(function (_ref26) {
+    var route = _ref26.route;
     if (_typeof(route.lazy) !== "object" || !route.lazy.unstable_middleware) {
       return void 0;
     }
@@ -27301,13 +26600,13 @@ function loadLazyMiddlewareForMatches(matches, manifest, mapRouteProperties2) {
   }).filter(isNonNullable);
   return promises.length > 0 ? Promise.all(promises) : void 0;
 }
-function defaultDataStrategy(_x101) {
+function defaultDataStrategy(_x99) {
   return _defaultDataStrategy.apply(this, arguments);
 }
 function _defaultDataStrategy() {
-  _defaultDataStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee73(args) {
+  _defaultDataStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee72(args) {
     var matchesToLoad, keyedResults, results;
-    return _regeneratorRuntime().wrap(function _callee73$(_context74) {
+    return _regeneratorRuntime().wrap(function _callee72$(_context74) {
       while (1) switch (_context74.prev = _context74.next) {
         case 0:
           matchesToLoad = args.matches.filter(function (m) {
@@ -27328,16 +26627,16 @@ function _defaultDataStrategy() {
         case "end":
           return _context74.stop();
       }
-    }, _callee73);
+    }, _callee72);
   }));
   return _defaultDataStrategy.apply(this, arguments);
 }
-function defaultDataStrategyWithMiddleware(_x102) {
+function defaultDataStrategyWithMiddleware(_x100) {
   return _defaultDataStrategyWithMiddleware.apply(this, arguments);
 }
 function _defaultDataStrategyWithMiddleware() {
-  _defaultDataStrategyWithMiddleware = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee74(args) {
-    return _regeneratorRuntime().wrap(function _callee74$(_context75) {
+  _defaultDataStrategyWithMiddleware = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee73(args) {
+    return _regeneratorRuntime().wrap(function _callee73$(_context75) {
       while (1) switch (_context75.prev = _context75.next) {
         case 0:
           if (args.matches.some(function (m) {
@@ -27360,17 +26659,17 @@ function _defaultDataStrategyWithMiddleware() {
         case "end":
           return _context75.stop();
       }
-    }, _callee74);
+    }, _callee73);
   }));
   return _defaultDataStrategyWithMiddleware.apply(this, arguments);
 }
-function runMiddlewarePipeline(_x103, _x104, _x105, _x106) {
+function runMiddlewarePipeline(_x101, _x102, _x103, _x104) {
   return _runMiddlewarePipeline.apply(this, arguments);
 }
 function _runMiddlewarePipeline() {
-  _runMiddlewarePipeline = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee75(args, propagateResult, handler, errorHandler) {
+  _runMiddlewarePipeline = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee74(args, propagateResult, handler, errorHandler) {
     var matches, request, params, context, middlewareState, tuples, result, _result3;
-    return _regeneratorRuntime().wrap(function _callee75$(_context76) {
+    return _regeneratorRuntime().wrap(function _callee74$(_context76) {
       while (1) switch (_context76.prev = _context76.next) {
         case 0:
           matches = args.matches, request = args.request, params = args.params, context = args.context;
@@ -27416,15 +26715,15 @@ function _runMiddlewarePipeline() {
         case "end":
           return _context76.stop();
       }
-    }, _callee75, null, [[2, 10]]);
+    }, _callee74, null, [[2, 10]]);
   }));
   return _runMiddlewarePipeline.apply(this, arguments);
 }
-function callRouteMiddleware(_x107, _x108, _x109, _x110, _x111) {
+function callRouteMiddleware(_x105, _x106, _x107, _x108, _x109) {
   return _callRouteMiddleware.apply(this, arguments);
 }
 function _callRouteMiddleware() {
-  _callRouteMiddleware = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee77(args, middlewares, propagateResult, middlewareState, handler) {
+  _callRouteMiddleware = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee76(args, middlewares, propagateResult, middlewareState, handler) {
     var idx,
       request,
       tuple,
@@ -27436,7 +26735,7 @@ function _callRouteMiddleware() {
       next,
       result,
       _args78 = arguments;
-    return _regeneratorRuntime().wrap(function _callee77$(_context78) {
+    return _regeneratorRuntime().wrap(function _callee76$(_context78) {
       while (1) switch (_context78.prev = _context78.next) {
         case 0:
           idx = _args78.length > 5 && _args78[5] !== undefined ? _args78[5] : 0;
@@ -27468,9 +26767,9 @@ function _callRouteMiddleware() {
           nextCalled = false;
           nextResult = void 0;
           next = /*#__PURE__*/function () {
-            var _ref115 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee76() {
+            var _ref117 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee75() {
               var result;
-              return _regeneratorRuntime().wrap(function _callee76$(_context77) {
+              return _regeneratorRuntime().wrap(function _callee75$(_context77) {
                 while (1) switch (_context77.prev = _context77.next) {
                   case 0:
                     if (!nextCalled) {
@@ -27494,10 +26793,10 @@ function _callRouteMiddleware() {
                   case "end":
                     return _context77.stop();
                 }
-              }, _callee76);
+              }, _callee75);
             }));
             return function next() {
-              return _ref115.apply(this, arguments);
+              return _ref117.apply(this, arguments);
             };
           }();
           _context78.prev = 16;
@@ -27547,7 +26846,7 @@ function _callRouteMiddleware() {
         case "end":
           return _context78.stop();
       }
-    }, _callee77, null, [[16, 31]]);
+    }, _callee76, null, [[16, 31]]);
   }));
   return _callRouteMiddleware.apply(this, arguments);
 }
@@ -27625,13 +26924,13 @@ function getTargetedDataStrategyMatches(mapRouteProperties2, manifest, request, 
     return getDataStrategyMatch(mapRouteProperties2, manifest, request, match, lazyRoutePropertiesToSkip, scopedContext, true, shouldRevalidateArgs);
   });
 }
-function callDataStrategyImpl(_x112, _x113, _x114, _x115, _x116, _x117) {
+function callDataStrategyImpl(_x110, _x111, _x112, _x113, _x114, _x115) {
   return _callDataStrategyImpl.apply(this, arguments);
 }
 function _callDataStrategyImpl() {
-  _callDataStrategyImpl = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee78(dataStrategyImpl, request, matches, fetcherKey, scopedContext, isStaticHandler) {
+  _callDataStrategyImpl = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee77(dataStrategyImpl, request, matches, fetcherKey, scopedContext, isStaticHandler) {
     var dataStrategyArgs, unstable_runClientMiddleware, results;
-    return _regeneratorRuntime().wrap(function _callee78$(_context79) {
+    return _regeneratorRuntime().wrap(function _callee77$(_context79) {
       while (1) switch (_context79.prev = _context79.next) {
         case 0:
           if (!matches.some(function (m) {
@@ -27696,20 +26995,20 @@ function _callDataStrategyImpl() {
         case "end":
           return _context79.stop();
       }
-    }, _callee78, null, [[8, 13]]);
+    }, _callee77, null, [[8, 13]]);
   }));
   return _callDataStrategyImpl.apply(this, arguments);
 }
-function callLoaderOrAction(_x118) {
+function callLoaderOrAction(_x116) {
   return _callLoaderOrAction.apply(this, arguments);
 }
 function _callLoaderOrAction() {
-  _callLoaderOrAction = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee80(_ref29) {
+  _callLoaderOrAction = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee79(_ref27) {
     var request, match, lazyHandlerPromise, lazyRoutePromise, handlerOverride, scopedContext, result, onReject, isAction, type, runHandler, handler, handlerError, _yield$Promise$all, _yield$Promise$all2, value, handler2, _yield$Promise$all3, _yield$Promise$all4, url, pathname, _url, _pathname;
-    return _regeneratorRuntime().wrap(function _callee80$(_context81) {
+    return _regeneratorRuntime().wrap(function _callee79$(_context81) {
       while (1) switch (_context81.prev = _context81.next) {
         case 0:
-          request = _ref29.request, match = _ref29.match, lazyHandlerPromise = _ref29.lazyHandlerPromise, lazyRoutePromise = _ref29.lazyRoutePromise, handlerOverride = _ref29.handlerOverride, scopedContext = _ref29.scopedContext;
+          request = _ref27.request, match = _ref27.match, lazyHandlerPromise = _ref27.lazyHandlerPromise, lazyRoutePromise = _ref27.lazyRoutePromise, handlerOverride = _ref27.handlerOverride, scopedContext = _ref27.scopedContext;
           isAction = isMutationMethod(request.method);
           type = isAction ? "action" : "loader";
           runHandler = function runHandler(handler) {
@@ -27731,9 +27030,9 @@ function _callLoaderOrAction() {
                 context: scopedContext
               }].concat(_toConsumableArray(ctx !== void 0 ? [ctx] : [])));
             };
-            var handlerPromise = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee79() {
+            var handlerPromise = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee78() {
               var val;
-              return _regeneratorRuntime().wrap(function _callee79$(_context80) {
+              return _regeneratorRuntime().wrap(function _callee78$(_context80) {
                 while (1) switch (_context80.prev = _context80.next) {
                   case 0:
                     _context80.prev = 0;
@@ -27758,7 +27057,7 @@ function _callLoaderOrAction() {
                   case "end":
                     return _context80.stop();
                 }
-              }, _callee79, null, [[0, 7]]);
+              }, _callee78, null, [[0, 7]]);
             }))();
             return Promise.race([handlerPromise, abortPromise]);
           };
@@ -27869,17 +27168,17 @@ function _callLoaderOrAction() {
         case "end":
           return _context81.stop();
       }
-    }, _callee80, null, [[4, 49, 52, 55]]);
+    }, _callee79, null, [[4, 49, 52, 55]]);
   }));
   return _callLoaderOrAction.apply(this, arguments);
 }
-function convertDataStrategyResultToDataResult(_x119) {
+function convertDataStrategyResultToDataResult(_x117) {
   return _convertDataStrategyResultToDataResult.apply(this, arguments);
 }
 function _convertDataStrategyResultToDataResult() {
-  _convertDataStrategyResultToDataResult = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee81(dataStrategyResult) {
+  _convertDataStrategyResultToDataResult = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee80(dataStrategyResult) {
     var result, type, data2, contentType, _result$init3, _result$init4, _result$init, _result$init2, _result$init5, _result$init6;
-    return _regeneratorRuntime().wrap(function _callee81$(_context82) {
+    return _regeneratorRuntime().wrap(function _callee80$(_context82) {
       while (1) switch (_context82.prev = _context82.next) {
         case 0:
           result = dataStrategyResult.result, type = dataStrategyResult.type;
@@ -27993,7 +27292,7 @@ function _convertDataStrategyResultToDataResult() {
         case "end":
           return _context82.stop();
       }
-    }, _callee81, null, [[2, 19]]);
+    }, _callee80, null, [[2, 19]]);
   }));
   return _convertDataStrategyResultToDataResult.apply(this, arguments);
 }
@@ -28133,7 +27432,9 @@ function processRouteLoaderData(matches, results, pendingActionResult) {
   });
   if (pendingError !== void 0 && pendingActionResult) {
     errors = _defineProperty({}, pendingActionResult[0], pendingError);
-    loaderData[pendingActionResult[0]] = void 0;
+    if (pendingActionResult[2]) {
+      loaderData[pendingActionResult[2]] = void 0;
+    }
   }
   return {
     loaderData: loaderData,
@@ -28177,22 +27478,22 @@ function processLoaderData(state, matches, results, pendingActionResult, revalid
   };
 }
 function mergeLoaderData(loaderData, newLoaderData, matches, errors) {
-  var mergedLoaderData = Object.entries(newLoaderData).filter(function (_ref30) {
-    var _ref31 = _slicedToArray(_ref30, 2),
-      v = _ref31[1];
+  var mergedLoaderData = Object.entries(newLoaderData).filter(function (_ref28) {
+    var _ref29 = _slicedToArray(_ref28, 2),
+      v = _ref29[1];
     return v !== ResetLoaderDataSymbol;
-  }).reduce(function (merged, _ref32) {
-    var _ref33 = _slicedToArray(_ref32, 2),
-      k = _ref33[0],
-      v = _ref33[1];
+  }).reduce(function (merged, _ref30) {
+    var _ref31 = _slicedToArray(_ref30, 2),
+      k = _ref31[0],
+      v = _ref31[1];
     merged[k] = v;
     return merged;
   }, {});
-  var _iterator10 = _createForOfIteratorHelper(matches),
-    _step10;
+  var _iterator0 = _createForOfIteratorHelper(matches),
+    _step0;
   try {
-    for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-      var match = _step10.value;
+    for (_iterator0.s(); !(_step0 = _iterator0.n()).done;) {
+      var match = _step0.value;
       var id = match.route.id;
       if (!newLoaderData.hasOwnProperty(id) && loaderData.hasOwnProperty(id) && match.route.loader) {
         mergedLoaderData[id] = loaderData[id];
@@ -28202,9 +27503,9 @@ function mergeLoaderData(loaderData, newLoaderData, matches, errors) {
       }
     }
   } catch (err) {
-    _iterator10.e(err);
+    _iterator0.e(err);
   } finally {
-    _iterator10.f();
+    _iterator0.f();
   }
   return mergedLoaderData;
 }
@@ -28244,12 +27545,12 @@ function getShortCircuitMatches(routes) {
   };
 }
 function getInternalRouterError(status) {
-  var _ref34 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-    pathname = _ref34.pathname,
-    routeId = _ref34.routeId,
-    method = _ref34.method,
-    type = _ref34.type,
-    message = _ref34.message;
+  var _ref32 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+    pathname = _ref32.pathname,
+    routeId = _ref32.routeId,
+    method = _ref32.method,
+    type = _ref32.type,
+    message = _ref32.message;
   var statusText = "Unknown Server Error";
   var errorMessage = "Unknown @remix-run/router error";
   if (status === 400) {
@@ -28502,19 +27803,19 @@ function restoreAppliedTransitions(_window, transitions) {
 function persistAppliedTransitions(_window, transitions) {
   if (transitions.size > 0) {
     var json = {};
-    var _iterator11 = _createForOfIteratorHelper(transitions),
-      _step11;
+    var _iterator1 = _createForOfIteratorHelper(transitions),
+      _step1;
     try {
-      for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
-        var _step11$value = _slicedToArray(_step11.value, 2),
-          k = _step11$value[0],
-          v = _step11$value[1];
+      for (_iterator1.s(); !(_step1 = _iterator1.n()).done;) {
+        var _step1$value = _slicedToArray(_step1.value, 2),
+          k = _step1$value[0],
+          v = _step1$value[1];
         json[k] = _toConsumableArray(v);
       }
     } catch (err) {
-      _iterator11.e(err);
+      _iterator1.e(err);
     } finally {
-      _iterator11.f();
+      _iterator1.f();
     }
     try {
       _window.sessionStorage.setItem(TRANSITIONS_STORAGE_KEY, JSON.stringify(json));
@@ -28528,53 +27829,53 @@ function createDeferred() {
   var reject;
   var promise = new Promise(function (res, rej) {
     resolve = /*#__PURE__*/function () {
-      var _ref35 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee25(val) {
-        return _regeneratorRuntime().wrap(function _callee25$(_context26) {
-          while (1) switch (_context26.prev = _context26.next) {
+      var _ref33 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee23(val) {
+        return _regeneratorRuntime().wrap(function _callee23$(_context24) {
+          while (1) switch (_context24.prev = _context24.next) {
             case 0:
               res(val);
-              _context26.prev = 1;
-              _context26.next = 4;
+              _context24.prev = 1;
+              _context24.next = 4;
               return promise;
             case 4:
-              _context26.next = 8;
+              _context24.next = 8;
               break;
             case 6:
-              _context26.prev = 6;
-              _context26.t0 = _context26["catch"](1);
+              _context24.prev = 6;
+              _context24.t0 = _context24["catch"](1);
             case 8:
             case "end":
-              return _context26.stop();
+              return _context24.stop();
           }
-        }, _callee25, null, [[1, 6]]);
+        }, _callee23, null, [[1, 6]]);
       }));
-      return function resolve(_x120) {
-        return _ref35.apply(this, arguments);
+      return function resolve(_x118) {
+        return _ref33.apply(this, arguments);
       };
     }();
     reject = /*#__PURE__*/function () {
-      var _ref36 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee26(error) {
-        return _regeneratorRuntime().wrap(function _callee26$(_context27) {
-          while (1) switch (_context27.prev = _context27.next) {
+      var _ref34 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee24(error) {
+        return _regeneratorRuntime().wrap(function _callee24$(_context25) {
+          while (1) switch (_context25.prev = _context25.next) {
             case 0:
               rej(error);
-              _context27.prev = 1;
-              _context27.next = 4;
+              _context25.prev = 1;
+              _context25.next = 4;
               return promise;
             case 4:
-              _context27.next = 8;
+              _context25.next = 8;
               break;
             case 6:
-              _context27.prev = 6;
-              _context27.t0 = _context27["catch"](1);
+              _context25.prev = 6;
+              _context25.t0 = _context25["catch"](1);
             case 8:
             case "end":
-              return _context27.stop();
+              return _context25.stop();
           }
-        }, _callee26, null, [[1, 6]]);
+        }, _callee24, null, [[1, 6]]);
       }));
-      return function reject(_x121) {
-        return _ref36.apply(this, arguments);
+      return function reject(_x119) {
+        return _ref34.apply(this, arguments);
       };
     }();
   });
@@ -28615,19 +27916,19 @@ var RouteContext = exports.RouteContext = React.createContext({
 RouteContext.displayName = "Route";
 var RouteErrorContext = React.createContext(null);
 RouteErrorContext.displayName = "RouteError";
+var ENABLE_DEV_WARNINGS = true;
 
 // lib/hooks.tsx
 
-var ENABLE_DEV_WARNINGS = true;
 function useHref(to) {
-  var _ref37 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-    relative = _ref37.relative;
+  var _ref35 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+    relative = _ref35.relative;
   invariant(useInRouterContext(), // TODO: This error is probably because they somehow have 2 versions of the
   // router loaded. We can help them understand how to avoid that.
   "useHref() may be used only in the context of a <Router> component.");
   var _React2$useContext = React2.useContext(NavigationContext),
     basename = _React2$useContext.basename,
-    navigator2 = _React2$useContext.navigator;
+    navigator = _React2$useContext.navigator;
   var _useResolvedPath = useResolvedPath(to, {
       relative: relative
     }),
@@ -28638,7 +27939,7 @@ function useHref(to) {
   if (basename !== "/") {
     joinedPathname = pathname === "/" ? basename : joinPaths([basename, pathname]);
   }
-  return navigator2.createHref({
+  return navigator.createHref({
     pathname: joinedPathname,
     search: search,
     hash: hash
@@ -28685,7 +27986,7 @@ function useNavigateUnstable() {
   var dataRouterContext = React2.useContext(DataRouterContext);
   var _React2$useContext3 = React2.useContext(NavigationContext),
     basename = _React2$useContext3.basename,
-    navigator2 = _React2$useContext3.navigator;
+    navigator = _React2$useContext3.navigator;
   var _React2$useContext4 = React2.useContext(RouteContext),
     matches = _React2$useContext4.matches;
   var _useLocation2 = useLocation(),
@@ -28700,15 +28001,15 @@ function useNavigateUnstable() {
     warning(activeRef.current, navigateEffectWarning);
     if (!activeRef.current) return;
     if (typeof to === "number") {
-      navigator2.go(to);
+      navigator.go(to);
       return;
     }
     var path = resolveTo(to, JSON.parse(routePathnamesJson), locationPathname, options.relative === "path");
     if (dataRouterContext == null && basename !== "/") {
       path.pathname = path.pathname === "/" ? basename : joinPaths([basename, path.pathname]);
     }
-    (!!options.replace ? navigator2.replace : navigator2.push)(path, options.state, options);
-  }, [basename, navigator2, routePathnamesJson, locationPathname, dataRouterContext]);
+    (!!options.replace ? navigator.replace : navigator.push)(path, options.state, options);
+  }, [basename, navigator, routePathnamesJson, locationPathname, dataRouterContext]);
   return navigate;
 }
 var OutletContext = React2.createContext(null);
@@ -28731,8 +28032,8 @@ function useParams() {
   return routeMatch ? routeMatch.params : {};
 }
 function useResolvedPath(to) {
-  var _ref38 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-    relative = _ref38.relative;
+  var _ref36 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+    relative = _ref36.relative;
   var _React2$useContext6 = React2.useContext(RouteContext),
     matches = _React2$useContext6.matches;
   var _useLocation3 = useLocation(),
@@ -28750,7 +28051,7 @@ function useRoutesImpl(routes, locationArg, dataRouterState, future) {
   // router loaded. We can help them understand how to avoid that.
   "useRoutes() may be used only in the context of a <Router> component.");
   var _React2$useContext7 = React2.useContext(NavigationContext),
-    navigator2 = _React2$useContext7.navigator,
+    navigator = _React2$useContext7.navigator,
     isStatic = _React2$useContext7.static;
   var _React2$useContext8 = React2.useContext(RouteContext),
     parentMatches = _React2$useContext8.matches;
@@ -28792,10 +28093,10 @@ function useRoutesImpl(routes, locationArg, dataRouterState, future) {
       params: Object.assign({}, parentParams, match.params),
       pathname: joinPaths([parentPathnameBase,
       // Re-encode pathnames that were decoded inside matchRoutes
-      navigator2.encodeLocation ? navigator2.encodeLocation(match.pathname).pathname : match.pathname]),
+      navigator.encodeLocation ? navigator.encodeLocation(match.pathname).pathname : match.pathname]),
       pathnameBase: match.pathnameBase === "/" ? parentPathnameBase : joinPaths([parentPathnameBase,
       // Re-encode pathnames that were decoded inside matchRoutes
-      navigator2.encodeLocation ? navigator2.encodeLocation(match.pathnameBase).pathname : match.pathnameBase])
+      navigator.encodeLocation ? navigator.encodeLocation(match.pathnameBase).pathname : match.pathnameBase])
     });
   }), parentMatches, dataRouterState, future);
   if (locationArg && renderedMatches) {
@@ -28898,10 +28199,10 @@ var RenderErrorBoundary = /*#__PURE__*/function (_React2$Component) {
     }
   }]);
 }(React2.Component);
-function RenderedRoute(_ref39) {
-  var routeContext = _ref39.routeContext,
-    match = _ref39.match,
-    children = _ref39.children;
+function RenderedRoute(_ref37) {
+  var routeContext = _ref37.routeContext,
+    match = _ref37.match,
+    children = _ref37.children;
   var dataRouterContext = React2.useContext(DataRouterContext);
   if (dataRouterContext && dataRouterContext.static && dataRouterContext.staticContext && (match.route.errorElement || match.route.ErrorBoundary)) {
     dataRouterContext.staticContext._deepestRenderedBoundaryId = match.route.id;
@@ -29050,25 +28351,24 @@ function useNavigation() {
 function useRevalidator() {
   var dataRouterContext = useDataRouterContext("useRevalidator" /* UseRevalidator */);
   var state = useDataRouterState("useRevalidator" /* UseRevalidator */);
+  var revalidate = React2.useCallback(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee25() {
+    return _regeneratorRuntime().wrap(function _callee25$(_context26) {
+      while (1) switch (_context26.prev = _context26.next) {
+        case 0:
+          _context26.next = 2;
+          return dataRouterContext.router.revalidate();
+        case 2:
+        case "end":
+          return _context26.stop();
+      }
+    }, _callee25);
+  })), [dataRouterContext.router]);
   return React2.useMemo(function () {
     return {
-      revalidate: function revalidate() {
-        return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee27() {
-          return _regeneratorRuntime().wrap(function _callee27$(_context28) {
-            while (1) switch (_context28.prev = _context28.next) {
-              case 0:
-                _context28.next = 2;
-                return dataRouterContext.router.revalidate();
-              case 2:
-              case "end":
-                return _context28.stop();
-            }
-          }, _callee27);
-        }))();
-      },
+      revalidate: revalidate,
       state: state.revalidation
     };
-  }, [dataRouterContext.router, state.revalidation]);
+  }, [revalidate, state.revalidation]);
 }
 function useMatches() {
   var _useDataRouterState = useDataRouterState("useMatches" /* UseMatches */),
@@ -29165,40 +28465,40 @@ function useNavigateStable() {
     activeRef.current = true;
   });
   var navigate = React2.useCallback(/*#__PURE__*/function () {
-    var _ref40 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee28(to) {
+    var _ref39 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee26(to) {
       var options,
-        _args29 = arguments;
-      return _regeneratorRuntime().wrap(function _callee28$(_context29) {
-        while (1) switch (_context29.prev = _context29.next) {
+        _args27 = arguments;
+      return _regeneratorRuntime().wrap(function _callee26$(_context27) {
+        while (1) switch (_context27.prev = _context27.next) {
           case 0:
-            options = _args29.length > 1 && _args29[1] !== undefined ? _args29[1] : {};
+            options = _args27.length > 1 && _args27[1] !== undefined ? _args27[1] : {};
             warning(activeRef.current, navigateEffectWarning);
             if (activeRef.current) {
-              _context29.next = 4;
+              _context27.next = 4;
               break;
             }
-            return _context29.abrupt("return");
+            return _context27.abrupt("return");
           case 4:
             if (!(typeof to === "number")) {
-              _context29.next = 8;
+              _context27.next = 8;
               break;
             }
             router.navigate(to);
-            _context29.next = 10;
+            _context27.next = 10;
             break;
           case 8:
-            _context29.next = 10;
+            _context27.next = 10;
             return router.navigate(to, _objectSpread({
               fromRouteId: id
             }, options));
           case 10:
           case "end":
-            return _context29.stop();
+            return _context27.stop();
         }
-      }, _callee28);
+      }, _callee26);
     }));
-    return function (_x122) {
-      return _ref40.apply(this, arguments);
+    return function (_x120) {
+      return _ref39.apply(this, arguments);
     };
   }(), [router, id]);
   return navigate;
@@ -29221,7 +28521,6 @@ function warnOnce(condition, message) {
 }
 
 // lib/components.tsx
-var ENABLE_DEV_WARNINGS2 = true;
 function mapRouteProperties(route) {
   var updates = {
     // Note: this check also occurs in createRoutesFromChildren so update
@@ -29229,7 +28528,7 @@ function mapRouteProperties(route) {
     hasErrorBoundary: route.hasErrorBoundary || route.ErrorBoundary != null || route.errorElement != null
   };
   if (route.Component) {
-    if (ENABLE_DEV_WARNINGS2) {
+    if (ENABLE_DEV_WARNINGS) {
       if (route.element) {
         warning(false, "You should not include both `Component` and `element` on your route - `Component` will be used.");
       }
@@ -29240,7 +28539,7 @@ function mapRouteProperties(route) {
     });
   }
   if (route.HydrateFallback) {
-    if (ENABLE_DEV_WARNINGS2) {
+    if (ENABLE_DEV_WARNINGS) {
       if (route.hydrateFallbackElement) {
         warning(false, "You should not include both `HydrateFallback` and `hydrateFallbackElement` on your route - `HydrateFallback` will be used.");
       }
@@ -29251,7 +28550,7 @@ function mapRouteProperties(route) {
     });
   }
   if (route.ErrorBoundary) {
-    if (ENABLE_DEV_WARNINGS2) {
+    if (ENABLE_DEV_WARNINGS) {
       if (route.errorElement) {
         warning(false, "You should not include both `ErrorBoundary` and `errorElement` on your route - `ErrorBoundary` will be used.");
       }
@@ -29300,9 +28599,9 @@ var Deferred = /*#__PURE__*/_createClass(function Deferred() {
     };
   });
 });
-function RouterProvider(_ref41) {
-  var router = _ref41.router,
-    reactDomFlushSyncImpl = _ref41.flushSync;
+function RouterProvider(_ref40) {
+  var router = _ref40.router,
+    reactDomFlushSyncImpl = _ref40.flushSync;
   var _React3$useState = React3.useState(router.state),
     _React3$useState2 = _slicedToArray(_React3$useState, 2),
     state = _React3$useState2[0],
@@ -29322,18 +28621,18 @@ function RouterProvider(_ref41) {
     renderDfd = _React3$useState8[0],
     setRenderDfd = _React3$useState8[1];
   var _React3$useState9 = React3.useState(),
-    _React3$useState10 = _slicedToArray(_React3$useState9, 2),
-    transition = _React3$useState10[0],
-    setTransition = _React3$useState10[1];
-  var _React3$useState11 = React3.useState(),
-    _React3$useState12 = _slicedToArray(_React3$useState11, 2),
-    interruption = _React3$useState12[0],
-    setInterruption = _React3$useState12[1];
+    _React3$useState0 = _slicedToArray(_React3$useState9, 2),
+    transition = _React3$useState0[0],
+    setTransition = _React3$useState0[1];
+  var _React3$useState1 = React3.useState(),
+    _React3$useState10 = _slicedToArray(_React3$useState1, 2),
+    interruption = _React3$useState10[0],
+    setInterruption = _React3$useState10[1];
   var fetcherData = React3.useRef(/* @__PURE__ */new Map());
-  var setState = React3.useCallback(function (newState, _ref42) {
-    var deletedFetchers = _ref42.deletedFetchers,
-      flushSync = _ref42.flushSync,
-      viewTransitionOpts = _ref42.viewTransitionOpts;
+  var setState = React3.useCallback(function (newState, _ref41) {
+    var deletedFetchers = _ref41.deletedFetchers,
+      flushSync = _ref41.flushSync,
+      viewTransitionOpts = _ref41.viewTransitionOpts;
     newState.fetchers.forEach(function (fetcher, key) {
       if (fetcher.data !== void 0) {
         fetcherData.current.set(key, fetcher.data);
@@ -29420,20 +28719,20 @@ function RouterProvider(_ref41) {
     if (renderDfd && pendingState && router.window) {
       var newState = pendingState;
       var renderPromise = renderDfd.promise;
-      var transition2 = router.window.document.startViewTransition(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee29() {
-        return _regeneratorRuntime().wrap(function _callee29$(_context30) {
-          while (1) switch (_context30.prev = _context30.next) {
+      var transition2 = router.window.document.startViewTransition(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee27() {
+        return _regeneratorRuntime().wrap(function _callee27$(_context28) {
+          while (1) switch (_context28.prev = _context28.next) {
             case 0:
               React3.startTransition(function () {
                 return setStateImpl(newState);
               });
-              _context30.next = 3;
+              _context28.next = 3;
               return renderPromise;
             case 3:
             case "end":
-              return _context30.stop();
+              return _context28.stop();
           }
-        }, _callee29);
+        }, _callee27);
       })));
       transition2.finished.finally(function () {
         setRenderDfd(void 0);
@@ -29463,7 +28762,7 @@ function RouterProvider(_ref41) {
       setInterruption(void 0);
     }
   }, [vtContext.isTransitioning, interruption]);
-  var navigator2 = React3.useMemo(function () {
+  var navigator = React3.useMemo(function () {
     return {
       createHref: router.createHref,
       encodeLocation: router.encodeLocation,
@@ -29489,11 +28788,11 @@ function RouterProvider(_ref41) {
   var dataRouterContext = React3.useMemo(function () {
     return {
       router: router,
-      navigator: navigator2,
+      navigator: navigator,
       static: false,
       basename: basename
     };
-  }, [router, navigator2, basename]);
+  }, [router, navigator, basename]);
   return /* @__PURE__ */React3.createElement(React3.Fragment, null, /* @__PURE__ */React3.createElement(DataRouterContext.Provider, {
     value: dataRouterContext
   }, /* @__PURE__ */React3.createElement(DataRouterStateContext.Provider, {
@@ -29506,7 +28805,7 @@ function RouterProvider(_ref41) {
     basename: basename,
     location: state.location,
     navigationType: state.historyAction,
-    navigator: navigator2
+    navigator: navigator
   }, /* @__PURE__ */React3.createElement(MemoizedDataRoutes, {
     routes: router.routes,
     future: router.future,
@@ -29514,17 +28813,17 @@ function RouterProvider(_ref41) {
   })))))), null);
 }
 var MemoizedDataRoutes = React3.memo(DataRoutes);
-function DataRoutes(_ref44) {
-  var routes = _ref44.routes,
-    future = _ref44.future,
-    state = _ref44.state;
+function DataRoutes(_ref43) {
+  var routes = _ref43.routes,
+    future = _ref43.future,
+    state = _ref43.state;
   return useRoutesImpl(routes, void 0, state, future);
 }
-function MemoryRouter(_ref45) {
-  var basename = _ref45.basename,
-    children = _ref45.children,
-    initialEntries = _ref45.initialEntries,
-    initialIndex = _ref45.initialIndex;
+function MemoryRouter(_ref44) {
+  var basename = _ref44.basename,
+    children = _ref44.children,
+    initialEntries = _ref44.initialEntries,
+    initialIndex = _ref44.initialIndex;
   var historyRef = React3.useRef();
   if (historyRef.current == null) {
     historyRef.current = createMemoryHistory({
@@ -29534,13 +28833,13 @@ function MemoryRouter(_ref45) {
     });
   }
   var history = historyRef.current;
-  var _React3$useState13 = React3.useState({
+  var _React3$useState11 = React3.useState({
       action: history.action,
       location: history.location
     }),
-    _React3$useState14 = _slicedToArray(_React3$useState13, 2),
-    state = _React3$useState14[0],
-    setStateImpl = _React3$useState14[1];
+    _React3$useState12 = _slicedToArray(_React3$useState11, 2),
+    state = _React3$useState12[0],
+    setStateImpl = _React3$useState12[1];
   var setState = React3.useCallback(function (newState) {
     React3.startTransition(function () {
       return setStateImpl(newState);
@@ -29557,11 +28856,11 @@ function MemoryRouter(_ref45) {
     navigator: history
   });
 }
-function Navigate(_ref46) {
-  var to = _ref46.to,
-    replace2 = _ref46.replace,
-    state = _ref46.state,
-    relative = _ref46.relative;
+function Navigate(_ref45) {
+  var to = _ref45.to,
+    replace2 = _ref45.replace,
+    state = _ref45.state,
+    relative = _ref45.relative;
   invariant(useInRouterContext(), // TODO: This error is probably because they somehow have 2 versions of
   // the router loaded. We can help them understand how to avoid that.
   "<Navigate> may be used only in the context of a <Router> component.");
@@ -29590,27 +28889,27 @@ function Outlet(props) {
 function Route(_props) {
   invariant(false, "A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.");
 }
-function Router(_ref47) {
-  var _ref47$basename = _ref47.basename,
-    basenameProp = _ref47$basename === void 0 ? "/" : _ref47$basename,
-    _ref47$children = _ref47.children,
-    children = _ref47$children === void 0 ? null : _ref47$children,
-    locationProp = _ref47.location,
-    _ref47$navigationType = _ref47.navigationType,
-    navigationType = _ref47$navigationType === void 0 ? "POP" : _ref47$navigationType,
-    navigator2 = _ref47.navigator,
-    _ref47$static = _ref47.static,
-    staticProp = _ref47$static === void 0 ? false : _ref47$static;
+function Router(_ref46) {
+  var _ref46$basename = _ref46.basename,
+    basenameProp = _ref46$basename === void 0 ? "/" : _ref46$basename,
+    _ref46$children = _ref46.children,
+    children = _ref46$children === void 0 ? null : _ref46$children,
+    locationProp = _ref46.location,
+    _ref46$navigationType = _ref46.navigationType,
+    navigationType = _ref46$navigationType === void 0 ? "POP" : _ref46$navigationType,
+    navigator = _ref46.navigator,
+    _ref46$static = _ref46.static,
+    staticProp = _ref46$static === void 0 ? false : _ref46$static;
   invariant(!useInRouterContext(), "You cannot render a <Router> inside another <Router>. You should never have more than one in your app.");
   var basename = basenameProp.replace(/^\/*/, "/");
   var navigationContext = React3.useMemo(function () {
     return {
       basename: basename,
-      navigator: navigator2,
+      navigator: navigator,
       static: staticProp,
       future: {}
     };
-  }, [basename, navigator2, staticProp]);
+  }, [basename, navigator, staticProp]);
   if (typeof locationProp === "string") {
     locationProp = parsePath(locationProp);
   }
@@ -29652,15 +28951,15 @@ function Router(_ref47) {
     value: locationContext
   }));
 }
-function Routes(_ref48) {
-  var children = _ref48.children,
-    location = _ref48.location;
+function Routes(_ref47) {
+  var children = _ref47.children,
+    location = _ref47.location;
   return useRoutes(createRoutesFromChildren(children), location);
 }
-function Await(_ref49) {
-  var children = _ref49.children,
-    errorElement = _ref49.errorElement,
-    resolve = _ref49.resolve;
+function Await(_ref48) {
+  var children = _ref48.children,
+    errorElement = _ref48.errorElement,
+    resolve = _ref48.resolve;
   return /* @__PURE__ */React3.createElement(AwaitErrorBoundary, {
     resolve: resolve,
     errorElement: errorElement
@@ -29768,8 +29067,8 @@ var AwaitErrorBoundary = /*#__PURE__*/function (_React3$Component) {
     }
   }]);
 }(React3.Component);
-function ResolveAwait(_ref50) {
-  var children = _ref50.children;
+function ResolveAwait(_ref49) {
+  var children = _ref49.children;
   var data2 = useAsyncValue();
   var toRender = typeof children === "function" ? children(data2) : children;
   return /* @__PURE__ */React3.createElement(React3.Fragment, null, toRender);
@@ -29954,13 +29253,13 @@ function invariant2(value, message) {
 }
 
 // lib/dom/ssr/routeModules.ts
-function loadRouteModule(_x123, _x124) {
+function loadRouteModule(_x121, _x122) {
   return _loadRouteModule.apply(this, arguments);
 } // lib/dom/ssr/links.ts
 function _loadRouteModule() {
-  _loadRouteModule = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee82(route, routeModulesCache) {
+  _loadRouteModule = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee81(route, routeModulesCache) {
     var routeModule;
-    return _regeneratorRuntime().wrap(function _callee82$(_context83) {
+    return _regeneratorRuntime().wrap(function _callee81$(_context83) {
       while (1) switch (_context83.prev = _context83.next) {
         case 0:
           if (!(route.id in routeModulesCache)) {
@@ -29997,7 +29296,7 @@ function _loadRouteModule() {
         case "end":
           return _context83.stop();
       }
-    }, _callee82, null, [[2, 10]]);
+    }, _callee81, null, [[2, 10]]);
   }));
   return _loadRouteModule.apply(this, arguments);
 }
@@ -30025,13 +29324,13 @@ function getRouteCssDescriptors(route) {
     };
   });
 }
-function prefetchRouteCss(_x125) {
+function prefetchRouteCss(_x123) {
   return _prefetchRouteCss.apply(this, arguments);
 }
 function _prefetchRouteCss() {
-  _prefetchRouteCss = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee83(route) {
+  _prefetchRouteCss = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee82(route) {
     var descriptors;
-    return _regeneratorRuntime().wrap(function _callee83$(_context84) {
+    return _regeneratorRuntime().wrap(function _callee82$(_context84) {
       while (1) switch (_context84.prev = _context84.next) {
         case 0:
           if (route.css) {
@@ -30047,17 +29346,17 @@ function _prefetchRouteCss() {
         case "end":
           return _context84.stop();
       }
-    }, _callee83);
+    }, _callee82);
   }));
   return _prefetchRouteCss.apply(this, arguments);
 }
-function prefetchStyleLinks(_x126, _x127) {
+function prefetchStyleLinks(_x124, _x125) {
   return _prefetchStyleLinks.apply(this, arguments);
 }
 function _prefetchStyleLinks() {
-  _prefetchStyleLinks = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee84(route, routeModule) {
-    var descriptors, styleLinks, _i10, _descriptors, descriptor;
-    return _regeneratorRuntime().wrap(function _callee84$(_context85) {
+  _prefetchStyleLinks = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee83(route, routeModule) {
+    var descriptors, styleLinks, _i12, _descriptors, descriptor;
+    return _regeneratorRuntime().wrap(function _callee83$(_context85) {
       while (1) switch (_context85.prev = _context85.next) {
         case 0:
           if (!(!route.css && !routeModule.links || !isPreloadSupported())) {
@@ -30080,8 +29379,8 @@ function _prefetchStyleLinks() {
           return _context85.abrupt("return");
         case 7:
           styleLinks = [];
-          for (_i10 = 0, _descriptors = descriptors; _i10 < _descriptors.length; _i10++) {
-            descriptor = _descriptors[_i10];
+          for (_i12 = 0, _descriptors = descriptors; _i12 < _descriptors.length; _i12++) {
+            descriptor = _descriptors[_i12];
             if (!isPageLinkDescriptor(descriptor) && descriptor.rel === "stylesheet") {
               styleLinks.push(_objectSpread(_objectSpread({}, descriptor), {}, {
                 rel: "preload",
@@ -30095,16 +29394,16 @@ function _prefetchStyleLinks() {
         case "end":
           return _context85.stop();
       }
-    }, _callee84);
+    }, _callee83);
   }));
   return _prefetchStyleLinks.apply(this, arguments);
 }
-function prefetchStyleLink(_x128) {
+function prefetchStyleLink(_x126) {
   return _prefetchStyleLink.apply(this, arguments);
 }
 function _prefetchStyleLink() {
-  _prefetchStyleLink = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee85(descriptor) {
-    return _regeneratorRuntime().wrap(function _callee85$(_context86) {
+  _prefetchStyleLink = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee84(descriptor) {
+    return _regeneratorRuntime().wrap(function _callee84$(_context86) {
       while (1) switch (_context86.prev = _context86.next) {
         case 0:
           return _context86.abrupt("return", new Promise(function (resolve) {
@@ -30132,7 +29431,7 @@ function _prefetchStyleLink() {
         case "end":
           return _context86.stop();
       }
-    }, _callee85);
+    }, _callee84);
   }));
   return _prefetchStyleLink.apply(this, arguments);
 }
@@ -30148,20 +29447,20 @@ function isHtmlLinkDescriptor(object) {
   }
   return typeof object.rel === "string" && typeof object.href === "string";
 }
-function getKeyedPrefetchLinks(_x129, _x130, _x131) {
+function getKeyedPrefetchLinks(_x127, _x128, _x129) {
   return _getKeyedPrefetchLinks.apply(this, arguments);
 }
 function _getKeyedPrefetchLinks() {
-  _getKeyedPrefetchLinks = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee87(matches, manifest, routeModules) {
+  _getKeyedPrefetchLinks = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee86(matches, manifest, routeModules) {
     var links;
-    return _regeneratorRuntime().wrap(function _callee87$(_context88) {
+    return _regeneratorRuntime().wrap(function _callee86$(_context88) {
       while (1) switch (_context88.prev = _context88.next) {
         case 0:
           _context88.next = 2;
           return Promise.all(matches.map(/*#__PURE__*/function () {
-            var _ref118 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee86(match) {
+            var _ref120 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee85(match) {
               var route, mod;
-              return _regeneratorRuntime().wrap(function _callee86$(_context87) {
+              return _regeneratorRuntime().wrap(function _callee85$(_context87) {
                 while (1) switch (_context87.prev = _context87.next) {
                   case 0:
                     route = manifest.routes[match.route.id];
@@ -30180,10 +29479,10 @@ function _getKeyedPrefetchLinks() {
                   case "end":
                     return _context87.stop();
                 }
-              }, _callee86);
+              }, _callee85);
             }));
-            return function (_x230) {
-              return _ref118.apply(this, arguments);
+            return function (_x237) {
+              return _ref120.apply(this, arguments);
             };
           }()));
         case 2:
@@ -30202,7 +29501,7 @@ function _getKeyedPrefetchLinks() {
         case "end":
           return _context88.stop();
       }
-    }, _callee87);
+    }, _callee86);
   }));
   return _getKeyedPrefetchLinks.apply(this, arguments);
 }
@@ -30254,8 +29553,8 @@ function getNewMatchesForLinks(page, nextMatches, currentMatches, manifest, loca
   return [];
 }
 function getModuleLinkHrefs(matches, manifest) {
-  var _ref51 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-    includeHydrateFallback = _ref51.includeHydrateFallback;
+  var _ref50 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
+    includeHydrateFallback = _ref50.includeHydrateFallback;
   return dedupeHrefs(matches.map(function (match) {
     var route = manifest.routes[match.route.id];
     if (!route) return [];
@@ -30281,17 +29580,17 @@ function dedupeHrefs(hrefs) {
 function sortKeys(obj) {
   var sorted = {};
   var keys = Object.keys(obj).sort();
-  var _iterator12 = _createForOfIteratorHelper(keys),
-    _step12;
+  var _iterator10 = _createForOfIteratorHelper(keys),
+    _step10;
   try {
-    for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
-      var key = _step12.value;
+    for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
+      var key = _step10.value;
       sorted[key] = obj[key];
     }
   } catch (err) {
-    _iterator12.e(err);
+    _iterator10.e(err);
   } finally {
-    _iterator12.f();
+    _iterator10.f();
   }
   return sorted;
 }
@@ -30346,91 +29645,973 @@ function createHtml(html) {
 }
 
 // lib/dom/ssr/single-fetch.tsx
+
+// vendor/turbo-stream-v2/utils.ts
+var HOLE = -1;
+var NAN = -2;
+var NEGATIVE_INFINITY = -3;
+var NEGATIVE_ZERO = -4;
+var NULL = -5;
+var POSITIVE_INFINITY = -6;
+var UNDEFINED = -7;
+var TYPE_BIGINT = "B";
+var TYPE_DATE = "D";
+var TYPE_ERROR = "E";
+var TYPE_MAP = "M";
+var TYPE_NULL_OBJECT = "N";
+var TYPE_PROMISE = "P";
+var TYPE_REGEXP = "R";
+var TYPE_SET = "S";
+var TYPE_SYMBOL = "Y";
+var TYPE_URL = "U";
+var TYPE_PREVIOUS_RESOLVED = "Z";
+var Deferred2 = /*#__PURE__*/_createClass(function Deferred2() {
+  var _this4 = this;
+  _classCallCheck(this, Deferred2);
+  this.promise = new Promise(function (resolve, reject) {
+    _this4.resolve = resolve;
+    _this4.reject = reject;
+  });
+});
+function createLineSplittingTransform() {
+  var decoder = new TextDecoder();
+  var leftover = "";
+  return new TransformStream({
+    transform: function transform(chunk, controller) {
+      var str = decoder.decode(chunk, {
+        stream: true
+      });
+      var parts = (leftover + str).split("\n");
+      leftover = parts.pop() || "";
+      var _iterator11 = _createForOfIteratorHelper(parts),
+        _step11;
+      try {
+        for (_iterator11.s(); !(_step11 = _iterator11.n()).done;) {
+          var part = _step11.value;
+          controller.enqueue(part);
+        }
+      } catch (err) {
+        _iterator11.e(err);
+      } finally {
+        _iterator11.f();
+      }
+    },
+    flush: function flush(controller) {
+      if (leftover) {
+        controller.enqueue(leftover);
+      }
+    }
+  });
+}
+
+// vendor/turbo-stream-v2/flatten.ts
+function flatten(input) {
+  var indices = this.indices;
+  var existing = indices.get(input);
+  if (existing) return [existing];
+  if (input === void 0) return UNDEFINED;
+  if (input === null) return NULL;
+  if (Number.isNaN(input)) return NAN;
+  if (input === Number.POSITIVE_INFINITY) return POSITIVE_INFINITY;
+  if (input === Number.NEGATIVE_INFINITY) return NEGATIVE_INFINITY;
+  if (input === 0 && 1 / input < 0) return NEGATIVE_ZERO;
+  var index = this.index++;
+  indices.set(input, index);
+  stringify.call(this, input, index);
+  return index;
+}
+function stringify(input, index) {
+  var _this5 = this;
+  var deferred = this.deferred,
+    plugins = this.plugins,
+    postPlugins = this.postPlugins;
+  var str = this.stringified;
+  var stack = [[input, index]];
+  while (stack.length > 0) {
+    var _stack$pop = stack.pop(),
+      _stack$pop2 = _slicedToArray(_stack$pop, 2),
+      input2 = _stack$pop2[0],
+      index2 = _stack$pop2[1];
+    var partsForObj = function partsForObj(obj) {
+      return Object.keys(obj).map(function (k) {
+        return "\"_".concat(flatten.call(_this5, k), "\":").concat(flatten.call(_this5, obj[k]));
+      }).join(",");
+    };
+    var error = null;
+    switch (_typeof(input2)) {
+      case "boolean":
+      case "number":
+      case "string":
+        str[index2] = JSON.stringify(input2);
+        break;
+      case "bigint":
+        str[index2] = "[\"".concat(TYPE_BIGINT, "\",\"").concat(input2, "\"]");
+        break;
+      case "symbol":
+        {
+          var keyFor = Symbol.keyFor(input2);
+          if (!keyFor) {
+            error = new Error("Cannot encode symbol unless created with Symbol.for()");
+          } else {
+            str[index2] = "[\"".concat(TYPE_SYMBOL, "\",").concat(JSON.stringify(keyFor), "]");
+          }
+          break;
+        }
+      case "object":
+        {
+          if (!input2) {
+            str[index2] = "".concat(NULL);
+            break;
+          }
+          var isArray = Array.isArray(input2);
+          var pluginHandled = false;
+          if (!isArray && plugins) {
+            var _iterator12 = _createForOfIteratorHelper(plugins),
+              _step12;
+            try {
+              for (_iterator12.s(); !(_step12 = _iterator12.n()).done;) {
+                var plugin = _step12.value;
+                var pluginResult = plugin(input2);
+                if (Array.isArray(pluginResult)) {
+                  pluginHandled = true;
+                  var _pluginResult = _toArray(pluginResult),
+                    pluginIdentifier = _pluginResult[0],
+                    rest = _pluginResult.slice(1);
+                  str[index2] = "[".concat(JSON.stringify(pluginIdentifier));
+                  if (rest.length > 0) {
+                    str[index2] += ",".concat(rest.map(function (v) {
+                      return flatten.call(_this5, v);
+                    }).join(","));
+                  }
+                  str[index2] += "]";
+                  break;
+                }
+              }
+            } catch (err) {
+              _iterator12.e(err);
+            } finally {
+              _iterator12.f();
+            }
+          }
+          if (!pluginHandled) {
+            var result = isArray ? "[" : "{";
+            if (isArray) {
+              for (var i = 0; i < input2.length; i++) result += (i ? "," : "") + (i in input2 ? flatten.call(this, input2[i]) : HOLE);
+              str[index2] = "".concat(result, "]");
+            } else if (input2 instanceof Date) {
+              str[index2] = "[\"".concat(TYPE_DATE, "\",").concat(input2.getTime(), "]");
+            } else if (input2 instanceof URL) {
+              str[index2] = "[\"".concat(TYPE_URL, "\",").concat(JSON.stringify(input2.href), "]");
+            } else if (input2 instanceof RegExp) {
+              str[index2] = "[\"".concat(TYPE_REGEXP, "\",").concat(JSON.stringify(input2.source), ",").concat(JSON.stringify(input2.flags), "]");
+            } else if (input2 instanceof Set) {
+              if (input2.size > 0) {
+                str[index2] = "[\"".concat(TYPE_SET, "\",").concat(_toConsumableArray(input2).map(function (val) {
+                  return flatten.call(_this5, val);
+                }).join(","), "]");
+              } else {
+                str[index2] = "[\"".concat(TYPE_SET, "\"]");
+              }
+            } else if (input2 instanceof Map) {
+              if (input2.size > 0) {
+                str[index2] = "[\"".concat(TYPE_MAP, "\",").concat(_toConsumableArray(input2).flatMap(function (_ref51) {
+                  var _ref52 = _slicedToArray(_ref51, 2),
+                    k = _ref52[0],
+                    v = _ref52[1];
+                  return [flatten.call(_this5, k), flatten.call(_this5, v)];
+                }).join(","), "]");
+              } else {
+                str[index2] = "[\"".concat(TYPE_MAP, "\"]");
+              }
+            } else if (input2 instanceof Promise) {
+              str[index2] = "[\"".concat(TYPE_PROMISE, "\",").concat(index2, "]");
+              deferred[index2] = input2;
+            } else if (input2 instanceof Error) {
+              str[index2] = "[\"".concat(TYPE_ERROR, "\",").concat(JSON.stringify(input2.message));
+              if (input2.name !== "Error") {
+                str[index2] += ",".concat(JSON.stringify(input2.name));
+              }
+              str[index2] += "]";
+            } else if (Object.getPrototypeOf(input2) === null) {
+              str[index2] = "[\"".concat(TYPE_NULL_OBJECT, "\",{").concat(partsForObj(input2), "}]");
+            } else if (isPlainObject(input2)) {
+              str[index2] = "{".concat(partsForObj(input2), "}");
+            } else {
+              error = new Error("Cannot encode object with prototype");
+            }
+          }
+          break;
+        }
+      default:
+        {
+          var _isArray = Array.isArray(input2);
+          var _pluginHandled = false;
+          if (!_isArray && plugins) {
+            var _iterator13 = _createForOfIteratorHelper(plugins),
+              _step13;
+            try {
+              for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
+                var _plugin = _step13.value;
+                var _pluginResult2 = _plugin(input2);
+                if (Array.isArray(_pluginResult2)) {
+                  _pluginHandled = true;
+                  var _pluginResult3 = _toArray(_pluginResult2),
+                    _pluginIdentifier = _pluginResult3[0],
+                    _rest = _pluginResult3.slice(1);
+                  str[index2] = "[".concat(JSON.stringify(_pluginIdentifier));
+                  if (_rest.length > 0) {
+                    str[index2] += ",".concat(_rest.map(function (v) {
+                      return flatten.call(_this5, v);
+                    }).join(","));
+                  }
+                  str[index2] += "]";
+                  break;
+                }
+              }
+            } catch (err) {
+              _iterator13.e(err);
+            } finally {
+              _iterator13.f();
+            }
+          }
+          if (!_pluginHandled) {
+            error = new Error("Cannot encode function or unexpected type");
+          }
+        }
+    }
+    if (error) {
+      var _pluginHandled2 = false;
+      if (postPlugins) {
+        var _iterator14 = _createForOfIteratorHelper(postPlugins),
+          _step14;
+        try {
+          for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
+            var _plugin2 = _step14.value;
+            var _pluginResult4 = _plugin2(input2);
+            if (Array.isArray(_pluginResult4)) {
+              _pluginHandled2 = true;
+              var _pluginResult5 = _toArray(_pluginResult4),
+                _pluginIdentifier2 = _pluginResult5[0],
+                _rest2 = _pluginResult5.slice(1);
+              str[index2] = "[".concat(JSON.stringify(_pluginIdentifier2));
+              if (_rest2.length > 0) {
+                str[index2] += ",".concat(_rest2.map(function (v) {
+                  return flatten.call(_this5, v);
+                }).join(","));
+              }
+              str[index2] += "]";
+              break;
+            }
+          }
+        } catch (err) {
+          _iterator14.e(err);
+        } finally {
+          _iterator14.f();
+        }
+      }
+      if (!_pluginHandled2) {
+        throw error;
+      }
+    }
+  }
+}
+var objectProtoNames = Object.getOwnPropertyNames(Object.prototype).sort().join("\0");
+function isPlainObject(thing) {
+  var proto = Object.getPrototypeOf(thing);
+  return proto === Object.prototype || proto === null || Object.getOwnPropertyNames(proto).sort().join("\0") === objectProtoNames;
+}
+
+// vendor/turbo-stream-v2/unflatten.ts
+var globalObj = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : void 0;
+function unflatten(parsed) {
+  var hydrated = this.hydrated,
+    values = this.values;
+  if (typeof parsed === "number") return hydrate.call(this, parsed);
+  if (!Array.isArray(parsed) || !parsed.length) throw new SyntaxError();
+  var startIndex = values.length;
+  var _iterator15 = _createForOfIteratorHelper(parsed),
+    _step15;
+  try {
+    for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
+      var value = _step15.value;
+      values.push(value);
+    }
+  } catch (err) {
+    _iterator15.e(err);
+  } finally {
+    _iterator15.f();
+  }
+  hydrated.length = values.length;
+  return hydrate.call(this, startIndex);
+}
+function hydrate(index) {
+  var hydrated = this.hydrated,
+    values = this.values,
+    deferred = this.deferred,
+    plugins = this.plugins;
+  var result;
+  var stack = [[index, function (v) {
+    result = v;
+  }]];
+  var postRun = [];
+  var _loop2 = function _loop2() {
+      var _stack$pop3 = stack.pop(),
+        _stack$pop4 = _slicedToArray(_stack$pop3, 2),
+        index2 = _stack$pop4[0],
+        set = _stack$pop4[1];
+      switch (index2) {
+        case UNDEFINED:
+          set(void 0);
+          return 0; // continue
+        case NULL:
+          set(null);
+          return 0; // continue
+        case NAN:
+          set(NaN);
+          return 0; // continue
+        case POSITIVE_INFINITY:
+          set(Infinity);
+          return 0; // continue
+        case NEGATIVE_INFINITY:
+          set(-Infinity);
+          return 0; // continue
+        case NEGATIVE_ZERO:
+          set(-0);
+          return 0; // continue
+      }
+      if (hydrated[index2]) {
+        set(hydrated[index2]);
+        return 0; // continue
+      }
+      var value = values[index2];
+      if (!value || _typeof(value) !== "object") {
+        hydrated[index2] = value;
+        set(value);
+        return 0; // continue
+      }
+      if (Array.isArray(value)) {
+        if (typeof value[0] === "string") {
+          var _value = _slicedToArray(value, 3),
+            type = _value[0],
+            b = _value[1],
+            c = _value[2];
+          switch (type) {
+            case TYPE_DATE:
+              set(hydrated[index2] = new Date(b));
+              return 0; // continue
+            case TYPE_URL:
+              set(hydrated[index2] = new URL(b));
+              return 0; // continue
+            case TYPE_BIGINT:
+              set(hydrated[index2] = BigInt(b));
+              return 0; // continue
+            case TYPE_REGEXP:
+              set(hydrated[index2] = new RegExp(b, c));
+              return 0; // continue
+            case TYPE_SYMBOL:
+              set(hydrated[index2] = Symbol.for(b));
+              return 0; // continue
+            case TYPE_SET:
+              var newSet = /* @__PURE__ */new Set();
+              hydrated[index2] = newSet;
+              for (var i = value.length - 1; i > 0; i--) stack.push([value[i], function (v) {
+                newSet.add(v);
+              }]);
+              set(newSet);
+              return 0; // continue
+            case TYPE_MAP:
+              var map = /* @__PURE__ */new Map();
+              hydrated[index2] = map;
+              var _loop3 = function _loop3() {
+                var r = [];
+                stack.push([value[_i4 + 1], function (v) {
+                  r[1] = v;
+                }]);
+                stack.push([value[_i4], function (k) {
+                  r[0] = k;
+                }]);
+                postRun.push(function () {
+                  map.set(r[0], r[1]);
+                });
+              };
+              for (var _i4 = value.length - 2; _i4 > 0; _i4 -= 2) {
+                _loop3();
+              }
+              set(map);
+              return 0; // continue
+            case TYPE_NULL_OBJECT:
+              var obj = /* @__PURE__ */Object.create(null);
+              hydrated[index2] = obj;
+              var _iterator16 = _createForOfIteratorHelper(Object.keys(b).reverse()),
+                _step16;
+              try {
+                var _loop4 = function _loop4() {
+                  var key = _step16.value;
+                  var r = [];
+                  stack.push([b[key], function (v) {
+                    r[1] = v;
+                  }]);
+                  stack.push([Number(key.slice(1)), function (k) {
+                    r[0] = k;
+                  }]);
+                  postRun.push(function () {
+                    obj[r[0]] = r[1];
+                  });
+                };
+                for (_iterator16.s(); !(_step16 = _iterator16.n()).done;) {
+                  _loop4();
+                }
+              } catch (err) {
+                _iterator16.e(err);
+              } finally {
+                _iterator16.f();
+              }
+              set(obj);
+              return 0; // continue
+            case TYPE_PROMISE:
+              if (hydrated[b]) {
+                set(hydrated[index2] = hydrated[b]);
+              } else {
+                var d = new Deferred2();
+                deferred[b] = d;
+                set(hydrated[index2] = d.promise);
+              }
+              return 0; // continue
+            case TYPE_ERROR:
+              var _value2 = _slicedToArray(value, 3),
+                message = _value2[1],
+                errorType = _value2[2];
+              var error = errorType && globalObj && globalObj[errorType] ? new globalObj[errorType](message) : new Error(message);
+              hydrated[index2] = error;
+              set(error);
+              return 0; // continue
+            case TYPE_PREVIOUS_RESOLVED:
+              set(hydrated[index2] = hydrated[b]);
+              return 0; // continue
+            default:
+              if (Array.isArray(plugins)) {
+                var r = [];
+                var vals = value.slice(1);
+                var _loop5 = function _loop5(_i5) {
+                  var v = vals[_i5];
+                  stack.push([v, function (v2) {
+                    r[_i5] = v2;
+                  }]);
+                };
+                for (var _i5 = 0; _i5 < vals.length; _i5++) {
+                  _loop5(_i5);
+                }
+                postRun.push(function () {
+                  var _iterator17 = _createForOfIteratorHelper(plugins),
+                    _step17;
+                  try {
+                    for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
+                      var plugin = _step17.value;
+                      var result2 = plugin.apply(void 0, [value[0]].concat(r));
+                      if (result2) {
+                        set(hydrated[index2] = result2.value);
+                        return;
+                      }
+                    }
+                  } catch (err) {
+                    _iterator17.e(err);
+                  } finally {
+                    _iterator17.f();
+                  }
+                  throw new SyntaxError();
+                });
+                return 0; // continue
+              }
+              throw new SyntaxError();
+          }
+        } else {
+          var array = [];
+          hydrated[index2] = array;
+          var _loop6 = function _loop6(_i6) {
+            var n = value[_i6];
+            if (n !== HOLE) {
+              stack.push([n, function (v) {
+                array[_i6] = v;
+              }]);
+            }
+          };
+          for (var _i6 = 0; _i6 < value.length; _i6++) {
+            _loop6(_i6);
+          }
+          set(array);
+          return 0; // continue
+        }
+      } else {
+        var object = {};
+        hydrated[index2] = object;
+        var _iterator18 = _createForOfIteratorHelper(Object.keys(value).reverse()),
+          _step18;
+        try {
+          var _loop7 = function _loop7() {
+            var key = _step18.value;
+            var r = [];
+            stack.push([value[key], function (v) {
+              r[1] = v;
+            }]);
+            stack.push([Number(key.slice(1)), function (k) {
+              r[0] = k;
+            }]);
+            postRun.push(function () {
+              object[r[0]] = r[1];
+            });
+          };
+          for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+            _loop7();
+          }
+        } catch (err) {
+          _iterator18.e(err);
+        } finally {
+          _iterator18.f();
+        }
+        set(object);
+        return 0; // continue
+      }
+    },
+    _ret2;
+  while (stack.length > 0) {
+    _ret2 = _loop2();
+    if (_ret2 === 0) continue;
+  }
+  while (postRun.length > 0) {
+    postRun.pop()();
+  }
+  return result;
+}
+
+// vendor/turbo-stream-v2/turbo-stream.ts
+function decode(_x130, _x131) {
+  return _decode.apply(this, arguments);
+}
+function _decode() {
+  _decode = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee87(readable, options) {
+    var _ref121, plugins, done, reader, decoder, decoded, donePromise;
+    return _regeneratorRuntime().wrap(function _callee87$(_context89) {
+      while (1) switch (_context89.prev = _context89.next) {
+        case 0:
+          _ref121 = options !== null && options !== void 0 ? options : {}, plugins = _ref121.plugins;
+          done = new Deferred2();
+          reader = readable.pipeThrough(createLineSplittingTransform()).getReader();
+          decoder = {
+            values: [],
+            hydrated: [],
+            deferred: {},
+            plugins: plugins
+          };
+          _context89.next = 6;
+          return decodeInitial.call(decoder, reader);
+        case 6:
+          decoded = _context89.sent;
+          donePromise = done.promise;
+          if (decoded.done) {
+            done.resolve();
+          } else {
+            donePromise = decodeDeferred.call(decoder, reader).then(done.resolve).catch(function (reason) {
+              for (var _i13 = 0, _Object$values = Object.values(decoder.deferred); _i13 < _Object$values.length; _i13++) {
+                var deferred = _Object$values[_i13];
+                deferred.reject(reason);
+              }
+              done.reject(reason);
+            });
+          }
+          return _context89.abrupt("return", {
+            done: donePromise.then(function () {
+              return reader.closed;
+            }),
+            value: decoded.value
+          });
+        case 10:
+        case "end":
+          return _context89.stop();
+      }
+    }, _callee87);
+  }));
+  return _decode.apply(this, arguments);
+}
+function decodeInitial(_x132) {
+  return _decodeInitial.apply(this, arguments);
+}
+function _decodeInitial() {
+  _decodeInitial = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee88(reader) {
+    var read, line;
+    return _regeneratorRuntime().wrap(function _callee88$(_context90) {
+      while (1) switch (_context90.prev = _context90.next) {
+        case 0:
+          _context90.next = 2;
+          return reader.read();
+        case 2:
+          read = _context90.sent;
+          if (read.value) {
+            _context90.next = 5;
+            break;
+          }
+          throw new SyntaxError();
+        case 5:
+          _context90.prev = 5;
+          line = JSON.parse(read.value);
+          _context90.next = 12;
+          break;
+        case 9:
+          _context90.prev = 9;
+          _context90.t0 = _context90["catch"](5);
+          throw new SyntaxError();
+        case 12:
+          return _context90.abrupt("return", {
+            done: read.done,
+            value: unflatten.call(this, line)
+          });
+        case 13:
+        case "end":
+          return _context90.stop();
+      }
+    }, _callee88, this, [[5, 9]]);
+  }));
+  return _decodeInitial.apply(this, arguments);
+}
+function decodeDeferred(_x133) {
+  return _decodeDeferred.apply(this, arguments);
+}
+function _decodeDeferred() {
+  _decodeDeferred = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee89(reader) {
+    var read, line, colonIndex, deferredId, deferred, lineData, jsonLine, value, _colonIndex, _deferredId, _deferred, _lineData, _jsonLine, _value4;
+    return _regeneratorRuntime().wrap(function _callee89$(_context91) {
+      while (1) switch (_context91.prev = _context91.next) {
+        case 0:
+          _context91.next = 2;
+          return reader.read();
+        case 2:
+          read = _context91.sent;
+        case 3:
+          if (read.done) {
+            _context91.next = 50;
+            break;
+          }
+          if (read.value) {
+            _context91.next = 6;
+            break;
+          }
+          return _context91.abrupt("continue", 3);
+        case 6:
+          line = read.value;
+          _context91.t0 = line[0];
+          _context91.next = _context91.t0 === TYPE_PROMISE ? 10 : _context91.t0 === TYPE_ERROR ? 27 : 44;
+          break;
+        case 10:
+          colonIndex = line.indexOf(":");
+          deferredId = Number(line.slice(1, colonIndex));
+          deferred = this.deferred[deferredId];
+          if (deferred) {
+            _context91.next = 15;
+            break;
+          }
+          throw new Error("Deferred ID ".concat(deferredId, " not found in stream"));
+        case 15:
+          lineData = line.slice(colonIndex + 1);
+          jsonLine = void 0;
+          _context91.prev = 17;
+          jsonLine = JSON.parse(lineData);
+          _context91.next = 24;
+          break;
+        case 21:
+          _context91.prev = 21;
+          _context91.t1 = _context91["catch"](17);
+          throw new SyntaxError();
+        case 24:
+          value = unflatten.call(this, jsonLine);
+          deferred.resolve(value);
+          return _context91.abrupt("break", 45);
+        case 27:
+          _colonIndex = line.indexOf(":");
+          _deferredId = Number(line.slice(1, _colonIndex));
+          _deferred = this.deferred[_deferredId];
+          if (_deferred) {
+            _context91.next = 32;
+            break;
+          }
+          throw new Error("Deferred ID ".concat(_deferredId, " not found in stream"));
+        case 32:
+          _lineData = line.slice(_colonIndex + 1);
+          _jsonLine = void 0;
+          _context91.prev = 34;
+          _jsonLine = JSON.parse(_lineData);
+          _context91.next = 41;
+          break;
+        case 38:
+          _context91.prev = 38;
+          _context91.t2 = _context91["catch"](34);
+          throw new SyntaxError();
+        case 41:
+          _value4 = unflatten.call(this, _jsonLine);
+          _deferred.reject(_value4);
+          return _context91.abrupt("break", 45);
+        case 44:
+          throw new SyntaxError();
+        case 45:
+          _context91.next = 47;
+          return reader.read();
+        case 47:
+          read = _context91.sent;
+          _context91.next = 3;
+          break;
+        case 50:
+        case "end":
+          return _context91.stop();
+      }
+    }, _callee89, this, [[17, 21], [34, 38]]);
+  }));
+  return _decodeDeferred.apply(this, arguments);
+}
+function encode(input, options) {
+  var _ref53 = options !== null && options !== void 0 ? options : {},
+    plugins = _ref53.plugins,
+    postPlugins = _ref53.postPlugins,
+    signal = _ref53.signal;
+  var encoder2 = {
+    deferred: {},
+    index: 0,
+    indices: /* @__PURE__ */new Map(),
+    stringified: [],
+    plugins: plugins,
+    postPlugins: postPlugins,
+    signal: signal
+  };
+  var textEncoder = new TextEncoder();
+  var lastSentIndex = 0;
+  var readable = new ReadableStream({
+    start: function start(controller) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee28() {
+        var id, seenPromises, raceDone, racePromise, _loop8, _i7, _Object$entries3;
+        return _regeneratorRuntime().wrap(function _callee28$(_context30) {
+          while (1) switch (_context30.prev = _context30.next) {
+            case 0:
+              id = flatten.call(encoder2, input);
+              if (!Array.isArray(id)) {
+                _context30.next = 3;
+                break;
+              }
+              throw new Error("This should never happen");
+            case 3:
+              if (id < 0) {
+                controller.enqueue(textEncoder.encode("".concat(id, "\n")));
+              } else {
+                controller.enqueue(textEncoder.encode("[".concat(encoder2.stringified.join(","), "]\n")));
+                lastSentIndex = encoder2.stringified.length - 1;
+              }
+              seenPromises = /* @__PURE__ */new WeakSet();
+              if (!Object.keys(encoder2.deferred).length) {
+                _context30.next = 22;
+                break;
+              }
+              racePromise = new Promise(function (resolve, reject) {
+                raceDone = resolve;
+                if (signal) {
+                  var rejectPromise = function rejectPromise() {
+                    return reject(signal.reason || new Error("Signal was aborted."));
+                  };
+                  if (signal.aborted) {
+                    rejectPromise();
+                  } else {
+                    signal.addEventListener("abort", function (event) {
+                      rejectPromise();
+                    });
+                  }
+                }
+              });
+            case 7:
+              if (!(Object.keys(encoder2.deferred).length > 0)) {
+                _context30.next = 21;
+                break;
+              }
+              _loop8 = /*#__PURE__*/_regeneratorRuntime().mark(function _loop8() {
+                var _Object$entries3$_i, deferredId, deferred;
+                return _regeneratorRuntime().wrap(function _loop8$(_context29) {
+                  while (1) switch (_context29.prev = _context29.next) {
+                    case 0:
+                      _Object$entries3$_i = _slicedToArray(_Object$entries3[_i7], 2), deferredId = _Object$entries3$_i[0], deferred = _Object$entries3$_i[1];
+                      if (!seenPromises.has(deferred)) {
+                        _context29.next = 3;
+                        break;
+                      }
+                      return _context29.abrupt("return", 1);
+                    case 3:
+                      seenPromises.add(
+                      // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+                      encoder2.deferred[Number(deferredId)] = Promise.race([racePromise, deferred]).then(function (resolved) {
+                        var id2 = flatten.call(encoder2, resolved);
+                        if (Array.isArray(id2)) {
+                          controller.enqueue(textEncoder.encode("".concat(TYPE_PROMISE).concat(deferredId, ":[[\"").concat(TYPE_PREVIOUS_RESOLVED, "\",").concat(id2[0], "]]\n")));
+                          encoder2.index++;
+                          lastSentIndex++;
+                        } else if (id2 < 0) {
+                          controller.enqueue(textEncoder.encode("".concat(TYPE_PROMISE).concat(deferredId, ":").concat(id2, "\n")));
+                        } else {
+                          var values = encoder2.stringified.slice(lastSentIndex + 1).join(",");
+                          controller.enqueue(textEncoder.encode("".concat(TYPE_PROMISE).concat(deferredId, ":[").concat(values, "]\n")));
+                          lastSentIndex = encoder2.stringified.length - 1;
+                        }
+                      }, function (reason) {
+                        if (!reason || _typeof(reason) !== "object" || !(reason instanceof Error)) {
+                          reason = new Error("An unknown error occurred");
+                        }
+                        var id2 = flatten.call(encoder2, reason);
+                        if (Array.isArray(id2)) {
+                          controller.enqueue(textEncoder.encode("".concat(TYPE_ERROR).concat(deferredId, ":[[\"").concat(TYPE_PREVIOUS_RESOLVED, "\",").concat(id2[0], "]]\n")));
+                          encoder2.index++;
+                          lastSentIndex++;
+                        } else if (id2 < 0) {
+                          controller.enqueue(textEncoder.encode("".concat(TYPE_ERROR).concat(deferredId, ":").concat(id2, "\n")));
+                        } else {
+                          var values = encoder2.stringified.slice(lastSentIndex + 1).join(",");
+                          controller.enqueue(textEncoder.encode("".concat(TYPE_ERROR).concat(deferredId, ":[").concat(values, "]\n")));
+                          lastSentIndex = encoder2.stringified.length - 1;
+                        }
+                      }).finally(function () {
+                        delete encoder2.deferred[Number(deferredId)];
+                      }));
+                    case 4:
+                    case "end":
+                      return _context29.stop();
+                  }
+                }, _loop8);
+              });
+              _i7 = 0, _Object$entries3 = Object.entries(encoder2.deferred);
+            case 10:
+              if (!(_i7 < _Object$entries3.length)) {
+                _context30.next = 17;
+                break;
+              }
+              return _context30.delegateYield(_loop8(), "t0", 12);
+            case 12:
+              if (!_context30.t0) {
+                _context30.next = 14;
+                break;
+              }
+              return _context30.abrupt("continue", 14);
+            case 14:
+              _i7++;
+              _context30.next = 10;
+              break;
+            case 17:
+              _context30.next = 19;
+              return Promise.race(Object.values(encoder2.deferred));
+            case 19:
+              _context30.next = 7;
+              break;
+            case 21:
+              raceDone();
+            case 22:
+              _context30.next = 24;
+              return Promise.all(Object.values(encoder2.deferred));
+            case 24:
+              controller.close();
+            case 25:
+            case "end":
+              return _context30.stop();
+          }
+        }, _callee28);
+      }))();
+    }
+  });
+  return readable;
+}
+
 // lib/dom/ssr/data.ts
-function createRequestInit(_x132) {
+function createRequestInit(_x134) {
   return _createRequestInit.apply(this, arguments);
 } // lib/dom/ssr/single-fetch.tsx
 function _createRequestInit() {
-  _createRequestInit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee88(request) {
+  _createRequestInit = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee90(request) {
     var init, contentType;
-    return _regeneratorRuntime().wrap(function _callee88$(_context89) {
-      while (1) switch (_context89.prev = _context89.next) {
+    return _regeneratorRuntime().wrap(function _callee90$(_context92) {
+      while (1) switch (_context92.prev = _context92.next) {
         case 0:
           init = {
             signal: request.signal
           };
           if (!(request.method !== "GET")) {
-            _context89.next = 31;
+            _context92.next = 31;
             break;
           }
           init.method = request.method;
           contentType = request.headers.get("Content-Type");
           if (!(contentType && /\bapplication\/json\b/.test(contentType))) {
-            _context89.next = 13;
+            _context92.next = 13;
             break;
           }
           init.headers = {
             "Content-Type": contentType
           };
-          _context89.t0 = JSON;
-          _context89.next = 9;
+          _context92.t0 = JSON;
+          _context92.next = 9;
           return request.json();
         case 9:
-          _context89.t1 = _context89.sent;
-          init.body = _context89.t0.stringify.call(_context89.t0, _context89.t1);
-          _context89.next = 31;
+          _context92.t1 = _context92.sent;
+          init.body = _context92.t0.stringify.call(_context92.t0, _context92.t1);
+          _context92.next = 31;
           break;
         case 13:
           if (!(contentType && /\btext\/plain\b/.test(contentType))) {
-            _context89.next = 20;
+            _context92.next = 20;
             break;
           }
           init.headers = {
             "Content-Type": contentType
           };
-          _context89.next = 17;
+          _context92.next = 17;
           return request.text();
         case 17:
-          init.body = _context89.sent;
-          _context89.next = 31;
+          init.body = _context92.sent;
+          _context92.next = 31;
           break;
         case 20:
           if (!(contentType && /\bapplication\/x-www-form-urlencoded\b/.test(contentType))) {
-            _context89.next = 28;
+            _context92.next = 28;
             break;
           }
-          _context89.t2 = URLSearchParams;
-          _context89.next = 24;
+          _context92.t2 = URLSearchParams;
+          _context92.next = 24;
           return request.text();
         case 24:
-          _context89.t3 = _context89.sent;
-          init.body = new _context89.t2(_context89.t3);
-          _context89.next = 31;
+          _context92.t3 = _context92.sent;
+          init.body = new _context92.t2(_context92.t3);
+          _context92.next = 31;
           break;
         case 28:
-          _context89.next = 30;
+          _context92.next = 30;
           return request.formData();
         case 30:
-          init.body = _context89.sent;
+          init.body = _context92.sent;
         case 31:
-          return _context89.abrupt("return", init);
+          return _context92.abrupt("return", init);
         case 32:
         case "end":
-          return _context89.stop();
+          return _context92.stop();
       }
-    }, _callee88);
+    }, _callee90);
   }));
   return _createRequestInit.apply(this, arguments);
 }
 var SingleFetchRedirectSymbol = exports.SingleFetchRedirectSymbol = Symbol("SingleFetchRedirect");
+var SingleFetchNoResultError = /*#__PURE__*/function (_Error) {
+  function SingleFetchNoResultError() {
+    _classCallCheck(this, SingleFetchNoResultError);
+    return _callSuper(this, SingleFetchNoResultError, arguments);
+  }
+  _inherits(SingleFetchNoResultError, _Error);
+  return _createClass(SingleFetchNoResultError);
+}(/*#__PURE__*/_wrapNativeSuper(Error));
 var SINGLE_FETCH_REDIRECT_STATUS = 202;
 var NO_BODY_STATUS_CODES = /* @__PURE__ */new Set([100, 101, 204, 205]);
-function StreamTransfer(_ref52) {
-  var context = _ref52.context,
-    identifier = _ref52.identifier,
-    reader = _ref52.reader,
-    textDecoder = _ref52.textDecoder,
-    nonce = _ref52.nonce;
+function StreamTransfer(_ref54) {
+  var context = _ref54.context,
+    identifier = _ref54.identifier,
+    reader = _ref54.reader,
+    textDecoder = _ref54.textDecoder,
+    nonce = _ref54.nonce;
   if (!context.renderMeta || !context.renderMeta.didRenderScripts) {
     return null;
   }
@@ -30495,8 +30676,8 @@ function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules
     };
   }, fetchAndDecodeViaTurboStream, ssr, basename);
   return /*#__PURE__*/function () {
-    var _ref53 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee30(args) {
-      return _regeneratorRuntime().wrap(function _callee30$(_context31) {
+    var _ref55 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee29(args) {
+      return _regeneratorRuntime().wrap(function _callee29$(_context31) {
         while (1) switch (_context31.prev = _context31.next) {
           case 0:
             return _context31.abrupt("return", args.unstable_runClientMiddleware(dataStrategy));
@@ -30504,18 +30685,18 @@ function getTurboStreamSingleFetchDataStrategy(getRouter, manifest, routeModules
           case "end":
             return _context31.stop();
         }
-      }, _callee30);
+      }, _callee29);
     }));
-    return function (_x133) {
-      return _ref53.apply(this, arguments);
+    return function (_x135) {
+      return _ref55.apply(this, arguments);
     };
   }();
 }
 function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode, ssr, basename) {
   return /*#__PURE__*/function () {
-    var _ref54 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee31(args) {
+    var _ref56 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee30(args) {
       var request, matches, fetcherKey, router, foundRevalidatingServerLoader;
-      return _regeneratorRuntime().wrap(function _callee31$(_context32) {
+      return _regeneratorRuntime().wrap(function _callee30$(_context32) {
         while (1) switch (_context32.prev = _context32.next) {
           case 0:
             request = args.request, matches = args.matches, fetcherKey = args.fetcherKey;
@@ -30549,186 +30730,186 @@ function getSingleFetchDataStrategyImpl(getRouter, getRouteInfo, fetchAndDecode,
           case "end":
             return _context32.stop();
         }
-      }, _callee31);
+      }, _callee30);
     }));
-    return function (_x134) {
-      return _ref54.apply(this, arguments);
+    return function (_x136) {
+      return _ref56.apply(this, arguments);
     };
   }();
 }
-function singleFetchActionStrategy(_x135, _x136, _x137) {
+function singleFetchActionStrategy(_x137, _x138, _x139) {
   return _singleFetchActionStrategy.apply(this, arguments);
 }
 function _singleFetchActionStrategy() {
-  _singleFetchActionStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee91(args, fetchAndDecode, basename) {
+  _singleFetchActionStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee93(args, fetchAndDecode, basename) {
     var actionMatch, actionStatus, result;
-    return _regeneratorRuntime().wrap(function _callee91$(_context92) {
-      while (1) switch (_context92.prev = _context92.next) {
+    return _regeneratorRuntime().wrap(function _callee93$(_context95) {
+      while (1) switch (_context95.prev = _context95.next) {
         case 0:
           actionMatch = args.matches.find(function (m) {
             return m.unstable_shouldCallHandler();
           });
           invariant2(actionMatch, "No action match found");
           actionStatus = void 0;
-          _context92.next = 5;
+          _context95.next = 5;
           return actionMatch.resolve(/*#__PURE__*/function () {
-            var _ref119 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee90(handler) {
+            var _ref122 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee92(handler) {
               var result2;
-              return _regeneratorRuntime().wrap(function _callee90$(_context91) {
-                while (1) switch (_context91.prev = _context91.next) {
+              return _regeneratorRuntime().wrap(function _callee92$(_context94) {
+                while (1) switch (_context94.prev = _context94.next) {
                   case 0:
-                    _context91.next = 2;
-                    return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee89() {
+                    _context94.next = 2;
+                    return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee91() {
                       var _yield$fetchAndDecode, data2, status;
-                      return _regeneratorRuntime().wrap(function _callee89$(_context90) {
-                        while (1) switch (_context90.prev = _context90.next) {
+                      return _regeneratorRuntime().wrap(function _callee91$(_context93) {
+                        while (1) switch (_context93.prev = _context93.next) {
                           case 0:
-                            _context90.next = 2;
+                            _context93.next = 2;
                             return fetchAndDecode(args, basename, [actionMatch.route.id]);
                           case 2:
-                            _yield$fetchAndDecode = _context90.sent;
+                            _yield$fetchAndDecode = _context93.sent;
                             data2 = _yield$fetchAndDecode.data;
                             status = _yield$fetchAndDecode.status;
                             actionStatus = status;
-                            return _context90.abrupt("return", unwrapSingleFetchResult(data2, actionMatch.route.id));
+                            return _context93.abrupt("return", unwrapSingleFetchResult(data2, actionMatch.route.id));
                           case 7:
                           case "end":
-                            return _context90.stop();
+                            return _context93.stop();
                         }
-                      }, _callee89);
+                      }, _callee91);
                     })));
                   case 2:
-                    result2 = _context91.sent;
-                    return _context91.abrupt("return", result2);
+                    result2 = _context94.sent;
+                    return _context94.abrupt("return", result2);
                   case 4:
                   case "end":
-                    return _context91.stop();
+                    return _context94.stop();
                 }
-              }, _callee90);
+              }, _callee92);
             }));
-            return function (_x231) {
-              return _ref119.apply(this, arguments);
+            return function (_x238) {
+              return _ref122.apply(this, arguments);
             };
           }());
         case 5:
-          result = _context92.sent;
-          if (!(isResponse(result.result) || isRouteErrorResponse(result.result))) {
-            _context92.next = 8;
+          result = _context95.sent;
+          if (!(isResponse(result.result) || isRouteErrorResponse(result.result) || isDataWithResponseInit(result.result))) {
+            _context95.next = 8;
             break;
           }
-          return _context92.abrupt("return", _defineProperty({}, actionMatch.route.id, result));
+          return _context95.abrupt("return", _defineProperty({}, actionMatch.route.id, result));
         case 8:
-          return _context92.abrupt("return", _defineProperty({}, actionMatch.route.id, {
+          return _context95.abrupt("return", _defineProperty({}, actionMatch.route.id, {
             type: result.type,
             result: data(result.result, actionStatus)
           }));
         case 9:
         case "end":
-          return _context92.stop();
+          return _context95.stop();
       }
-    }, _callee91);
+    }, _callee93);
   }));
   return _singleFetchActionStrategy.apply(this, arguments);
 }
-function nonSsrStrategy(_x138, _x139, _x140, _x141) {
+function nonSsrStrategy(_x140, _x141, _x142, _x143) {
   return _nonSsrStrategy.apply(this, arguments);
 }
 function _nonSsrStrategy() {
-  _nonSsrStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee94(args, getRouteInfo, fetchAndDecode, basename) {
+  _nonSsrStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee96(args, getRouteInfo, fetchAndDecode, basename) {
     var matchesToLoad, results;
-    return _regeneratorRuntime().wrap(function _callee94$(_context95) {
-      while (1) switch (_context95.prev = _context95.next) {
+    return _regeneratorRuntime().wrap(function _callee96$(_context98) {
+      while (1) switch (_context98.prev = _context98.next) {
         case 0:
           matchesToLoad = args.matches.filter(function (m) {
             return m.unstable_shouldCallHandler();
           });
           results = {};
-          _context95.next = 4;
+          _context98.next = 4;
           return Promise.all(matchesToLoad.map(function (m) {
             return m.resolve(/*#__PURE__*/function () {
-              var _ref123 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee93(handler) {
+              var _ref126 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee95(handler) {
                 var _getRouteInfo2, hasClientLoader, routeId, result;
-                return _regeneratorRuntime().wrap(function _callee93$(_context94) {
-                  while (1) switch (_context94.prev = _context94.next) {
+                return _regeneratorRuntime().wrap(function _callee95$(_context97) {
+                  while (1) switch (_context97.prev = _context97.next) {
                     case 0:
-                      _context94.prev = 0;
+                      _context97.prev = 0;
                       _getRouteInfo2 = getRouteInfo(m), hasClientLoader = _getRouteInfo2.hasClientLoader;
                       routeId = m.route.id;
                       if (!hasClientLoader) {
-                        _context94.next = 9;
+                        _context97.next = 9;
                         break;
                       }
-                      _context94.next = 6;
-                      return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee92() {
+                      _context97.next = 6;
+                      return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee94() {
                         var _yield$fetchAndDecode2, data2;
-                        return _regeneratorRuntime().wrap(function _callee92$(_context93) {
-                          while (1) switch (_context93.prev = _context93.next) {
+                        return _regeneratorRuntime().wrap(function _callee94$(_context96) {
+                          while (1) switch (_context96.prev = _context96.next) {
                             case 0:
-                              _context93.next = 2;
+                              _context96.next = 2;
                               return fetchAndDecode(args, basename, [routeId]);
                             case 2:
-                              _yield$fetchAndDecode2 = _context93.sent;
+                              _yield$fetchAndDecode2 = _context96.sent;
                               data2 = _yield$fetchAndDecode2.data;
-                              return _context93.abrupt("return", unwrapSingleFetchResult(data2, routeId));
+                              return _context96.abrupt("return", unwrapSingleFetchResult(data2, routeId));
                             case 5:
                             case "end":
-                              return _context93.stop();
+                              return _context96.stop();
                           }
-                        }, _callee92);
+                        }, _callee94);
                       })));
                     case 6:
-                      _context94.t0 = _context94.sent;
-                      _context94.next = 12;
+                      _context97.t0 = _context97.sent;
+                      _context97.next = 12;
                       break;
                     case 9:
-                      _context94.next = 11;
+                      _context97.next = 11;
                       return handler();
                     case 11:
-                      _context94.t0 = _context94.sent;
+                      _context97.t0 = _context97.sent;
                     case 12:
-                      result = _context94.t0;
+                      result = _context97.t0;
                       results[m.route.id] = {
                         type: "data",
                         result: result
                       };
-                      _context94.next = 19;
+                      _context97.next = 19;
                       break;
                     case 16:
-                      _context94.prev = 16;
-                      _context94.t1 = _context94["catch"](0);
+                      _context97.prev = 16;
+                      _context97.t1 = _context97["catch"](0);
                       results[m.route.id] = {
                         type: "error",
-                        result: _context94.t1
+                        result: _context97.t1
                       };
                     case 19:
                     case "end":
-                      return _context94.stop();
+                      return _context97.stop();
                   }
-                }, _callee93, null, [[0, 16]]);
+                }, _callee95, null, [[0, 16]]);
               }));
-              return function (_x232) {
-                return _ref123.apply(this, arguments);
+              return function (_x239) {
+                return _ref126.apply(this, arguments);
               };
             }());
           }));
         case 4:
-          return _context95.abrupt("return", results);
+          return _context98.abrupt("return", results);
         case 5:
         case "end":
-          return _context95.stop();
+          return _context98.stop();
       }
-    }, _callee94);
+    }, _callee96);
   }));
   return _nonSsrStrategy.apply(this, arguments);
 }
-function singleFetchLoaderNavigationStrategy(_x142, _x143, _x144, _x145, _x146, _x147) {
+function singleFetchLoaderNavigationStrategy(_x144, _x145, _x146, _x147, _x148, _x149) {
   return _singleFetchLoaderNavigationStrategy.apply(this, arguments);
 }
 function _singleFetchLoaderNavigationStrategy() {
-  _singleFetchLoaderNavigationStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee99(args, router, getRouteInfo, fetchAndDecode, ssr, basename) {
-    var routesParams, foundOptOutRoute, routeDfds, singleFetchDfd, results, resolvePromise, targetRoutes, data2;
-    return _regeneratorRuntime().wrap(function _callee99$(_context100) {
-      while (1) switch (_context100.prev = _context100.next) {
+  _singleFetchLoaderNavigationStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee101(args, router, getRouteInfo, fetchAndDecode, ssr, basename) {
+    var routesParams, foundOptOutRoute, routeDfds, singleFetchDfd, results, resolvePromise, isInitialLoad, targetRoutes, data2;
+    return _regeneratorRuntime().wrap(function _callee101$(_context103) {
+      while (1) switch (_context103.prev = _context103.next) {
         case 0:
           routesParams = /* @__PURE__ */new Set();
           foundOptOutRoute = false;
@@ -30738,15 +30919,15 @@ function _singleFetchLoaderNavigationStrategy() {
           singleFetchDfd = createDeferred2();
           results = {};
           resolvePromise = Promise.all(args.matches.map(/*#__PURE__*/function () {
-            var _ref125 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee98(m, i) {
-              return _regeneratorRuntime().wrap(function _callee98$(_context99) {
-                while (1) switch (_context99.prev = _context99.next) {
+            var _ref128 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee100(m, i) {
+              return _regeneratorRuntime().wrap(function _callee100$(_context102) {
+                while (1) switch (_context102.prev = _context102.next) {
                   case 0:
-                    return _context99.abrupt("return", m.resolve(/*#__PURE__*/function () {
-                      var _ref126 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee97(handler) {
+                    return _context102.abrupt("return", m.resolve(/*#__PURE__*/function () {
+                      var _ref129 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee99(handler) {
                         var routeId, _getRouteInfo3, hasLoader, hasClientLoader, hasShouldRevalidate, defaultShouldRevalidate, shouldCall, result, _result4;
-                        return _regeneratorRuntime().wrap(function _callee97$(_context98) {
-                          while (1) switch (_context98.prev = _context98.next) {
+                        return _regeneratorRuntime().wrap(function _callee99$(_context101) {
+                          while (1) switch (_context101.prev = _context101.next) {
                             case 0:
                               routeDfds[i].resolve();
                               routeId = m.route.id;
@@ -30754,7 +30935,7 @@ function _singleFetchLoaderNavigationStrategy() {
                               defaultShouldRevalidate = !m.unstable_shouldRevalidateArgs || m.unstable_shouldRevalidateArgs.actionStatus == null || m.unstable_shouldRevalidateArgs.actionStatus < 400;
                               shouldCall = m.unstable_shouldCallHandler(defaultShouldRevalidate);
                               if (shouldCall) {
-                                _context98.next = 8;
+                                _context101.next = 8;
                                 break;
                               }
                               foundOptOutRoute || (foundOptOutRoute = m.unstable_shouldRevalidateArgs != null &&
@@ -30762,204 +30943,281 @@ function _singleFetchLoaderNavigationStrategy() {
                               hasLoader &&
                               // for a route with a server loader,
                               hasShouldRevalidate === true);
-                              return _context98.abrupt("return");
+                              return _context101.abrupt("return");
                             case 8:
                               if (!hasClientLoader) {
-                                _context98.next = 21;
+                                _context101.next = 21;
                                 break;
                               }
                               if (hasLoader) {
                                 foundOptOutRoute = true;
                               }
-                              _context98.prev = 10;
-                              _context98.next = 13;
-                              return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee95() {
+                              _context101.prev = 10;
+                              _context101.next = 13;
+                              return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee97() {
                                 var _yield$fetchAndDecode3, data2;
-                                return _regeneratorRuntime().wrap(function _callee95$(_context96) {
-                                  while (1) switch (_context96.prev = _context96.next) {
+                                return _regeneratorRuntime().wrap(function _callee97$(_context99) {
+                                  while (1) switch (_context99.prev = _context99.next) {
                                     case 0:
-                                      _context96.next = 2;
+                                      _context99.next = 2;
                                       return fetchAndDecode(args, basename, [routeId]);
                                     case 2:
-                                      _yield$fetchAndDecode3 = _context96.sent;
+                                      _yield$fetchAndDecode3 = _context99.sent;
                                       data2 = _yield$fetchAndDecode3.data;
-                                      return _context96.abrupt("return", unwrapSingleFetchResult(data2, routeId));
+                                      return _context99.abrupt("return", unwrapSingleFetchResult(data2, routeId));
                                     case 5:
                                     case "end":
-                                      return _context96.stop();
+                                      return _context99.stop();
                                   }
-                                }, _callee95);
+                                }, _callee97);
                               })));
                             case 13:
-                              result = _context98.sent;
+                              result = _context101.sent;
                               results[routeId] = {
                                 type: "data",
                                 result: result
                               };
-                              _context98.next = 20;
+                              _context101.next = 20;
                               break;
                             case 17:
-                              _context98.prev = 17;
-                              _context98.t0 = _context98["catch"](10);
+                              _context101.prev = 17;
+                              _context101.t0 = _context101["catch"](10);
                               results[routeId] = {
                                 type: "error",
-                                result: _context98.t0
+                                result: _context101.t0
                               };
                             case 20:
-                              return _context98.abrupt("return");
+                              return _context101.abrupt("return");
                             case 21:
                               if (hasLoader) {
                                 routesParams.add(routeId);
                               }
-                              _context98.prev = 22;
-                              _context98.next = 25;
-                              return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee96() {
+                              _context101.prev = 22;
+                              _context101.next = 25;
+                              return handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee98() {
                                 var data2;
-                                return _regeneratorRuntime().wrap(function _callee96$(_context97) {
-                                  while (1) switch (_context97.prev = _context97.next) {
+                                return _regeneratorRuntime().wrap(function _callee98$(_context100) {
+                                  while (1) switch (_context100.prev = _context100.next) {
                                     case 0:
-                                      _context97.next = 2;
+                                      _context100.next = 2;
                                       return singleFetchDfd.promise;
                                     case 2:
-                                      data2 = _context97.sent;
-                                      return _context97.abrupt("return", unwrapSingleFetchResult(data2, routeId));
+                                      data2 = _context100.sent;
+                                      return _context100.abrupt("return", unwrapSingleFetchResult(data2, routeId));
                                     case 4:
                                     case "end":
-                                      return _context97.stop();
+                                      return _context100.stop();
                                   }
-                                }, _callee96);
+                                }, _callee98);
                               })));
                             case 25:
-                              _result4 = _context98.sent;
+                              _result4 = _context101.sent;
                               results[routeId] = {
                                 type: "data",
                                 result: _result4
                               };
-                              _context98.next = 32;
+                              _context101.next = 32;
                               break;
                             case 29:
-                              _context98.prev = 29;
-                              _context98.t1 = _context98["catch"](22);
+                              _context101.prev = 29;
+                              _context101.t1 = _context101["catch"](22);
                               results[routeId] = {
                                 type: "error",
-                                result: _context98.t1
+                                result: _context101.t1
                               };
                             case 32:
                             case "end":
-                              return _context98.stop();
+                              return _context101.stop();
                           }
-                        }, _callee97, null, [[10, 17], [22, 29]]);
+                        }, _callee99, null, [[10, 17], [22, 29]]);
                       }));
-                      return function (_x235) {
-                        return _ref126.apply(this, arguments);
+                      return function (_x242) {
+                        return _ref129.apply(this, arguments);
                       };
                     }()));
                   case 1:
                   case "end":
-                    return _context99.stop();
+                    return _context102.stop();
                 }
-              }, _callee98);
+              }, _callee100);
             }));
-            return function (_x233, _x234) {
-              return _ref125.apply(this, arguments);
+            return function (_x240, _x241) {
+              return _ref128.apply(this, arguments);
             };
           }()));
-          _context100.next = 8;
+          _context103.next = 8;
           return Promise.all(routeDfds.map(function (d) {
             return d.promise;
           }));
         case 8:
-          if (!((!router.state.initialized || routesParams.size === 0) && !window.__reactRouterHdrActive)) {
-            _context100.next = 12;
+          isInitialLoad = !router.state.initialized && router.state.navigation.state === "idle";
+          if (!((isInitialLoad || routesParams.size === 0) && !window.__reactRouterHdrActive)) {
+            _context103.next = 13;
             break;
           }
           singleFetchDfd.resolve({
             routes: {}
           });
-          _context100.next = 23;
+          _context103.next = 24;
           break;
-        case 12:
+        case 13:
           targetRoutes = ssr && foundOptOutRoute && routesParams.size > 0 ? _toConsumableArray(routesParams.keys()) : void 0;
-          _context100.prev = 13;
-          _context100.next = 16;
+          _context103.prev = 14;
+          _context103.next = 17;
           return fetchAndDecode(args, basename, targetRoutes);
-        case 16:
-          data2 = _context100.sent;
+        case 17:
+          data2 = _context103.sent;
           singleFetchDfd.resolve(data2.data);
-          _context100.next = 23;
+          _context103.next = 24;
           break;
-        case 20:
-          _context100.prev = 20;
-          _context100.t0 = _context100["catch"](13);
-          singleFetchDfd.reject(_context100.t0);
-        case 23:
-          _context100.next = 25;
+        case 21:
+          _context103.prev = 21;
+          _context103.t0 = _context103["catch"](14);
+          singleFetchDfd.reject(_context103.t0);
+        case 24:
+          _context103.next = 26;
           return resolvePromise;
-        case 25:
-          return _context100.abrupt("return", results);
         case 26:
+          _context103.next = 28;
+          return bubbleMiddlewareErrors(singleFetchDfd.promise, args.matches, routesParams, results);
+        case 28:
+          return _context103.abrupt("return", results);
+        case 29:
         case "end":
-          return _context100.stop();
+          return _context103.stop();
       }
-    }, _callee99, null, [[13, 20]]);
+    }, _callee101, null, [[14, 21]]);
   }));
   return _singleFetchLoaderNavigationStrategy.apply(this, arguments);
 }
-function singleFetchLoaderFetcherStrategy(_x148, _x149, _x150) {
+function bubbleMiddlewareErrors(_x150, _x151, _x152, _x153) {
+  return _bubbleMiddlewareErrors.apply(this, arguments);
+}
+function _bubbleMiddlewareErrors() {
+  _bubbleMiddlewareErrors = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee102(singleFetchPromise, matches, routesParams, results) {
+    var middlewareError, fetchedData, _iterator23, _step23, _match2, routeResult;
+    return _regeneratorRuntime().wrap(function _callee102$(_context104) {
+      while (1) switch (_context104.prev = _context104.next) {
+        case 0:
+          _context104.prev = 0;
+          _context104.next = 3;
+          return singleFetchPromise;
+        case 3:
+          fetchedData = _context104.sent;
+          if (!("routes" in fetchedData)) {
+            _context104.next = 25;
+            break;
+          }
+          _iterator23 = _createForOfIteratorHelper(matches);
+          _context104.prev = 6;
+          _iterator23.s();
+        case 8:
+          if ((_step23 = _iterator23.n()).done) {
+            _context104.next = 17;
+            break;
+          }
+          _match2 = _step23.value;
+          if (!(_match2.route.id in fetchedData.routes)) {
+            _context104.next = 15;
+            break;
+          }
+          routeResult = fetchedData.routes[_match2.route.id];
+          if (!("error" in routeResult)) {
+            _context104.next = 15;
+            break;
+          }
+          middlewareError = routeResult.error;
+          return _context104.abrupt("break", 17);
+        case 15:
+          _context104.next = 8;
+          break;
+        case 17:
+          _context104.next = 22;
+          break;
+        case 19:
+          _context104.prev = 19;
+          _context104.t0 = _context104["catch"](6);
+          _iterator23.e(_context104.t0);
+        case 22:
+          _context104.prev = 22;
+          _iterator23.f();
+          return _context104.finish(22);
+        case 25:
+          if (middlewareError !== void 0) {
+            Array.from(routesParams.values()).forEach(function (routeId) {
+              if (results[routeId].result instanceof SingleFetchNoResultError) {
+                results[routeId].result = middlewareError;
+              }
+            });
+          }
+          _context104.next = 30;
+          break;
+        case 28:
+          _context104.prev = 28;
+          _context104.t1 = _context104["catch"](0);
+        case 30:
+        case "end":
+          return _context104.stop();
+      }
+    }, _callee102, null, [[0, 28], [6, 19, 22, 25]]);
+  }));
+  return _bubbleMiddlewareErrors.apply(this, arguments);
+}
+function singleFetchLoaderFetcherStrategy(_x154, _x155, _x156) {
   return _singleFetchLoaderFetcherStrategy.apply(this, arguments);
 }
 function _singleFetchLoaderFetcherStrategy() {
-  _singleFetchLoaderFetcherStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee102(args, fetchAndDecode, basename) {
+  _singleFetchLoaderFetcherStrategy = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee105(args, fetchAndDecode, basename) {
     var fetcherMatch, routeId, result;
-    return _regeneratorRuntime().wrap(function _callee102$(_context103) {
-      while (1) switch (_context103.prev = _context103.next) {
+    return _regeneratorRuntime().wrap(function _callee105$(_context107) {
+      while (1) switch (_context107.prev = _context107.next) {
         case 0:
           fetcherMatch = args.matches.find(function (m) {
             return m.unstable_shouldCallHandler();
           });
           invariant2(fetcherMatch, "No fetcher match found");
           routeId = fetcherMatch.route.id;
-          _context103.next = 5;
+          _context107.next = 5;
           return fetcherMatch.resolve(/*#__PURE__*/function () {
-            var _ref129 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee101(handler) {
-              return _regeneratorRuntime().wrap(function _callee101$(_context102) {
-                while (1) switch (_context102.prev = _context102.next) {
+            var _ref132 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee104(handler) {
+              return _regeneratorRuntime().wrap(function _callee104$(_context106) {
+                while (1) switch (_context106.prev = _context106.next) {
                   case 0:
-                    return _context102.abrupt("return", handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee100() {
+                    return _context106.abrupt("return", handler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee103() {
                       var _yield$fetchAndDecode4, data2;
-                      return _regeneratorRuntime().wrap(function _callee100$(_context101) {
-                        while (1) switch (_context101.prev = _context101.next) {
+                      return _regeneratorRuntime().wrap(function _callee103$(_context105) {
+                        while (1) switch (_context105.prev = _context105.next) {
                           case 0:
-                            _context101.next = 2;
+                            _context105.next = 2;
                             return fetchAndDecode(args, basename, [routeId]);
                           case 2:
-                            _yield$fetchAndDecode4 = _context101.sent;
+                            _yield$fetchAndDecode4 = _context105.sent;
                             data2 = _yield$fetchAndDecode4.data;
-                            return _context101.abrupt("return", unwrapSingleFetchResult(data2, routeId));
+                            return _context105.abrupt("return", unwrapSingleFetchResult(data2, routeId));
                           case 5:
                           case "end":
-                            return _context101.stop();
+                            return _context105.stop();
                         }
-                      }, _callee100);
+                      }, _callee103);
                     }))));
                   case 1:
                   case "end":
-                    return _context102.stop();
+                    return _context106.stop();
                 }
-              }, _callee101);
+              }, _callee104);
             }));
-            return function (_x236) {
-              return _ref129.apply(this, arguments);
+            return function (_x243) {
+              return _ref132.apply(this, arguments);
             };
           }());
         case 5:
-          result = _context103.sent;
-          return _context103.abrupt("return", _defineProperty({}, fetcherMatch.route.id, result));
+          result = _context107.sent;
+          return _context107.abrupt("return", _defineProperty({}, fetcherMatch.route.id, result));
         case 7:
         case "end":
-          return _context103.stop();
+          return _context107.stop();
       }
-    }, _callee102);
+    }, _callee105);
   }));
   return _singleFetchLoaderFetcherStrategy.apply(this, arguments);
 }
@@ -30967,22 +31225,22 @@ function stripIndexParam(url) {
   var indexValues = url.searchParams.getAll("index");
   url.searchParams.delete("index");
   var indexValuesToKeep = [];
-  var _iterator13 = _createForOfIteratorHelper(indexValues),
-    _step13;
+  var _iterator19 = _createForOfIteratorHelper(indexValues),
+    _step19;
   try {
-    for (_iterator13.s(); !(_step13 = _iterator13.n()).done;) {
-      var indexValue = _step13.value;
+    for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
+      var indexValue = _step19.value;
       if (indexValue) {
         indexValuesToKeep.push(indexValue);
       }
     }
   } catch (err) {
-    _iterator13.e(err);
+    _iterator19.e(err);
   } finally {
-    _iterator13.f();
+    _iterator19.f();
   }
-  for (var _i4 = 0, _indexValuesToKeep = indexValuesToKeep; _i4 < _indexValuesToKeep.length; _i4++) {
-    var toKeep = _indexValuesToKeep[_i4];
+  for (var _i8 = 0, _indexValuesToKeep = indexValuesToKeep; _i8 < _indexValuesToKeep.length; _i8++) {
+    var toKeep = _indexValuesToKeep[_i8];
     url.searchParams.append("index", toKeep);
   }
   return url;
@@ -31001,14 +31259,14 @@ function singleFetchUrl(reqUrl, basename) {
   }
   return url;
 }
-function fetchAndDecodeViaTurboStream(_x151, _x152, _x153) {
+function fetchAndDecodeViaTurboStream(_x157, _x158, _x159) {
   return _fetchAndDecodeViaTurboStream.apply(this, arguments);
 }
 function _fetchAndDecodeViaTurboStream() {
-  _fetchAndDecodeViaTurboStream = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee103(args, basename, targetRoutes) {
+  _fetchAndDecodeViaTurboStream = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee106(args, basename, targetRoutes) {
     var request, url, res, routes, decoded, data2, typed, _typed, routeId;
-    return _regeneratorRuntime().wrap(function _callee103$(_context104) {
-      while (1) switch (_context104.prev = _context104.next) {
+    return _regeneratorRuntime().wrap(function _callee106$(_context108) {
+      while (1) switch (_context108.prev = _context108.next) {
         case 0:
           request = args.request;
           url = singleFetchUrl(request.url, basename);
@@ -31018,27 +31276,27 @@ function _fetchAndDecodeViaTurboStream() {
               url.searchParams.set("_routes", targetRoutes.join(","));
             }
           }
-          _context104.t0 = fetch;
-          _context104.t1 = url;
-          _context104.next = 7;
+          _context108.t0 = fetch;
+          _context108.t1 = url;
+          _context108.next = 7;
           return createRequestInit(request);
         case 7:
-          _context104.t2 = _context104.sent;
-          _context104.next = 10;
-          return (0, _context104.t0)(_context104.t1, _context104.t2);
+          _context108.t2 = _context108.sent;
+          _context108.next = 10;
+          return (0, _context108.t0)(_context108.t1, _context108.t2);
         case 10:
-          res = _context104.sent;
+          res = _context108.sent;
           if (!(res.status === 404 && !res.headers.has("X-Remix-Response"))) {
-            _context104.next = 13;
+            _context108.next = 13;
             break;
           }
           throw new ErrorResponseImpl(404, "Not Found", true);
         case 13:
           if (!(res.status === 204 && res.headers.has("X-Remix-Redirect"))) {
-            _context104.next = 15;
+            _context108.next = 15;
             break;
           }
-          return _context104.abrupt("return", {
+          return _context108.abrupt("return", {
             status: SINGLE_FETCH_REDIRECT_STATUS,
             data: {
               redirect: {
@@ -31052,7 +31310,7 @@ function _fetchAndDecodeViaTurboStream() {
           });
         case 15:
           if (!NO_BODY_STATUS_CODES.has(res.status)) {
-            _context104.next = 19;
+            _context108.next = 19;
             break;
           }
           routes = {};
@@ -31061,7 +31319,7 @@ function _fetchAndDecodeViaTurboStream() {
               data: void 0
             };
           }
-          return _context104.abrupt("return", {
+          return _context108.abrupt("return", {
             status: res.status,
             data: {
               routes: routes
@@ -31069,11 +31327,11 @@ function _fetchAndDecodeViaTurboStream() {
           });
         case 19:
           invariant2(res.body, "No response body to decode");
-          _context104.prev = 20;
-          _context104.next = 23;
+          _context108.prev = 20;
+          _context108.next = 23;
           return decodeViaTurboStream(res.body, window);
         case 23:
-          decoded = _context104.sent;
+          decoded = _context108.sent;
           if (request.method === "GET") {
             typed = decoded.value;
             if (SingleFetchRedirectSymbol in typed) {
@@ -31099,24 +31357,24 @@ function _fetchAndDecodeViaTurboStream() {
               };
             }
           }
-          return _context104.abrupt("return", {
+          return _context108.abrupt("return", {
             status: res.status,
             data: data2
           });
         case 28:
-          _context104.prev = 28;
-          _context104.t3 = _context104["catch"](20);
+          _context108.prev = 28;
+          _context108.t3 = _context108["catch"](20);
           throw new Error("Unable to decode turbo-stream response");
         case 31:
         case "end":
-          return _context104.stop();
+          return _context108.stop();
       }
-    }, _callee103, null, [[20, 28]]);
+    }, _callee106, null, [[20, 28]]);
   }));
   return _fetchAndDecodeViaTurboStream.apply(this, arguments);
 }
 function decodeViaTurboStream(body, global2) {
-  return (0, _turboStream.decode)(body, {
+  return decode(body, {
     plugins: [function (type) {
       for (var _len = arguments.length, rest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         rest[_key - 1] = arguments[_key];
@@ -31181,12 +31439,14 @@ function unwrapSingleFetchResult(result, routeId) {
     });
   }
   var routeResult = result.routes[routeId];
-  if ("error" in routeResult) {
+  if (routeResult == null) {
+    throw new SingleFetchNoResultError("No result found for routeId \"".concat(routeId, "\""));
+  } else if ("error" in routeResult) {
     throw routeResult.error;
   } else if ("data" in routeResult) {
     return routeResult.data;
   } else {
-    throw new Error("No response found for routeId \"".concat(routeId, "\""));
+    throw new Error("Invalid response found for routeId \"".concat(routeId, "\""));
   }
 }
 function createDeferred2() {
@@ -31194,8 +31454,8 @@ function createDeferred2() {
   var reject;
   var promise = new Promise(function (res, rej) {
     resolve = /*#__PURE__*/function () {
-      var _ref55 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee32(val) {
-        return _regeneratorRuntime().wrap(function _callee32$(_context33) {
+      var _ref57 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee31(val) {
+        return _regeneratorRuntime().wrap(function _callee31$(_context33) {
           while (1) switch (_context33.prev = _context33.next) {
             case 0:
               res(val);
@@ -31212,15 +31472,15 @@ function createDeferred2() {
             case "end":
               return _context33.stop();
           }
-        }, _callee32, null, [[1, 6]]);
+        }, _callee31, null, [[1, 6]]);
       }));
-      return function resolve(_x154) {
-        return _ref55.apply(this, arguments);
+      return function resolve(_x160) {
+        return _ref57.apply(this, arguments);
       };
     }();
     reject = /*#__PURE__*/function () {
-      var _ref56 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee33(error) {
-        return _regeneratorRuntime().wrap(function _callee33$(_context34) {
+      var _ref58 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee32(error) {
+        return _regeneratorRuntime().wrap(function _callee32$(_context34) {
           while (1) switch (_context34.prev = _context34.next) {
             case 0:
               rej(error);
@@ -31237,10 +31497,10 @@ function createDeferred2() {
             case "end":
               return _context34.stop();
           }
-        }, _callee33, null, [[1, 6]]);
+        }, _callee32, null, [[1, 6]]);
       }));
-      return function reject(_x155) {
-        return _ref56.apply(this, arguments);
+      return function reject(_x161) {
+        return _ref58.apply(this, arguments);
       };
     }();
   });
@@ -31261,14 +31521,14 @@ function createDeferred2() {
 
 var RemixErrorBoundary = exports.RemixErrorBoundary = /*#__PURE__*/function (_React5$Component) {
   function RemixErrorBoundary(props) {
-    var _this4;
+    var _this6;
     _classCallCheck(this, RemixErrorBoundary);
-    _this4 = _callSuper(this, RemixErrorBoundary, [props]);
-    _this4.state = {
+    _this6 = _callSuper(this, RemixErrorBoundary, [props]);
+    _this6.state = {
       error: props.error || null,
       location: props.location
     };
-    return _this4;
+    return _this6;
   }
   _inherits(RemixErrorBoundary, _React5$Component);
   return _createClass(RemixErrorBoundary, [{
@@ -31306,13 +31566,13 @@ var RemixErrorBoundary = exports.RemixErrorBoundary = /*#__PURE__*/function (_Re
     }
   }]);
 }(React5.Component);
-function RemixRootDefaultErrorBoundary(_ref57) {
-  var error = _ref57.error,
-    isOutsideRemixApp = _ref57.isOutsideRemixApp;
+function RemixRootDefaultErrorBoundary(_ref59) {
+  var error = _ref59.error,
+    isOutsideRemixApp = _ref59.isOutsideRemixApp;
   console.error(error);
   var heyDeveloper = /* @__PURE__ */React5.createElement("script", {
     dangerouslySetInnerHTML: {
-      __html: "\n        console.log(\n          \"\uD83D\uDCBF Hey developer \uD83D\uDC4B. You can provide a way better UX than this when your app throws errors. Check out https://remix.run/guides/errors for more information.\"\n        );\n      "
+      __html: "\n        console.log(\n          \"\uD83D\uDCBF Hey developer \uD83D\uDC4B. You can provide a way better UX than this when your app throws errors. Check out https://reactrouter.com/how-to/error-boundary for more information.\"\n        );\n      "
     }
   });
   if (isRouteErrorResponse(error)) {
@@ -31322,7 +31582,7 @@ function RemixRootDefaultErrorBoundary(_ref57) {
       style: {
         fontSize: "24px"
       }
-    }, error.status, " ", error.statusText), heyDeveloper);
+    }, error.status, " ", error.statusText), ENABLE_DEV_WARNINGS ? heyDeveloper : null);
   }
   var errorInstance;
   if (error instanceof Error) {
@@ -31347,12 +31607,12 @@ function RemixRootDefaultErrorBoundary(_ref57) {
     }
   }, errorInstance.stack), heyDeveloper);
 }
-function BoundaryShell(_ref58) {
+function BoundaryShell(_ref60) {
   var _routeModules$root;
-  var title = _ref58.title,
-    renderScripts = _ref58.renderScripts,
-    isOutsideRemixApp = _ref58.isOutsideRemixApp,
-    children = _ref58.children;
+  var title = _ref60.title,
+    renderScripts = _ref60.renderScripts,
+    isOutsideRemixApp = _ref60.isOutsideRemixApp,
+    children = _ref60.children;
   var _useFrameworkContext = useFrameworkContext(),
     routeModules = _useFrameworkContext.routeModules;
   if ((_routeModules$root = routeModules.root) !== null && _routeModules$root !== void 0 && _routeModules$root.Layout && !isOutsideRemixApp) {
@@ -31379,11 +31639,11 @@ function RemixRootDefaultHydrateFallback() {
   return /* @__PURE__ */React6.createElement(BoundaryShell, {
     title: "Loading...",
     renderScripts: true
-  }, /* @__PURE__ */React6.createElement("script", {
+  }, ENABLE_DEV_WARNINGS ? /* @__PURE__ */React6.createElement("script", {
     dangerouslySetInnerHTML: {
-      __html: "\n              console.log(\n                \"\uD83D\uDCBF Hey developer \uD83D\uDC4B. You can provide a way better UX than this \" +\n                \"when your app is loading JS modules and/or running `clientLoader` \" +\n                \"functions. Check out https://remix.run/route/hydrate-fallback \" +\n                \"for more information.\"\n              );\n            "
+      __html: "\n              console.log(\n                \"\uD83D\uDCBF Hey developer \uD83D\uDC4B. You can provide a way better UX than this \" +\n                \"when your app is loading JS modules and/or running `clientLoader` \" +\n                \"functions. Check out https://reactrouter.com/start/framework/route-module#hydratefallback \" +\n                \"for more information.\"\n              );\n            "
     }
-  }));
+  }) : null);
 }
 
 // lib/dom/ssr/routes.tsx
@@ -31518,13 +31778,13 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
         prefetchModule(route2.clientLoaderModule);
       }
     }
-    function prefetchStylesAndCallHandler(_x156) {
+    function prefetchStylesAndCallHandler(_x162) {
       return _prefetchStylesAndCallHandler.apply(this, arguments);
     }
     function _prefetchStylesAndCallHandler() {
-      _prefetchStylesAndCallHandler = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee50(handler) {
+      _prefetchStylesAndCallHandler = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee49(handler) {
         var cachedModule, linkPrefetchPromise;
-        return _regeneratorRuntime().wrap(function _callee50$(_context51) {
+        return _regeneratorRuntime().wrap(function _callee49$(_context51) {
           while (1) switch (_context51.prev = _context51.next) {
             case 0:
               cachedModule = routeModulesCache[route.id];
@@ -31541,7 +31801,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
             case "end":
               return _context51.stop();
           }
-        }, _callee50, null, [[2,, 4, 8]]);
+        }, _callee49, null, [[2,, 4, 8]]);
       }));
       return _prefetchStylesAndCallHandler.apply(this, arguments);
     }
@@ -31563,16 +31823,16 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
       var initialError = hasInitialError ? initialState === null || initialState === void 0 || (_initialState$errors = initialState.errors) === null || _initialState$errors === void 0 ? void 0 : _initialState$errors[route.id] : void 0;
       var isHydrationRequest = needsRevalidation == null && (((_routeModule$clientLo = routeModule.clientLoader) === null || _routeModule$clientLo === void 0 ? void 0 : _routeModule$clientLo.hydrate) === true || !route.hasLoader);
       dataRoute.loader = /*#__PURE__*/function () {
-        var _ref60 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee36(_ref59, singleFetch) {
+        var _ref62 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee35(_ref61, singleFetch) {
           var request, params, context, result;
-          return _regeneratorRuntime().wrap(function _callee36$(_context37) {
+          return _regeneratorRuntime().wrap(function _callee35$(_context37) {
             while (1) switch (_context37.prev = _context37.next) {
               case 0:
-                request = _ref59.request, params = _ref59.params, context = _ref59.context;
+                request = _ref61.request, params = _ref61.params, context = _ref61.context;
                 _context37.prev = 1;
                 _context37.next = 4;
-                return prefetchStylesAndCallHandler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee35() {
-                  return _regeneratorRuntime().wrap(function _callee35$(_context36) {
+                return prefetchStylesAndCallHandler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee34() {
+                  return _regeneratorRuntime().wrap(function _callee34$(_context36) {
                     while (1) switch (_context36.prev = _context36.next) {
                       case 0:
                         invariant2(routeModule, "No `routeModule` available for critical-route loader");
@@ -31587,8 +31847,8 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                           params: params,
                           context: context,
                           serverLoader: function serverLoader() {
-                            return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee34() {
-                              return _regeneratorRuntime().wrap(function _callee34$(_context35) {
+                            return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee33() {
+                              return _regeneratorRuntime().wrap(function _callee33$(_context35) {
                                 while (1) switch (_context35.prev = _context35.next) {
                                   case 0:
                                     preventInvalidServerHandlerCall("loader", route);
@@ -31613,7 +31873,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                                   case "end":
                                     return _context35.stop();
                                 }
-                              }, _callee34);
+                              }, _callee33);
                             }))();
                           }
                         }));
@@ -31621,7 +31881,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                       case "end":
                         return _context36.stop();
                     }
-                  }, _callee35);
+                  }, _callee34);
                 })));
               case 4:
                 result = _context37.sent;
@@ -31634,19 +31894,19 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case "end":
                 return _context37.stop();
             }
-          }, _callee36, null, [[1,, 6, 9]]);
+          }, _callee35, null, [[1,, 6, 9]]);
         }));
-        return function (_x157, _x158) {
-          return _ref60.apply(this, arguments);
+        return function (_x163, _x164) {
+          return _ref62.apply(this, arguments);
         };
       }();
       dataRoute.loader.hydrate = shouldHydrateRouteLoader(route.id, routeModule.clientLoader, route.hasLoader, isSpaMode);
-      dataRoute.action = function (_ref62, singleFetch) {
-        var request = _ref62.request,
-          params = _ref62.params,
-          context = _ref62.context;
-        return prefetchStylesAndCallHandler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee38() {
-          return _regeneratorRuntime().wrap(function _callee38$(_context39) {
+      dataRoute.action = function (_ref64, singleFetch) {
+        var request = _ref64.request,
+          params = _ref64.params,
+          context = _ref64.context;
+        return prefetchStylesAndCallHandler(/*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee37() {
+          return _regeneratorRuntime().wrap(function _callee37$(_context39) {
             while (1) switch (_context39.prev = _context39.next) {
               case 0:
                 invariant2(routeModule, "No `routeModule` available for critical-route action");
@@ -31667,8 +31927,8 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                   params: params,
                   context: context,
                   serverAction: function serverAction() {
-                    return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee37() {
-                      return _regeneratorRuntime().wrap(function _callee37$(_context38) {
+                    return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee36() {
+                      return _regeneratorRuntime().wrap(function _callee36$(_context38) {
                         while (1) switch (_context38.prev = _context38.next) {
                           case 0:
                             preventInvalidServerHandlerCall("action", route);
@@ -31677,7 +31937,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                           case "end":
                             return _context38.stop();
                         }
-                      }, _callee37);
+                      }, _callee36);
                     }))();
                   }
                 }));
@@ -31685,7 +31945,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case "end":
                 return _context39.stop();
             }
-          }, _callee38);
+          }, _callee37);
         })));
       };
     } else {
@@ -31711,8 +31971,8 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
         return _getLazyRoute.apply(this, arguments);
       }
       function _getLazyRoute() {
-        _getLazyRoute = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee49() {
-          return _regeneratorRuntime().wrap(function _callee49$(_context50) {
+        _getLazyRoute = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee48() {
+          return _regeneratorRuntime().wrap(function _callee48$(_context50) {
             while (1) switch (_context50.prev = _context50.next) {
               case 0:
                 if (!lazyRoutePromise) {
@@ -31724,9 +31984,9 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case 3:
                 return _context50.abrupt("return", _context50.sent);
               case 4:
-                lazyRoutePromise = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee48() {
+                lazyRoutePromise = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee47() {
                   var routeModulePromise;
-                  return _regeneratorRuntime().wrap(function _callee48$(_context49) {
+                  return _regeneratorRuntime().wrap(function _callee47$(_context49) {
                     while (1) switch (_context49.prev = _context49.next) {
                       case 0:
                         if (!(route.clientLoaderModule || route.clientActionModule)) {
@@ -31748,7 +32008,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                       case "end":
                         return _context49.stop();
                     }
-                  }, _callee48);
+                  }, _callee47);
                 }))();
                 _context50.next = 7;
                 return lazyRoutePromise;
@@ -31758,14 +32018,14 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case "end":
                 return _context50.stop();
             }
-          }, _callee49);
+          }, _callee48);
         }));
         return _getLazyRoute.apply(this, arguments);
       }
       dataRoute.lazy = {
-        loader: route.hasClientLoader ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee40() {
-          var _ref65, clientLoader;
-          return _regeneratorRuntime().wrap(function _callee40$(_context41) {
+        loader: route.hasClientLoader ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee39() {
+          var _ref67, clientLoader;
+          return _regeneratorRuntime().wrap(function _callee39$(_context41) {
             while (1) switch (_context41.prev = _context41.next) {
               case 0:
                 if (!route.clientLoaderModule) {
@@ -31786,14 +32046,14 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case 8:
                 _context41.t0 = _context41.sent;
               case 9:
-                _ref65 = _context41.t0;
-                clientLoader = _ref65.clientLoader;
+                _ref67 = _context41.t0;
+                clientLoader = _ref67.clientLoader;
                 invariant2(clientLoader, "No `clientLoader` export found");
                 return _context41.abrupt("return", function (args, singleFetch) {
                   return clientLoader(_objectSpread(_objectSpread({}, args), {}, {
                     serverLoader: function serverLoader() {
-                      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee39() {
-                        return _regeneratorRuntime().wrap(function _callee39$(_context40) {
+                      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee38() {
+                        return _regeneratorRuntime().wrap(function _callee38$(_context40) {
                           while (1) switch (_context40.prev = _context40.next) {
                             case 0:
                               preventInvalidServerHandlerCall("loader", route);
@@ -31802,7 +32062,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                             case "end":
                               return _context40.stop();
                           }
-                        }, _callee39);
+                        }, _callee38);
                       }))();
                     }
                   }));
@@ -31811,11 +32071,11 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case "end":
                 return _context41.stop();
             }
-          }, _callee40);
+          }, _callee39);
         })) : void 0,
-        action: route.hasClientAction ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee42() {
+        action: route.hasClientAction ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee41() {
           var clientActionPromise, _yield$clientActionPr, clientAction;
-          return _regeneratorRuntime().wrap(function _callee42$(_context43) {
+          return _regeneratorRuntime().wrap(function _callee41$(_context43) {
             while (1) switch (_context43.prev = _context43.next) {
               case 0:
                 clientActionPromise = route.clientActionModule ? import(/* @vite-ignore */
@@ -31831,8 +32091,8 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                 return _context43.abrupt("return", function (args, singleFetch) {
                   return clientAction(_objectSpread(_objectSpread({}, args), {}, {
                     serverAction: function serverAction() {
-                      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee41() {
-                        return _regeneratorRuntime().wrap(function _callee41$(_context42) {
+                      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee40() {
+                        return _regeneratorRuntime().wrap(function _callee40$(_context42) {
                           while (1) switch (_context42.prev = _context42.next) {
                             case 0:
                               preventInvalidServerHandlerCall("action", route);
@@ -31841,7 +32101,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                             case "end":
                               return _context42.stop();
                           }
-                        }, _callee41);
+                        }, _callee40);
                       }))();
                     }
                   }));
@@ -31850,11 +32110,11 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case "end":
                 return _context43.stop();
             }
-          }, _callee42);
+          }, _callee41);
         })) : void 0,
-        unstable_middleware: route.hasClientMiddleware ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee43() {
-          var _ref68, unstable_clientMiddleware;
-          return _regeneratorRuntime().wrap(function _callee43$(_context44) {
+        unstable_middleware: route.hasClientMiddleware ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee42() {
+          var _ref70, unstable_clientMiddleware;
+          return _regeneratorRuntime().wrap(function _callee42$(_context44) {
             while (1) switch (_context44.prev = _context44.next) {
               case 0:
                 if (!route.clientMiddlewareModule) {
@@ -31875,20 +32135,20 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case 8:
                 _context44.t0 = _context44.sent;
               case 9:
-                _ref68 = _context44.t0;
-                unstable_clientMiddleware = _ref68.unstable_clientMiddleware;
+                _ref70 = _context44.t0;
+                unstable_clientMiddleware = _ref70.unstable_clientMiddleware;
                 invariant2(unstable_clientMiddleware, "No `unstable_clientMiddleware` export found");
                 return _context44.abrupt("return", unstable_clientMiddleware);
               case 13:
               case "end":
                 return _context44.stop();
             }
-          }, _callee43);
+          }, _callee42);
         })) : void 0,
         shouldRevalidate: function () {
-          var _shouldRevalidate = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee44() {
+          var _shouldRevalidate = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee43() {
             var lazyRoute;
-            return _regeneratorRuntime().wrap(function _callee44$(_context45) {
+            return _regeneratorRuntime().wrap(function _callee43$(_context45) {
               while (1) switch (_context45.prev = _context45.next) {
                 case 0:
                   _context45.next = 2;
@@ -31900,7 +32160,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                 case "end":
                   return _context45.stop();
               }
-            }, _callee44);
+            }, _callee43);
           }));
           function shouldRevalidate() {
             return _shouldRevalidate.apply(this, arguments);
@@ -31908,8 +32168,8 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
           return shouldRevalidate;
         }(),
         handle: function () {
-          var _handle = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee45() {
-            return _regeneratorRuntime().wrap(function _callee45$(_context46) {
+          var _handle = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee44() {
+            return _regeneratorRuntime().wrap(function _callee44$(_context46) {
               while (1) switch (_context46.prev = _context46.next) {
                 case 0:
                   _context46.next = 2;
@@ -31920,7 +32180,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                 case "end":
                   return _context46.stop();
               }
-            }, _callee45);
+            }, _callee44);
           }));
           function handle() {
             return _handle.apply(this, arguments);
@@ -31930,8 +32190,8 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
         // No need to wrap these in layout since the root route is never
         // loaded via route.lazy()
         Component: function () {
-          var _Component = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee46() {
-            return _regeneratorRuntime().wrap(function _callee46$(_context47) {
+          var _Component = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee45() {
+            return _regeneratorRuntime().wrap(function _callee45$(_context47) {
               while (1) switch (_context47.prev = _context47.next) {
                 case 0:
                   _context47.next = 2;
@@ -31942,15 +32202,15 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
                 case "end":
                   return _context47.stop();
               }
-            }, _callee46);
+            }, _callee45);
           }));
           function Component() {
             return _Component.apply(this, arguments);
           }
           return Component;
         }(),
-        ErrorBoundary: route.hasErrorBoundary ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee47() {
-          return _regeneratorRuntime().wrap(function _callee47$(_context48) {
+        ErrorBoundary: route.hasErrorBoundary ? /*#__PURE__*/_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee46() {
+          return _regeneratorRuntime().wrap(function _callee46$(_context48) {
             while (1) switch (_context48.prev = _context48.next) {
               case 0:
                 _context48.next = 2;
@@ -31961,7 +32221,7 @@ function createClientRoutes(manifest, routeModulesCache, initialState, ssr, isSp
               case "end":
                 return _context48.stop();
             }
-          }, _callee47);
+          }, _callee46);
         })) : void 0
       };
     }
@@ -32016,25 +32276,25 @@ function wrapShouldRevalidateForHdr(routeId, routeShouldRevalidate, needsRevalid
     return routeShouldRevalidate ? routeShouldRevalidate(arg) : arg.defaultShouldRevalidate;
   };
 }
-function loadRouteModuleWithBlockingLinks(_x159, _x160) {
+function loadRouteModuleWithBlockingLinks(_x165, _x166) {
   return _loadRouteModuleWithBlockingLinks.apply(this, arguments);
 }
 function _loadRouteModuleWithBlockingLinks() {
-  _loadRouteModuleWithBlockingLinks = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee104(route, routeModules) {
+  _loadRouteModuleWithBlockingLinks = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee107(route, routeModules) {
     var routeModulePromise, prefetchRouteCssPromise, routeModule;
-    return _regeneratorRuntime().wrap(function _callee104$(_context105) {
-      while (1) switch (_context105.prev = _context105.next) {
+    return _regeneratorRuntime().wrap(function _callee107$(_context109) {
+      while (1) switch (_context109.prev = _context109.next) {
         case 0:
           routeModulePromise = loadRouteModule(route, routeModules);
           prefetchRouteCssPromise = prefetchRouteCss(route);
-          _context105.next = 4;
+          _context109.next = 4;
           return routeModulePromise;
         case 4:
-          routeModule = _context105.sent;
-          _context105.next = 7;
+          routeModule = _context109.sent;
+          _context109.next = 7;
           return Promise.all([prefetchRouteCssPromise, prefetchStyleLinks(route, routeModule)]);
         case 7:
-          return _context105.abrupt("return", {
+          return _context109.abrupt("return", {
             Component: getRouteModuleComponent(routeModule),
             ErrorBoundary: routeModule.ErrorBoundary,
             unstable_clientMiddleware: routeModule.unstable_clientMiddleware,
@@ -32047,9 +32307,9 @@ function _loadRouteModuleWithBlockingLinks() {
           });
         case 8:
         case "end":
-          return _context105.stop();
+          return _context109.stop();
       }
-    }, _callee104);
+    }, _callee107);
   }));
   return _loadRouteModuleWithBlockingLinks.apply(this, arguments);
 }
@@ -32069,12 +32329,12 @@ var nextPaths = /* @__PURE__ */new Set();
 var discoveredPathsMaxSize = 1e3;
 var discoveredPaths = /* @__PURE__ */new Set();
 var URL_LIMIT = 7680;
-function isFogOfWarEnabled(ssr) {
-  return ssr === true;
+function isFogOfWarEnabled(routeDiscovery, ssr) {
+  return routeDiscovery.mode === "lazy" && ssr === true;
 }
-function getPartialManifest(_ref71, router) {
-  var sri = _ref71.sri,
-    manifest = _objectWithoutProperties(_ref71, _excluded);
+function getPartialManifest(_ref73, router) {
+  var sri = _ref73.sri,
+    manifest = _objectWithoutProperties(_ref73, _excluded);
   var routeIds = new Set(router.state.matches.map(function (m) {
     return m.route.id;
   }));
@@ -32101,17 +32361,17 @@ function getPartialManifest(_ref71, router) {
     sri: sri ? true : void 0
   });
 }
-function getPatchRoutesOnNavigationFunction(manifest, routeModules, ssr, isSpaMode, basename) {
-  if (!isFogOfWarEnabled(ssr)) {
+function getPatchRoutesOnNavigationFunction(manifest, routeModules, ssr, routeDiscovery, isSpaMode, basename) {
+  if (!isFogOfWarEnabled(routeDiscovery, ssr)) {
     return void 0;
   }
   return /*#__PURE__*/function () {
-    var _ref73 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee51(_ref72) {
+    var _ref75 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee50(_ref74) {
       var path, patch, signal, fetcherKey;
-      return _regeneratorRuntime().wrap(function _callee51$(_context52) {
+      return _regeneratorRuntime().wrap(function _callee50$(_context52) {
         while (1) switch (_context52.prev = _context52.next) {
           case 0:
-            path = _ref72.path, patch = _ref72.patch, signal = _ref72.signal, fetcherKey = _ref72.fetcherKey;
+            path = _ref74.path, patch = _ref74.patch, signal = _ref74.signal, fetcherKey = _ref74.fetcherKey;
             if (!discoveredPaths.has(path)) {
               _context52.next = 3;
               break;
@@ -32119,22 +32379,24 @@ function getPatchRoutesOnNavigationFunction(manifest, routeModules, ssr, isSpaMo
             return _context52.abrupt("return");
           case 3:
             _context52.next = 5;
-            return fetchAndApplyManifestPatches([path], fetcherKey ? window.location.href : path, manifest, routeModules, ssr, isSpaMode, basename, patch, signal);
+            return fetchAndApplyManifestPatches([path], fetcherKey ? window.location.href : path, manifest, routeModules, ssr, isSpaMode, basename, routeDiscovery.manifestPath, patch, signal);
           case 5:
           case "end":
             return _context52.stop();
         }
-      }, _callee51);
+      }, _callee50);
     }));
-    return function (_x161) {
-      return _ref73.apply(this, arguments);
+    return function (_x167) {
+      return _ref75.apply(this, arguments);
     };
   }();
 }
-function useFogOFWarDiscovery(router, manifest, routeModules, ssr, isSpaMode) {
+function useFogOFWarDiscovery(router, manifest, routeModules, ssr, routeDiscovery, isSpaMode) {
   React8.useEffect(function () {
-    var _navigator$connection;
-    if (!isFogOfWarEnabled(ssr) || ((_navigator$connection = navigator.connection) === null || _navigator$connection === void 0 ? void 0 : _navigator$connection.saveData) === true) {
+    var _window$navigator;
+    if (!isFogOfWarEnabled(routeDiscovery, ssr) ||
+    // @ts-expect-error - TS doesn't know about this yet
+    ((_window$navigator = window.navigator) === null || _window$navigator === void 0 || (_window$navigator = _window$navigator.connection) === null || _window$navigator === void 0 ? void 0 : _window$navigator.saveData) === true) {
       return;
     }
     function registerElement(el) {
@@ -32151,9 +32413,9 @@ function useFogOFWarDiscovery(router, manifest, routeModules, ssr, isSpaMode) {
       return _fetchPatches.apply(this, arguments);
     }
     function _fetchPatches() {
-      _fetchPatches = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee52() {
+      _fetchPatches = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee51() {
         var lazyPaths;
-        return _regeneratorRuntime().wrap(function _callee52$(_context53) {
+        return _regeneratorRuntime().wrap(function _callee51$(_context53) {
           while (1) switch (_context53.prev = _context53.next) {
             case 0:
               document.querySelectorAll("a[data-discover], form[data-discover]").forEach(registerElement);
@@ -32172,7 +32434,7 @@ function useFogOFWarDiscovery(router, manifest, routeModules, ssr, isSpaMode) {
             case 4:
               _context53.prev = 4;
               _context53.next = 7;
-              return fetchAndApplyManifestPatches(lazyPaths, null, manifest, routeModules, ssr, isSpaMode, router.basename, router.patchRoutes);
+              return fetchAndApplyManifestPatches(lazyPaths, null, manifest, routeModules, ssr, isSpaMode, router.basename, routeDiscovery.manifestPath, router.patchRoutes);
             case 7:
               _context53.next = 12;
               break;
@@ -32184,7 +32446,7 @@ function useFogOFWarDiscovery(router, manifest, routeModules, ssr, isSpaMode) {
             case "end":
               return _context53.stop();
           }
-        }, _callee52, null, [[4, 9]]);
+        }, _callee51, null, [[4, 9]]);
       }));
       return _fetchPatches.apply(this, arguments);
     }
@@ -32202,95 +32464,106 @@ function useFogOFWarDiscovery(router, manifest, routeModules, ssr, isSpaMode) {
     return function () {
       return observer.disconnect();
     };
-  }, [ssr, isSpaMode, manifest, routeModules, router]);
+  }, [ssr, isSpaMode, manifest, routeModules, router, routeDiscovery]);
+}
+function getManifestPath(_manifestPath, basename) {
+  var manifestPath = _manifestPath || "/__manifest";
+  if (basename == null) {
+    return manifestPath;
+  }
+  return "".concat(basename).concat(manifestPath).replace(/\/+/g, "/");
 }
 var MANIFEST_VERSION_STORAGE_KEY = "react-router-manifest-version";
-function fetchAndApplyManifestPatches(_x162, _x163, _x164, _x165, _x166, _x167, _x168, _x169, _x170) {
+function fetchAndApplyManifestPatches(_x168, _x169, _x170, _x171, _x172, _x173, _x174, _x175, _x176, _x177) {
   return _fetchAndApplyManifestPatches.apply(this, arguments);
 }
 function _fetchAndApplyManifestPatches() {
-  _fetchAndApplyManifestPatches = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee105(paths, errorReloadPath, manifest, routeModules, ssr, isSpaMode, basename, patchRoutes, signal) {
-    var manifestPath, url, serverPatches, res, knownRoutes, patches, parentIds;
-    return _regeneratorRuntime().wrap(function _callee105$(_context106) {
-      while (1) switch (_context106.prev = _context106.next) {
+  _fetchAndApplyManifestPatches = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee108(paths, errorReloadPath, manifest, routeModules, ssr, isSpaMode, basename, manifestPath, patchRoutes, signal) {
+    var url, serverPatches, res, knownRoutes, patches, parentIds;
+    return _regeneratorRuntime().wrap(function _callee108$(_context110) {
+      while (1) switch (_context110.prev = _context110.next) {
         case 0:
-          manifestPath = "".concat(basename != null ? basename : "/", "/__manifest").replace(/\/+/g, "/");
-          url = new URL(manifestPath, window.location.origin);
+          url = new URL(getManifestPath(manifestPath, basename), window.location.origin);
           paths.sort().forEach(function (path) {
             return url.searchParams.append("p", path);
           });
           url.searchParams.set("version", manifest.version);
           if (!(url.toString().length > URL_LIMIT)) {
-            _context106.next = 7;
+            _context110.next = 6;
             break;
           }
           nextPaths.clear();
-          return _context106.abrupt("return");
-        case 7:
-          _context106.prev = 7;
-          _context106.next = 10;
+          return _context110.abrupt("return");
+        case 6:
+          _context110.prev = 6;
+          _context110.next = 9;
           return fetch(url, {
             signal: signal
           });
-        case 10:
-          res = _context106.sent;
+        case 9:
+          res = _context110.sent;
           if (res.ok) {
-            _context106.next = 15;
+            _context110.next = 14;
             break;
           }
           throw new Error("".concat(res.status, " ").concat(res.statusText));
-        case 15:
+        case 14:
           if (!(res.status === 204 && res.headers.has("X-Remix-Reload-Document"))) {
-            _context106.next = 27;
+            _context110.next = 28;
             break;
           }
           if (errorReloadPath) {
-            _context106.next = 19;
+            _context110.next = 18;
             break;
           }
           console.warn("Detected a manifest version mismatch during eager route discovery. The next navigation/fetch to an undiscovered route will result in a new document navigation to sync up with the latest manifest.");
-          return _context106.abrupt("return");
-        case 19:
+          return _context110.abrupt("return");
+        case 18:
           if (!(sessionStorage.getItem(MANIFEST_VERSION_STORAGE_KEY) === manifest.version)) {
-            _context106.next = 22;
+            _context110.next = 21;
             break;
           }
           console.error("Unable to discover routes due to manifest version mismatch.");
-          return _context106.abrupt("return");
-        case 22:
+          return _context110.abrupt("return");
+        case 21:
           sessionStorage.setItem(MANIFEST_VERSION_STORAGE_KEY, manifest.version);
           window.location.href = errorReloadPath;
-          throw new Error("Detected manifest version mismatch, reloading...");
-        case 27:
-          if (!(res.status >= 400)) {
-            _context106.next = 33;
-            break;
-          }
-          _context106.t0 = Error;
-          _context106.next = 31;
-          return res.text();
-        case 31:
-          _context106.t1 = _context106.sent;
-          throw new _context106.t0(_context106.t1);
-        case 33:
-          sessionStorage.removeItem(MANIFEST_VERSION_STORAGE_KEY);
-          _context106.next = 36;
-          return res.json();
-        case 36:
-          serverPatches = _context106.sent;
-          _context106.next = 44;
+          console.warn("Detected manifest version mismatch, reloading...");
+          _context110.next = 26;
+          return new Promise(function () {});
+        case 26:
+          _context110.next = 34;
           break;
-        case 39:
-          _context106.prev = 39;
-          _context106.t2 = _context106["catch"](7);
-          if (!(signal !== null && signal !== void 0 && signal.aborted)) {
-            _context106.next = 43;
+        case 28:
+          if (!(res.status >= 400)) {
+            _context110.next = 34;
             break;
           }
-          return _context106.abrupt("return");
-        case 43:
-          throw _context106.t2;
+          _context110.t0 = Error;
+          _context110.next = 32;
+          return res.text();
+        case 32:
+          _context110.t1 = _context110.sent;
+          throw new _context110.t0(_context110.t1);
+        case 34:
+          sessionStorage.removeItem(MANIFEST_VERSION_STORAGE_KEY);
+          _context110.next = 37;
+          return res.json();
+        case 37:
+          serverPatches = _context110.sent;
+          _context110.next = 45;
+          break;
+        case 40:
+          _context110.prev = 40;
+          _context110.t2 = _context110["catch"](6);
+          if (!(signal !== null && signal !== void 0 && signal.aborted)) {
+            _context110.next = 44;
+            break;
+          }
+          return _context110.abrupt("return");
         case 44:
+          throw _context110.t2;
+        case 45:
           knownRoutes = new Set(Object.keys(manifest.routes));
           patches = Object.values(serverPatches).reduce(function (acc, route) {
             if (route && !knownRoutes.has(route.id)) {
@@ -32311,11 +32584,11 @@ function _fetchAndApplyManifestPatches() {
           parentIds.forEach(function (parentId) {
             return patchRoutes(parentId || null, createClientRoutes(patches, routeModules, null, ssr, isSpaMode, parentId));
           });
-        case 51:
+        case 52:
         case "end":
-          return _context106.stop();
+          return _context110.stop();
       }
-    }, _callee105, null, [[7, 39]]);
+    }, _callee108, null, [[6, 40]]);
   }));
   return _fetchAndApplyManifestPatches.apply(this, arguments);
 }
@@ -32463,9 +32736,9 @@ function Links() {
   }) : null, _typeof(criticalCss) === "object" ? /* @__PURE__ */React9.createElement("link", {
     rel: "stylesheet",
     href: criticalCss.href
-  }) : null, keyedLinks.map(function (_ref74) {
-    var key = _ref74.key,
-      link = _ref74.link;
+  }) : null, keyedLinks.map(function (_ref76) {
+    var key = _ref76.key,
+      link = _ref76.link;
     return isPageLinkDescriptor(link) ? /* @__PURE__ */React9.createElement(PrefetchPageLinks, _objectSpread({
       key: key
     }, link)) : /* @__PURE__ */React9.createElement("link", _objectSpread({
@@ -32473,9 +32746,9 @@ function Links() {
     }, link));
   }));
 }
-function PrefetchPageLinks(_ref75) {
-  var page = _ref75.page,
-    dataLinkProps = _objectWithoutProperties(_ref75, _excluded2);
+function PrefetchPageLinks(_ref77) {
+  var page = _ref77.page,
+    dataLinkProps = _objectWithoutProperties(_ref77, _excluded2);
   var _useDataRouterContext3 = useDataRouterContext2(),
     router = _useDataRouterContext3.router;
   var matches = React9.useMemo(function () {
@@ -32510,10 +32783,10 @@ function useKeyedPrefetchLinks(matches) {
   }, [matches, manifest, routeModules]);
   return keyedPrefetchLinks;
 }
-function PrefetchPageLinksImpl(_ref76) {
-  var page = _ref76.page,
-    nextMatches = _ref76.matches,
-    linkProps = _objectWithoutProperties(_ref76, _excluded3);
+function PrefetchPageLinksImpl(_ref78) {
+  var page = _ref78.page,
+    nextMatches = _ref78.matches,
+    linkProps = _objectWithoutProperties(_ref78, _excluded3);
   var location = useLocation();
   var _useFrameworkContext4 = useFrameworkContext(),
     manifest = _useFrameworkContext4.manifest,
@@ -32581,9 +32854,9 @@ function PrefetchPageLinksImpl(_ref76) {
       rel: "modulepreload",
       href: href2
     }, linkProps));
-  }), keyedPrefetchLinks.map(function (_ref77) {
-    var key = _ref77.key,
-      link = _ref77.link;
+  }), keyedPrefetchLinks.map(function (_ref79) {
+    var key = _ref79.key,
+      link = _ref79.link;
     return (
       // these don't spread `linkProps` because they are full link descriptors
       // already with their own props
@@ -32708,15 +32981,16 @@ function Scripts(props) {
     manifest = _useFrameworkContext6.manifest,
     serverHandoffString = _useFrameworkContext6.serverHandoffString,
     isSpaMode = _useFrameworkContext6.isSpaMode,
-    ssr = _useFrameworkContext6.ssr,
-    renderMeta = _useFrameworkContext6.renderMeta;
+    renderMeta = _useFrameworkContext6.renderMeta,
+    routeDiscovery = _useFrameworkContext6.routeDiscovery,
+    ssr = _useFrameworkContext6.ssr;
   var _useDataRouterContext5 = useDataRouterContext2(),
     router = _useDataRouterContext5.router,
     isStatic = _useDataRouterContext5.static,
     staticContext = _useDataRouterContext5.staticContext;
   var _useDataRouterStateCo4 = useDataRouterStateContext(),
     routerMatches = _useDataRouterStateCo4.matches;
-  var enableFogOfWar = isFogOfWarEnabled(ssr);
+  var enableFogOfWar = isFogOfWarEnabled(routeDiscovery, ssr);
   if (renderMeta) {
     renderMeta.didRenderScripts = true;
   }
@@ -32836,7 +33110,7 @@ function mergeRefs() {
 var isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
 try {
   if (isBrowser) {
-    window.__reactRouterVersion = "7.5.2";
+    window.__reactRouterVersion = "7.6.0";
   }
 } catch (e) {}
 function createBrowserRouter(routes, opts) {
@@ -32887,8 +33161,8 @@ function deserializeErrors(errors) {
   if (!errors) return null;
   var entries = Object.entries(errors);
   var serialized = {};
-  for (var _i5 = 0, _entries2 = entries; _i5 < _entries2.length; _i5++) {
-    var _entries2$_i = _slicedToArray(_entries2[_i5], 2),
+  for (var _i9 = 0, _entries2 = entries; _i9 < _entries2.length; _i9++) {
+    var _entries2$_i = _slicedToArray(_entries2[_i9], 2),
       key = _entries2$_i[0],
       val = _entries2$_i[1];
     if (val && val.__type === "RouteErrorResponse") {
@@ -32915,10 +33189,10 @@ function deserializeErrors(errors) {
   }
   return serialized;
 }
-function BrowserRouter(_ref78) {
-  var basename = _ref78.basename,
-    children = _ref78.children,
-    window2 = _ref78.window;
+function BrowserRouter(_ref80) {
+  var basename = _ref80.basename,
+    children = _ref80.children,
+    window2 = _ref80.window;
   var historyRef = React10.useRef();
   if (historyRef.current == null) {
     historyRef.current = createBrowserHistory({
@@ -32950,10 +33224,10 @@ function BrowserRouter(_ref78) {
     navigator: history
   });
 }
-function HashRouter(_ref79) {
-  var basename = _ref79.basename,
-    children = _ref79.children,
-    window2 = _ref79.window;
+function HashRouter(_ref81) {
+  var basename = _ref81.basename,
+    children = _ref81.children,
+    window2 = _ref81.window;
   var historyRef = React10.useRef();
   if (historyRef.current == null) {
     historyRef.current = createHashHistory({
@@ -32985,10 +33259,10 @@ function HashRouter(_ref79) {
     navigator: history
   });
 }
-function HistoryRouter(_ref80) {
-  var basename = _ref80.basename,
-    children = _ref80.children,
-    history = _ref80.history;
+function HistoryRouter(_ref82) {
+  var basename = _ref82.basename,
+    children = _ref82.children,
+    history = _ref82.history;
   var _React10$useState5 = React10.useState({
       action: history.action,
       location: history.location
@@ -33014,21 +33288,21 @@ function HistoryRouter(_ref80) {
 }
 HistoryRouter.displayName = "unstable_HistoryRouter";
 var ABSOLUTE_URL_REGEX2 = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i;
-var Link = exports.Link = React10.forwardRef(function LinkWithRef(_ref81, forwardedRef) {
-  var onClick = _ref81.onClick,
-    _ref81$discover = _ref81.discover,
-    discover = _ref81$discover === void 0 ? "render" : _ref81$discover,
-    _ref81$prefetch = _ref81.prefetch,
-    prefetch = _ref81$prefetch === void 0 ? "none" : _ref81$prefetch,
-    relative = _ref81.relative,
-    reloadDocument = _ref81.reloadDocument,
-    replace2 = _ref81.replace,
-    state = _ref81.state,
-    target = _ref81.target,
-    to = _ref81.to,
-    preventScrollReset = _ref81.preventScrollReset,
-    viewTransition = _ref81.viewTransition,
-    rest = _objectWithoutProperties(_ref81, _excluded5);
+var Link = exports.Link = React10.forwardRef(function LinkWithRef(_ref83, forwardedRef) {
+  var onClick = _ref83.onClick,
+    _ref83$discover = _ref83.discover,
+    discover = _ref83$discover === void 0 ? "render" : _ref83$discover,
+    _ref83$prefetch = _ref83.prefetch,
+    prefetch = _ref83$prefetch === void 0 ? "none" : _ref83$prefetch,
+    relative = _ref83.relative,
+    reloadDocument = _ref83.reloadDocument,
+    replace2 = _ref83.replace,
+    state = _ref83.state,
+    target = _ref83.target,
+    to = _ref83.to,
+    preventScrollReset = _ref83.preventScrollReset,
+    viewTransition = _ref83.viewTransition,
+    rest = _objectWithoutProperties(_ref83, _excluded5);
   var _React10$useContext = React10.useContext(NavigationContext),
     basename = _React10$useContext.basename;
   var isAbsolute = typeof to === "string" && ABSOLUTE_URL_REGEX2.test(to);
@@ -33088,33 +33362,33 @@ var Link = exports.Link = React10.forwardRef(function LinkWithRef(_ref81, forwar
   })) : link;
 });
 Link.displayName = "Link";
-var NavLink = exports.NavLink = React10.forwardRef(function NavLinkWithRef(_ref82, ref) {
-  var _ref82$ariaCurrent = _ref82["aria-current"],
-    ariaCurrentProp = _ref82$ariaCurrent === void 0 ? "page" : _ref82$ariaCurrent,
-    _ref82$caseSensitive = _ref82.caseSensitive,
-    caseSensitive = _ref82$caseSensitive === void 0 ? false : _ref82$caseSensitive,
-    _ref82$className = _ref82.className,
-    classNameProp = _ref82$className === void 0 ? "" : _ref82$className,
-    _ref82$end = _ref82.end,
-    end = _ref82$end === void 0 ? false : _ref82$end,
-    styleProp = _ref82.style,
-    to = _ref82.to,
-    viewTransition = _ref82.viewTransition,
-    children = _ref82.children,
-    rest = _objectWithoutProperties(_ref82, _excluded6);
+var NavLink = exports.NavLink = React10.forwardRef(function NavLinkWithRef(_ref84, ref) {
+  var _ref84$ariaCurrent = _ref84["aria-current"],
+    ariaCurrentProp = _ref84$ariaCurrent === void 0 ? "page" : _ref84$ariaCurrent,
+    _ref84$caseSensitive = _ref84.caseSensitive,
+    caseSensitive = _ref84$caseSensitive === void 0 ? false : _ref84$caseSensitive,
+    _ref84$className = _ref84.className,
+    classNameProp = _ref84$className === void 0 ? "" : _ref84$className,
+    _ref84$end = _ref84.end,
+    end = _ref84$end === void 0 ? false : _ref84$end,
+    styleProp = _ref84.style,
+    to = _ref84.to,
+    viewTransition = _ref84.viewTransition,
+    children = _ref84.children,
+    rest = _objectWithoutProperties(_ref84, _excluded6);
   var path = useResolvedPath(to, {
     relative: rest.relative
   });
   var location = useLocation();
   var routerState = React10.useContext(DataRouterStateContext);
   var _React10$useContext2 = React10.useContext(NavigationContext),
-    navigator2 = _React10$useContext2.navigator,
+    navigator = _React10$useContext2.navigator,
     basename = _React10$useContext2.basename;
   var isTransitioning = routerState != null &&
   // Conditional usage is OK here because the usage of a data router is static
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useViewTransitionState(path) && viewTransition === true;
-  var toPathname = navigator2.encodeLocation ? navigator2.encodeLocation(path).pathname : path.pathname;
+  var toPathname = navigator.encodeLocation ? navigator.encodeLocation(path).pathname : path.pathname;
   var locationPathname = location.pathname;
   var nextLocationPathname = routerState && routerState.navigation && routerState.navigation.location ? routerState.navigation.location.pathname : null;
   if (!caseSensitive) {
@@ -33151,22 +33425,22 @@ var NavLink = exports.NavLink = React10.forwardRef(function NavLinkWithRef(_ref8
   }), typeof children === "function" ? children(renderProps) : children);
 });
 NavLink.displayName = "NavLink";
-var Form = exports.Form = React10.forwardRef(function (_ref83, forwardedRef) {
-  var _ref83$discover = _ref83.discover,
-    discover = _ref83$discover === void 0 ? "render" : _ref83$discover,
-    fetcherKey = _ref83.fetcherKey,
-    navigate = _ref83.navigate,
-    reloadDocument = _ref83.reloadDocument,
-    replace2 = _ref83.replace,
-    state = _ref83.state,
-    _ref83$method = _ref83.method,
-    method = _ref83$method === void 0 ? defaultMethod : _ref83$method,
-    action = _ref83.action,
-    onSubmit = _ref83.onSubmit,
-    relative = _ref83.relative,
-    preventScrollReset = _ref83.preventScrollReset,
-    viewTransition = _ref83.viewTransition,
-    props = _objectWithoutProperties(_ref83, _excluded7);
+var Form = exports.Form = React10.forwardRef(function (_ref85, forwardedRef) {
+  var _ref85$discover = _ref85.discover,
+    discover = _ref85$discover === void 0 ? "render" : _ref85$discover,
+    fetcherKey = _ref85.fetcherKey,
+    navigate = _ref85.navigate,
+    reloadDocument = _ref85.reloadDocument,
+    replace2 = _ref85.replace,
+    state = _ref85.state,
+    _ref85$method = _ref85.method,
+    method = _ref85$method === void 0 ? defaultMethod : _ref85$method,
+    action = _ref85.action,
+    onSubmit = _ref85.onSubmit,
+    relative = _ref85.relative,
+    preventScrollReset = _ref85.preventScrollReset,
+    viewTransition = _ref85.viewTransition,
+    props = _objectWithoutProperties(_ref85, _excluded7);
   var submit = useSubmit();
   var formAction = useFormAction(action, {
     relative: relative
@@ -33200,10 +33474,10 @@ var Form = exports.Form = React10.forwardRef(function (_ref83, forwardedRef) {
   }));
 });
 Form.displayName = "Form";
-function ScrollRestoration(_ref84) {
-  var getKey = _ref84.getKey,
-    storageKey = _ref84.storageKey,
-    props = _objectWithoutProperties(_ref84, _excluded8);
+function ScrollRestoration(_ref86) {
+  var getKey = _ref86.getKey,
+    storageKey = _ref86.storageKey,
+    props = _objectWithoutProperties(_ref86, _excluded8);
   var remixContext = React10.useContext(FrameworkContext);
   var _React10$useContext3 = React10.useContext(NavigationContext),
     basename = _React10$useContext3.basename;
@@ -33264,13 +33538,13 @@ function useDataRouterState2(hookName) {
   return state;
 }
 function useLinkClickHandler(to) {
-  var _ref85 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-    target = _ref85.target,
-    replaceProp = _ref85.replace,
-    state = _ref85.state,
-    preventScrollReset = _ref85.preventScrollReset,
-    relative = _ref85.relative,
-    viewTransition = _ref85.viewTransition;
+  var _ref87 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+    target = _ref87.target,
+    replaceProp = _ref87.replace,
+    state = _ref87.state,
+    preventScrollReset = _ref87.preventScrollReset,
+    relative = _ref87.relative,
+    viewTransition = _ref87.viewTransition;
   var navigate = useNavigate();
   var location = useLocation();
   var path = useResolvedPath(to, {
@@ -33322,7 +33596,7 @@ function useSubmit() {
     basename = _React10$useContext4.basename;
   var currentRouteId = useRouteId();
   return React10.useCallback(/*#__PURE__*/function () {
-    var _ref86 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee53(target) {
+    var _ref88 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee52(target) {
       var options,
         _getFormSubmissionInf,
         action,
@@ -33332,7 +33606,7 @@ function useSubmit() {
         body,
         key,
         _args54 = arguments;
-      return _regeneratorRuntime().wrap(function _callee53$(_context54) {
+      return _regeneratorRuntime().wrap(function _callee52$(_context54) {
         while (1) switch (_context54.prev = _context54.next) {
           case 0:
             options = _args54.length > 1 && _args54[1] !== undefined ? _args54[1] : {};
@@ -33372,16 +33646,16 @@ function useSubmit() {
           case "end":
             return _context54.stop();
         }
-      }, _callee53);
+      }, _callee52);
     }));
-    return function (_x171) {
-      return _ref86.apply(this, arguments);
+    return function (_x178) {
+      return _ref88.apply(this, arguments);
     };
   }(), [router, basename, currentRouteId]);
 }
 function useFormAction(action) {
-  var _ref87 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-    relative = _ref87.relative;
+  var _ref89 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+    relative = _ref89.relative;
   var _React10$useContext5 = React10.useContext(NavigationContext),
     basename = _React10$useContext5.basename;
   var routeContext = React10.useContext(RouteContext);
@@ -33421,8 +33695,8 @@ function useFormAction(action) {
 }
 function useFetcher() {
   var _route$matches;
-  var _ref88 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-    key = _ref88.key;
+  var _ref90 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    key = _ref90.key;
   var _useDataRouterContext7 = useDataRouterContext3("useFetcher" /* UseFetcher */),
     router = _useDataRouterContext7.router;
   var state = useDataRouterState2("useFetcher" /* UseFetcher */);
@@ -33447,8 +33721,8 @@ function useFetcher() {
     };
   }, [router, fetcherKey]);
   var load = React10.useCallback(/*#__PURE__*/function () {
-    var _ref89 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee54(href2, opts) {
-      return _regeneratorRuntime().wrap(function _callee54$(_context55) {
+    var _ref91 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee53(href2, opts) {
+      return _regeneratorRuntime().wrap(function _callee53$(_context55) {
         while (1) switch (_context55.prev = _context55.next) {
           case 0:
             invariant(routeId, "No routeId available for fetcher.load()");
@@ -33458,16 +33732,16 @@ function useFetcher() {
           case "end":
             return _context55.stop();
         }
-      }, _callee54);
+      }, _callee53);
     }));
-    return function (_x172, _x173) {
-      return _ref89.apply(this, arguments);
+    return function (_x179, _x180) {
+      return _ref91.apply(this, arguments);
     };
   }(), [fetcherKey, routeId, router]);
   var submitImpl = useSubmit();
   var submit = React10.useCallback(/*#__PURE__*/function () {
-    var _ref90 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee55(target, opts) {
-      return _regeneratorRuntime().wrap(function _callee55$(_context56) {
+    var _ref92 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee54(target, opts) {
+      return _regeneratorRuntime().wrap(function _callee54$(_context56) {
         while (1) switch (_context56.prev = _context56.next) {
           case 0:
             _context56.next = 2;
@@ -33479,10 +33753,10 @@ function useFetcher() {
           case "end":
             return _context56.stop();
         }
-      }, _callee55);
+      }, _callee54);
     }));
-    return function (_x174, _x175) {
-      return _ref90.apply(this, arguments);
+    return function (_x181, _x182) {
+      return _ref92.apply(this, arguments);
     };
   }(), [fetcherKey, submitImpl]);
   var FetcherForm = React10.useMemo(function () {
@@ -33511,10 +33785,10 @@ function useFetcher() {
 }
 function useFetchers() {
   var state = useDataRouterState2("useFetchers" /* UseFetchers */);
-  return Array.from(state.fetchers.entries()).map(function (_ref91) {
-    var _ref92 = _slicedToArray(_ref91, 2),
-      key = _ref92[0],
-      fetcher = _ref92[1];
+  return Array.from(state.fetchers.entries()).map(function (_ref93) {
+    var _ref94 = _slicedToArray(_ref93, 2),
+      key = _ref94[0],
+      fetcher = _ref94[1];
     return _objectSpread(_objectSpread({}, fetcher), {}, {
       key: key
     });
@@ -33539,9 +33813,9 @@ function getScrollRestorationKey(location, matches, basename, getKey) {
   return key;
 }
 function useScrollRestoration() {
-  var _ref93 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-    getKey = _ref93.getKey,
-    storageKey = _ref93.storageKey;
+  var _ref95 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    getKey = _ref95.getKey,
+    storageKey = _ref95.storageKey;
   var _useDataRouterContext8 = useDataRouterContext3("useScrollRestoration" /* UseScrollRestoration */),
     router = _useDataRouterContext8.router;
   var _useDataRouterState2 = useDataRouterState2("useScrollRestoration" /* UseScrollRestoration */),
@@ -33612,8 +33886,8 @@ function useScrollRestoration() {
   }
 }
 function useBeforeUnload(callback, options) {
-  var _ref94 = options || {},
-    capture = _ref94.capture;
+  var _ref96 = options || {},
+    capture = _ref96.capture;
   React10.useEffect(function () {
     var opts = capture != null ? {
       capture: capture
@@ -33625,8 +33899,8 @@ function useBeforeUnload(callback, options) {
   }, [callback, capture]);
 }
 function usePageHide(callback, options) {
-  var _ref95 = options || {},
-    capture = _ref95.capture;
+  var _ref97 = options || {},
+    capture = _ref97.capture;
   React10.useEffect(function () {
     var opts = capture != null ? {
       capture: capture
@@ -33637,9 +33911,9 @@ function usePageHide(callback, options) {
     };
   }, [callback, capture]);
 }
-function usePrompt(_ref96) {
-  var when = _ref96.when,
-    message = _ref96.message;
+function usePrompt(_ref98) {
+  var when = _ref98.when,
+    message = _ref98.message;
   var blocker = useBlocker(when);
   React10.useEffect(function () {
     if (blocker.state === "blocked") {
@@ -33676,11 +33950,11 @@ function useViewTransitionState(to) {
 
 // lib/dom/server.tsx
 
-function StaticRouter(_ref97) {
-  var basename = _ref97.basename,
-    children = _ref97.children,
-    _ref97$location = _ref97.location,
-    locationProp = _ref97$location === void 0 ? "/" : _ref97$location;
+function StaticRouter(_ref99) {
+  var basename = _ref99.basename,
+    children = _ref99.children,
+    _ref99$location = _ref99.location,
+    locationProp = _ref99$location === void 0 ? "/" : _ref99$location;
   if (typeof locationProp === "string") {
     locationProp = parsePath(locationProp);
   }
@@ -33702,12 +33976,12 @@ function StaticRouter(_ref97) {
     static: true
   });
 }
-function StaticRouterProvider(_ref98) {
-  var context = _ref98.context,
-    router = _ref98.router,
-    _ref98$hydrate = _ref98.hydrate,
-    hydrate = _ref98$hydrate === void 0 ? true : _ref98$hydrate,
-    nonce = _ref98.nonce;
+function StaticRouterProvider(_ref100) {
+  var context = _ref100.context,
+    router = _ref100.router,
+    _ref100$hydrate = _ref100.hydrate,
+    hydrate2 = _ref100$hydrate === void 0 ? true : _ref100$hydrate,
+    nonce = _ref100.nonce;
   invariant(router && context, "You must provide `router` and `context` to <StaticRouterProvider>");
   var dataRouterContext = {
     router: router,
@@ -33718,7 +33992,7 @@ function StaticRouterProvider(_ref98) {
   };
   var fetchersContext = /* @__PURE__ */new Map();
   var hydrateScript = "";
-  if (hydrate !== false) {
+  if (hydrate2 !== false) {
     var data2 = {
       loaderData: context.loaderData,
       actionData: context.actionData,
@@ -33756,18 +34030,18 @@ function StaticRouterProvider(_ref98) {
     }
   }) : null);
 }
-function DataRoutes2(_ref99) {
-  var routes = _ref99.routes,
-    future = _ref99.future,
-    state = _ref99.state;
+function DataRoutes2(_ref101) {
+  var routes = _ref101.routes,
+    future = _ref101.future,
+    state = _ref101.state;
   return useRoutesImpl(routes, void 0, state, future);
 }
 function serializeErrors(errors) {
   if (!errors) return null;
   var entries = Object.entries(errors);
   var serialized = {};
-  for (var _i6 = 0, _entries3 = entries; _i6 < _entries3.length; _i6++) {
-    var _entries3$_i = _slicedToArray(_entries3[_i6], 2),
+  for (var _i0 = 0, _entries3 = entries; _i0 < _entries3.length; _i0++) {
+    var _entries3$_i = _slicedToArray(_entries3[_i0], 2),
       key = _entries3$_i[0],
       val = _entries3$_i[1];
     if (isRouteErrorResponse(val)) {
@@ -33932,10 +34206,10 @@ function htmlEscape(str) {
 
 // lib/dom/ssr/server.tsx
 
-function ServerRouter(_ref100) {
-  var context = _ref100.context,
-    url = _ref100.url,
-    nonce = _ref100.nonce;
+function ServerRouter(_ref102) {
+  var context = _ref102.context,
+    url = _ref102.url,
+    nonce = _ref102.nonce;
   if (typeof url === "string") {
     url = new URL(url);
   }
@@ -33945,11 +34219,11 @@ function ServerRouter(_ref100) {
     serverHandoffString = context.serverHandoffString;
   var routes = createServerRoutes(manifest.routes, routeModules, context.future, context.isSpaMode);
   context.staticHandlerContext.loaderData = _objectSpread({}, context.staticHandlerContext.loaderData);
-  var _iterator14 = _createForOfIteratorHelper(context.staticHandlerContext.matches),
-    _step14;
+  var _iterator20 = _createForOfIteratorHelper(context.staticHandlerContext.matches),
+    _step20;
   try {
-    for (_iterator14.s(); !(_step14 = _iterator14.n()).done;) {
-      var match = _step14.value;
+    for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
+      var match = _step20.value;
       var routeId = match.route.id;
       var route = routeModules[routeId];
       var manifestRoute = context.manifest.routes[routeId];
@@ -33958,9 +34232,9 @@ function ServerRouter(_ref100) {
       }
     }
   } catch (err) {
-    _iterator14.e(err);
+    _iterator20.e(err);
   } finally {
-    _iterator14.f();
+    _iterator20.f();
   }
   var router = createStaticRouter(routes, context.staticHandlerContext);
   return /* @__PURE__ */React12.createElement(React12.Fragment, null, /* @__PURE__ */React12.createElement(FrameworkContext.Provider, {
@@ -33972,6 +34246,7 @@ function ServerRouter(_ref100) {
       future: context.future,
       ssr: context.ssr,
       isSpaMode: context.isSpaMode,
+      routeDiscovery: context.routeDiscovery,
       serializeError: context.serializeError,
       renderMeta: context.renderMeta
     }
@@ -33993,11 +34268,11 @@ function ServerRouter(_ref100) {
 // lib/dom/ssr/routes-test-stub.tsx
 
 function createRoutesStub(routes, unstable_getContext) {
-  return function RoutesTestStub(_ref101) {
-    var initialEntries = _ref101.initialEntries,
-      initialIndex = _ref101.initialIndex,
-      hydrationData = _ref101.hydrationData,
-      future = _ref101.future;
+  return function RoutesTestStub(_ref103) {
+    var initialEntries = _ref103.initialEntries,
+      initialIndex = _ref103.initialIndex,
+      hydrationData = _ref103.hydrationData,
+      future = _ref103.future;
     var routerRef = React13.useRef();
     var remixContextRef = React13.useRef();
     if (routerRef.current == null) {
@@ -34017,7 +34292,11 @@ function createRoutesStub(routes, unstable_getContext) {
         },
         routeModules: {},
         ssr: false,
-        isSpaMode: false
+        isSpaMode: false,
+        routeDiscovery: {
+          mode: "lazy",
+          manifestPath: "/__manifest"
+        }
       };
       var patched = processRoutes(
       // @ts-expect-error `StubRouteObject` is stricter about `loader`/`action`
@@ -34039,6 +34318,37 @@ function createRoutesStub(routes, unstable_getContext) {
     }));
   };
 }
+function withComponentProps(Component4) {
+  return function Wrapped() {
+    return React13.createElement(Component4, {
+      params: useParams(),
+      loaderData: useLoaderData(),
+      actionData: useActionData(),
+      matches: useMatches()
+    });
+  };
+}
+function withHydrateFallbackProps(HydrateFallback) {
+  return function Wrapped() {
+    var props = {
+      params: useParams(),
+      loaderData: useLoaderData(),
+      actionData: useActionData()
+    };
+    return React13.createElement(HydrateFallback, props);
+  };
+}
+function withErrorBoundaryProps(ErrorBoundary) {
+  return function Wrapped() {
+    var props = {
+      params: useParams(),
+      loaderData: useLoaderData(),
+      actionData: useActionData(),
+      error: useRouteError()
+    };
+    return React13.createElement(ErrorBoundary, props);
+  };
+}
 function processRoutes(routes, manifest, routeModules, parentId) {
   return routes.map(function (route) {
     if (!route.id) {
@@ -34048,9 +34358,9 @@ function processRoutes(routes, manifest, routeModules, parentId) {
       id: route.id,
       path: route.path,
       index: route.index,
-      Component: route.Component,
-      HydrateFallback: route.HydrateFallback,
-      ErrorBoundary: route.ErrorBoundary,
+      Component: route.Component ? withComponentProps(route.Component) : void 0,
+      HydrateFallback: route.HydrateFallback ? withHydrateFallbackProps(route.HydrateFallback) : void 0,
+      ErrorBoundary: route.ErrorBoundary ? withErrorBoundaryProps(route.ErrorBoundary) : void 0,
       action: route.action,
       loader: route.loader,
       handle: route.handle,
@@ -34079,8 +34389,8 @@ function processRoutes(routes, manifest, routeModules, parentId) {
     };
     manifest.routes[newRoute.id] = entryRoute;
     routeModules[route.id] = {
-      default: route.Component || Outlet,
-      ErrorBoundary: route.ErrorBoundary || void 0,
+      default: newRoute.Component || Outlet,
+      ErrorBoundary: newRoute.ErrorBoundary || void 0,
       handle: route.handle,
       links: route.links,
       meta: route.meta,
@@ -34096,11 +34406,11 @@ function processRoutes(routes, manifest, routeModules, parentId) {
 // lib/server-runtime/cookies.ts
 
 // lib/server-runtime/crypto.ts
-var encoder = new TextEncoder();
+var encoder = /* @__PURE__ */new TextEncoder();
 var sign = /*#__PURE__*/function () {
-  var _ref102 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee56(value, secret) {
+  var _ref104 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee55(value, secret) {
     var data2, key, signature, hash;
-    return _regeneratorRuntime().wrap(function _callee56$(_context57) {
+    return _regeneratorRuntime().wrap(function _callee55$(_context57) {
       while (1) switch (_context57.prev = _context57.next) {
         case 0:
           data2 = encoder.encode(value);
@@ -34118,16 +34428,16 @@ var sign = /*#__PURE__*/function () {
         case "end":
           return _context57.stop();
       }
-    }, _callee56);
+    }, _callee55);
   }));
-  return function sign(_x176, _x177) {
-    return _ref102.apply(this, arguments);
+  return function sign(_x183, _x184) {
+    return _ref104.apply(this, arguments);
   };
 }();
 var unsign = /*#__PURE__*/function () {
-  var _ref103 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee57(cookie, secret) {
+  var _ref105 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee56(cookie, secret) {
     var index, value, hash, data2, key, signature, valid;
-    return _regeneratorRuntime().wrap(function _callee57$(_context58) {
+    return _regeneratorRuntime().wrap(function _callee56$(_context58) {
       while (1) switch (_context58.prev = _context58.next) {
         case 0:
           index = cookie.lastIndexOf(".");
@@ -34148,15 +34458,15 @@ var unsign = /*#__PURE__*/function () {
         case "end":
           return _context58.stop();
       }
-    }, _callee57);
+    }, _callee56);
   }));
-  return function unsign(_x178, _x179) {
-    return _ref103.apply(this, arguments);
+  return function unsign(_x185, _x186) {
+    return _ref105.apply(this, arguments);
   };
 }();
 var createKey2 = /*#__PURE__*/function () {
-  var _ref104 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee58(secret, usages) {
-    return _regeneratorRuntime().wrap(function _callee58$(_context59) {
+  var _ref106 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee57(secret, usages) {
+    return _regeneratorRuntime().wrap(function _callee57$(_context59) {
       while (1) switch (_context59.prev = _context59.next) {
         case 0:
           return _context59.abrupt("return", crypto.subtle.importKey("raw", encoder.encode(secret), {
@@ -34167,10 +34477,10 @@ var createKey2 = /*#__PURE__*/function () {
         case "end":
           return _context59.stop();
       }
-    }, _callee58);
+    }, _callee57);
   }));
-  return function createKey2(_x180, _x181) {
-    return _ref104.apply(this, arguments);
+  return function createKey2(_x187, _x188) {
+    return _ref106.apply(this, arguments);
   };
 }();
 function byteStringToUint8Array(byteString) {
@@ -34203,9 +34513,9 @@ var createCookie = exports.createCookie = function createCookie(name) {
       return typeof options.maxAge !== "undefined" ? new Date(Date.now() + options.maxAge * 1e3) : options.expires;
     },
     parse: function parse(cookieHeader, parseOptions) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee59() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee58() {
         var cookies, value, decoded;
-        return _regeneratorRuntime().wrap(function _callee59$(_context60) {
+        return _regeneratorRuntime().wrap(function _callee58$(_context60) {
           while (1) switch (_context60.prev = _context60.next) {
             case 0:
               if (cookieHeader) {
@@ -34240,12 +34550,12 @@ var createCookie = exports.createCookie = function createCookie(name) {
             case "end":
               return _context60.stop();
           }
-        }, _callee59);
+        }, _callee58);
       }))();
     },
     serialize: function serialize(value, serializeOptions) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee60() {
-        return _regeneratorRuntime().wrap(function _callee60$(_context61) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee59() {
+        return _regeneratorRuntime().wrap(function _callee59$(_context61) {
           while (1) switch (_context61.prev = _context61.next) {
             case 0:
               _context61.t0 = _cookie.serialize;
@@ -34270,7 +34580,7 @@ var createCookie = exports.createCookie = function createCookie(name) {
             case "end":
               return _context61.stop();
           }
-        }, _callee60);
+        }, _callee59);
       }))();
     }
   };
@@ -34278,88 +34588,88 @@ var createCookie = exports.createCookie = function createCookie(name) {
 var isCookie = exports.isCookie = function isCookie(object) {
   return object != null && typeof object.name === "string" && typeof object.isSigned === "boolean" && typeof object.parse === "function" && typeof object.serialize === "function";
 };
-function encodeCookieValue(_x182, _x183) {
+function encodeCookieValue(_x189, _x190) {
   return _encodeCookieValue.apply(this, arguments);
 }
 function _encodeCookieValue() {
-  _encodeCookieValue = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee106(value, secrets) {
+  _encodeCookieValue = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee109(value, secrets) {
     var encoded;
-    return _regeneratorRuntime().wrap(function _callee106$(_context107) {
-      while (1) switch (_context107.prev = _context107.next) {
+    return _regeneratorRuntime().wrap(function _callee109$(_context111) {
+      while (1) switch (_context111.prev = _context111.next) {
         case 0:
           encoded = encodeData(value);
           if (!(secrets.length > 0)) {
-            _context107.next = 5;
+            _context111.next = 5;
             break;
           }
-          _context107.next = 4;
+          _context111.next = 4;
           return sign(encoded, secrets[0]);
         case 4:
-          encoded = _context107.sent;
+          encoded = _context111.sent;
         case 5:
-          return _context107.abrupt("return", encoded);
+          return _context111.abrupt("return", encoded);
         case 6:
         case "end":
-          return _context107.stop();
+          return _context111.stop();
       }
-    }, _callee106);
+    }, _callee109);
   }));
   return _encodeCookieValue.apply(this, arguments);
 }
-function decodeCookieValue(_x184, _x185) {
+function decodeCookieValue(_x191, _x192) {
   return _decodeCookieValue.apply(this, arguments);
 }
 function _decodeCookieValue() {
-  _decodeCookieValue = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee107(value, secrets) {
-    var _iterator17, _step17, secret, unsignedValue;
-    return _regeneratorRuntime().wrap(function _callee107$(_context108) {
-      while (1) switch (_context108.prev = _context108.next) {
+  _decodeCookieValue = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee110(value, secrets) {
+    var _iterator24, _step24, secret, unsignedValue;
+    return _regeneratorRuntime().wrap(function _callee110$(_context112) {
+      while (1) switch (_context112.prev = _context112.next) {
         case 0:
           if (!(secrets.length > 0)) {
-            _context108.next = 22;
+            _context112.next = 22;
             break;
           }
-          _iterator17 = _createForOfIteratorHelper(secrets);
-          _context108.prev = 2;
-          _iterator17.s();
+          _iterator24 = _createForOfIteratorHelper(secrets);
+          _context112.prev = 2;
+          _iterator24.s();
         case 4:
-          if ((_step17 = _iterator17.n()).done) {
-            _context108.next = 13;
+          if ((_step24 = _iterator24.n()).done) {
+            _context112.next = 13;
             break;
           }
-          secret = _step17.value;
-          _context108.next = 8;
+          secret = _step24.value;
+          _context112.next = 8;
           return unsign(value, secret);
         case 8:
-          unsignedValue = _context108.sent;
+          unsignedValue = _context112.sent;
           if (!(unsignedValue !== false)) {
-            _context108.next = 11;
+            _context112.next = 11;
             break;
           }
-          return _context108.abrupt("return", decodeData(unsignedValue));
+          return _context112.abrupt("return", decodeData(unsignedValue));
         case 11:
-          _context108.next = 4;
+          _context112.next = 4;
           break;
         case 13:
-          _context108.next = 18;
+          _context112.next = 18;
           break;
         case 15:
-          _context108.prev = 15;
-          _context108.t0 = _context108["catch"](2);
-          _iterator17.e(_context108.t0);
+          _context112.prev = 15;
+          _context112.t0 = _context112["catch"](2);
+          _iterator24.e(_context112.t0);
         case 18:
-          _context108.prev = 18;
-          _iterator17.f();
-          return _context108.finish(18);
+          _context112.prev = 18;
+          _iterator24.f();
+          return _context112.finish(18);
         case 21:
-          return _context108.abrupt("return", null);
+          return _context112.abrupt("return", null);
         case 22:
-          return _context108.abrupt("return", decodeData(value));
+          return _context112.abrupt("return", decodeData(value));
         case 23:
         case "end":
-          return _context108.stop();
+          return _context112.stop();
       }
-    }, _callee107, null, [[2, 15, 18, 21]]);
+    }, _callee110, null, [[2, 15, 18, 21]]);
   }));
   return _decodeCookieValue.apply(this, arguments);
 }
@@ -34462,10 +34772,10 @@ function sanitizeError(error, serverMode) {
   return error;
 }
 function sanitizeErrors(errors, serverMode) {
-  return Object.entries(errors).reduce(function (acc, _ref105) {
-    var _ref106 = _slicedToArray(_ref105, 2),
-      routeId = _ref106[0],
-      error = _ref106[1];
+  return Object.entries(errors).reduce(function (acc, _ref107) {
+    var _ref108 = _slicedToArray(_ref107, 2),
+      routeId = _ref108[0],
+      error = _ref108[1];
     return Object.assign(acc, _defineProperty({}, routeId, sanitizeError(error, serverMode)));
   }, {});
 }
@@ -34480,8 +34790,8 @@ function serializeErrors2(errors, serverMode) {
   if (!errors) return null;
   var entries = Object.entries(errors);
   var serialized = {};
-  for (var _i7 = 0, _entries4 = entries; _i7 < _entries4.length; _i7++) {
-    var _entries4$_i = _slicedToArray(_entries4[_i7], 2),
+  for (var _i1 = 0, _entries4 = entries; _i1 < _entries4.length; _i1++) {
+    var _entries4$_i = _slicedToArray(_entries4[_i1], 2),
       key = _entries4$_i[0],
       val = _entries4$_i[1];
     if (isRouteErrorResponse(val)) {
@@ -34518,35 +34828,35 @@ function matchServerRoutes(routes, pathname, basename) {
 }
 
 // lib/server-runtime/data.ts
-function callRouteHandler(_x186, _x187) {
+function callRouteHandler(_x193, _x194) {
   return _callRouteHandler.apply(this, arguments);
 }
 function _callRouteHandler() {
-  _callRouteHandler = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee108(handler, args) {
+  _callRouteHandler = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee111(handler, args) {
     var result;
-    return _regeneratorRuntime().wrap(function _callee108$(_context109) {
-      while (1) switch (_context109.prev = _context109.next) {
+    return _regeneratorRuntime().wrap(function _callee111$(_context113) {
+      while (1) switch (_context113.prev = _context113.next) {
         case 0:
-          _context109.next = 2;
+          _context113.next = 2;
           return handler({
             request: stripRoutesParam(stripIndexParam2(args.request)),
             params: args.params,
             context: args.context
           });
         case 2:
-          result = _context109.sent;
+          result = _context113.sent;
           if (!(isDataWithResponseInit(result) && result.init && result.init.status && isRedirectStatusCode(result.init.status))) {
-            _context109.next = 5;
+            _context113.next = 5;
             break;
           }
           throw new Response(null, result.init);
         case 5:
-          return _context109.abrupt("return", result);
+          return _context113.abrupt("return", result);
         case 6:
         case "end":
-          return _context109.stop();
+          return _context113.stop();
       }
-    }, _callee108);
+    }, _callee111);
   }));
   return _callRouteHandler.apply(this, arguments);
 }
@@ -34555,22 +34865,22 @@ function stripIndexParam2(request) {
   var indexValues = url.searchParams.getAll("index");
   url.searchParams.delete("index");
   var indexValuesToKeep = [];
-  var _iterator15 = _createForOfIteratorHelper(indexValues),
-    _step15;
+  var _iterator21 = _createForOfIteratorHelper(indexValues),
+    _step21;
   try {
-    for (_iterator15.s(); !(_step15 = _iterator15.n()).done;) {
-      var indexValue = _step15.value;
+    for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
+      var indexValue = _step21.value;
       if (indexValue) {
         indexValuesToKeep.push(indexValue);
       }
     }
   } catch (err) {
-    _iterator15.e(err);
+    _iterator21.e(err);
   } finally {
-    _iterator15.f();
+    _iterator21.f();
   }
-  for (var _i8 = 0, _indexValuesToKeep2 = indexValuesToKeep; _i8 < _indexValuesToKeep2.length; _i8++) {
-    var toKeep = _indexValuesToKeep2[_i8];
+  for (var _i10 = 0, _indexValuesToKeep2 = indexValuesToKeep; _i10 < _indexValuesToKeep2.length; _i10++) {
+    var toKeep = _indexValuesToKeep2[_i10];
     url.searchParams.append("index", toKeep);
   }
   var init = {
@@ -34663,9 +34973,9 @@ function createStaticHandlerDataRoutes(manifest, future) {
       // Need to use RR's version in the param typed here to permit the optional
       // context even though we know it'll always be provided in remix
       loader: route.module.loader ? (/*#__PURE__*/function () {
-        var _ref107 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee61(args) {
+        var _ref109 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee60(args) {
           var preRenderedData, encoded, uint8array, stream, decoded, data2, result, init, _result, val;
-          return _regeneratorRuntime().wrap(function _callee61$(_context62) {
+          return _regeneratorRuntime().wrap(function _callee60$(_context62) {
             while (1) switch (_context62.prev = _context62.next) {
               case 0:
                 preRenderedData = getBuildTimeHeader(args.request, "X-React-Router-Prerender-Data");
@@ -34726,10 +35036,10 @@ function createStaticHandlerDataRoutes(manifest, future) {
               case "end":
                 return _context62.stop();
             }
-          }, _callee61);
+          }, _callee60);
         }));
-        return function (_x188) {
-          return _ref107.apply(this, arguments);
+        return function (_x195) {
+          return _ref109.apply(this, arguments);
         };
       }()) : void 0,
       action: route.module.action ? function (args) {
@@ -34765,8 +35075,6 @@ function escapeHtml2(html) {
 function createServerHandoffString(serverHandoff) {
   return escapeHtml2(JSON.stringify(serverHandoff));
 }
-
-// lib/server-runtime/single-fetch.ts
 
 // lib/server-runtime/headers.ts
 
@@ -34839,16 +35147,16 @@ function prependCookies(parentHeaders, childHeaders) {
 
 // lib/server-runtime/single-fetch.ts
 var SERVER_NO_BODY_STATUS_CODES = /* @__PURE__ */new Set([].concat(_toConsumableArray(NO_BODY_STATUS_CODES), [304]));
-function singleFetchAction(_x189, _x190, _x191, _x192, _x193, _x194, _x195) {
+function singleFetchAction(_x196, _x197, _x198, _x199, _x200, _x201, _x202) {
   return _singleFetchAction.apply(this, arguments);
 }
 function _singleFetchAction() {
-  _singleFetchAction = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee109(build, serverMode, staticHandler, request, handlerUrl, loadContext, handleError) {
+  _singleFetchAction = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee112(build, serverMode, staticHandler, request, handlerUrl, loadContext, handleError) {
     var respond2, respond, handlerRequest, result;
-    return _regeneratorRuntime().wrap(function _callee109$(_context110) {
-      while (1) switch (_context110.prev = _context110.next) {
+    return _regeneratorRuntime().wrap(function _callee112$(_context114) {
+      while (1) switch (_context114.prev = _context114.next) {
         case 0:
-          _context110.prev = 0;
+          _context114.prev = 0;
           respond2 = function respond2(context) {
             var headers = getDocumentHeaders(build, context);
             if (isRedirectStatusCode(context.statusCode) && headers.has("Location")) {
@@ -34891,7 +35199,7 @@ function _singleFetchAction() {
           }, request.body ? {
             duplex: "half"
           } : void 0));
-          _context110.next = 6;
+          _context114.next = 6;
           return staticHandler.query(handlerRequest, {
             requestContext: loadContext,
             skipLoaderErrorBubbling: true,
@@ -34899,50 +35207,50 @@ function _singleFetchAction() {
             unstable_respond: respond2
           });
         case 6:
-          result = _context110.sent;
+          result = _context114.sent;
           if (!isResponse(result)) {
             result = respond2(result);
           }
           if (!isRedirectResponse(result)) {
-            _context110.next = 10;
+            _context114.next = 10;
             break;
           }
-          return _context110.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
+          return _context114.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
             result: getSingleFetchRedirect(result.status, result.headers, build.basename),
             headers: result.headers,
             status: SINGLE_FETCH_REDIRECT_STATUS
           }));
         case 10:
-          return _context110.abrupt("return", result);
+          return _context114.abrupt("return", result);
         case 13:
-          _context110.prev = 13;
-          _context110.t0 = _context110["catch"](0);
-          handleError(_context110.t0);
-          return _context110.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
+          _context114.prev = 13;
+          _context114.t0 = _context114["catch"](0);
+          handleError(_context114.t0);
+          return _context114.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
             result: {
-              error: _context110.t0
+              error: _context114.t0
             },
             headers: new Headers(),
             status: 500
           }));
         case 17:
         case "end":
-          return _context110.stop();
+          return _context114.stop();
       }
-    }, _callee109, null, [[0, 13]]);
+    }, _callee112, null, [[0, 13]]);
   }));
   return _singleFetchAction.apply(this, arguments);
 }
-function singleFetchLoaders(_x196, _x197, _x198, _x199, _x200, _x201, _x202) {
+function singleFetchLoaders(_x203, _x204, _x205, _x206, _x207, _x208, _x209) {
   return _singleFetchLoaders.apply(this, arguments);
 }
 function _singleFetchLoaders() {
-  _singleFetchLoaders = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee110(build, serverMode, staticHandler, request, handlerUrl, loadContext, handleError) {
+  _singleFetchLoaders = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee113(build, serverMode, staticHandler, request, handlerUrl, loadContext, handleError) {
     var respond2, respond, handlerRequest, routesParam, loadRouteIds, result;
-    return _regeneratorRuntime().wrap(function _callee110$(_context111) {
-      while (1) switch (_context111.prev = _context111.next) {
+    return _regeneratorRuntime().wrap(function _callee113$(_context115) {
+      while (1) switch (_context115.prev = _context115.next) {
         case 0:
-          _context111.prev = 0;
+          _context115.prev = 0;
           respond2 = function respond2(context) {
             var headers = getDocumentHeaders(build, context);
             if (isRedirectStatusCode(context.statusCode) && headers.has("Location")) {
@@ -34967,19 +35275,19 @@ function _singleFetchLoaders() {
               return m.route.id;
             }));
             if (context.errors) {
-              for (var _i11 = 0, _Object$entries3 = Object.entries(context.errors); _i11 < _Object$entries3.length; _i11++) {
-                var _Object$entries3$_i = _slicedToArray(_Object$entries3[_i11], 2),
-                  id = _Object$entries3$_i[0],
-                  error = _Object$entries3$_i[1];
+              for (var _i14 = 0, _Object$entries4 = Object.entries(context.errors); _i14 < _Object$entries4.length; _i14++) {
+                var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i14], 2),
+                  id = _Object$entries4$_i[0],
+                  error = _Object$entries4$_i[1];
                 results[id] = {
                   error: error
                 };
               }
             }
-            for (var _i12 = 0, _Object$entries4 = Object.entries(context.loaderData); _i12 < _Object$entries4.length; _i12++) {
-              var _Object$entries4$_i = _slicedToArray(_Object$entries4[_i12], 2),
-                _id = _Object$entries4$_i[0],
-                data2 = _Object$entries4$_i[1];
+            for (var _i15 = 0, _Object$entries5 = Object.entries(context.loaderData); _i15 < _Object$entries5.length; _i15++) {
+              var _Object$entries5$_i = _slicedToArray(_Object$entries5[_i15], 2),
+                _id = _Object$entries5$_i[0],
+                data2 = _Object$entries5$_i[1];
               if (!(_id in results) && loadedMatches.has(_id)) {
                 results[_id] = {
                   data: data2
@@ -34999,7 +35307,7 @@ function _singleFetchLoaders() {
           });
           routesParam = new URL(request.url).searchParams.get("_routes");
           loadRouteIds = routesParam ? new Set(routesParam.split(",")) : null;
-          _context111.next = 8;
+          _context115.next = 8;
           return staticHandler.query(handlerRequest, {
             requestContext: loadContext,
             filterMatchesToLoad: function filterMatchesToLoad(m) {
@@ -35009,29 +35317,29 @@ function _singleFetchLoaders() {
             unstable_respond: respond2
           });
         case 8:
-          result = _context111.sent;
+          result = _context115.sent;
           if (!isResponse(result)) {
             result = respond2(result);
           }
           if (!isRedirectResponse(result)) {
-            _context111.next = 12;
+            _context115.next = 12;
             break;
           }
-          return _context111.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
+          return _context115.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
             result: _defineProperty({}, SingleFetchRedirectSymbol, getSingleFetchRedirect(result.status, result.headers, build.basename)),
             headers: result.headers,
             status: SINGLE_FETCH_REDIRECT_STATUS
           }));
         case 12:
-          return _context111.abrupt("return", result);
+          return _context115.abrupt("return", result);
         case 15:
-          _context111.prev = 15;
-          _context111.t0 = _context111["catch"](0);
-          handleError(_context111.t0);
-          return _context111.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
+          _context115.prev = 15;
+          _context115.t0 = _context115["catch"](0);
+          handleError(_context115.t0);
+          return _context115.abrupt("return", generateSingleFetchResponse(request, build, serverMode, {
             result: {
               root: {
-                error: _context111.t0
+                error: _context115.t0
               }
             },
             headers: new Headers(),
@@ -35039,16 +35347,16 @@ function _singleFetchLoaders() {
           }));
         case 19:
         case "end":
-          return _context111.stop();
+          return _context115.stop();
       }
-    }, _callee110, null, [[0, 15]]);
+    }, _callee113, null, [[0, 15]]);
   }));
   return _singleFetchLoaders.apply(this, arguments);
 }
-function generateSingleFetchResponse(request, build, serverMode, _ref108) {
-  var result = _ref108.result,
-    headers = _ref108.headers,
-    status = _ref108.status;
+function generateSingleFetchResponse(request, build, serverMode, _ref110) {
+  var result = _ref110.result,
+    headers = _ref110.headers,
+    status = _ref110.status;
   var resultHeaders = new Headers(headers);
   resultHeaders.set("X-Remix-Response", "yes");
   if (SERVER_NO_BODY_STATUS_CODES.has(status)) {
@@ -35092,14 +35400,14 @@ function encodeViaTurboStream(data2, requestSignal, streamTimeout, serverMode) {
   requestSignal.addEventListener("abort", function () {
     return clearTimeout(timeoutId);
   });
-  return (0, _turboStream.encode)(data2, {
+  return encode(data2, {
     signal: controller.signal,
     plugins: [function (value) {
       if (value instanceof Error) {
-        var _ref109 = serverMode === "production" /* Production */ ? sanitizeError(value, serverMode) : value,
-          name = _ref109.name,
-          message = _ref109.message,
-          stack = _ref109.stack;
+        var _ref111 = serverMode === "production" /* Production */ ? sanitizeError(value, serverMode) : value,
+          name = _ref111.name,
+          message = _ref111.message,
+          stack = _ref111.stack;
         return ["SanitizedError", name, message, stack];
       }
       if (value instanceof ErrorResponseImpl) {
@@ -35130,8 +35438,8 @@ function derive(build, mode) {
   var staticHandler = createStaticHandler(dataRoutes, {
     basename: build.basename
   });
-  var errorHandler = build.entry.module.handleError || function (error, _ref110) {
-    var request = _ref110.request;
+  var errorHandler = build.entry.module.handleError || function (error, _ref112) {
+    var request = _ref112.request;
     if (serverMode !== "test" /* Test */ && !request.signal.aborted) {
       console.error(
       // @ts-expect-error This is "private" from users but intended for internal use
@@ -35153,9 +35461,9 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
   var staticHandler;
   var errorHandler;
   return /*#__PURE__*/function () {
-    var _requestHandler = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee62(request, initialContext) {
+    var _requestHandler = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee61(request, initialContext) {
       var derived, _derived, params, loadContext, handleError, error, url, normalizedBasename, normalizedPath, isSpaMode, manifestUrl, res, matches, response, handlerUrl, singleFetchMatches, result, headers, _getDevServerHooks2, pathname, criticalCss, _getDevServerHooks3, _getDevServerHooks3$g;
-      return _regeneratorRuntime().wrap(function _callee62$(_context63) {
+      return _regeneratorRuntime().wrap(function _callee61$(_context63) {
         while (1) switch (_context63.prev = _context63.next) {
           case 0:
             if (!(typeof build === "function")) {
@@ -35269,7 +35577,7 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
           case 45:
             isSpaMode = true;
           case 46:
-            manifestUrl = "".concat(normalizedBasename, "/__manifest").replace(/\/+/g, "/");
+            manifestUrl = getManifestPath(_build.routeDiscovery.manifestPath, normalizedBasename);
             if (!(url.pathname === manifestUrl)) {
               _context63.next = 59;
               break;
@@ -35288,7 +35596,7 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
               status: 500
             }));
           case 59:
-            matches = matchServerRoutes(routes, url.pathname, _build.basename);
+            matches = matchServerRoutes(routes, normalizedPath, _build.basename);
             if (matches && matches.length > 0) {
               Object.assign(params, matches[0].params);
             }
@@ -35388,28 +35696,28 @@ var createRequestHandler = exports.createRequestHandler = function createRequest
           case "end":
             return _context63.stop();
         }
-      }, _callee62, null, [[16, 20], [48, 55]]);
+      }, _callee61, null, [[16, 20], [48, 55]]);
     }));
-    function requestHandler(_x203, _x204) {
+    function requestHandler(_x210, _x211) {
       return _requestHandler.apply(this, arguments);
     }
     return requestHandler;
   }();
 };
-function handleManifestRequest(_x205, _x206, _x207) {
+function handleManifestRequest(_x212, _x213, _x214) {
   return _handleManifestRequest.apply(this, arguments);
 }
 function _handleManifestRequest() {
-  _handleManifestRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee111(build, routes, url) {
-    var patches, paths, _iterator18, _step18, path, matches, _iterator19, _step19, _match2, routeId, route;
-    return _regeneratorRuntime().wrap(function _callee111$(_context112) {
-      while (1) switch (_context112.prev = _context112.next) {
+  _handleManifestRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee114(build, routes, url) {
+    var patches, paths, _iterator25, _step25, path, matches, _iterator26, _step26, _match3, routeId, route;
+    return _regeneratorRuntime().wrap(function _callee114$(_context116) {
+      while (1) switch (_context116.prev = _context116.next) {
         case 0:
           if (!(build.assets.version !== url.searchParams.get("version"))) {
-            _context112.next = 2;
+            _context116.next = 2;
             break;
           }
-          return _context112.abrupt("return", new Response(null, {
+          return _context116.abrupt("return", new Response(null, {
             status: 204,
             headers: {
               "X-Remix-Reload-Document": "true"
@@ -35418,7 +35726,7 @@ function _handleManifestRequest() {
         case 2:
           patches = {};
           if (!url.searchParams.has("p")) {
-            _context112.next = 9;
+            _context116.next = 9;
             break;
           }
           paths = /* @__PURE__ */new Set();
@@ -35432,113 +35740,113 @@ function _handleManifestRequest() {
               paths.add("/".concat(partialPath));
             });
           });
-          _iterator18 = _createForOfIteratorHelper(paths);
+          _iterator25 = _createForOfIteratorHelper(paths);
           try {
-            for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
-              path = _step18.value;
+            for (_iterator25.s(); !(_step25 = _iterator25.n()).done;) {
+              path = _step25.value;
               matches = matchServerRoutes(routes, path, build.basename);
               if (matches) {
-                _iterator19 = _createForOfIteratorHelper(matches);
+                _iterator26 = _createForOfIteratorHelper(matches);
                 try {
-                  for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
-                    _match2 = _step19.value;
-                    routeId = _match2.route.id;
+                  for (_iterator26.s(); !(_step26 = _iterator26.n()).done;) {
+                    _match3 = _step26.value;
+                    routeId = _match3.route.id;
                     route = build.assets.routes[routeId];
                     if (route) {
                       patches[routeId] = route;
                     }
                   }
                 } catch (err) {
-                  _iterator19.e(err);
+                  _iterator26.e(err);
                 } finally {
-                  _iterator19.f();
+                  _iterator26.f();
                 }
               }
             }
           } catch (err) {
-            _iterator18.e(err);
+            _iterator25.e(err);
           } finally {
-            _iterator18.f();
+            _iterator25.f();
           }
-          return _context112.abrupt("return", Response.json(patches, {
+          return _context116.abrupt("return", Response.json(patches, {
             headers: {
               "Cache-Control": "public, max-age=31536000, immutable"
             }
           }));
         case 9:
-          return _context112.abrupt("return", new Response("Invalid Request", {
+          return _context116.abrupt("return", new Response("Invalid Request", {
             status: 400
           }));
         case 10:
         case "end":
-          return _context112.stop();
+          return _context116.stop();
       }
-    }, _callee111);
+    }, _callee114);
   }));
   return _handleManifestRequest.apply(this, arguments);
 }
-function handleSingleFetchRequest(_x208, _x209, _x210, _x211, _x212, _x213, _x214) {
+function handleSingleFetchRequest(_x215, _x216, _x217, _x218, _x219, _x220, _x221) {
   return _handleSingleFetchRequest.apply(this, arguments);
 }
 function _handleSingleFetchRequest() {
-  _handleSingleFetchRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee112(serverMode, build, staticHandler, request, handlerUrl, loadContext, handleError) {
+  _handleSingleFetchRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee115(serverMode, build, staticHandler, request, handlerUrl, loadContext, handleError) {
     var response;
-    return _regeneratorRuntime().wrap(function _callee112$(_context113) {
-      while (1) switch (_context113.prev = _context113.next) {
+    return _regeneratorRuntime().wrap(function _callee115$(_context117) {
+      while (1) switch (_context117.prev = _context117.next) {
         case 0:
           if (!(request.method !== "GET")) {
-            _context113.next = 6;
+            _context117.next = 6;
             break;
           }
-          _context113.next = 3;
+          _context117.next = 3;
           return singleFetchAction(build, serverMode, staticHandler, request, handlerUrl, loadContext, handleError);
         case 3:
-          _context113.t0 = _context113.sent;
-          _context113.next = 9;
+          _context117.t0 = _context117.sent;
+          _context117.next = 9;
           break;
         case 6:
-          _context113.next = 8;
+          _context117.next = 8;
           return singleFetchLoaders(build, serverMode, staticHandler, request, handlerUrl, loadContext, handleError);
         case 8:
-          _context113.t0 = _context113.sent;
+          _context117.t0 = _context117.sent;
         case 9:
-          response = _context113.t0;
-          return _context113.abrupt("return", response);
+          response = _context117.t0;
+          return _context117.abrupt("return", response);
         case 11:
         case "end":
-          return _context113.stop();
+          return _context117.stop();
       }
-    }, _callee112);
+    }, _callee115);
   }));
   return _handleSingleFetchRequest.apply(this, arguments);
 }
-function handleDocumentRequest(_x215, _x216, _x217, _x218, _x219, _x220, _x221, _x222) {
+function handleDocumentRequest(_x222, _x223, _x224, _x225, _x226, _x227, _x228, _x229) {
   return _handleDocumentRequest.apply(this, arguments);
 }
 function _handleDocumentRequest() {
-  _handleDocumentRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee114(serverMode, build, staticHandler, request, loadContext, handleError, isSpaMode, criticalCss) {
+  _handleDocumentRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee117(serverMode, build, staticHandler, request, loadContext, handleError, isSpaMode, criticalCss) {
     var response, renderHtml, _renderHtml;
-    return _regeneratorRuntime().wrap(function _callee114$(_context115) {
-      while (1) switch (_context115.prev = _context115.next) {
+    return _regeneratorRuntime().wrap(function _callee117$(_context119) {
+      while (1) switch (_context119.prev = _context119.next) {
         case 0:
           _renderHtml = function _renderHtml3() {
-            _renderHtml = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee113(context, isSpaMode2) {
-              var headers, state, entryContext, handleDocumentRequestFunction, errorForSecondRender, data2, state2;
-              return _regeneratorRuntime().wrap(function _callee113$(_context114) {
-                while (1) switch (_context114.prev = _context114.next) {
+            _renderHtml = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee116(context, isSpaMode2) {
+              var headers, state, baseServerHandoff, entryContext, handleDocumentRequestFunction, errorForSecondRender, data2, state2;
+              return _regeneratorRuntime().wrap(function _callee116$(_context118) {
+                while (1) switch (_context118.prev = _context118.next) {
                   case 0:
                     if (!isResponse(context)) {
-                      _context114.next = 2;
+                      _context118.next = 2;
                       break;
                     }
-                    return _context114.abrupt("return", context);
+                    return _context118.abrupt("return", context);
                   case 2:
                     headers = getDocumentHeaders(build, context);
                     if (!SERVER_NO_BODY_STATUS_CODES.has(context.statusCode)) {
-                      _context114.next = 5;
+                      _context118.next = 5;
                       break;
                     }
-                    return _context114.abrupt("return", new Response(null, {
+                    return _context118.abrupt("return", new Response(null, {
                       status: context.statusCode,
                       headers: headers
                     }));
@@ -35556,54 +35864,58 @@ function _handleDocumentRequest() {
                       actionData: context.actionData,
                       errors: serializeErrors2(context.errors, serverMode)
                     };
+                    baseServerHandoff = {
+                      basename: build.basename,
+                      future: build.future,
+                      routeDiscovery: build.routeDiscovery,
+                      ssr: build.ssr,
+                      isSpaMode: isSpaMode2
+                    };
                     entryContext = {
                       manifest: build.assets,
                       routeModules: createEntryRouteModules(build.routes),
                       staticHandlerContext: context,
                       criticalCss: criticalCss,
-                      serverHandoffString: createServerHandoffString({
-                        basename: build.basename,
-                        criticalCss: criticalCss,
-                        future: build.future,
-                        ssr: build.ssr,
-                        isSpaMode: isSpaMode2
-                      }),
+                      serverHandoffString: createServerHandoffString(_objectSpread(_objectSpread({}, baseServerHandoff), {}, {
+                        criticalCss: criticalCss
+                      })),
                       serverHandoffStream: encodeViaTurboStream(state, request.signal, build.entry.module.streamTimeout, serverMode),
                       renderMeta: {},
                       future: build.future,
                       ssr: build.ssr,
+                      routeDiscovery: build.routeDiscovery,
                       isSpaMode: isSpaMode2,
                       serializeError: function serializeError(err) {
                         return _serializeError(err, serverMode);
                       }
                     };
                     handleDocumentRequestFunction = build.entry.module.default;
-                    _context114.prev = 9;
-                    _context114.next = 12;
+                    _context118.prev = 10;
+                    _context118.next = 13;
                     return handleDocumentRequestFunction(request, context.statusCode, headers, entryContext, loadContext);
-                  case 12:
-                    return _context114.abrupt("return", _context114.sent);
-                  case 15:
-                    _context114.prev = 15;
-                    _context114.t0 = _context114["catch"](9);
-                    handleError(_context114.t0);
-                    errorForSecondRender = _context114.t0;
-                    if (!isResponse(_context114.t0)) {
-                      _context114.next = 29;
+                  case 13:
+                    return _context118.abrupt("return", _context118.sent);
+                  case 16:
+                    _context118.prev = 16;
+                    _context118.t0 = _context118["catch"](10);
+                    handleError(_context118.t0);
+                    errorForSecondRender = _context118.t0;
+                    if (!isResponse(_context118.t0)) {
+                      _context118.next = 30;
                       break;
                     }
-                    _context114.prev = 20;
-                    _context114.next = 23;
-                    return unwrapResponse(_context114.t0);
-                  case 23:
-                    data2 = _context114.sent;
-                    errorForSecondRender = new ErrorResponseImpl(_context114.t0.status, _context114.t0.statusText, data2);
-                    _context114.next = 29;
+                    _context118.prev = 21;
+                    _context118.next = 24;
+                    return unwrapResponse(_context118.t0);
+                  case 24:
+                    data2 = _context118.sent;
+                    errorForSecondRender = new ErrorResponseImpl(_context118.t0.status, _context118.t0.statusText, data2);
+                    _context118.next = 30;
                     break;
-                  case 27:
-                    _context114.prev = 27;
-                    _context114.t1 = _context114["catch"](20);
-                  case 29:
+                  case 28:
+                    _context118.prev = 28;
+                    _context118.t1 = _context118["catch"](21);
+                  case 30:
                     context = getStaticContextFromError(staticHandler.dataRoutes, context, errorForSecondRender);
                     if (context.errors) {
                       context.errors = sanitizeErrors(context.errors, serverMode);
@@ -35615,38 +35927,33 @@ function _handleDocumentRequest() {
                     };
                     entryContext = _objectSpread(_objectSpread({}, entryContext), {}, {
                       staticHandlerContext: context,
-                      serverHandoffString: createServerHandoffString({
-                        basename: build.basename,
-                        future: build.future,
-                        ssr: build.ssr,
-                        isSpaMode: isSpaMode2
-                      }),
+                      serverHandoffString: createServerHandoffString(baseServerHandoff),
                       serverHandoffStream: encodeViaTurboStream(state2, request.signal, build.entry.module.streamTimeout, serverMode),
                       renderMeta: {}
                     });
-                    _context114.prev = 33;
-                    _context114.next = 36;
+                    _context118.prev = 34;
+                    _context118.next = 37;
                     return handleDocumentRequestFunction(request, context.statusCode, headers, entryContext, loadContext);
-                  case 36:
-                    return _context114.abrupt("return", _context114.sent);
-                  case 39:
-                    _context114.prev = 39;
-                    _context114.t2 = _context114["catch"](33);
-                    handleError(_context114.t2);
-                    return _context114.abrupt("return", returnLastResortErrorResponse(_context114.t2, serverMode));
-                  case 43:
+                  case 37:
+                    return _context118.abrupt("return", _context118.sent);
+                  case 40:
+                    _context118.prev = 40;
+                    _context118.t2 = _context118["catch"](34);
+                    handleError(_context118.t2);
+                    return _context118.abrupt("return", returnLastResortErrorResponse(_context118.t2, serverMode));
+                  case 44:
                   case "end":
-                    return _context114.stop();
+                    return _context118.stop();
                 }
-              }, _callee113, null, [[9, 15], [20, 27], [33, 39]]);
+              }, _callee116, null, [[10, 16], [21, 28], [34, 40]]);
             }));
             return _renderHtml.apply(this, arguments);
           };
-          renderHtml = function _renderHtml2(_x237, _x238) {
+          renderHtml = function _renderHtml2(_x244, _x245) {
             return _renderHtml.apply(this, arguments);
           };
-          _context115.prev = 2;
-          _context115.next = 5;
+          _context119.prev = 2;
+          _context119.next = 5;
           return staticHandler.query(request, {
             requestContext: loadContext,
             unstable_respond: build.future.unstable_middleware ? function (ctx) {
@@ -35654,34 +35961,34 @@ function _handleDocumentRequest() {
             } : void 0
           });
         case 5:
-          response = _context115.sent;
-          return _context115.abrupt("return", isResponse(response) ? response : renderHtml(response, isSpaMode));
+          response = _context119.sent;
+          return _context119.abrupt("return", isResponse(response) ? response : renderHtml(response, isSpaMode));
         case 9:
-          _context115.prev = 9;
-          _context115.t0 = _context115["catch"](2);
-          handleError(_context115.t0);
-          return _context115.abrupt("return", new Response(null, {
+          _context119.prev = 9;
+          _context119.t0 = _context119["catch"](2);
+          handleError(_context119.t0);
+          return _context119.abrupt("return", new Response(null, {
             status: 500
           }));
         case 13:
         case "end":
-          return _context115.stop();
+          return _context119.stop();
       }
-    }, _callee114, null, [[2, 9]]);
+    }, _callee117, null, [[2, 9]]);
   }));
   return _handleDocumentRequest.apply(this, arguments);
 }
-function handleResourceRequest(_x223, _x224, _x225, _x226, _x227, _x228, _x229) {
+function handleResourceRequest(_x230, _x231, _x232, _x233, _x234, _x235, _x236) {
   return _handleResourceRequest.apply(this, arguments);
 }
 function _handleResourceRequest() {
-  _handleResourceRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee115(serverMode, build, staticHandler, routeId, request, loadContext, handleError) {
+  _handleResourceRequest = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee118(serverMode, build, staticHandler, routeId, request, loadContext, handleError) {
     var response, newError;
-    return _regeneratorRuntime().wrap(function _callee115$(_context116) {
-      while (1) switch (_context116.prev = _context116.next) {
+    return _regeneratorRuntime().wrap(function _callee118$(_context120) {
+      while (1) switch (_context120.prev = _context120.next) {
         case 0:
-          _context116.prev = 0;
-          _context116.next = 3;
+          _context120.prev = 0;
+          _context120.next = 3;
           return staticHandler.queryRoute(request, {
             routeId: routeId,
             requestContext: loadContext,
@@ -35690,54 +35997,54 @@ function _handleResourceRequest() {
             } : void 0
           });
         case 3:
-          response = _context116.sent;
+          response = _context120.sent;
           if (!isResponse(response)) {
-            _context116.next = 6;
+            _context120.next = 6;
             break;
           }
-          return _context116.abrupt("return", response);
+          return _context120.abrupt("return", response);
         case 6:
           if (!(typeof response === "string")) {
-            _context116.next = 8;
+            _context120.next = 8;
             break;
           }
-          return _context116.abrupt("return", new Response(response));
+          return _context120.abrupt("return", new Response(response));
         case 8:
-          return _context116.abrupt("return", Response.json(response));
+          return _context120.abrupt("return", Response.json(response));
         case 11:
-          _context116.prev = 11;
-          _context116.t0 = _context116["catch"](0);
-          if (!isResponse(_context116.t0)) {
-            _context116.next = 16;
+          _context120.prev = 11;
+          _context120.t0 = _context120["catch"](0);
+          if (!isResponse(_context120.t0)) {
+            _context120.next = 16;
             break;
           }
-          _context116.t0.headers.set("X-Remix-Catch", "yes");
-          return _context116.abrupt("return", _context116.t0);
+          _context120.t0.headers.set("X-Remix-Catch", "yes");
+          return _context120.abrupt("return", _context120.t0);
         case 16:
-          if (!isRouteErrorResponse(_context116.t0)) {
-            _context116.next = 19;
+          if (!isRouteErrorResponse(_context120.t0)) {
+            _context120.next = 19;
             break;
           }
-          if (_context116.t0) {
-            handleError(_context116.t0);
+          if (_context120.t0) {
+            handleError(_context120.t0);
           }
-          return _context116.abrupt("return", errorResponseToJson(_context116.t0, serverMode));
+          return _context120.abrupt("return", errorResponseToJson(_context120.t0, serverMode));
         case 19:
-          if (!(_context116.t0 instanceof Error && _context116.t0.message === "Expected a response from queryRoute")) {
-            _context116.next = 23;
+          if (!(_context120.t0 instanceof Error && _context120.t0.message === "Expected a response from queryRoute")) {
+            _context120.next = 23;
             break;
           }
           newError = new Error("Expected a Response to be returned from resource route handler");
           handleError(newError);
-          return _context116.abrupt("return", returnLastResortErrorResponse(newError, serverMode));
+          return _context120.abrupt("return", returnLastResortErrorResponse(newError, serverMode));
         case 23:
-          handleError(_context116.t0);
-          return _context116.abrupt("return", returnLastResortErrorResponse(_context116.t0, serverMode));
+          handleError(_context120.t0);
+          return _context120.abrupt("return", returnLastResortErrorResponse(_context120.t0, serverMode));
         case 25:
         case "end":
-          return _context116.stop();
+          return _context120.stop();
       }
-    }, _callee115, null, [[0, 11]]);
+    }, _callee118, null, [[0, 11]]);
   }));
   return _handleResourceRequest.apply(this, arguments);
 }
@@ -35811,19 +36118,19 @@ var createSession = exports.createSession = function createSession() {
 var isSession = exports.isSession = function isSession(object) {
   return object != null && typeof object.id === "string" && typeof object.data !== "undefined" && typeof object.has === "function" && typeof object.get === "function" && typeof object.set === "function" && typeof object.flash === "function" && typeof object.unset === "function";
 };
-function createSessionStorage(_ref111) {
-  var cookieArg = _ref111.cookie,
-    createData = _ref111.createData,
-    readData = _ref111.readData,
-    updateData = _ref111.updateData,
-    deleteData = _ref111.deleteData;
+function createSessionStorage(_ref113) {
+  var cookieArg = _ref113.cookie,
+    createData = _ref113.createData,
+    readData = _ref113.readData,
+    updateData = _ref113.updateData,
+    deleteData = _ref113.deleteData;
   var cookie = isCookie(cookieArg) ? cookieArg : createCookie((cookieArg === null || cookieArg === void 0 ? void 0 : cookieArg.name) || "__session", cookieArg);
   warnOnceAboutSigningSessionCookie(cookie);
   return {
     getSession: function getSession(cookieHeader, options) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee63() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee62() {
         var id, data2;
-        return _regeneratorRuntime().wrap(function _callee63$(_context64) {
+        return _regeneratorRuntime().wrap(function _callee62$(_context64) {
           while (1) switch (_context64.prev = _context64.next) {
             case 0:
               _context64.t0 = cookieHeader;
@@ -35853,13 +36160,13 @@ function createSessionStorage(_ref111) {
             case "end":
               return _context64.stop();
           }
-        }, _callee63);
+        }, _callee62);
       }))();
     },
     commitSession: function commitSession(session, options) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee64() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee63() {
         var id, data2, expires;
-        return _regeneratorRuntime().wrap(function _callee64$(_context65) {
+        return _regeneratorRuntime().wrap(function _callee63$(_context65) {
           while (1) switch (_context65.prev = _context65.next) {
             case 0:
               id = session.id, data2 = session.data;
@@ -35884,12 +36191,12 @@ function createSessionStorage(_ref111) {
             case "end":
               return _context65.stop();
           }
-        }, _callee64);
+        }, _callee63);
       }))();
     },
     destroySession: function destroySession(session, options) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee65() {
-        return _regeneratorRuntime().wrap(function _callee65$(_context66) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee64() {
+        return _regeneratorRuntime().wrap(function _callee64$(_context66) {
           while (1) switch (_context66.prev = _context66.next) {
             case 0:
               _context66.next = 2;
@@ -35903,7 +36210,7 @@ function createSessionStorage(_ref111) {
             case "end":
               return _context66.stop();
           }
-        }, _callee65);
+        }, _callee64);
       }))();
     }
   };
@@ -35914,14 +36221,14 @@ function warnOnceAboutSigningSessionCookie(cookie) {
 
 // lib/server-runtime/sessions/cookieStorage.ts
 function createCookieSessionStorage() {
-  var _ref112 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-    cookieArg = _ref112.cookie;
+  var _ref114 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    cookieArg = _ref114.cookie;
   var cookie = isCookie(cookieArg) ? cookieArg : createCookie((cookieArg === null || cookieArg === void 0 ? void 0 : cookieArg.name) || "__session", cookieArg);
   warnOnceAboutSigningSessionCookie(cookie);
   return {
     getSession: function getSession(cookieHeader, options) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee66() {
-        return _regeneratorRuntime().wrap(function _callee66$(_context67) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee65() {
+        return _regeneratorRuntime().wrap(function _callee65$(_context67) {
           while (1) switch (_context67.prev = _context67.next) {
             case 0:
               _context67.t0 = createSession;
@@ -35948,13 +36255,13 @@ function createCookieSessionStorage() {
             case "end":
               return _context67.stop();
           }
-        }, _callee66);
+        }, _callee65);
       }))();
     },
     commitSession: function commitSession(session, options) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee67() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee66() {
         var serializedCookie;
-        return _regeneratorRuntime().wrap(function _callee67$(_context68) {
+        return _regeneratorRuntime().wrap(function _callee66$(_context68) {
           while (1) switch (_context68.prev = _context68.next) {
             case 0:
               _context68.next = 2;
@@ -35972,12 +36279,12 @@ function createCookieSessionStorage() {
             case "end":
               return _context68.stop();
           }
-        }, _callee67);
+        }, _callee66);
       }))();
     },
     destroySession: function destroySession(_session, options) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee68() {
-        return _regeneratorRuntime().wrap(function _callee68$(_context69) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee67() {
+        return _regeneratorRuntime().wrap(function _callee67$(_context69) {
           while (1) switch (_context69.prev = _context69.next) {
             case 0:
               return _context69.abrupt("return", cookie.serialize("", _objectSpread(_objectSpread({}, options), {}, {
@@ -35988,7 +36295,7 @@ function createCookieSessionStorage() {
             case "end":
               return _context69.stop();
           }
-        }, _callee68);
+        }, _callee67);
       }))();
     }
   };
@@ -35996,15 +36303,15 @@ function createCookieSessionStorage() {
 
 // lib/server-runtime/sessions/memoryStorage.ts
 function createMemorySessionStorage() {
-  var _ref113 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-    cookie = _ref113.cookie;
+  var _ref115 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    cookie = _ref115.cookie;
   var map = /* @__PURE__ */new Map();
   return createSessionStorage({
     cookie: cookie,
     createData: function createData(data2, expires) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee69() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee68() {
         var id;
-        return _regeneratorRuntime().wrap(function _callee69$(_context70) {
+        return _regeneratorRuntime().wrap(function _callee68$(_context70) {
           while (1) switch (_context70.prev = _context70.next) {
             case 0:
               id = Math.random().toString(36).substring(2, 10);
@@ -36017,13 +36324,13 @@ function createMemorySessionStorage() {
             case "end":
               return _context70.stop();
           }
-        }, _callee69);
+        }, _callee68);
       }))();
     },
     readData: function readData(id) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee70() {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee69() {
         var _map$get, data2, expires;
-        return _regeneratorRuntime().wrap(function _callee70$(_context71) {
+        return _regeneratorRuntime().wrap(function _callee69$(_context71) {
           while (1) switch (_context71.prev = _context71.next) {
             case 0:
               if (!map.has(id)) {
@@ -36044,12 +36351,12 @@ function createMemorySessionStorage() {
             case "end":
               return _context71.stop();
           }
-        }, _callee70);
+        }, _callee69);
       }))();
     },
     updateData: function updateData(id, data2, expires) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee71() {
-        return _regeneratorRuntime().wrap(function _callee71$(_context72) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee70() {
+        return _regeneratorRuntime().wrap(function _callee70$(_context72) {
           while (1) switch (_context72.prev = _context72.next) {
             case 0:
               map.set(id, {
@@ -36060,12 +36367,12 @@ function createMemorySessionStorage() {
             case "end":
               return _context72.stop();
           }
-        }, _callee71);
+        }, _callee70);
       }))();
     },
     deleteData: function deleteData(id) {
-      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee72() {
-        return _regeneratorRuntime().wrap(function _callee72$(_context73) {
+      return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee71() {
+        return _regeneratorRuntime().wrap(function _callee71$(_context73) {
           while (1) switch (_context73.prev = _context73.next) {
             case 0:
               map.delete(id);
@@ -36073,7 +36380,7 @@ function createMemorySessionStorage() {
             case "end":
               return _context73.stop();
           }
-        }, _callee72);
+        }, _callee71);
       }))();
     }
   });
@@ -36102,8 +36409,8 @@ function deserializeErrors2(errors) {
   if (!errors) return null;
   var entries = Object.entries(errors);
   var serialized = {};
-  for (var _i9 = 0, _entries5 = entries; _i9 < _entries5.length; _i9++) {
-    var _entries5$_i = _slicedToArray(_entries5[_i9], 2),
+  for (var _i11 = 0, _entries5 = entries; _i11 < _entries5.length; _i11++) {
+    var _entries5$_i = _slicedToArray(_entries5[_i11], 2),
       key = _entries5$_i[0],
       val = _entries5$_i[1];
     if (val && val.__type === "RouteErrorResponse") {
@@ -36138,11 +36445,11 @@ function getHydrationData(state, routes, getRouteInfo, location, basename, isSpa
   });
   var initialMatches = matchRoutes(routes, location, basename);
   if (initialMatches) {
-    var _iterator16 = _createForOfIteratorHelper(initialMatches),
-      _step16;
+    var _iterator22 = _createForOfIteratorHelper(initialMatches),
+      _step22;
     try {
-      for (_iterator16.s(); !(_step16 = _iterator16.n()).done;) {
-        var match = _step16.value;
+      for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
+        var match = _step22.value;
         var routeId = match.route.id;
         var routeInfo = getRouteInfo(routeId);
         if (shouldHydrateRouteLoader(routeId, routeInfo.clientLoader, routeInfo.hasLoader, isSpaMode) && (routeInfo.hasHydrateFallback || !routeInfo.hasLoader)) {
@@ -36152,14 +36459,14 @@ function getHydrationData(state, routes, getRouteInfo, location, basename, isSpa
         }
       }
     } catch (err) {
-      _iterator16.e(err);
+      _iterator22.e(err);
     } finally {
-      _iterator16.f();
+      _iterator22.f();
     }
   }
   return hydrationData;
 }
-},{"react":"../node_modules/react/index.js","turbo-stream":"../node_modules/turbo-stream/dist/turbo-stream.js","cookie":"../node_modules/cookie/dist/index.js","set-cookie-parser":"../node_modules/set-cookie-parser/lib/set-cookie.js","process":"../node_modules/process/browser.js"}],"../node_modules/react-router/dist/development/index.mjs":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","cookie":"../node_modules/cookie/dist/index.js","set-cookie-parser":"../node_modules/set-cookie-parser/lib/set-cookie.js","process":"../node_modules/process/browser.js"}],"../node_modules/react-router/dist/development/index.mjs":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36168,701 +36475,701 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "Await", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Await;
+    return _chunkD4RADZKF.Await;
   }
 });
 Object.defineProperty(exports, "BrowserRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.BrowserRouter;
+    return _chunkD4RADZKF.BrowserRouter;
   }
 });
 Object.defineProperty(exports, "Form", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Form;
+    return _chunkD4RADZKF.Form;
   }
 });
 Object.defineProperty(exports, "HashRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.HashRouter;
+    return _chunkD4RADZKF.HashRouter;
   }
 });
 Object.defineProperty(exports, "IDLE_BLOCKER", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.IDLE_BLOCKER;
+    return _chunkD4RADZKF.IDLE_BLOCKER;
   }
 });
 Object.defineProperty(exports, "IDLE_FETCHER", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.IDLE_FETCHER;
+    return _chunkD4RADZKF.IDLE_FETCHER;
   }
 });
 Object.defineProperty(exports, "IDLE_NAVIGATION", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.IDLE_NAVIGATION;
+    return _chunkD4RADZKF.IDLE_NAVIGATION;
   }
 });
 Object.defineProperty(exports, "Link", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Link;
+    return _chunkD4RADZKF.Link;
   }
 });
 Object.defineProperty(exports, "Links", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Links;
+    return _chunkD4RADZKF.Links;
   }
 });
 Object.defineProperty(exports, "MemoryRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.MemoryRouter;
+    return _chunkD4RADZKF.MemoryRouter;
   }
 });
 Object.defineProperty(exports, "Meta", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Meta;
+    return _chunkD4RADZKF.Meta;
   }
 });
 Object.defineProperty(exports, "NavLink", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.NavLink;
+    return _chunkD4RADZKF.NavLink;
   }
 });
 Object.defineProperty(exports, "Navigate", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Navigate;
+    return _chunkD4RADZKF.Navigate;
   }
 });
 Object.defineProperty(exports, "NavigationType", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Action;
+    return _chunkD4RADZKF.Action;
   }
 });
 Object.defineProperty(exports, "Outlet", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Outlet;
+    return _chunkD4RADZKF.Outlet;
   }
 });
 Object.defineProperty(exports, "PrefetchPageLinks", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.PrefetchPageLinks;
+    return _chunkD4RADZKF.PrefetchPageLinks;
   }
 });
 Object.defineProperty(exports, "Route", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Route;
+    return _chunkD4RADZKF.Route;
   }
 });
 Object.defineProperty(exports, "Router", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Router;
+    return _chunkD4RADZKF.Router;
   }
 });
 Object.defineProperty(exports, "RouterProvider", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.RouterProvider;
+    return _chunkD4RADZKF.RouterProvider;
   }
 });
 Object.defineProperty(exports, "Routes", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Routes;
+    return _chunkD4RADZKF.Routes;
   }
 });
 Object.defineProperty(exports, "Scripts", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.Scripts;
+    return _chunkD4RADZKF.Scripts;
   }
 });
 Object.defineProperty(exports, "ScrollRestoration", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.ScrollRestoration;
+    return _chunkD4RADZKF.ScrollRestoration;
   }
 });
 Object.defineProperty(exports, "ServerRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.ServerRouter;
+    return _chunkD4RADZKF.ServerRouter;
   }
 });
 Object.defineProperty(exports, "StaticRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.StaticRouter;
+    return _chunkD4RADZKF.StaticRouter;
   }
 });
 Object.defineProperty(exports, "StaticRouterProvider", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.StaticRouterProvider;
+    return _chunkD4RADZKF.StaticRouterProvider;
   }
 });
 Object.defineProperty(exports, "UNSAFE_DataRouterContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.DataRouterContext;
+    return _chunkD4RADZKF.DataRouterContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_DataRouterStateContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.DataRouterStateContext;
+    return _chunkD4RADZKF.DataRouterStateContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_ErrorResponseImpl", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.ErrorResponseImpl;
+    return _chunkD4RADZKF.ErrorResponseImpl;
   }
 });
 Object.defineProperty(exports, "UNSAFE_FetchersContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.FetchersContext;
+    return _chunkD4RADZKF.FetchersContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_FrameworkContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.FrameworkContext;
+    return _chunkD4RADZKF.FrameworkContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_LocationContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.LocationContext;
+    return _chunkD4RADZKF.LocationContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_NavigationContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.NavigationContext;
+    return _chunkD4RADZKF.NavigationContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_RemixErrorBoundary", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.RemixErrorBoundary;
+    return _chunkD4RADZKF.RemixErrorBoundary;
   }
 });
 Object.defineProperty(exports, "UNSAFE_RouteContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.RouteContext;
+    return _chunkD4RADZKF.RouteContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_ServerMode", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.ServerMode;
+    return _chunkD4RADZKF.ServerMode;
   }
 });
 Object.defineProperty(exports, "UNSAFE_SingleFetchRedirectSymbol", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.SingleFetchRedirectSymbol;
+    return _chunkD4RADZKF.SingleFetchRedirectSymbol;
   }
 });
 Object.defineProperty(exports, "UNSAFE_ViewTransitionContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.ViewTransitionContext;
+    return _chunkD4RADZKF.ViewTransitionContext;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createBrowserHistory", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createBrowserHistory;
+    return _chunkD4RADZKF.createBrowserHistory;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createClientRoutes", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createClientRoutes;
+    return _chunkD4RADZKF.createClientRoutes;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createClientRoutesWithHMRRevalidationOptOut", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createClientRoutesWithHMRRevalidationOptOut;
+    return _chunkD4RADZKF.createClientRoutesWithHMRRevalidationOptOut;
   }
 });
 Object.defineProperty(exports, "UNSAFE_createRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createRouter;
+    return _chunkD4RADZKF.createRouter;
   }
 });
 Object.defineProperty(exports, "UNSAFE_decodeViaTurboStream", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.decodeViaTurboStream;
+    return _chunkD4RADZKF.decodeViaTurboStream;
   }
 });
 Object.defineProperty(exports, "UNSAFE_deserializeErrors", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.deserializeErrors;
+    return _chunkD4RADZKF.deserializeErrors;
   }
 });
 Object.defineProperty(exports, "UNSAFE_getHydrationData", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.getHydrationData;
+    return _chunkD4RADZKF.getHydrationData;
   }
 });
 Object.defineProperty(exports, "UNSAFE_getPatchRoutesOnNavigationFunction", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.getPatchRoutesOnNavigationFunction;
+    return _chunkD4RADZKF.getPatchRoutesOnNavigationFunction;
   }
 });
 Object.defineProperty(exports, "UNSAFE_getTurboStreamSingleFetchDataStrategy", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.getTurboStreamSingleFetchDataStrategy;
+    return _chunkD4RADZKF.getTurboStreamSingleFetchDataStrategy;
   }
 });
 Object.defineProperty(exports, "UNSAFE_hydrationRouteProperties", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.hydrationRouteProperties;
+    return _chunkD4RADZKF.hydrationRouteProperties;
   }
 });
 Object.defineProperty(exports, "UNSAFE_invariant", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.invariant;
+    return _chunkD4RADZKF.invariant;
   }
 });
 Object.defineProperty(exports, "UNSAFE_mapRouteProperties", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.mapRouteProperties;
+    return _chunkD4RADZKF.mapRouteProperties;
   }
 });
 Object.defineProperty(exports, "UNSAFE_shouldHydrateRouteLoader", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.shouldHydrateRouteLoader;
+    return _chunkD4RADZKF.shouldHydrateRouteLoader;
   }
 });
 Object.defineProperty(exports, "UNSAFE_useFogOFWarDiscovery", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useFogOFWarDiscovery;
+    return _chunkD4RADZKF.useFogOFWarDiscovery;
   }
 });
 Object.defineProperty(exports, "UNSAFE_useScrollRestoration", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useScrollRestoration;
+    return _chunkD4RADZKF.useScrollRestoration;
   }
 });
 Object.defineProperty(exports, "createBrowserRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createBrowserRouter;
+    return _chunkD4RADZKF.createBrowserRouter;
   }
 });
 Object.defineProperty(exports, "createCookie", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createCookie;
+    return _chunkD4RADZKF.createCookie;
   }
 });
 Object.defineProperty(exports, "createCookieSessionStorage", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createCookieSessionStorage;
+    return _chunkD4RADZKF.createCookieSessionStorage;
   }
 });
 Object.defineProperty(exports, "createHashRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createHashRouter;
+    return _chunkD4RADZKF.createHashRouter;
   }
 });
 Object.defineProperty(exports, "createMemoryRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createMemoryRouter;
+    return _chunkD4RADZKF.createMemoryRouter;
   }
 });
 Object.defineProperty(exports, "createMemorySessionStorage", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createMemorySessionStorage;
+    return _chunkD4RADZKF.createMemorySessionStorage;
   }
 });
 Object.defineProperty(exports, "createPath", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createPath;
+    return _chunkD4RADZKF.createPath;
   }
 });
 Object.defineProperty(exports, "createRequestHandler", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createRequestHandler;
+    return _chunkD4RADZKF.createRequestHandler;
   }
 });
 Object.defineProperty(exports, "createRoutesFromChildren", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createRoutesFromChildren;
+    return _chunkD4RADZKF.createRoutesFromChildren;
   }
 });
 Object.defineProperty(exports, "createRoutesFromElements", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createRoutesFromElements;
+    return _chunkD4RADZKF.createRoutesFromElements;
   }
 });
 Object.defineProperty(exports, "createRoutesStub", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createRoutesStub;
+    return _chunkD4RADZKF.createRoutesStub;
   }
 });
 Object.defineProperty(exports, "createSearchParams", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createSearchParams;
+    return _chunkD4RADZKF.createSearchParams;
   }
 });
 Object.defineProperty(exports, "createSession", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createSession;
+    return _chunkD4RADZKF.createSession;
   }
 });
 Object.defineProperty(exports, "createSessionStorage", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createSessionStorage;
+    return _chunkD4RADZKF.createSessionStorage;
   }
 });
 Object.defineProperty(exports, "createStaticHandler", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createStaticHandler;
+    return _chunkD4RADZKF.createStaticHandler;
   }
 });
 Object.defineProperty(exports, "createStaticRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.createStaticRouter;
+    return _chunkD4RADZKF.createStaticRouter;
   }
 });
 Object.defineProperty(exports, "data", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.data;
+    return _chunkD4RADZKF.data;
   }
 });
 Object.defineProperty(exports, "generatePath", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.generatePath;
+    return _chunkD4RADZKF.generatePath;
   }
 });
 Object.defineProperty(exports, "href", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.href;
+    return _chunkD4RADZKF.href;
   }
 });
 Object.defineProperty(exports, "isCookie", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.isCookie;
+    return _chunkD4RADZKF.isCookie;
   }
 });
 Object.defineProperty(exports, "isRouteErrorResponse", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.isRouteErrorResponse;
+    return _chunkD4RADZKF.isRouteErrorResponse;
   }
 });
 Object.defineProperty(exports, "isSession", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.isSession;
+    return _chunkD4RADZKF.isSession;
   }
 });
 Object.defineProperty(exports, "matchPath", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.matchPath;
+    return _chunkD4RADZKF.matchPath;
   }
 });
 Object.defineProperty(exports, "matchRoutes", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.matchRoutes;
+    return _chunkD4RADZKF.matchRoutes;
   }
 });
 Object.defineProperty(exports, "parsePath", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.parsePath;
+    return _chunkD4RADZKF.parsePath;
   }
 });
 Object.defineProperty(exports, "redirect", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.redirect;
+    return _chunkD4RADZKF.redirect;
   }
 });
 Object.defineProperty(exports, "redirectDocument", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.redirectDocument;
+    return _chunkD4RADZKF.redirectDocument;
   }
 });
 Object.defineProperty(exports, "renderMatches", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.renderMatches;
+    return _chunkD4RADZKF.renderMatches;
   }
 });
 Object.defineProperty(exports, "replace", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.replace;
+    return _chunkD4RADZKF.replace;
   }
 });
 Object.defineProperty(exports, "resolvePath", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.resolvePath;
+    return _chunkD4RADZKF.resolvePath;
   }
 });
 Object.defineProperty(exports, "unstable_HistoryRouter", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.HistoryRouter;
+    return _chunkD4RADZKF.HistoryRouter;
   }
 });
 Object.defineProperty(exports, "unstable_RouterContextProvider", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.unstable_RouterContextProvider;
+    return _chunkD4RADZKF.unstable_RouterContextProvider;
   }
 });
 Object.defineProperty(exports, "unstable_createContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.unstable_createContext;
+    return _chunkD4RADZKF.unstable_createContext;
   }
 });
 Object.defineProperty(exports, "unstable_setDevServerHooks", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.setDevServerHooks;
+    return _chunkD4RADZKF.setDevServerHooks;
   }
 });
 Object.defineProperty(exports, "unstable_usePrompt", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.usePrompt;
+    return _chunkD4RADZKF.usePrompt;
   }
 });
 Object.defineProperty(exports, "useActionData", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useActionData;
+    return _chunkD4RADZKF.useActionData;
   }
 });
 Object.defineProperty(exports, "useAsyncError", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useAsyncError;
+    return _chunkD4RADZKF.useAsyncError;
   }
 });
 Object.defineProperty(exports, "useAsyncValue", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useAsyncValue;
+    return _chunkD4RADZKF.useAsyncValue;
   }
 });
 Object.defineProperty(exports, "useBeforeUnload", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useBeforeUnload;
+    return _chunkD4RADZKF.useBeforeUnload;
   }
 });
 Object.defineProperty(exports, "useBlocker", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useBlocker;
+    return _chunkD4RADZKF.useBlocker;
   }
 });
 Object.defineProperty(exports, "useFetcher", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useFetcher;
+    return _chunkD4RADZKF.useFetcher;
   }
 });
 Object.defineProperty(exports, "useFetchers", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useFetchers;
+    return _chunkD4RADZKF.useFetchers;
   }
 });
 Object.defineProperty(exports, "useFormAction", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useFormAction;
+    return _chunkD4RADZKF.useFormAction;
   }
 });
 Object.defineProperty(exports, "useHref", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useHref;
+    return _chunkD4RADZKF.useHref;
   }
 });
 Object.defineProperty(exports, "useInRouterContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useInRouterContext;
+    return _chunkD4RADZKF.useInRouterContext;
   }
 });
 Object.defineProperty(exports, "useLinkClickHandler", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useLinkClickHandler;
+    return _chunkD4RADZKF.useLinkClickHandler;
   }
 });
 Object.defineProperty(exports, "useLoaderData", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useLoaderData;
+    return _chunkD4RADZKF.useLoaderData;
   }
 });
 Object.defineProperty(exports, "useLocation", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useLocation;
+    return _chunkD4RADZKF.useLocation;
   }
 });
 Object.defineProperty(exports, "useMatch", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useMatch;
+    return _chunkD4RADZKF.useMatch;
   }
 });
 Object.defineProperty(exports, "useMatches", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useMatches;
+    return _chunkD4RADZKF.useMatches;
   }
 });
 Object.defineProperty(exports, "useNavigate", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useNavigate;
+    return _chunkD4RADZKF.useNavigate;
   }
 });
 Object.defineProperty(exports, "useNavigation", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useNavigation;
+    return _chunkD4RADZKF.useNavigation;
   }
 });
 Object.defineProperty(exports, "useNavigationType", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useNavigationType;
+    return _chunkD4RADZKF.useNavigationType;
   }
 });
 Object.defineProperty(exports, "useOutlet", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useOutlet;
+    return _chunkD4RADZKF.useOutlet;
   }
 });
 Object.defineProperty(exports, "useOutletContext", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useOutletContext;
+    return _chunkD4RADZKF.useOutletContext;
   }
 });
 Object.defineProperty(exports, "useParams", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useParams;
+    return _chunkD4RADZKF.useParams;
   }
 });
 Object.defineProperty(exports, "useResolvedPath", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useResolvedPath;
+    return _chunkD4RADZKF.useResolvedPath;
   }
 });
 Object.defineProperty(exports, "useRevalidator", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useRevalidator;
+    return _chunkD4RADZKF.useRevalidator;
   }
 });
 Object.defineProperty(exports, "useRouteError", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useRouteError;
+    return _chunkD4RADZKF.useRouteError;
   }
 });
 Object.defineProperty(exports, "useRouteLoaderData", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useRouteLoaderData;
+    return _chunkD4RADZKF.useRouteLoaderData;
   }
 });
 Object.defineProperty(exports, "useRoutes", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useRoutes;
+    return _chunkD4RADZKF.useRoutes;
   }
 });
 Object.defineProperty(exports, "useSearchParams", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useSearchParams;
+    return _chunkD4RADZKF.useSearchParams;
   }
 });
 Object.defineProperty(exports, "useSubmit", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useSubmit;
+    return _chunkD4RADZKF.useSubmit;
   }
 });
 Object.defineProperty(exports, "useViewTransitionState", {
   enumerable: true,
   get: function () {
-    return _chunkBAXFHI7N.useViewTransitionState;
+    return _chunkD4RADZKF.useViewTransitionState;
   }
 });
-var _chunkBAXFHI7N = require("./chunk-BAXFHI7N.mjs");
-},{"./chunk-BAXFHI7N.mjs":"../node_modules/react-router/dist/development/chunk-BAXFHI7N.mjs"}],"Components/SVGButtons.js":[function(require,module,exports) {
+var _chunkD4RADZKF = require("./chunk-D4RADZKF.mjs");
+},{"./chunk-D4RADZKF.mjs":"../node_modules/react-router/dist/development/chunk-D4RADZKF.mjs"}],"Components/SVGButtons.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36874,8 +37181,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _ProviderScreen = require("./ProviderScreen");
 var _reactRedux = require("react-redux");
 var _reactRouter = require("react-router");
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -36992,9 +37298,9 @@ function SVGButton2Paths(props) {
     bgColor = _useState8[0],
     setBgColor = _useState8[1];
   var _useState9 = (0, _react.useState)(stroke_inactive),
-    _useState10 = _slicedToArray(_useState9, 2),
-    strokeColor = _useState10[0],
-    setStrokeColor = _useState10[1];
+    _useState0 = _slicedToArray(_useState9, 2),
+    strokeColor = _useState0[0],
+    setStrokeColor = _useState0[1];
   (0, _react.useEffect)(function () {
     if (props.isActive == true) {
       setBgColor(stroke_inactive);
@@ -37065,8 +37371,7 @@ var _ProviderScreen = require("./ProviderScreen");
 var _SVGButtons = _interopRequireWildcard(require("./SVGButtons"));
 var _reactRedux = require("react-redux");
 var _reactRouter = require("react-router");
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -37231,8 +37536,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _Menu = _interopRequireDefault(require("./Menu"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -37329,13 +37633,13 @@ function Scrollbar(props) {
     clickY = _useState8[0],
     setClickY = _useState8[1];
   var _useState9 = (0, _react.useState)("pointer"),
-    _useState10 = _slicedToArray(_useState9, 2),
-    cursor = _useState10[0],
-    setCursor = _useState10[1];
-  var _useState11 = (0, _react.useState)(5),
-    _useState12 = _slicedToArray(_useState11, 2),
-    sliderHeight = _useState12[0],
-    setSliderHeight = _useState12[1];
+    _useState0 = _slicedToArray(_useState9, 2),
+    cursor = _useState0[0],
+    setCursor = _useState0[1];
+  var _useState1 = (0, _react.useState)(5),
+    _useState10 = _slicedToArray(_useState1, 2),
+    sliderHeight = _useState10[0],
+    setSliderHeight = _useState10[1];
   var scrollbarBgLight = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
   });
@@ -37446,8 +37750,11 @@ exports.default = CardMenu;
 var _react = _interopRequireWildcard(require("react"));
 var _Menu = _interopRequireDefault(require("./Menu"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return r; }; var t, r = {}, e = Object.prototype, n = e.hasOwnProperty, o = "function" == typeof Symbol ? Symbol : {}, i = o.iterator || "@@iterator", a = o.asyncIterator || "@@asyncIterator", u = o.toStringTag || "@@toStringTag"; function c(t, r, e, n) { return Object.defineProperty(t, r, { value: e, enumerable: !n, configurable: !n, writable: !n }); } try { c({}, ""); } catch (t) { c = function c(t, r, e) { return t[r] = e; }; } function h(r, e, n, o) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype); return c(a, "_invoke", function (r, e, n) { var o = 1; return function (i, a) { if (3 === o) throw Error("Generator is already running"); if (4 === o) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var u = n.delegate; if (u) { var c = d(u, n); if (c) { if (c === f) continue; return c; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (1 === o) throw o = 4, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = 3; var h = s(r, e, n); if ("normal" === h.type) { if (o = n.done ? 4 : 2, h.arg === f) continue; return { value: h.arg, done: n.done }; } "throw" === h.type && (o = 4, n.method = "throw", n.arg = h.arg); } }; }(r, n, new Context(o || [])), !0), a; } function s(t, r, e) { try { return { type: "normal", arg: t.call(r, e) }; } catch (t) { return { type: "throw", arg: t }; } } r.wrap = h; var f = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var l = {}; c(l, i, function () { return this; }); var p = Object.getPrototypeOf, y = p && p(p(x([]))); y && y !== e && n.call(y, i) && (l = y); var v = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(l); function g(t) { ["next", "throw", "return"].forEach(function (r) { c(t, r, function (t) { return this._invoke(r, t); }); }); } function AsyncIterator(t, r) { function e(o, i, a, u) { var c = s(t[o], t, i); if ("throw" !== c.type) { var h = c.arg, f = h.value; return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function (t) { e("next", t, a, u); }, function (t) { e("throw", t, a, u); }) : r.resolve(f).then(function (t) { h.value = t, a(h); }, function (t) { return e("throw", t, a, u); }); } u(c.arg); } var o; c(this, "_invoke", function (t, n) { function i() { return new r(function (r, o) { e(t, n, r, o); }); } return o = o ? o.then(i, i) : i(); }, !0); } function d(r, e) { var n = e.method, o = r.i[n]; if (o === t) return e.delegate = null, "throw" === n && r.i.return && (e.method = "return", e.arg = t, d(r, e), "throw" === e.method) || "return" !== n && (e.method = "throw", e.arg = new TypeError("The iterator does not provide a '" + n + "' method")), f; var i = s(o, r.i, e.arg); if ("throw" === i.type) return e.method = "throw", e.arg = i.arg, e.delegate = null, f; var a = i.arg; return a ? a.done ? (e[r.r] = a.value, e.next = r.n, "return" !== e.method && (e.method = "next", e.arg = t), e.delegate = null, f) : a : (e.method = "throw", e.arg = new TypeError("iterator result is not an object"), e.delegate = null, f); } function w(t) { this.tryEntries.push(t); } function m(r) { var e = r[4] || {}; e.type = "normal", e.arg = t, r[4] = e; } function Context(t) { this.tryEntries = [[-1]], t.forEach(w, this), this.reset(!0); } function x(r) { if (null != r) { var e = r[i]; if (e) return e.call(r); if ("function" == typeof r.next) return r; if (!isNaN(r.length)) { var o = -1, a = function e() { for (; ++o < r.length;) if (n.call(r, o)) return e.value = r[o], e.done = !1, e; return e.value = t, e.done = !0, e; }; return a.next = a; } } throw new TypeError(_typeof(r) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, c(v, "constructor", GeneratorFunctionPrototype), c(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = c(GeneratorFunctionPrototype, u, "GeneratorFunction"), r.isGeneratorFunction = function (t) { var r = "function" == typeof t && t.constructor; return !!r && (r === GeneratorFunction || "GeneratorFunction" === (r.displayName || r.name)); }, r.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, c(t, u, "GeneratorFunction")), t.prototype = Object.create(v), t; }, r.awrap = function (t) { return { __await: t }; }, g(AsyncIterator.prototype), c(AsyncIterator.prototype, a, function () { return this; }), r.AsyncIterator = AsyncIterator, r.async = function (t, e, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(h(t, e, n, o), i); return r.isGeneratorFunction(e) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, g(v), c(v, u, "Generator"), c(v, i, function () { return this; }), c(v, "toString", function () { return "[object Generator]"; }), r.keys = function (t) { var r = Object(t), e = []; for (var n in r) e.unshift(n); return function t() { for (; e.length;) if ((n = e.pop()) in r) return t.value = n, t.done = !1, t; return t.done = !0, t; }; }, r.values = x, Context.prototype = { constructor: Context, reset: function reset(r) { if (this.prev = this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(m), !r) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0][4]; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(r) { if (this.done) throw r; var e = this; function n(t) { a.type = "throw", a.arg = r, e.next = t; } for (var o = e.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i[4], u = this.prev, c = i[1], h = i[2]; if (-1 === i[0]) return n("end"), !1; if (!c && !h) throw Error("try statement without catch or finally"); if (null != i[0] && i[0] <= u) { if (u < c) return this.method = "next", this.arg = t, n(c), !0; if (u < h) return n(h), !1; } } }, abrupt: function abrupt(t, r) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var n = this.tryEntries[e]; if (n[0] > -1 && n[0] <= this.prev && this.prev < n[2]) { var o = n; break; } } o && ("break" === t || "continue" === t) && o[0] <= r && r <= o[2] && (o = null); var i = o ? o[4] : {}; return i.type = t, i.arg = r, o ? (this.method = "next", this.next = o[2], f) : this.complete(i); }, complete: function complete(t, r) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && r && (this.next = r), f; }, finish: function finish(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[2] === t) return this.complete(e[4], e[3]), m(e), f; } }, catch: function _catch(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[0] === t) { var n = e[4]; if ("throw" === n.type) { var o = n.arg; m(e); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(r, e, n) { return this.delegate = { i: x(r), r: e, n: n }, "next" === this.method && (this.arg = t), f; } }, r; }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -37458,7 +37765,10 @@ var ANIMATION_DURATION = 300;
 function CardMenu(_ref) {
   var handleContainerHover = _ref.handleContainerHover,
     focused = _ref.focused,
-    category = _ref.category;
+    category = _ref.category,
+    key = _ref.key,
+    author = _ref.author,
+    src = _ref.src;
   var _useState = (0, _react.useState)("white"),
     _useState2 = _slicedToArray(_useState, 2),
     SVGfill = _useState2[0],
@@ -37476,37 +37786,38 @@ function CardMenu(_ref) {
     isActive = _useState8[0],
     setIsActive = _useState8[1];
   var _useState9 = (0, _react.useState)(84),
-    _useState10 = _slicedToArray(_useState9, 2),
-    menuHeight = _useState10[0],
-    setMenuHeight = _useState10[1];
-  var _useState11 = (0, _react.useState)("none"),
+    _useState0 = _slicedToArray(_useState9, 2),
+    menuHeight = _useState0[0],
+    setMenuHeight = _useState0[1];
+  var _useState1 = (0, _react.useState)("none"),
+    _useState10 = _slicedToArray(_useState1, 2),
+    pointerEvents = _useState10[0],
+    setPointerEvents = _useState10[1];
+  var _useState11 = (0, _react.useState)("#BFBFBF"),
     _useState12 = _slicedToArray(_useState11, 2),
-    pointerEvents = _useState12[0],
-    setPointerEvents = _useState12[1];
-  var _useState13 = (0, _react.useState)("#BFBFBF"),
+    likeFill = _useState12[0],
+    setLikeFill = _useState12[1];
+  var _useState13 = (0, _react.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
-    likeFill = _useState14[0],
-    setLikeFill = _useState14[1];
-  var _useState15 = (0, _react.useState)(false),
+    likedState = _useState14[0],
+    setLikedState = _useState14[1];
+  var _useState15 = (0, _react.useState)("#BFBFBF"),
     _useState16 = _slicedToArray(_useState15, 2),
-    likedState = _useState16[0],
-    setLikedState = _useState16[1];
+    downloadFill = _useState16[0],
+    setDownloadFill = _useState16[1];
   var _useState17 = (0, _react.useState)("#BFBFBF"),
     _useState18 = _slicedToArray(_useState17, 2),
-    downloadFill = _useState18[0],
-    setDownloadFill = _useState18[1];
-  var _useState19 = (0, _react.useState)("#BFBFBF"),
+    shareFill = _useState18[0],
+    setShareFill = _useState18[1];
+  var _useState19 = (0, _react.useState)(false),
     _useState20 = _slicedToArray(_useState19, 2),
-    shareFill = _useState20[0],
-    setShareFill = _useState20[1];
+    downloadState = _useState20[0],
+    setDownloadState = _useState20[1];
   var _useState21 = (0, _react.useState)(false),
     _useState22 = _slicedToArray(_useState21, 2),
-    downloadState = _useState22[0],
-    setDownloadState = _useState22[1];
-  var _useState23 = (0, _react.useState)(false),
-    _useState24 = _slicedToArray(_useState23, 2),
-    categoryState = _useState24[0],
-    setCategoryState = _useState24[1];
+    categoryState = _useState22[0],
+    setCategoryState = _useState22[1];
+  var filename = "".concat(author, "-").concat(key, ".jpg");
   (0, _react.useEffect)(function () {
     console.log(focused);
     if (focused === false) {
@@ -37531,8 +37842,55 @@ function CardMenu(_ref) {
   }
   ;
   function downloadPost() {
-    setDownloadState(true);
+    var status = downloadImage(src, filename);
+    if (status) setDownloadState(true);
     console.log("download");
+  }
+  ;
+  function downloadImage(_x, _x2) {
+    return _downloadImage.apply(this, arguments);
+  }
+  function _downloadImage() {
+    _downloadImage = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(url, filename) {
+      var response, blob, objectUrl, anchorElement;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return fetch(url);
+          case 3:
+            response = _context.sent;
+            if (response.ok) {
+              _context.next = 6;
+              break;
+            }
+            throw new Error("Error: ".concat(response.status));
+          case 6:
+            _context.next = 8;
+            return response.blob();
+          case 8:
+            blob = _context.sent;
+            objectUrl = URL.createObjectURL(blob);
+            anchorElement = document.createElement('a');
+            anchorElement.href = objectUrl;
+            anchorElement.download = filename;
+            anchorElement.click();
+            setTimeout(function () {
+              return URL.revokeObjectURL(objectUrl);
+            }, 100);
+            return _context.abrupt("return", true);
+          case 18:
+            _context.prev = 18;
+            _context.t0 = _context["catch"](0);
+            console.error(_context.t0.message || _context.t0);
+          case 21:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee, null, [[0, 18]]);
+    }));
+    return _downloadImage.apply(this, arguments);
   }
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("svg", {
     onMouseOver: function onMouseOver() {
@@ -37699,8 +38057,7 @@ var _reactRedux = require("react-redux");
 var _reactRouter = require("react-router");
 var _CardMenu = _interopRequireDefault(require("./CardMenu"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -37786,7 +38143,10 @@ function Container(props) {
   }, /*#__PURE__*/_react.default.createElement(_CardMenu.default, {
     handleContainerHover: handleContainerHover,
     focused: focused,
-    category: category
+    category: category,
+    key: props.key,
+    author: author,
+    src: image
   }), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       padding: "2px",
@@ -37865,7 +38225,7 @@ function Container(props) {
       if (text_content.length > textLimit) text = "".concat(text_content.slice(0, textLimit - 3), "...");else text = text_content;
       return /*#__PURE__*/_react.default.createElement("div", {
         style: {
-          width: "90%",
+          width: "95%",
           height: "100%",
           transition: "all 300ms ease-out",
           borderRadius: "20px",
@@ -37942,10 +38302,9 @@ var _store = require("../app/store");
 var _reactRouter = require("react-router");
 var _CardScreen = _interopRequireDefault(require("./CardScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator.return && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, catch: function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return r; }; var t, r = {}, e = Object.prototype, n = e.hasOwnProperty, o = "function" == typeof Symbol ? Symbol : {}, i = o.iterator || "@@iterator", a = o.asyncIterator || "@@asyncIterator", u = o.toStringTag || "@@toStringTag"; function c(t, r, e, n) { return Object.defineProperty(t, r, { value: e, enumerable: !n, configurable: !n, writable: !n }); } try { c({}, ""); } catch (t) { c = function c(t, r, e) { return t[r] = e; }; } function h(r, e, n, o) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype); return c(a, "_invoke", function (r, e, n) { var o = 1; return function (i, a) { if (3 === o) throw Error("Generator is already running"); if (4 === o) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var u = n.delegate; if (u) { var c = d(u, n); if (c) { if (c === f) continue; return c; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (1 === o) throw o = 4, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = 3; var h = s(r, e, n); if ("normal" === h.type) { if (o = n.done ? 4 : 2, h.arg === f) continue; return { value: h.arg, done: n.done }; } "throw" === h.type && (o = 4, n.method = "throw", n.arg = h.arg); } }; }(r, n, new Context(o || [])), !0), a; } function s(t, r, e) { try { return { type: "normal", arg: t.call(r, e) }; } catch (t) { return { type: "throw", arg: t }; } } r.wrap = h; var f = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var l = {}; c(l, i, function () { return this; }); var p = Object.getPrototypeOf, y = p && p(p(x([]))); y && y !== e && n.call(y, i) && (l = y); var v = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(l); function g(t) { ["next", "throw", "return"].forEach(function (r) { c(t, r, function (t) { return this._invoke(r, t); }); }); } function AsyncIterator(t, r) { function e(o, i, a, u) { var c = s(t[o], t, i); if ("throw" !== c.type) { var h = c.arg, f = h.value; return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function (t) { e("next", t, a, u); }, function (t) { e("throw", t, a, u); }) : r.resolve(f).then(function (t) { h.value = t, a(h); }, function (t) { return e("throw", t, a, u); }); } u(c.arg); } var o; c(this, "_invoke", function (t, n) { function i() { return new r(function (r, o) { e(t, n, r, o); }); } return o = o ? o.then(i, i) : i(); }, !0); } function d(r, e) { var n = e.method, o = r.i[n]; if (o === t) return e.delegate = null, "throw" === n && r.i.return && (e.method = "return", e.arg = t, d(r, e), "throw" === e.method) || "return" !== n && (e.method = "throw", e.arg = new TypeError("The iterator does not provide a '" + n + "' method")), f; var i = s(o, r.i, e.arg); if ("throw" === i.type) return e.method = "throw", e.arg = i.arg, e.delegate = null, f; var a = i.arg; return a ? a.done ? (e[r.r] = a.value, e.next = r.n, "return" !== e.method && (e.method = "next", e.arg = t), e.delegate = null, f) : a : (e.method = "throw", e.arg = new TypeError("iterator result is not an object"), e.delegate = null, f); } function w(t) { this.tryEntries.push(t); } function m(r) { var e = r[4] || {}; e.type = "normal", e.arg = t, r[4] = e; } function Context(t) { this.tryEntries = [[-1]], t.forEach(w, this), this.reset(!0); } function x(r) { if (null != r) { var e = r[i]; if (e) return e.call(r); if ("function" == typeof r.next) return r; if (!isNaN(r.length)) { var o = -1, a = function e() { for (; ++o < r.length;) if (n.call(r, o)) return e.value = r[o], e.done = !1, e; return e.value = t, e.done = !0, e; }; return a.next = a; } } throw new TypeError(_typeof(r) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, c(v, "constructor", GeneratorFunctionPrototype), c(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = c(GeneratorFunctionPrototype, u, "GeneratorFunction"), r.isGeneratorFunction = function (t) { var r = "function" == typeof t && t.constructor; return !!r && (r === GeneratorFunction || "GeneratorFunction" === (r.displayName || r.name)); }, r.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, c(t, u, "GeneratorFunction")), t.prototype = Object.create(v), t; }, r.awrap = function (t) { return { __await: t }; }, g(AsyncIterator.prototype), c(AsyncIterator.prototype, a, function () { return this; }), r.AsyncIterator = AsyncIterator, r.async = function (t, e, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(h(t, e, n, o), i); return r.isGeneratorFunction(e) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, g(v), c(v, u, "Generator"), c(v, i, function () { return this; }), c(v, "toString", function () { return "[object Generator]"; }), r.keys = function (t) { var r = Object(t), e = []; for (var n in r) e.unshift(n); return function t() { for (; e.length;) if ((n = e.pop()) in r) return t.value = n, t.done = !1, t; return t.done = !0, t; }; }, r.values = x, Context.prototype = { constructor: Context, reset: function reset(r) { if (this.prev = this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(m), !r) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0][4]; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(r) { if (this.done) throw r; var e = this; function n(t) { a.type = "throw", a.arg = r, e.next = t; } for (var o = e.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i[4], u = this.prev, c = i[1], h = i[2]; if (-1 === i[0]) return n("end"), !1; if (!c && !h) throw Error("try statement without catch or finally"); if (null != i[0] && i[0] <= u) { if (u < c) return this.method = "next", this.arg = t, n(c), !0; if (u < h) return n(h), !1; } } }, abrupt: function abrupt(t, r) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var n = this.tryEntries[e]; if (n[0] > -1 && n[0] <= this.prev && this.prev < n[2]) { var o = n; break; } } o && ("break" === t || "continue" === t) && o[0] <= r && r <= o[2] && (o = null); var i = o ? o[4] : {}; return i.type = t, i.arg = r, o ? (this.method = "next", this.next = o[2], f) : this.complete(i); }, complete: function complete(t, r) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && r && (this.next = r), f; }, finish: function finish(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[2] === t) return this.complete(e[4], e[3]), m(e), f; } }, catch: function _catch(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[0] === t) { var n = e[4]; if ("throw" === n.type) { var o = n.arg; m(e); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(r, e, n) { return this.delegate = { i: x(r), r: e, n: n }, "next" === this.method && (this.arg = t), f; } }, r; }
 function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
 function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -37980,9 +38339,9 @@ function Scroll(props) {
     defaultText = _useState8[0],
     setDefaultText = _useState8[1];
   var _useState9 = (0, _react.useState)(null),
-    _useState10 = _slicedToArray(_useState9, 2),
-    scroll = _useState10[0],
-    setScroll = _useState10[1];
+    _useState0 = _slicedToArray(_useState9, 2),
+    scroll = _useState0[0],
+    setScroll = _useState0[1];
   var ref = (0, _react.useRef)(null);
   var dispatcher = (0, _reactRedux.useDispatch)();
   var params = (0, _reactRouter.useParams)();
@@ -38111,46 +38470,46 @@ function Filters() {
     return state.configParams.filters;
   });
   var dispatch = (0, _reactRedux.useDispatch)();
-  var _useState11 = (0, _react.useState)('>>'),
+  var _useState1 = (0, _react.useState)('>>'),
+    _useState10 = _slicedToArray(_useState1, 2),
+    filtersBtnText = _useState10[0],
+    setFiltersBtnText = _useState10[1];
+  var _useState11 = (0, _react.useState)(filtersBg),
     _useState12 = _slicedToArray(_useState11, 2),
-    filtersBtnText = _useState12[0],
-    setFiltersBtnText = _useState12[1];
-  var _useState13 = (0, _react.useState)(filtersBg),
+    filtersBtnColor = _useState12[0],
+    setFiltersBtnColor = _useState12[1];
+  var _useState13 = (0, _react.useState)("none"),
     _useState14 = _slicedToArray(_useState13, 2),
-    filtersBtnColor = _useState14[0],
-    setFiltersBtnColor = _useState14[1];
-  var _useState15 = (0, _react.useState)("none"),
+    filtersBorder = _useState14[0],
+    setFiltersBorder = _useState14[1];
+  var _useState15 = (0, _react.useState)(menuBg),
     _useState16 = _slicedToArray(_useState15, 2),
-    filtersBorder = _useState16[0],
-    setFiltersBorder = _useState16[1];
+    filtersBtnTextColor = _useState16[0],
+    setFiltersBtnTextColor = _useState16[1];
   var _useState17 = (0, _react.useState)(menuBg),
     _useState18 = _slicedToArray(_useState17, 2),
-    filtersBtnTextColor = _useState18[0],
-    setFiltersBtnTextColor = _useState18[1];
-  var _useState19 = (0, _react.useState)(menuBg),
+    resetBgColor = _useState18[0],
+    setResetBgColor = _useState18[1];
+  var _useState19 = (0, _react.useState)(filtersBg),
     _useState20 = _slicedToArray(_useState19, 2),
-    resetBgColor = _useState20[0],
-    setResetBgColor = _useState20[1];
-  var _useState21 = (0, _react.useState)(filtersBg),
+    resetColor = _useState20[0],
+    setResetColor = _useState20[1];
+  var _useState21 = (0, _react.useState)("none"),
     _useState22 = _slicedToArray(_useState21, 2),
-    resetColor = _useState22[0],
-    setResetColor = _useState22[1];
-  var _useState23 = (0, _react.useState)("none"),
+    resetBorder = _useState22[0],
+    setResetBorder = _useState22[1];
+  var _useState23 = (0, _react.useState)(filtersBg),
     _useState24 = _slicedToArray(_useState23, 2),
-    resetBorder = _useState24[0],
-    setResetBorder = _useState24[1];
-  var _useState25 = (0, _react.useState)(filtersBg),
+    confirmColor = _useState24[0],
+    setConfirmColor = _useState24[1];
+  var _useState25 = (0, _react.useState)(menuBg),
     _useState26 = _slicedToArray(_useState25, 2),
-    confirmColor = _useState26[0],
-    setConfirmColor = _useState26[1];
-  var _useState27 = (0, _react.useState)(menuBg),
+    confirmBgColor = _useState26[0],
+    setConfirmBgColor = _useState26[1];
+  var _useState27 = (0, _react.useState)("none"),
     _useState28 = _slicedToArray(_useState27, 2),
-    confirmBgColor = _useState28[0],
-    setConfirmBgColor = _useState28[1];
-  var _useState29 = (0, _react.useState)("none"),
-    _useState30 = _slicedToArray(_useState29, 2),
-    confirmBorder = _useState30[0],
-    setConfirmBorder = _useState30[1];
+    confirmBorder = _useState28[0],
+    setConfirmBorder = _useState28[1];
   switch (storeFilters) {
     case true:
       return /*#__PURE__*/_react.default.createElement("div", {
@@ -38338,8 +38697,7 @@ var _react = _interopRequireWildcard(require("react"));
 var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
 var _Scroll = _interopRequireDefault(require("../Components/Scroll"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function ScreenMain(props) {
   var scroll = null;
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
@@ -38482,8 +38840,7 @@ var _SVGButtons = _interopRequireDefault(require("./SVGButtons"));
 var _reactRouter = require("react-router");
 var _ProfileMicroComponents = require("./ProfileMicroComponents");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -38587,13 +38944,13 @@ function MainProfileDiv(props) {
     placeholder = _useState8[0],
     setPlaceholder = _useState8[1];
   var _useState9 = (0, _react.useState)(menuBg),
-    _useState10 = _slicedToArray(_useState9, 2),
-    confirmColor = _useState10[0],
-    setConfirmColor = _useState10[1];
-  var _useState11 = (0, _react.useState)('#aaaacc'),
-    _useState12 = _slicedToArray(_useState11, 2),
-    inputValue = _useState12[0],
-    setInputValue = _useState12[1]; // Начальное значение цвета
+    _useState0 = _slicedToArray(_useState9, 2),
+    confirmColor = _useState0[0],
+    setConfirmColor = _useState0[1];
+  var _useState1 = (0, _react.useState)('#aaaacc'),
+    _useState10 = _slicedToArray(_useState1, 2),
+    inputValue = _useState10[0],
+    setInputValue = _useState10[1]; // Начальное значение цвета
   var dispatcher = (0, _reactRedux.useDispatch)();
   var handleConfirmClick = function handleConfirmClick() {
     dispatcher((0, _store.changeColorTheme)({
@@ -38826,8 +39183,7 @@ var _ProfileComponents = require("../Components/ProfileComponents");
 var _ProviderScreen = require("../Components/ProviderScreen");
 var _reactRouter = require("react-router");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -38868,65 +39224,65 @@ function ScreenProfile(props) {
     collectionsFillSVG = _useState8[0],
     setCollectionsFillSVG = _useState8[1];
   var _useState9 = (0, _react.useState)(menuTextColor),
-    _useState10 = _slicedToArray(_useState9, 2),
-    savedColor = _useState10[0],
-    setSavedColor = _useState10[1];
+    _useState0 = _slicedToArray(_useState9, 2),
+    savedColor = _useState0[0],
+    setSavedColor = _useState0[1];
+  var _useState1 = (0, _react.useState)(menuTextColor),
+    _useState10 = _slicedToArray(_useState1, 2),
+    savedStrokeSVG = _useState10[0],
+    setSavedStrokeSVG = _useState10[1];
   var _useState11 = (0, _react.useState)(menuTextColor),
     _useState12 = _slicedToArray(_useState11, 2),
-    savedStrokeSVG = _useState12[0],
-    setSavedStrokeSVG = _useState12[1];
+    likedColor = _useState12[0],
+    setLikedColor = _useState12[1];
   var _useState13 = (0, _react.useState)(menuTextColor),
     _useState14 = _slicedToArray(_useState13, 2),
-    likedColor = _useState14[0],
-    setLikedColor = _useState14[1];
-  var _useState15 = (0, _react.useState)(menuTextColor),
+    likedStrokeSVG = _useState14[0],
+    setLikedStrokeSVG = _useState14[1];
+  var _useState15 = (0, _react.useState)("none"),
     _useState16 = _slicedToArray(_useState15, 2),
-    likedStrokeSVG = _useState16[0],
-    setLikedStrokeSVG = _useState16[1];
-  var _useState17 = (0, _react.useState)("none"),
+    likedFillSVG = _useState16[0],
+    setLikedFillSVG = _useState16[1];
+  var _useState17 = (0, _react.useState)(menuTextColor),
     _useState18 = _slicedToArray(_useState17, 2),
-    likedFillSVG = _useState18[0],
-    setLikedFillSVG = _useState18[1];
+    repostedColor = _useState18[0],
+    setRepostedColor = _useState18[1];
   var _useState19 = (0, _react.useState)(menuTextColor),
     _useState20 = _slicedToArray(_useState19, 2),
-    repostedColor = _useState20[0],
-    setRepostedColor = _useState20[1];
+    repostedStrokeSVG = _useState20[0],
+    setRepostedStrokeSVG = _useState20[1];
   var _useState21 = (0, _react.useState)(menuTextColor),
     _useState22 = _slicedToArray(_useState21, 2),
-    repostedStrokeSVG = _useState22[0],
-    setRepostedStrokeSVG = _useState22[1];
+    settingsColor = _useState22[0],
+    setSettingsColor = _useState22[1];
   var _useState23 = (0, _react.useState)(menuTextColor),
     _useState24 = _slicedToArray(_useState23, 2),
-    settingsColor = _useState24[0],
-    setSettingsColor = _useState24[1];
+    settingsStrokeSVG = _useState24[0],
+    setSettingsStrokeSVG = _useState24[1];
   var _useState25 = (0, _react.useState)(menuTextColor),
     _useState26 = _slicedToArray(_useState25, 2),
-    settingsStrokeSVG = _useState26[0],
-    setSettingsStrokeSVG = _useState26[1];
+    privacyPColor = _useState26[0],
+    setPrivacyPColor = _useState26[1];
   var _useState27 = (0, _react.useState)(menuTextColor),
     _useState28 = _slicedToArray(_useState27, 2),
-    privacyPColor = _useState28[0],
-    setPrivacyPColor = _useState28[1];
+    privacyPStrokeSVG = _useState28[0],
+    setPrivacyPStrokeSVG = _useState28[1];
   var _useState29 = (0, _react.useState)(menuTextColor),
     _useState30 = _slicedToArray(_useState29, 2),
-    privacyPStrokeSVG = _useState30[0],
-    setPrivacyPStrokeSVG = _useState30[1];
+    supportSColor = _useState30[0],
+    setSupportSColor = _useState30[1];
   var _useState31 = (0, _react.useState)(menuTextColor),
     _useState32 = _slicedToArray(_useState31, 2),
-    supportSColor = _useState32[0],
-    setSupportSColor = _useState32[1];
+    supportSStrokeSVG = _useState32[0],
+    setSupportSStrokeSVG = _useState32[1];
   var _useState33 = (0, _react.useState)(menuTextColor),
     _useState34 = _slicedToArray(_useState33, 2),
-    supportSStrokeSVG = _useState34[0],
-    setSupportSStrokeSVG = _useState34[1];
+    logOutColor = _useState34[0],
+    setLogOutColor = _useState34[1];
   var _useState35 = (0, _react.useState)(menuTextColor),
     _useState36 = _slicedToArray(_useState35, 2),
-    logOutColor = _useState36[0],
-    setLogOutColor = _useState36[1];
-  var _useState37 = (0, _react.useState)(menuTextColor),
-    _useState38 = _slicedToArray(_useState37, 2),
-    logOutStrokeSVG = _useState38[0],
-    setLogOutStrokeSVG = _useState38[1];
+    logOutStrokeSVG = _useState36[0],
+    setLogOutStrokeSVG = _useState36[1];
   (0, _react.useEffect)(function () {
     setCollectionsColor(menuTextColor);
     setCollectionsStrokeSVG(menuTextColor);
@@ -39263,8 +39619,7 @@ var _ScreenProfile = _interopRequireDefault(require("./Screens/ScreenProfile"));
 var _ScreenNewPost = _interopRequireDefault(require("./Screens/ScreenNewPost"));
 var _ScreenSearch = _interopRequireDefault(require("./Screens/ScreenSearch"));
 var _CardScreen = _interopRequireDefault(require("./Components/CardScreen"));
-function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
-function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // import App from "./App";
 
