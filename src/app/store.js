@@ -102,7 +102,6 @@ export const configParams = createSlice({
     reducers: {
         changeParameter: ( state, parameter ) => {
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
-            // console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
         },
         back2defaultConfigParamters: ( state ) => {
             state.filters = false;

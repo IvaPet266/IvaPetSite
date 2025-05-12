@@ -54,7 +54,7 @@ export const ProfileContents = ( props ) => (
             } else if ( props.text === 'Log Out' ) {
                 console.log('Log Out');
             } else if ( props.link !== 'none' ) {
-                props.setMenuSection(props.text);
+                props.setMenuSection( props.text );
             } else {
                 console.log(`Liked post №${props.postId}`);
             }
