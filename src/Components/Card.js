@@ -55,7 +55,7 @@ export default function Container( props ) {
                 handleContainerHover={ handleContainerHover }
                 focused             ={ focused }
                 category            ={ category }
-                key                 ={ props.key } 
+                id                  ={ props.id } 
                 author              ={ author }
                 src                 ={ image }
             />

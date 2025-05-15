@@ -1,11 +1,9 @@
 import React                            from "react";
 import ReactDOM                         from "react-dom/client";
-import store                            from './app/store'
-import { Provider }                     from 'react-redux'  
-import ProviderScreen, { useScreen }    from "./Components/ProviderScreen";
+import store                            from './app/store';
+import { Provider }                     from 'react-redux';
 import ErrorBoundary                    from "./Components/ErrorBoundry";
 import { BrowserRouter, Route, Routes } from "react-router";
-// import App from "./App";
 
 import ScreenContests   from "./Screens/ScreenContests";
 import ScreenDiscussion from "./Screens/ScreenDiscussion";

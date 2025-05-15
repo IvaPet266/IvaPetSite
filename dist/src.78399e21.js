@@ -20359,7 +20359,6 @@ var configParams = exports.configParams = (0, _toolkit.createSlice)({
   reducers: {
     changeParameter: function changeParameter(state, parameter) {
       state[parameter.payload["name"]] = parameter.payload["value"];
-      // console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
     },
     back2defaultConfigParamters: function back2defaultConfigParamters(state) {
       state.filters = false;
@@ -21526,44 +21525,7 @@ var useSelector = exports.useSelector = /* @__PURE__ */createSelectorHook();
 
 // src/exports.ts
 var batch = exports.batch = defaultNoopBatch;
-},{"react":"../node_modules/react/index.js","use-sync-external-store/with-selector.js":"../node_modules/use-sync-external-store/with-selector.js"}],"Components/ProviderScreen.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = ProviderScreen;
-exports.useScreen = void 0;
-var _react = _interopRequireWildcard(require("react"));
-var _reactRedux = require("react-redux");
-var _store = require("../app/store");
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-// import { useNavigate } from 'react-router';
-
-var screenContext = (0, _react.createContext)("main"); //!
-var useScreen = exports.useScreen = function useScreen() {
-  return (0, _react.useContext)(screenContext);
-};
-function ProviderScreen(props) {
-  var _useState = (0, _react.useState)('main'),
-    _useState2 = _slicedToArray(_useState, 2),
-    screen = _useState2[0],
-    setScreen = _useState2[1];
-  return /*#__PURE__*/_react.default.createElement(screenContext.Provider, {
-    value: {
-      screen: screen,
-      setScreen: setScreen
-    }
-  }, props.children);
-}
-;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js"}],"Components/ErrorBoundry.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","use-sync-external-store/with-selector.js":"../node_modules/use-sync-external-store/with-selector.js"}],"Components/ErrorBoundry.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37169,7 +37131,44 @@ Object.defineProperty(exports, "useViewTransitionState", {
   }
 });
 var _chunkD4RADZKF = require("./chunk-D4RADZKF.mjs");
-},{"./chunk-D4RADZKF.mjs":"../node_modules/react-router/dist/development/chunk-D4RADZKF.mjs"}],"Components/SVGButtons.js":[function(require,module,exports) {
+},{"./chunk-D4RADZKF.mjs":"../node_modules/react-router/dist/development/chunk-D4RADZKF.mjs"}],"Components/ProviderScreen.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ProviderScreen;
+exports.useScreen = void 0;
+var _react = _interopRequireWildcard(require("react"));
+var _reactRedux = require("react-redux");
+var _store = require("../app/store");
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+// import { useNavigate } from 'react-router';
+
+var screenContext = (0, _react.createContext)("main"); //!
+var useScreen = exports.useScreen = function useScreen() {
+  return (0, _react.useContext)(screenContext);
+};
+function ProviderScreen(props) {
+  var _useState = (0, _react.useState)('main'),
+    _useState2 = _slicedToArray(_useState, 2),
+    screen = _useState2[0],
+    setScreen = _useState2[1];
+  return /*#__PURE__*/_react.default.createElement(screenContext.Provider, {
+    value: {
+      screen: screen,
+      setScreen: setScreen
+    }
+  }, props.children);
+}
+;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js"}],"Components/SVGButtons.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37766,7 +37765,7 @@ function CardMenu(_ref) {
   var handleContainerHover = _ref.handleContainerHover,
     focused = _ref.focused,
     category = _ref.category,
-    key = _ref.key,
+    id = _ref.id,
     author = _ref.author,
     src = _ref.src;
   var _useState = (0, _react.useState)("white"),
@@ -37785,7 +37784,7 @@ function CardMenu(_ref) {
     _useState8 = _slicedToArray(_useState7, 2),
     isActive = _useState8[0],
     setIsActive = _useState8[1];
-  var _useState9 = (0, _react.useState)(84),
+  var _useState9 = (0, _react.useState)(category === "ARTWORK" ? 89 : 60),
     _useState0 = _slicedToArray(_useState9, 2),
     menuHeight = _useState0[0],
     setMenuHeight = _useState0[1];
@@ -37793,33 +37792,40 @@ function CardMenu(_ref) {
     _useState10 = _slicedToArray(_useState1, 2),
     pointerEvents = _useState10[0],
     setPointerEvents = _useState10[1];
-  var _useState11 = (0, _react.useState)("#BFBFBF"),
+  var _useState11 = (0, _react.useState)(category === "ARTWORK" ? 89 : 60),
     _useState12 = _slicedToArray(_useState11, 2),
-    likeFill = _useState12[0],
-    setLikeFill = _useState12[1];
-  var _useState13 = (0, _react.useState)(false),
+    maxTranslateY = _useState12[0],
+    setMaxTranslateY = _useState12[1];
+  var _useState13 = (0, _react.useState)("#BFBFBF"),
     _useState14 = _slicedToArray(_useState13, 2),
-    likedState = _useState14[0],
-    setLikedState = _useState14[1];
-  var _useState15 = (0, _react.useState)("#BFBFBF"),
+    likeFill = _useState14[0],
+    setLikeFill = _useState14[1];
+  var _useState15 = (0, _react.useState)(false),
     _useState16 = _slicedToArray(_useState15, 2),
-    downloadFill = _useState16[0],
-    setDownloadFill = _useState16[1];
+    likedState = _useState16[0],
+    setLikedState = _useState16[1];
   var _useState17 = (0, _react.useState)("#BFBFBF"),
     _useState18 = _slicedToArray(_useState17, 2),
-    shareFill = _useState18[0],
-    setShareFill = _useState18[1];
-  var _useState19 = (0, _react.useState)(false),
+    downloadFill = _useState18[0],
+    setDownloadFill = _useState18[1];
+  var _useState19 = (0, _react.useState)("#BFBFBF"),
     _useState20 = _slicedToArray(_useState19, 2),
-    downloadState = _useState20[0],
-    setDownloadState = _useState20[1];
+    shareFill = _useState20[0],
+    setShareFill = _useState20[1];
   var _useState21 = (0, _react.useState)(false),
     _useState22 = _slicedToArray(_useState21, 2),
-    categoryState = _useState22[0],
-    setCategoryState = _useState22[1];
-  var filename = "".concat(author, "-").concat(key, ".jpg");
+    downloadState = _useState22[0],
+    setDownloadState = _useState22[1];
+  var _useState23 = (0, _react.useState)("M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"),
+    _useState24 = _slicedToArray(_useState23, 2),
+    downloadD = _useState24[0],
+    setDownloadD = _useState24[1];
+  var _useState25 = (0, _react.useState)(false),
+    _useState26 = _slicedToArray(_useState25, 2),
+    shareState = _useState26[0],
+    setShareState = _useState26[1];
+  var filename = "".concat(author, "-").concat(id, ".jpg");
   (0, _react.useEffect)(function () {
-    console.log(focused);
     if (focused === false) {
       // setPointerEvents( "none" );
       setIsActive(false);
@@ -37834,7 +37840,7 @@ function CardMenu(_ref) {
   }, [focused]);
   function clickHandler(event) {
     setIsActive(!isActive);
-    setTranslateY(isActive === true ? 89 : 0);
+    setTranslateY(isActive === true ? maxTranslateY : 0);
     setRotateDegree(isActive === true ? 180 : -180);
     setTimeout(function () {
       console.log(event, "hello");
@@ -37892,6 +37898,12 @@ function CardMenu(_ref) {
     }));
     return _downloadImage.apply(this, arguments);
   }
+  ;
+  (0, _react.useEffect)(function () {
+    if (downloadState === false) {
+      setDownloadD("M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z");
+    } else setDownloadD("M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z");
+  }, [downloadState]);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("svg", {
     onMouseOver: function onMouseOver() {
       return handleContainerHover(true);
@@ -37947,51 +37959,22 @@ function CardMenu(_ref) {
     activeState: likedState,
     setActiveState: setLikedState,
     d: "m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z"
-  }), /*#__PURE__*/_react.default.createElement("svg", {
-    style: {
-      transition: "".concat(ANIMATION_DURATION, "ms ease-out"),
-      height: "24px",
-      width: "24px",
-      fill: downloadFill,
-      position: "absolute",
-      left: "3px",
-      top: "30px"
-    },
-    onMouseOver: function onMouseOver() {
-      setDownloadFill("white");
-      handleContainerHover(true);
-    },
-    onMouseLeave: function onMouseLeave() {
-      return setDownloadFill("#BFBFBF");
-    },
-    onClick: downloadPost,
-    xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 -960 960 960"
-  }, function () {
-    switch (downloadState) {
-      case false:
-        if (category === "ARTWORK") return /*#__PURE__*/_react.default.createElement("path", {
-          d: "M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"
-        });else {
-          console.log("not ARTWORK; false");
-          if (!categoryState) setCategoryState(true);
-          return;
-        }
-      default:
-        return /*#__PURE__*/_react.default.createElement("path", {
-          d: "M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"
-        });
-    }
-  }(), !downloadState && categoryState && /*#__PURE__*/_react.default.createElement("path", {
-    d: "M0 0h24v24H0V0z",
-    fill: "none"
-  }) && /*#__PURE__*/_react.default.createElement("path", {
-    d: "M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"
-  })), /*#__PURE__*/_react.default.createElement(MenuSVG, {
+  }), category === "ARTWORK" && /*#__PURE__*/_react.default.createElement(MenuSVG, {
+    handleContainerHover: handleContainerHover,
+    setSVGfill: setDownloadFill,
+    SVGfill: downloadFill,
+    activeState: downloadState,
+    setActiveState: setDownloadState,
+    onClickFunction: downloadPost,
+    d: downloadD,
+    top: "30px"
+  }), /*#__PURE__*/_react.default.createElement(MenuSVG, {
     handleContainerHover: handleContainerHover,
     setSVGfill: setShareFill,
     SVGfill: shareFill,
-    top: "59px",
+    top: category === "ARTWORK" ? "59px" : "30px",
+    setActiveState: setShareState,
+    activeState: shareState,
     d: "M680-80q-50 0-85-35t-35-85q0-6 3-28L282-392q-16 15-37 23.5t-45 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q24 0 45 8.5t37 23.5l281-164q-2-7-2.5-13.5T560-760q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-24 0-45-8.5T598-672L317-508q2 7 2.5 13.5t.5 14.5q0 8-.5 14.5T317-452l281 164q16-15 37-23.5t45-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-80q17 0 28.5-11.5T720-200q0-17-11.5-28.5T680-240q-17 0-28.5 11.5T640-200q0 17 11.5 28.5T680-160ZM200-440q17 0 28.5-11.5T240-480q0-17-11.5-28.5T200-520q-17 0-28.5 11.5T160-480q0 17 11.5 28.5T200-440Zm480-280q17 0 28.5-11.5T720-760q0-17-11.5-28.5T680-800q-17 0-28.5 11.5T640-760q0 17 11.5 28.5T680-720Zm0 520ZM200-480Zm480-280Z"
   })));
 }
@@ -38018,7 +38001,9 @@ var MenuSVG = exports.MenuSVG = function MenuSVG(_ref3) {
     top = _ref3.top,
     d = _ref3.d,
     setActiveState = _ref3.setActiveState,
-    activeState = _ref3.activeState;
+    activeState = _ref3.activeState,
+    _ref3$onClickFunction = _ref3.onClickFunction,
+    onClickFunction = _ref3$onClickFunction === void 0 ? null : _ref3$onClickFunction;
   return /*#__PURE__*/_react.default.createElement("svg", {
     style: {
       transition: "".concat(ANIMATION_DURATION, "ms ease-out"),
@@ -38037,7 +38022,8 @@ var MenuSVG = exports.MenuSVG = function MenuSVG(_ref3) {
       return setSVGfill("#BFBFBF");
     },
     onClick: function onClick() {
-      return setActiveState(!activeState);
+      setActiveState(!activeState);
+      if (onClickFunction) onClickFunction();
     },
     xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 -960 960 960"
@@ -38144,7 +38130,7 @@ function Container(props) {
     handleContainerHover: handleContainerHover,
     focused: focused,
     category: category,
-    key: props.key,
+    id: props.id,
     author: author,
     src: image
   }), /*#__PURE__*/_react.default.createElement("div", {
@@ -38438,6 +38424,7 @@ function Scroll(props) {
         params.cardId = index;
         if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_Card.default, {
           key: index,
+          id: index,
           value: value
         });
       })));
@@ -39609,7 +39596,6 @@ var _react = _interopRequireDefault(require("react"));
 var _client = _interopRequireDefault(require("react-dom/client"));
 var _store = _interopRequireDefault(require("./app/store"));
 var _reactRedux = require("react-redux");
-var _ProviderScreen = _interopRequireWildcard(require("./Components/ProviderScreen"));
 var _ErrorBoundry = _interopRequireDefault(require("./Components/ErrorBoundry"));
 var _reactRouter = require("react-router");
 var _ScreenContests = _interopRequireDefault(require("./Screens/ScreenContests"));
@@ -39619,10 +39605,7 @@ var _ScreenProfile = _interopRequireDefault(require("./Screens/ScreenProfile"));
 var _ScreenNewPost = _interopRequireDefault(require("./Screens/ScreenNewPost"));
 var _ScreenSearch = _interopRequireDefault(require("./Screens/ScreenSearch"));
 var _CardScreen = _interopRequireDefault(require("./Components/CardScreen"));
-function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-// import App from "./App";
-
 _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_react.default.createElement(_ErrorBoundry.default, null, /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
 }, /*#__PURE__*/_react.default.createElement(_reactRouter.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_reactRouter.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
@@ -39659,5 +39642,5 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
   path: "cards?cardId=:cardId",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ProviderScreen":"Components/ProviderScreen.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Components/CardScreen":"Components/CardScreen.js"}]},{},["index.jsx"], null)
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Components/CardScreen":"Components/CardScreen.js"}]},{},["index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

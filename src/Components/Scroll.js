@@ -97,6 +97,7 @@ export default function Scroll( props ) {
                                 return (
                                     <Container 
                                         key  ={ index } 
+                                        id   ={ index }
                                         value={ value }/> 
                                 )
                             })}
