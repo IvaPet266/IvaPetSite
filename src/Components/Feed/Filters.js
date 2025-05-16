@@ -1,6 +1,6 @@
 import React, { useState }               from "react";
 import { useDispatch, useSelector }      from "react-redux";
-import { changeFilter, changeParameter } from "../app/store";
+import { changeFilter, changeParameter } from "../../app/store";
 
 
 const filters = {

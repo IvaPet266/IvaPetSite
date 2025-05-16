@@ -11,7 +11,7 @@ import ScreenMain       from "./Screens/ScreenMain";
 import ScreenProfile    from "./Screens/ScreenProfile";
 import ScreenNewPost    from "./Screens/ScreenNewPost";
 import ScreenSearch     from "./Screens/ScreenSearch";
-import CardScreen       from "./Components/CardScreen";
+import CardScreen       from "./Components/Card/CardScreen";
 
 
 ReactDOM.createRoot( document.getElementById( "app" ) ).render( 

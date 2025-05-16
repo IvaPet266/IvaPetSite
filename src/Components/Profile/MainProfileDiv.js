@@ -1,6 +1,6 @@
 import React, { useState, useEffect }     from "react";
 import { useDispatch, useSelector }       from "react-redux";
-import { BaseProfileComponentDiv, Lines } from "./ProfileMicroComponents";
+import { BaseProfileComponentDiv, Lines, LinesHR } from "./ProfileMicroComponents";
 import SVGButton                          from "../Buttons/SVGButtons";
 import { changeColorTheme }               from "../../app/store";
 
@@ -19,15 +19,31 @@ export function MainProfileDiv ( props ) {
     const [ text, setText ]                 = useState( '' );
     const [ placeholder, setPlaceholder ]   = useState( '' );
     const [ confirmColor, setConfirmColor ] = useState( menuBg );
+    const [ confirmColor2, setConfirmColor2 ] = useState( menuBg );
   
-    const [ inputValue, setInputValue ]     = useState( '#aaaacc' ); // Начальное значение цвета
+    const [ extendedSettingsState, setExtendedSettingsState ] = useState( false );
+    const [ extnddStngsColor, setExtnddStngsColor ]           = useState( menuBg );
+
+    const [ inputValue, setInputValue ]   = useState( '#aaaacc' ); 
+    const [ inputValue2, setInputValue2 ] = useState( menuBg );
+    const [ inputValue3, setInputValue3 ] = useState( divBg );
+    const [ inputValue4, setInputValue4 ] = useState( bioTextColor );
+    const [ inputValue5, setInputValue5 ] = useState( lines );
+
     const dispatcher = useDispatch();
   
-    const handleConfirmClick = () => {
-        dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue.slice( 1 ) }` } ), {} );
-        const value = `#${ Math.abs( parseInt( inputValue.replace( '#', '0x' ), 16 ) - parseInt( "#7D8276".replace( '#', '0x' ), 16 ) ).toString( 16 ) }`
-        dispatcher( changeColorTheme({ "name": "fill_active", "value": value } ), {} );
-        dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": value } ), {} );
+    const handleConfirmClick = ( instance ) => {
+        if ( instance ) {
+            dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue.slice( 1 ) }` } ), {} );
+            const value = `#${ Math.abs( parseInt( inputValue.replace( '#', '0x' ), 16 ) - parseInt( "#7D8276".replace( '#', '0x' ), 16 ) ).toString( 16 ) }`
+            dispatcher( changeColorTheme({ "name": "fill_active", "value": value } ), {} );
+            dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": value } ), {} );
+        } else {
+            dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue2.slice( 1 ) }` } ), {} );
+            dispatcher( changeColorTheme({ "name": "fill_active", "value": `#${ inputValue3.slice( 1 ) }` } ), {} );
+            dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": `#${ inputValue4.slice( 1 ) }` } ), {} );
+            dispatcher( changeColorTheme({ "name": "lines", "value": `#${ inputValue5.slice( 1 ) }` } ), {} );
+        }
     };
     
     let placeholderState = false;
@@ -53,51 +69,37 @@ export function MainProfileDiv ( props ) {
                         }}>
                             Settings
                     </h2>
-                    <div style={{ 
-                            width:          "80%", 
-                            display:        "flex", 
-                            flexDirection:  "row", 
-                            padding:        "0px", 
-                            justifyContent: "space-between" 
-                        }}>
-                        <div style={{ display: "grid", placeItems: "center" }}>
-                            <h5 
-                                style={{ 
-                                    color:      menuBg, 
-                                    fontSize:   "25px", 
-                                    textAlign:  "center", 
-                                    lineHeight: "35px", 
-                                    margin:     "0px", 
-                                }}>
-                                    Color Theme
-                            </h5>
-                        </div>
-                        <input 
-                            id      ="colorThemeInput" 
-                            type    ="color" 
-                            value   ={ inputValue } 
-                            onChange={ ( event ) => setInputValue( event.target.value ) } 
-                            style   ={{ 
-                                border:          "solid 1px black", 
-                                backgroundColor: "transparent", 
-                                width:           "80px", 
-                                height:          "50px", 
-                                cursor:          "pointer" 
-                            }}/>
-                    </div>
-                    <button 
-                        style={{ 
-                            transition:      "all 300ms ease-out", 
-                            border:          "none", 
-                            backgroundColor: "transparent", 
-                            color:           confirmColor, 
-                            cursor:          "pointer" 
-                        }} 
-                        onMouseEnter={ () => setConfirmColor( bioTextColor ) }
-                        onMouseLeave={ () => setConfirmColor( menuBg ) }
-                        onClick     ={ handleConfirmClick }>
-                            Confirm
-                    </button>
+                    <ColorInput menuBg={ menuBg } text="Color Theme" 
+                        inputValue={ inputValue } setInputValue={ setInputValue }/>
+                    <SettingsButton
+                        color={ confirmColor } setColor={ setConfirmColor }
+                        bioTextColor={ bioTextColor } menuBg={ menuBg } text="Confirm"
+                        func={ () => handleConfirmClick( 1 ) }
+                    />
+                    <LinesHR bg="white"/>
+                    {
+                        extendedSettingsState && 
+                        <>
+                            <ColorInput menuBg={ menuBg } text="fill_inactive" 
+                                inputValue={ inputValue2 } setInputValue={ setInputValue2 }/>
+                            <ColorInput menuBg={ menuBg } text="fill_active" 
+                                inputValue={ inputValue3 } setInputValue={ setInputValue3 }/>
+                            <ColorInput menuBg={ menuBg } text="stroke_active" 
+                                inputValue={ inputValue4 } setInputValue={ setInputValue4 }/>
+                            <ColorInput menuBg={ menuBg } text="lines" 
+                                inputValue={ inputValue5 } setInputValue={ setInputValue5 }/>
+                            <SettingsButton
+                                color={ confirmColor2 } setColor={ setConfirmColor2 }
+                                bioTextColor={ bioTextColor } menuBg={ menuBg } text="Confirm"
+                                func={ () => handleConfirmClick( 0 ) }
+                            />
+                        </>
+                    }
+                    <SettingsButton
+                        color={ extnddStngsColor } setColor={ setExtnddStngsColor }
+                        bioTextColor={ bioTextColor } menuBg={ menuBg } text="Extended Settings"
+                        setState={ setExtendedSettingsState } state={ extendedSettingsState }
+                    />
                 </BaseProfileComponentDiv>
             )
         }
@@ -229,3 +231,65 @@ export function MainProfileDiv ( props ) {
         }
     }
 }
+
+const SettingsButton = ({
+    color, setColor, bioTextColor, menuBg, text, 
+    state=null, setState=null, func=null
+}) => <button 
+        style       ={{ 
+            transition:      "all 300ms ease-out", 
+            border:          "none", 
+            backgroundColor: "transparent", 
+            color:           color, 
+            cursor:          "pointer",
+            fontSize:        "20px"
+        }} 
+        className   ='CormorantInfant-serif' 
+        onMouseEnter={ () => setColor( bioTextColor ) }
+        onMouseLeave={ () => setColor( menuBg ) }
+        onClick     ={ () => {
+            if ( func !== null ) { 
+                func()
+            } else setState( !state )
+        }}
+        >
+            { text }
+     </button>
+
+const ColorInput = ({
+    text, menuBg, inputValue, setInputValue
+}) =>   <div 
+            style={{ 
+                width:          "80%", 
+                display:        "flex", 
+                flexDirection:  "row", 
+                padding:        "0px", 
+                paddingTop:     "5px",
+                paddingBottom:  "5px",
+                justifyContent: "space-between" 
+            }}>
+            <div style={{ display: "grid", placeItems: "center" }}>
+                <h5 
+                    style={{ 
+                        color:      menuBg, 
+                        fontSize:   "25px", 
+                        textAlign:  "center", 
+                        lineHeight: "35px", 
+                        margin:     "0px", 
+                    }}>
+                        { text }
+                </h5>
+            </div>
+            <input 
+                id      ="colorThemeInput" 
+                type    ="color" 
+                value   ={ inputValue } 
+                onChange={ ( event ) => setInputValue( event.target.value ) } 
+                style   ={{ 
+                    border:          "solid 1px black", 
+                    backgroundColor: "transparent", 
+                    width:           "80px", 
+                    height:          "50px", 
+                    cursor:          "pointer" 
+                }}/>
+        </div>

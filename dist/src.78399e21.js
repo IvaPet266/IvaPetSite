@@ -20286,7 +20286,7 @@ var colorThemeSlice = exports.colorThemeSlice = (0, _toolkit.createSlice)({
     changeColorTheme: function changeColorTheme(state, parameter) {
       state[parameter.payload["name"]] = parameter.payload["value"];
       console.log(parameter.payload["name"], '->', state[parameter.payload["name"]]);
-      state.lines = checkWhite(state.fill_inactive) ? "black" : "white";
+      if (parameter.payload["name"] !== "lines") state.lines = checkWhite(state.fill_inactive) ? "black" : "white";
     },
     back2defaultColorTheme: function back2defaultColorTheme(state) {
       state.fill_inactive = "#DBC1FF";
@@ -37720,7 +37720,7 @@ function ScreenDiscussion(props) {
   }, "ScreenDiscussion"));
 }
 ;
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Components/CardMenu.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Components/Card/CardMenu.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37729,8 +37729,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.MenuSVG = exports.CardCircle = void 0;
 exports.default = CardMenu;
 var _react = _interopRequireWildcard(require("react"));
-var _Menu = _interopRequireDefault(require("./Menu"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return r; }; var t, r = {}, e = Object.prototype, n = e.hasOwnProperty, o = "function" == typeof Symbol ? Symbol : {}, i = o.iterator || "@@iterator", a = o.asyncIterator || "@@asyncIterator", u = o.toStringTag || "@@toStringTag"; function c(t, r, e, n) { return Object.defineProperty(t, r, { value: e, enumerable: !n, configurable: !n, writable: !n }); } try { c({}, ""); } catch (t) { c = function c(t, r, e) { return t[r] = e; }; } function h(r, e, n, o) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype); return c(a, "_invoke", function (r, e, n) { var o = 1; return function (i, a) { if (3 === o) throw Error("Generator is already running"); if (4 === o) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var u = n.delegate; if (u) { var c = d(u, n); if (c) { if (c === f) continue; return c; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (1 === o) throw o = 4, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = 3; var h = s(r, e, n); if ("normal" === h.type) { if (o = n.done ? 4 : 2, h.arg === f) continue; return { value: h.arg, done: n.done }; } "throw" === h.type && (o = 4, n.method = "throw", n.arg = h.arg); } }; }(r, n, new Context(o || [])), !0), a; } function s(t, r, e) { try { return { type: "normal", arg: t.call(r, e) }; } catch (t) { return { type: "throw", arg: t }; } } r.wrap = h; var f = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var l = {}; c(l, i, function () { return this; }); var p = Object.getPrototypeOf, y = p && p(p(x([]))); y && y !== e && n.call(y, i) && (l = y); var v = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(l); function g(t) { ["next", "throw", "return"].forEach(function (r) { c(t, r, function (t) { return this._invoke(r, t); }); }); } function AsyncIterator(t, r) { function e(o, i, a, u) { var c = s(t[o], t, i); if ("throw" !== c.type) { var h = c.arg, f = h.value; return f && "object" == _typeof(f) && n.call(f, "__await") ? r.resolve(f.__await).then(function (t) { e("next", t, a, u); }, function (t) { e("throw", t, a, u); }) : r.resolve(f).then(function (t) { h.value = t, a(h); }, function (t) { return e("throw", t, a, u); }); } u(c.arg); } var o; c(this, "_invoke", function (t, n) { function i() { return new r(function (r, o) { e(t, n, r, o); }); } return o = o ? o.then(i, i) : i(); }, !0); } function d(r, e) { var n = e.method, o = r.i[n]; if (o === t) return e.delegate = null, "throw" === n && r.i.return && (e.method = "return", e.arg = t, d(r, e), "throw" === e.method) || "return" !== n && (e.method = "throw", e.arg = new TypeError("The iterator does not provide a '" + n + "' method")), f; var i = s(o, r.i, e.arg); if ("throw" === i.type) return e.method = "throw", e.arg = i.arg, e.delegate = null, f; var a = i.arg; return a ? a.done ? (e[r.r] = a.value, e.next = r.n, "return" !== e.method && (e.method = "next", e.arg = t), e.delegate = null, f) : a : (e.method = "throw", e.arg = new TypeError("iterator result is not an object"), e.delegate = null, f); } function w(t) { this.tryEntries.push(t); } function m(r) { var e = r[4] || {}; e.type = "normal", e.arg = t, r[4] = e; } function Context(t) { this.tryEntries = [[-1]], t.forEach(w, this), this.reset(!0); } function x(r) { if (null != r) { var e = r[i]; if (e) return e.call(r); if ("function" == typeof r.next) return r; if (!isNaN(r.length)) { var o = -1, a = function e() { for (; ++o < r.length;) if (n.call(r, o)) return e.value = r[o], e.done = !1, e; return e.value = t, e.done = !0, e; }; return a.next = a; } } throw new TypeError(_typeof(r) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, c(v, "constructor", GeneratorFunctionPrototype), c(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = c(GeneratorFunctionPrototype, u, "GeneratorFunction"), r.isGeneratorFunction = function (t) { var r = "function" == typeof t && t.constructor; return !!r && (r === GeneratorFunction || "GeneratorFunction" === (r.displayName || r.name)); }, r.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, c(t, u, "GeneratorFunction")), t.prototype = Object.create(v), t; }, r.awrap = function (t) { return { __await: t }; }, g(AsyncIterator.prototype), c(AsyncIterator.prototype, a, function () { return this; }), r.AsyncIterator = AsyncIterator, r.async = function (t, e, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(h(t, e, n, o), i); return r.isGeneratorFunction(e) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, g(v), c(v, u, "Generator"), c(v, i, function () { return this; }), c(v, "toString", function () { return "[object Generator]"; }), r.keys = function (t) { var r = Object(t), e = []; for (var n in r) e.unshift(n); return function t() { for (; e.length;) if ((n = e.pop()) in r) return t.value = n, t.done = !1, t; return t.done = !0, t; }; }, r.values = x, Context.prototype = { constructor: Context, reset: function reset(r) { if (this.prev = this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(m), !r) for (var e in this) "t" === e.charAt(0) && n.call(this, e) && !isNaN(+e.slice(1)) && (this[e] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0][4]; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(r) { if (this.done) throw r; var e = this; function n(t) { a.type = "throw", a.arg = r, e.next = t; } for (var o = e.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i[4], u = this.prev, c = i[1], h = i[2]; if (-1 === i[0]) return n("end"), !1; if (!c && !h) throw Error("try statement without catch or finally"); if (null != i[0] && i[0] <= u) { if (u < c) return this.method = "next", this.arg = t, n(c), !0; if (u < h) return n(h), !1; } } }, abrupt: function abrupt(t, r) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var n = this.tryEntries[e]; if (n[0] > -1 && n[0] <= this.prev && this.prev < n[2]) { var o = n; break; } } o && ("break" === t || "continue" === t) && o[0] <= r && r <= o[2] && (o = null); var i = o ? o[4] : {}; return i.type = t, i.arg = r, o ? (this.method = "next", this.next = o[2], f) : this.complete(i); }, complete: function complete(t, r) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && r && (this.next = r), f; }, finish: function finish(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[2] === t) return this.complete(e[4], e[3]), m(e), f; } }, catch: function _catch(t) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var e = this.tryEntries[r]; if (e[0] === t) { var n = e[4]; if ("throw" === n.type) { var o = n.arg; m(e); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(r, e, n) { return this.delegate = { i: x(r), r: e, n: n }, "next" === this.method && (this.arg = t), f; } }, r; }
@@ -37750,10 +37748,10 @@ function CardMenu(_ref) {
     id = _ref.id,
     author = _ref.author,
     src = _ref.src;
-  var _useState = (0, _react.useState)("white"),
+  var _useState = (0, _react.useState)("#BFBFBF"),
     _useState2 = _slicedToArray(_useState, 2),
     SVGfill = _useState2[0],
-    setSVGfill = _useState2[1]; //useState( "#BFBFBF" );
+    setSVGfill = _useState2[1];
   var _useState3 = (0, _react.useState)(0),
     _useState4 = _slicedToArray(_useState3, 2),
     rotateDegree = _useState4[0],
@@ -37766,46 +37764,44 @@ function CardMenu(_ref) {
     _useState8 = _slicedToArray(_useState7, 2),
     isActive = _useState8[0],
     setIsActive = _useState8[1];
-  var _useState9 = (0, _react.useState)(category === "ARTWORK" ? 89 : 60),
+  var _useState9 = (0, _react.useState)(category === "ARTWORK" ? 95 : 65),
     _useState0 = _slicedToArray(_useState9, 2),
     menuHeight = _useState0[0],
     setMenuHeight = _useState0[1];
-  var _useState1 = (0, _react.useState)("none"),
+  // const [ pointerEvents, setPointerEvents ] = useState( "none" );
+
+  var _useState1 = (0, _react.useState)(category === "ARTWORK" ? 95 : 65),
     _useState10 = _slicedToArray(_useState1, 2),
-    pointerEvents = _useState10[0],
-    setPointerEvents = _useState10[1];
-  var _useState11 = (0, _react.useState)(category === "ARTWORK" ? 89 : 60),
+    maxTranslateY = _useState10[0],
+    setMaxTranslateY = _useState10[1];
+  var _useState11 = (0, _react.useState)("#BFBFBF"),
     _useState12 = _slicedToArray(_useState11, 2),
-    maxTranslateY = _useState12[0],
-    setMaxTranslateY = _useState12[1];
-  var _useState13 = (0, _react.useState)("#BFBFBF"),
+    likeFill = _useState12[0],
+    setLikeFill = _useState12[1];
+  var _useState13 = (0, _react.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
-    likeFill = _useState14[0],
-    setLikeFill = _useState14[1];
-  var _useState15 = (0, _react.useState)(false),
+    likedState = _useState14[0],
+    setLikedState = _useState14[1];
+  var _useState15 = (0, _react.useState)("#BFBFBF"),
     _useState16 = _slicedToArray(_useState15, 2),
-    likedState = _useState16[0],
-    setLikedState = _useState16[1];
+    downloadFill = _useState16[0],
+    setDownloadFill = _useState16[1];
   var _useState17 = (0, _react.useState)("#BFBFBF"),
     _useState18 = _slicedToArray(_useState17, 2),
-    downloadFill = _useState18[0],
-    setDownloadFill = _useState18[1];
-  var _useState19 = (0, _react.useState)("#BFBFBF"),
+    shareFill = _useState18[0],
+    setShareFill = _useState18[1];
+  var _useState19 = (0, _react.useState)(false),
     _useState20 = _slicedToArray(_useState19, 2),
-    shareFill = _useState20[0],
-    setShareFill = _useState20[1];
-  var _useState21 = (0, _react.useState)(false),
+    downloadState = _useState20[0],
+    setDownloadState = _useState20[1];
+  var _useState21 = (0, _react.useState)("M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"),
     _useState22 = _slicedToArray(_useState21, 2),
-    downloadState = _useState22[0],
-    setDownloadState = _useState22[1];
-  var _useState23 = (0, _react.useState)("M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"),
+    downloadD = _useState22[0],
+    setDownloadD = _useState22[1];
+  var _useState23 = (0, _react.useState)(false),
     _useState24 = _slicedToArray(_useState23, 2),
-    downloadD = _useState24[0],
-    setDownloadD = _useState24[1];
-  var _useState25 = (0, _react.useState)(false),
-    _useState26 = _slicedToArray(_useState25, 2),
-    shareState = _useState26[0],
-    setShareState = _useState26[1];
+    shareState = _useState24[0],
+    setShareState = _useState24[1];
   var filename = "".concat(author, "-").concat(id, ".jpg");
   (0, _react.useEffect)(function () {
     if (focused === false) {
@@ -37886,13 +37882,13 @@ function CardMenu(_ref) {
       setDownloadD("M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z");
     } else setDownloadD("M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z");
   }, [downloadState]);
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("svg", {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     onMouseOver: function onMouseOver() {
       return handleContainerHover(true);
-    },
-    onClick: clickHandler,
-    viewBox: "0 0 30 10",
-    xmlns: "http://www.w3.org/2000/svg",
+    }
+    // onClick    ={ clickHandler }
+    ,
+
     style: {
       transform: "translateY(".concat(translateY, "px) rotate(").concat(rotateDegree, "deg)"),
       transition: "".concat(ANIMATION_DURATION, "ms ease-out"),
@@ -37905,19 +37901,16 @@ function CardMenu(_ref) {
       zIndex: 1
     }
   }, /*#__PURE__*/_react.default.createElement(CardCircle, {
-    cx: "4",
-    cy: "4",
-    r: "4px",
+    x: "0",
+    r: "3",
     fill: SVGfill
   }), /*#__PURE__*/_react.default.createElement(CardCircle, {
-    cx: "14",
-    cy: "4",
-    r: "4px",
+    x: "10",
+    r: "3",
     fill: SVGfill
   }), /*#__PURE__*/_react.default.createElement(CardCircle, {
-    cx: "24",
-    cy: "4",
-    r: "4px",
+    x: "20",
+    r: "3",
     fill: SVGfill
   })), /*#__PURE__*/_react.default.createElement("div", {
     onMouseOver: function onMouseOver() {
@@ -37961,19 +37954,21 @@ function CardMenu(_ref) {
   })));
 }
 var CardCircle = exports.CardCircle = function CardCircle(_ref2) {
-  var cx = _ref2.cx,
-    cy = _ref2.cy,
+  var x = _ref2.x,
     r = _ref2.r,
     fill = _ref2.fill;
-  return /*#__PURE__*/_react.default.createElement("circle", {
+  return /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      padding: "5px",
+      width: "".concat(2 * r, "px"),
+      height: "".concat(2 * r, "px"),
+      backgroundColor: "transparent",
+      borderRadius: "50%",
+      border: "2px solid ".concat(fill),
+      position: "absolute",
+      top: "2px",
+      left: "".concat(x, "px"),
       pointerEvents: "none"
-    },
-    cx: cx,
-    cy: cy,
-    r: r,
-    fill: fill
+    }
   });
 };
 var MenuSVG = exports.MenuSVG = function MenuSVG(_ref3) {
@@ -38013,7 +38008,7 @@ var MenuSVG = exports.MenuSVG = function MenuSVG(_ref3) {
     d: d
   }));
 };
-},{"react":"../node_modules/react/index.js","./Menu":"Components/Menu.js"}],"Components/Card.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"Components/Card/Card.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38215,7 +38210,7 @@ function Container(props) {
   }());
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./CardMenu":"Components/CardMenu.js"}],"Components/Filters.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./CardMenu":"Components/Card/CardMenu.js"}],"Components/Feed/Filters.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38225,7 +38220,7 @@ exports.FilterDiv = FilterDiv;
 exports.Filters = Filters;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
-var _store = require("../app/store");
+var _store = require("../../app/store");
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -38471,7 +38466,7 @@ function FilterDiv(props) {
     }
   }));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../app/store":"app/store.js"}],"Components/CardScreen.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../../app/store":"app/store.js"}],"Components/Card/CardScreen.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38480,7 +38475,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = CardScreen;
 var _react = _interopRequireDefault(require("react"));
 var _reactRedux = require("react-redux");
-var _BaseScreen = _interopRequireDefault(require("./BaseScreen"));
+var _BaseScreen = _interopRequireDefault(require("../BaseScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function CardScreen(props) {
   var menuBg = (0, _reactRedux.useSelector)(function (state) {
@@ -38510,20 +38505,20 @@ function CardScreen(props) {
     }
   }, props.children));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./BaseScreen":"Components/BaseScreen.js"}],"Components/Scroll.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Scroll;
+exports.default = Feed;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
-var _Card = _interopRequireDefault(require("./Card"));
-var _store = require("../app/store");
+var _Card = _interopRequireDefault(require("../Card/Card"));
+var _store = require("../../app/store");
 var _reactRouter = require("react-router");
 var _Filters = require("./Filters");
-var _CardScreen = _interopRequireDefault(require("./CardScreen"));
+var _CardScreen = _interopRequireDefault(require("../Card/CardScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -38536,7 +38531,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; } //!
-function Scroll(props) {
+function Feed(props) {
   var _useState = (0, _react.useState)("200px"),
     _useState2 = _slicedToArray(_useState, 2),
     cardWidth = _useState2[0],
@@ -38668,7 +38663,7 @@ function checkFilters(a, a1) {
   if (a !== null) ax = a == a1;else ax = true;
   return ax;
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Card":"Components/Card.js","../app/store":"app/store.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Filters":"Components/Filters.js","./CardScreen":"Components/CardScreen.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Card/Card":"Components/Card/Card.js","../../app/store":"app/store.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Filters":"Components/Feed/Filters.js","../Card/CardScreen":"Components/Card/CardScreen.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38677,17 +38672,17 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = ScreenMain;
 var _react = _interopRequireWildcard(require("react"));
 var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
-var _Scroll = _interopRequireDefault(require("../Components/Scroll"));
+var _Feed = _interopRequireDefault(require("../Components/Feed/Feed"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function ScreenMain(props) {
   var scroll = null;
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
     scroll: true
-  }, props.children, /*#__PURE__*/_react.default.createElement(_Scroll.default, null));
+  }, props.children, /*#__PURE__*/_react.default.createElement(_Feed.default, null));
 }
 ;
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","../Components/Scroll":"Components/Scroll.js"}],"Components/Profile/ProfileMicroComponents.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","../Components/Feed/Feed":"Components/Feed/Feed.js"}],"Components/Profile/ProfileMicroComponents.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38975,25 +38970,72 @@ function MainProfileDiv(props) {
     _useState0 = _slicedToArray(_useState9, 2),
     confirmColor = _useState0[0],
     setConfirmColor = _useState0[1];
-  var _useState1 = (0, _react.useState)('#aaaacc'),
+  var _useState1 = (0, _react.useState)(menuBg),
     _useState10 = _slicedToArray(_useState1, 2),
-    inputValue = _useState10[0],
-    setInputValue = _useState10[1]; // Начальное значение цвета
+    confirmColor2 = _useState10[0],
+    setConfirmColor2 = _useState10[1];
+  var _useState11 = (0, _react.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    extendedSettingsState = _useState12[0],
+    setExtendedSettingsState = _useState12[1];
+  var _useState13 = (0, _react.useState)(menuBg),
+    _useState14 = _slicedToArray(_useState13, 2),
+    extnddStngsColor = _useState14[0],
+    setExtnddStngsColor = _useState14[1];
+  var _useState15 = (0, _react.useState)('#aaaacc'),
+    _useState16 = _slicedToArray(_useState15, 2),
+    inputValue = _useState16[0],
+    setInputValue = _useState16[1];
+  var _useState17 = (0, _react.useState)(menuBg),
+    _useState18 = _slicedToArray(_useState17, 2),
+    inputValue2 = _useState18[0],
+    setInputValue2 = _useState18[1];
+  var _useState19 = (0, _react.useState)(divBg),
+    _useState20 = _slicedToArray(_useState19, 2),
+    inputValue3 = _useState20[0],
+    setInputValue3 = _useState20[1];
+  var _useState21 = (0, _react.useState)(bioTextColor),
+    _useState22 = _slicedToArray(_useState21, 2),
+    inputValue4 = _useState22[0],
+    setInputValue4 = _useState22[1];
+  var _useState23 = (0, _react.useState)(lines),
+    _useState24 = _slicedToArray(_useState23, 2),
+    inputValue5 = _useState24[0],
+    setInputValue5 = _useState24[1];
   var dispatcher = (0, _reactRedux.useDispatch)();
-  var handleConfirmClick = function handleConfirmClick() {
-    dispatcher((0, _store.changeColorTheme)({
-      "name": "fill_inactive",
-      "value": "#".concat(inputValue.slice(1))
-    }), {});
-    var value = "#".concat(Math.abs(parseInt(inputValue.replace('#', '0x'), 16) - parseInt("#7D8276".replace('#', '0x'), 16)).toString(16));
-    dispatcher((0, _store.changeColorTheme)({
-      "name": "fill_active",
-      "value": value
-    }), {});
-    dispatcher((0, _store.changeColorTheme)({
-      "name": "stroke_inactive",
-      "value": value
-    }), {});
+  var handleConfirmClick = function handleConfirmClick(instance) {
+    if (instance) {
+      dispatcher((0, _store.changeColorTheme)({
+        "name": "fill_inactive",
+        "value": "#".concat(inputValue.slice(1))
+      }), {});
+      var value = "#".concat(Math.abs(parseInt(inputValue.replace('#', '0x'), 16) - parseInt("#7D8276".replace('#', '0x'), 16)).toString(16));
+      dispatcher((0, _store.changeColorTheme)({
+        "name": "fill_active",
+        "value": value
+      }), {});
+      dispatcher((0, _store.changeColorTheme)({
+        "name": "stroke_inactive",
+        "value": value
+      }), {});
+    } else {
+      dispatcher((0, _store.changeColorTheme)({
+        "name": "fill_inactive",
+        "value": "#".concat(inputValue2.slice(1))
+      }), {});
+      dispatcher((0, _store.changeColorTheme)({
+        "name": "fill_active",
+        "value": "#".concat(inputValue3.slice(1))
+      }), {});
+      dispatcher((0, _store.changeColorTheme)({
+        "name": "stroke_inactive",
+        "value": "#".concat(inputValue4.slice(1))
+      }), {});
+      dispatcher((0, _store.changeColorTheme)({
+        "name": "lines",
+        "value": "#".concat(inputValue5.slice(1))
+      }), {});
+    }
   };
   var placeholderState = false;
   (0, _react.useEffect)(function () {
@@ -39015,57 +39057,60 @@ function MainProfileDiv(props) {
             margin: "0px",
             textAlign: "center"
           }
-        }, "Settings"), /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            width: "80%",
-            display: "flex",
-            flexDirection: "row",
-            padding: "0px",
-            justifyContent: "space-between"
+        }, "Settings"), /*#__PURE__*/_react.default.createElement(ColorInput, {
+          menuBg: menuBg,
+          text: "Color Theme",
+          inputValue: inputValue,
+          setInputValue: setInputValue
+        }), /*#__PURE__*/_react.default.createElement(SettingsButton, {
+          color: confirmColor,
+          setColor: setConfirmColor,
+          bioTextColor: bioTextColor,
+          menuBg: menuBg,
+          text: "Confirm",
+          func: function func() {
+            return handleConfirmClick(1);
           }
-        }, /*#__PURE__*/_react.default.createElement("div", {
-          style: {
-            display: "grid",
-            placeItems: "center"
+        }), /*#__PURE__*/_react.default.createElement(_ProfileMicroComponents.LinesHR, {
+          bg: "white"
+        }), extendedSettingsState && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(ColorInput, {
+          menuBg: menuBg,
+          text: "fill_inactive",
+          inputValue: inputValue2,
+          setInputValue: setInputValue2
+        }), /*#__PURE__*/_react.default.createElement(ColorInput, {
+          menuBg: menuBg,
+          text: "fill_active",
+          inputValue: inputValue3,
+          setInputValue: setInputValue3
+        }), /*#__PURE__*/_react.default.createElement(ColorInput, {
+          menuBg: menuBg,
+          text: "stroke_active",
+          inputValue: inputValue4,
+          setInputValue: setInputValue4
+        }), /*#__PURE__*/_react.default.createElement(ColorInput, {
+          menuBg: menuBg,
+          text: "lines",
+          inputValue: inputValue5,
+          setInputValue: setInputValue5
+        }), /*#__PURE__*/_react.default.createElement(SettingsButton, {
+          color: confirmColor2,
+          setColor: setConfirmColor2,
+          bioTextColor: bioTextColor,
+          menuBg: menuBg,
+          text: "Confirm",
+          func: function func() {
+            return handleConfirmClick(0);
           }
-        }, /*#__PURE__*/_react.default.createElement("h5", {
-          style: {
-            color: menuBg,
-            fontSize: "25px",
-            textAlign: "center",
-            lineHeight: "35px",
-            margin: "0px"
-          }
-        }, "Color Theme")), /*#__PURE__*/_react.default.createElement("input", {
-          id: "colorThemeInput",
-          type: "color",
-          value: inputValue,
-          onChange: function onChange(event) {
-            return setInputValue(event.target.value);
-          },
-          style: {
-            border: "solid 1px black",
-            backgroundColor: "transparent",
-            width: "80px",
-            height: "50px",
-            cursor: "pointer"
-          }
-        })), /*#__PURE__*/_react.default.createElement("button", {
-          style: {
-            transition: "all 300ms ease-out",
-            border: "none",
-            backgroundColor: "transparent",
-            color: confirmColor,
-            cursor: "pointer"
-          },
-          onMouseEnter: function onMouseEnter() {
-            return setConfirmColor(bioTextColor);
-          },
-          onMouseLeave: function onMouseLeave() {
-            return setConfirmColor(menuBg);
-          },
-          onClick: handleConfirmClick
-        }, "Confirm"));
+        })), /*#__PURE__*/_react.default.createElement(SettingsButton, {
+          color: extnddStngsColor,
+          setColor: setExtnddStngsColor,
+          bioTextColor: bioTextColor,
+          menuBg: menuBg,
+          text: "Extended Settings",
+          setState: setExtendedSettingsState,
+          state: extendedSettingsState
+        }));
       }
     case "Support Service":
       return /*#__PURE__*/_react.default.createElement("div", {
@@ -39197,6 +39242,85 @@ function MainProfileDiv(props) {
       }
   }
 }
+var SettingsButton = function SettingsButton(_ref) {
+  var color = _ref.color,
+    setColor = _ref.setColor,
+    bioTextColor = _ref.bioTextColor,
+    menuBg = _ref.menuBg,
+    text = _ref.text,
+    _ref$state = _ref.state,
+    state = _ref$state === void 0 ? null : _ref$state,
+    _ref$setState = _ref.setState,
+    setState = _ref$setState === void 0 ? null : _ref$setState,
+    _ref$func = _ref.func,
+    func = _ref$func === void 0 ? null : _ref$func;
+  return /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      transition: "all 300ms ease-out",
+      border: "none",
+      backgroundColor: "transparent",
+      color: color,
+      cursor: "pointer",
+      fontSize: "20px"
+    },
+    className: "CormorantInfant-serif",
+    onMouseEnter: function onMouseEnter() {
+      return setColor(bioTextColor);
+    },
+    onMouseLeave: function onMouseLeave() {
+      return setColor(menuBg);
+    },
+    onClick: function onClick() {
+      if (func !== null) {
+        func();
+      } else setState(!state);
+    }
+  }, text);
+};
+var ColorInput = function ColorInput(_ref2) {
+  var text = _ref2.text,
+    menuBg = _ref2.menuBg,
+    inputValue = _ref2.inputValue,
+    setInputValue = _ref2.setInputValue;
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "80%",
+      display: "flex",
+      flexDirection: "row",
+      padding: "0px",
+      paddingTop: "5px",
+      paddingBottom: "5px",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      display: "grid",
+      placeItems: "center"
+    }
+  }, /*#__PURE__*/_react.default.createElement("h5", {
+    style: {
+      color: menuBg,
+      fontSize: "25px",
+      textAlign: "center",
+      lineHeight: "35px",
+      margin: "0px"
+    }
+  }, text)), /*#__PURE__*/_react.default.createElement("input", {
+    id: "colorThemeInput",
+    type: "color",
+    value: inputValue,
+    onChange: function onChange(event) {
+      return setInputValue(event.target.value);
+    },
+    style: {
+      border: "solid 1px black",
+      backgroundColor: "transparent",
+      width: "80px",
+      height: "50px",
+      cursor: "pointer"
+    }
+  }));
+};
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./ProfileMicroComponents":"Components/Profile/ProfileMicroComponents.js","../Buttons/SVGButtons":"Components/Buttons/SVGButtons.js","../../app/store":"app/store.js"}],"Screens/ScreenProfile.js":[function(require,module,exports) {
 "use strict";
 
@@ -39646,7 +39770,7 @@ var _ScreenMain = _interopRequireDefault(require("./Screens/ScreenMain"));
 var _ScreenProfile = _interopRequireDefault(require("./Screens/ScreenProfile"));
 var _ScreenNewPost = _interopRequireDefault(require("./Screens/ScreenNewPost"));
 var _ScreenSearch = _interopRequireDefault(require("./Screens/ScreenSearch"));
-var _CardScreen = _interopRequireDefault(require("./Components/CardScreen"));
+var _CardScreen = _interopRequireDefault(require("./Components/Card/CardScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_react.default.createElement(_ErrorBoundry.default, null, /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
@@ -39684,5 +39808,5 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
   path: "cards?cardId=:cardId",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Components/CardScreen":"Components/CardScreen.js"}]},{},["index.jsx"], null)
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js"}]},{},["index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

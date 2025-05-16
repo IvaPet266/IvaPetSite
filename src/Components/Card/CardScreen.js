@@ -1,6 +1,6 @@
 import React           from 'react'
 import { useSelector } from 'react-redux';
-import BaseScreen      from './BaseScreen';
+import BaseScreen      from '../BaseScreen';
 
 export default function CardScreen( props ) {
     const menuBg        = useSelector ( ( state ) => state.colorTheme.fill_inactive );

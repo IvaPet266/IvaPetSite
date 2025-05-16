@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector }                            from 'react-redux';   //!
-import Container                                               from './Card';
-import { changeParameter }                                     from '../app/store';
+import Container                                               from '../Card/Card';
+import { changeParameter }                                     from '../../app/store';
 import { useLocation, useParams }                              from 'react-router';
 import { Filters }                                             from './Filters';
-import CardScreen                                              from './CardScreen';
+import CardScreen                                              from '../Card/CardScreen';
 
 
-export default function Scroll( props ) {
+export default function Feed( props ) {
     const [ cardWidth, setCardWidth ]     = useState( "200px" );
     const [ padding, setPadding ]         = useState( null );
     const [ CARDS, setCARDS ]             = useState( null );
@@ -44,8 +44,6 @@ export default function Scroll( props ) {
             window.visualViewport.removeEventListener( "resize", zoomHandle );
         }
     }, []);
-
-
 
     useEffect(() => {(
         async () => {

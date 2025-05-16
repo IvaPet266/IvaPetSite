@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Menu from './Menu';
 
 const ANIMATION_DURATION = 300
 
@@ -9,14 +8,14 @@ export default function CardMenu({
     id, author, src
 }) {
 
-    const [ SVGfill, setSVGfill ]             = useState( "white" ); //useState( "#BFBFBF" );
-    const [ rotateDegree, setRotateDegree ]   = useState( 0 );
+    const [ SVGfill, setSVGfill ]             = useState( "#BFBFBF" );
+    const [ rotateDegree, setRotateDegree ]   = useState( 0 ); 
     const [ translateY, setTranslateY ]       = useState( 0 );
     const [ isActive, setIsActive ]           = useState( false );
-    const [ menuHeight, setMenuHeight ]       = useState( category === "ARTWORK" ? 89 : 60 );
-    const [ pointerEvents, setPointerEvents ] = useState( "none" );
+    const [ menuHeight, setMenuHeight ]       = useState( category === "ARTWORK" ? 95 : 65 );
+    // const [ pointerEvents, setPointerEvents ] = useState( "none" );
 
-    const [ maxTranslateY, setMaxTranslateY ] = useState( category === "ARTWORK" ? 89 : 60 );
+    const [ maxTranslateY, setMaxTranslateY ] = useState( category === "ARTWORK" ? 95 : 65 );
 
     const [ likeFill, setLikeFill ]           = useState( "#BFBFBF" );
     const [ likedState, setLikedState ]       = useState( false );
@@ -89,12 +88,9 @@ export default function CardMenu({
 
     return (
         <>
-            <svg
+            <div
                 onMouseOver={ () => handleContainerHover( true ) }
-                onClick    ={ clickHandler }
-
-                viewBox='0 0 30 10'
-                xmlns  ="http://www.w3.org/2000/svg"
+                // onClick    ={ clickHandler }
 
                 style={{
                     transform:     `translateY(${ translateY }px) rotate(${ rotateDegree }deg)`,
@@ -108,18 +104,15 @@ export default function CardMenu({
                     zIndex:        1, 
                 }}>
                 <CardCircle
-                    cx="4"   cy  ="4"
-                    r ="4px" fill={ SVGfill }
+                    x="0" r="3" fill={ SVGfill }
                 />
                 <CardCircle
-                    cx="14"  cy  ="4"
-                    r ="4px" fill={ SVGfill }
+                    x="10" r="3" fill={ SVGfill }
                 />
                 <CardCircle
-                    cx="24"  cy  ="4"
-                    r ="4px" fill={ SVGfill }
+                    x="20" r="3" fill={ SVGfill }
                 />
-            </svg>
+            </div>
             <div 
                 onMouseOver={ () => handleContainerHover( true ) }
                 style      ={{
@@ -154,15 +147,21 @@ export default function CardMenu({
 }
 
 export const CardCircle = ({
-    cx, cy, r, fill
+    x, r, fill
 }) => (
-    <circle 
+    <div 
         style={{
-            padding:       "5px",
-            pointerEvents: "none",
+            width:           `${ 2 * r }px`,
+            height:          `${ 2 * r }px`,
+            backgroundColor: "transparent",
+            borderRadius:    "50%",
+            border:          `2px solid ${ fill }`,
+            position:        "absolute",
+            top:             "2px",
+            left:            `${ x }px`,
+            pointerEvents:   "none"
         }}
-        cx={ cx } cy  ={ cy }
-        r ={ r }  fill={ fill }/>
+    />
 );
 
 export const MenuSVG = ({

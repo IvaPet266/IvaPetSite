@@ -29,7 +29,7 @@ export const colorThemeSlice = createSlice({
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
             console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
 
-            state.lines = checkWhite( state.fill_inactive ) ? "black" : "white"
+            if ( parameter.payload[ "name" ] !== "lines" ) state.lines = checkWhite( state.fill_inactive ) ? "black" : "white"
         },
         back2defaultColorTheme: ( state ) => {
             state.fill_inactive = "#DBC1FF";
