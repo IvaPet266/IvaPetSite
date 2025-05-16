@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useScreen }                          from './ProviderScreen';
+import React, { useEffect, useState } from 'react';
 import { useSelector }                        from 'react-redux';  
-import { Link }                               from 'react-router';
 
 export default function SVGButton( props ) {
 

@@ -37,7 +37,7 @@ export default function CardMenu({
         } else {
             // setPointerEvents( "cursor" );
             setIsActive( true );
-            setTranslateY( 89 );
+            setTranslateY( maxTranslateY );
             setRotateDegree( 180 );
         }
     }, [ focused ]);

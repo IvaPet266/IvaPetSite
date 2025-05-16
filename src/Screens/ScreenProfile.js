@@ -1,9 +1,11 @@
-import React, { useEffect, useState }                           from 'react';
-import BaseScreen                                               from '../Components/BaseScreen';
-import { useSelector }                                          from 'react-redux';
-import { MainProfileDiv, ProfileContents, ProfileContentsFill } from '../Components/ProfileComponents';
-import { useScreen }                                            from '../Components/ProviderScreen';
-import { useLocation }                                          from 'react-router';
+import React, { useEffect, useState } from 'react';
+import BaseScreen                     from '../Components/BaseScreen';
+import { useSelector }                from 'react-redux';
+import { ProfileContents }            from '../Components/Profile/ProfileContents';
+import { useScreen }                  from '../Components/ProviderScreen';
+import { useLocation }                from 'react-router';
+import { MainProfileDiv }             from '../Components/Profile/MainProfileDiv';
+
 
 export default function ScreenProfile( props ) {
 
