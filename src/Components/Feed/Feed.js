@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector }                            from 'react-redux';   //!
+import { useLocation, useParams }                              from 'react-router';
 import Container                                               from '../Card/Card';
 import { changeParameter }                                     from '../../app/store';
-import { useLocation, useParams }                              from 'react-router';
 import { Filters }                                             from './Filters';
 import CardScreen                                              from '../Card/CardScreen';
 
@@ -18,8 +18,9 @@ export default function Feed( props ) {
     let params = useParams();
     const location = useLocation();
 
-    const textColor      = useSelector( ( state ) => state.colorTheme.fill_inactive );
-    const scrollPosY     = useSelector( ( state ) => state.configParams.scroll );
+    const textColor  = useSelector( ( state ) => state.colorTheme.fill_inactive );
+    const lines      = useSelector( ( state ) => state.colorTheme.lines );
+    const scrollPosY = useSelector( ( state ) => state.configParams.scroll );
 
     const likesFilter    = useSelector( ( state ) => state.filters.likes );
     const repostsFilter  = useSelector( ( state ) => state.filters.reposts );
@@ -87,7 +88,7 @@ export default function Feed( props ) {
                                     <Container 
                                         key  ={ index } 
                                         id   ={ index }
-                                        value={ value }/> 
+                                        value={ value }/>
                                 )
                             })}
                     </div>

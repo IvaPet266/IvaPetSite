@@ -38514,9 +38514,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Feed;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
+var _reactRouter = require("react-router");
 var _Card = _interopRequireDefault(require("../Card/Card"));
 var _store = require("../../app/store");
-var _reactRouter = require("react-router");
 var _Filters = require("./Filters");
 var _CardScreen = _interopRequireDefault(require("../Card/CardScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
@@ -38554,6 +38554,9 @@ function Feed(props) {
   var location = (0, _reactRouter.useLocation)();
   var textColor = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
+  });
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
   });
   var scrollPosY = (0, _reactRedux.useSelector)(function (state) {
     return state.configParams.scroll;
@@ -38663,7 +38666,7 @@ function checkFilters(a, a1) {
   if (a !== null) ax = a == a1;else ax = true;
   return ax;
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Card/Card":"Components/Card/Card.js","../../app/store":"app/store.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Filters":"Components/Feed/Filters.js","../Card/CardScreen":"Components/Card/CardScreen.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../Card/Card":"Components/Card/Card.js","../../app/store":"app/store.js","./Filters":"Components/Feed/Filters.js","../Card/CardScreen":"Components/Card/CardScreen.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39786,7 +39789,7 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "newpost",
   element: /*#__PURE__*/_react.default.createElement(_ScreenNewPost.default, null)
-}), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
+}), "``", /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "search",
   element: /*#__PURE__*/_react.default.createElement(_ScreenSearch.default, null)
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
@@ -39805,7 +39808,7 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "support"
 })), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
-  path: "cards?cardId=:cardId",
+  path: "posts/:postId",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
 },{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js"}]},{},["index.jsx"], null)

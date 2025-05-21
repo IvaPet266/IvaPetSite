@@ -23,7 +23,7 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                         <Route index element={ <ScreenMain/> }/>
                         <Route path="contests" element={ <ScreenContests/> }/>
                         <Route path="discussion" element={ <ScreenDiscussion/> }/>
-                        <Route path="newpost" element={ <ScreenNewPost/> }/>
+                        <Route path="newpost" element={ <ScreenNewPost/> }/>``
                         <Route path="search" element={ <ScreenSearch/> }/>
                         <Route path="profile" element={ <ScreenProfile/> }>
                             <Route path="collections"/>
@@ -33,8 +33,7 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                             <Route path="settings"/>
                             <Route path="support"/>
                         </Route>
-                        <Route path="cards?cardId=:cardId" element={ <CardScreen/> }>
-                        </Route>
+                        <Route path="posts/:postId" element={ <CardScreen/> }/>
                     </Routes>
                 </BrowserRouter>
         </Provider>
