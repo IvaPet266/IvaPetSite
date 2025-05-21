@@ -70,7 +70,7 @@ export const LinkSpan = ({
             fontSize:      "25px" }}>
         { text }
     </span>
-)
+);
 
 export const LinkButton = ({
     objColor,
@@ -89,7 +89,7 @@ export const LinkButton = ({
             text    ={ text }
         />
     </button>
-)
+);
 
 export const BaseProfileComponentDiv = ( props ) => (
     <div 
@@ -103,4 +103,4 @@ export const BaseProfileComponentDiv = ( props ) => (
         }}>
         { props.children }
     </div>
-)
+);

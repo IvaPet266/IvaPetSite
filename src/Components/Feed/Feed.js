@@ -13,10 +13,11 @@ export default function Feed( props ) {
     const [ CARDS, setCARDS ]             = useState( null );
     const [ defaultText, setDefaultText ] = useState( "Wait a second!" );
 
-    const ref = useRef( null );
+    // use__
+    const ref        = useRef( null );
     const dispatcher = useDispatch();
-    let params = useParams();
-    const location = useLocation();
+    let params       = useParams();
+    const location   = useLocation();
 
     const textColor  = useSelector( ( state ) => state.colorTheme.fill_inactive );
     const lines      = useSelector( ( state ) => state.colorTheme.lines );
@@ -51,8 +52,7 @@ export default function Feed( props ) {
             try {
                 const response = await fetch( "https://storage.yandexcloud.net/sharetemp/artworks_data.json" );
                 return await response.json()
-            }
-            catch ( error ) { console.warn( error ); }
+            } catch ( error ) { console.warn( error ); };
         })().then( data => {
             setCARDS( Object.values( data ) );
         }
@@ -60,8 +60,8 @@ export default function Feed( props ) {
     );
 
     useEffect( () => {
-        dispatcher( changeParameter( { "name": "cards", "value": CARDS }) )
-    }, [ CARDS ])
+        dispatcher( changeParameter( { "name": "cards", "value": CARDS }) );
+    }, [ CARDS ]);
 
     switch ( CARDS !== null ) {
         case true:
@@ -105,4 +105,4 @@ function checkFilters( a, a1 ) {
     else ax = true;
 
     return ax
-}
+};

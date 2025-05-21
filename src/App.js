@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import ScreenContests from './Screens/ScreenContests'
-import ScreenMain from './Screens/ScreenMain'
-import ScreenDiscussion from './Screens/ScreenDiscussion'
-import ScreenNewPost from './Screens/ScreenNewPost'
-import ScreenProfile from './Screens/ScreenProfile'
-import ScreenSearch from './Screens/ScreenSearch'
-import { useScreen } from './Components/ProviderScreen'
-import Menu from './Components/Menu'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import { useSelector }                from 'react-redux';
+import ScreenContests   from './Screens/ScreenContests';
+import ScreenMain       from './Screens/ScreenMain';
+import ScreenDiscussion from './Screens/ScreenDiscussion';
+import ScreenNewPost    from './Screens/ScreenNewPost';
+import ScreenProfile    from './Screens/ScreenProfile';
+import ScreenSearch     from './Screens/ScreenSearch';
+import Menu             from './Components/Menu';
+import { useScreen }    from './Components/ProviderScreen';
 // import { useNavigate } from 'react-router'
 
 
@@ -29,8 +29,5 @@ export default function App() {
         case "profile":    return <ScreenProfile><Menu setScreen={ setScreen }/></ScreenProfile>
         case "search":     return <ScreenSearch><Menu setScreen={ setScreen }/></ScreenSearch>
         default:           return <ScreenMain><Menu setScreen={ setScreen }/></ScreenMain>
-    }
-}
-
-
-
+    };
+};

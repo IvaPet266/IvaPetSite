@@ -93,15 +93,15 @@ export default function ScreenProfile( props ) {
     } else if ( menuSection == "Support" ) {
       setSupportSColor( bioTextColor );
       setSupportSStrokeSVG( bioTextColor );
-    }
-  }, [ menuSection ])
+    };
+  }, [ menuSection ]);
     
   useEffect(() => {
     if ( location.pathname.indexOf( "profile" ) != -1 && location.pathname.indexOf( menuSection.toLowerCase() ) == -1 ) {
       const s = location.pathname.slice( location.pathname.indexOf( "profile" ) + 8 );
-      setMenuSection( `${ s.slice( 0, 1 ).toUpperCase() }${ s.slice( 1, s.length ) }` )
-    }
-  }, [ location.pathname ])
+      setMenuSection( `${ s.slice( 0, 1 ).toUpperCase() }${ s.slice( 1, s.length ) }` );
+    };
+  }, [ location.pathname ]);
 
   return (
     <BaseScreen>

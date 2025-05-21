@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector }                        from 'react-redux';  
+import { useSelector }                from 'react-redux';  
 
 export default function SVGButton( props ) {
 
@@ -27,9 +27,9 @@ export default function SVGButton( props ) {
             setBgColor( bg_inactive ); 
             setStrokeColor( stroke_inactive );
             setFillColor( bg_inactive ); 
-        }
+        };
         }, [ props.isActive ]
-    )
+    );
 
     return (
         <button
@@ -59,7 +59,7 @@ export default function SVGButton( props ) {
                         setBgColor( bg_inactive ); 
                         setStrokeColor( stroke_inactive );
                         setFillColor( bg_inactive ); 
-                    }
+                    };
                 }}
                 style      ={{ transition: "all 300ms ease-out", border, fill }}
                 width      ={ props.w } 
@@ -82,14 +82,14 @@ export default function SVGButton( props ) {
             </svg>
         </button>
     )
-}
+};
 
 export function SVGButton2Paths ( props ) {
 
-    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );       //! 
-    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );           //! 
+    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );   //! 
+    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );     //! 
     const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive ); //!
-    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );     //! 
+    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );   //! 
 
     const [ bgColor, setBgColor ]         = useState( bg_inactive );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
@@ -102,7 +102,7 @@ export function SVGButton2Paths ( props ) {
         } else {
             setBgColor( bg_inactive ); 
             setStrokeColor( stroke_inactive );
-            }
+            };
         }, [ props.isActive ]
     );
 
@@ -153,4 +153,4 @@ export function SVGButton2Paths ( props ) {
             </svg>
         </button>
     )
-}
+};

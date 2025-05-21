@@ -2,7 +2,6 @@ import React, { useState }               from "react";
 import { useDispatch, useSelector }      from "react-redux";
 import { changeFilter, changeParameter } from "../../app/store";
 
-
 const filters = {
     likes:    null,
     reposts:  null,
@@ -10,7 +9,7 @@ const filters = {
     author:   null,
     category: null,
     hashtags: [],
-}
+};
 
 export function Filters() {
     const filtersBg    = useSelector( ( state ) => state.colorTheme.fill_inactive ); 
@@ -70,8 +69,8 @@ export function Filters() {
                             filters.category = null;
                             filters.hashtags = [];
                             for ( const filter of [ "likes", "repostsFilter", "saves", "author", "category", "hashtags" ] ) {
-                                dispatch( changeFilter( { name: filter, value: null } ))
-                            }
+                                dispatch( changeFilter( { name: filter, value: null } ));
+                            };
                         }} 
                         onMouseEnter={() => {
                             setResetBgColor( filtersBg );
@@ -104,8 +103,8 @@ export function Filters() {
                         }} 
                         onClick     ={() => {
                             for ( const filter of [ "likes", "repostsFilter", "saves", "author", "category", "hashtags" ] ) {
-                                dispatch( changeFilter( { name: filter, value: filters[ filter ] } ))
-                            }
+                                dispatch( changeFilter( { name: filter, value: filters[ filter ] } ));
+                            };
                         }}>
                             Confirm
                     </button>
@@ -129,13 +128,13 @@ export function Filters() {
                         }}
                         onClick     ={() => {
                             dispatch( changeParameter( { "name": "filters", "value": !storeFilters }) );
-                            setFiltersBtnText( ">>" )
+                            setFiltersBtnText( ">>" );
                         }}>
                             { filtersBtnText }
                     </button> 
                 </div>
             )
-        default: {
+        default: 
             return (
                 <button 
                     style       ={{ 
@@ -158,14 +157,13 @@ export function Filters() {
                     }}
                     onClick     ={() => {
                         dispatch( changeParameter( { "name": "filters", "value": !storeFilters }) );
-                        setFiltersBtnText( "<<" )
+                        setFiltersBtnText( "<<" );
                     }}>
                         { filtersBtnText }
                 </button> 
             )
-        }
-    }
-}
+    };
+};
 
 export function FilterDiv( props ) {
     const filter = useSelector( ( state ) => state.filters[ props.name.toLowerCase() ])
@@ -187,4 +185,4 @@ export function FilterDiv( props ) {
                 }}/>
         </div>
     )
-}
+};

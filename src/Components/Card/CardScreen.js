@@ -1,4 +1,4 @@
-import React           from 'react'
+import React           from 'react';
 import { useSelector } from 'react-redux';
 import BaseScreen      from '../BaseScreen';
 
@@ -27,4 +27,4 @@ export default function CardScreen( props ) {
             </div>
         </BaseScreen>
     )
-}
+};

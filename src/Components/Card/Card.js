@@ -142,7 +142,7 @@ export default function Container( props ) {
                     } else {
                         let textLimit;
                         if ( category == "PROSE" ) textLimit = 340
-                        else textLimit = 237
+                        else textLimit = 237;
 
                         let text;
                         if ( text_content.length > textLimit ) text = `${ text_content.slice( 0, textLimit-3 ) }...`

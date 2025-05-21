@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
-const ANIMATION_DURATION = 300
+const ANIMATION_DURATION = 300;
 
 export default function CardMenu({
     handleContainerHover,
@@ -25,7 +25,7 @@ export default function CardMenu({
     const [ downloadD, setDownloadD ]         = useState( "M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" );
     const [ shareState, setShareState ]       = useState( false );
 
-    const filename = `${ author }-${ id }.jpg`
+    const filename = `${ author }-${ id }.jpg`;
 
     useEffect(() => {
         if ( focused === false ) {
@@ -49,7 +49,7 @@ export default function CardMenu({
 
         setTimeout(() => {
             console.log(event, "hello");
-        }, ANIMATION_DURATION )
+        }, ANIMATION_DURATION );
     };
 
     function downloadPost() {
@@ -77,14 +77,14 @@ export default function CardMenu({
             return true;
         } catch ( error ) {
             console.error( error.message || error );
-        }
+        };
     };
 
     useEffect(() => {
         if ( downloadState === false ) {
-            setDownloadD( "M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" )
+            setDownloadD( "M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" );
         } else setDownloadD( "M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z" );
-    }, [ downloadState ])
+    }, [ downloadState ]);
 
     return (
         <>
@@ -144,7 +144,7 @@ export default function CardMenu({
             </div>
         </>
     )
-}
+};
 
 export const CardCircle = ({
     x, r, fill
@@ -186,7 +186,7 @@ export const MenuSVG = ({
         }}
         onMouseOver ={ () => {
             setSVGfill( "white" );
-            handleContainerHover( true )
+            handleContainerHover( true );
         }}
         onMouseLeave={ () => setSVGfill( "#BFBFBF" )}
         onClick     ={ () => {
@@ -196,4 +196,4 @@ export const MenuSVG = ({
         xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
         <path d={ d }/>
     </svg>
-)
+);

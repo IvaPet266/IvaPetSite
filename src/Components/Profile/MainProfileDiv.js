@@ -1,8 +1,8 @@
-import React, { useState, useEffect }     from "react";
-import { useDispatch, useSelector }       from "react-redux";
+import React, { useState, useEffect }              from "react";
+import { useDispatch, useSelector }                from "react-redux";
 import { BaseProfileComponentDiv, Lines, LinesHR } from "./ProfileMicroComponents";
-import SVGButton                          from "../Buttons/SVGButtons";
-import { changeColorTheme }               from "../../app/store";
+import SVGButton                                   from "../Buttons/SVGButtons";
+import { changeColorTheme }                        from "../../app/store";
 
 
 export function MainProfileDiv ( props ) {
@@ -14,11 +14,11 @@ export function MainProfileDiv ( props ) {
     const bioTextColor = useSelector( ( state ) => state.colorTheme.stroke_active );
     const lines        = useSelector( ( state ) => state.colorTheme.lines );
     
-    const [ textColor, setTextColor ]       = useState( "white" );
-    const [ fontSize, setFontSize ]         = useState( "12px" );
-    const [ text, setText ]                 = useState( '' );
-    const [ placeholder, setPlaceholder ]   = useState( '' );
-    const [ confirmColor, setConfirmColor ] = useState( menuBg );
+    const [ textColor, setTextColor ]         = useState( "white" );
+    const [ fontSize, setFontSize ]           = useState( "12px" );
+    const [ text, setText ]                   = useState( '' );
+    const [ placeholder, setPlaceholder ]     = useState( '' );
+    const [ confirmColor, setConfirmColor ]   = useState( menuBg );
     const [ confirmColor2, setConfirmColor2 ] = useState( menuBg );
   
     const [ extendedSettingsState, setExtendedSettingsState ] = useState( false );
@@ -35,7 +35,7 @@ export function MainProfileDiv ( props ) {
     const handleConfirmClick = ( instance ) => {
         if ( instance ) {
             dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue.slice( 1 ) }` } ), {} );
-            const value = `#${ Math.abs( parseInt( inputValue.replace( '#', '0x' ), 16 ) - parseInt( "#7D8276".replace( '#', '0x' ), 16 ) ).toString( 16 ) }`
+            const value = `#${ Math.abs( parseInt( inputValue.replace( '#', '0x' ), 16 ) - parseInt( "#7D8276".replace( '#', '0x' ), 16 ) ).toString( 16 ) }`;
             dispatcher( changeColorTheme({ "name": "fill_active", "value": value } ), {} );
             dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": value } ), {} );
         } else {
@@ -43,7 +43,7 @@ export function MainProfileDiv ( props ) {
             dispatcher( changeColorTheme({ "name": "fill_active", "value": `#${ inputValue3.slice( 1 ) }` } ), {} );
             dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": `#${ inputValue4.slice( 1 ) }` } ), {} );
             dispatcher( changeColorTheme({ "name": "lines", "value": `#${ inputValue5.slice( 1 ) }` } ), {} );
-        }
+        };
     };
     
     let placeholderState = false;
@@ -228,9 +228,9 @@ export function MainProfileDiv ( props ) {
                     </div>
                 </BaseProfileComponentDiv>
             )
-        }
-    }
-}
+        };
+    };
+};
 
 const SettingsButton = ({
     color, setColor, bioTextColor, menuBg, text, 
@@ -249,8 +249,8 @@ const SettingsButton = ({
         onMouseLeave={ () => setColor( menuBg ) }
         onClick     ={ () => {
             if ( func !== null ) { 
-                func()
-            } else setState( !state )
+                func();
+            } else setState( !state );
         }}
         >
             { text }

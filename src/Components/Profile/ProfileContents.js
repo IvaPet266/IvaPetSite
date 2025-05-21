@@ -2,7 +2,6 @@ import React                              from "react";
 import { NavLink }                        from "react-router";
 import { LinkButton, ProfileContentsSVG } from "./ProfileMicroComponents";
 
-
 export function ProfileLink( props ) {
     switch ( props.link ){
         case false: 
@@ -21,8 +20,8 @@ export function ProfileLink( props ) {
                     />
                 </NavLink>
             )
-    }
-}
+    };
+};
 
 export const ProfileContents = ( props ) => (
     <div 
@@ -43,7 +42,7 @@ export const ProfileContents = ( props ) => (
                 props.setObjColor( props.inactiveContentsColor );
                 props.fill && props.setObjFillSVG( "none" );
                 props.setObjStrokeSVG( props.inactiveContentsColor );
-            }
+            };
         }}
         onClick={ () => {
             if ( props.text === 'Privacy Policy' ) {
@@ -53,7 +52,7 @@ export const ProfileContents = ( props ) => (
             } else if ( props.link !== 'none' ) {
                 props.setMenuSection( props.text );
             } else {
-                console.log(`Liked post №${props.postId}`);
+                console.log(`Liked post №${ props.postId }`);
             }
         }}>
         {( props.fill === false || props.link !== "none" ) && (
@@ -69,5 +68,4 @@ export const ProfileContents = ( props ) => (
             contentsColor={ props.contentsColor }
             objFillSVG   ={ props.fill ? props.objFillSVG : "none" }/>
     </div>
-)
-  
+);

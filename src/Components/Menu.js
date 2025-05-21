@@ -8,7 +8,7 @@ import { Button }                     from './Buttons/Button';
 export default function Menu( props ) {
   
   const menuBg = useSelector ( ( state ) => state.colorTheme.fill_inactive );
-  const lines = useSelector ( ( state ) => state.colorTheme.lines );
+  const lines  = useSelector ( ( state ) => state.colorTheme.lines );
 
   const location = useLocation();
 
