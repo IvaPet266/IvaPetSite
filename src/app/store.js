@@ -134,12 +134,38 @@ export const routes = createSlice({
     }  
 });
 
+export const postInfo = createSlice({
+    name: "postInfo",
+    initialState: {
+        image:        "", 
+        title:        "", 
+        author:       "", 
+        category:     "", 
+        text_content: ""
+    },
+    reducers: {
+        changePostInfo: ( state, parameter ) => {
+            state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
+        },
+        back2defaultPostInfo: ( state ) => {
+            state.image        = "";    
+            state.title        = "";        
+            state.author       = "";        
+            state.category     = "";        
+            state.text_content = "";        
+        }
+    }
+});
+
+export const { changePostInfo, back2defaultPostInfo } = postInfo.actions;
+
 export default configureStore({
     reducer: {
         colorTheme:   colorThemeSlice.reducer,
         userData:     userData.reducer,
         filters:      filters.reducer,
         configParams: configParams.reducer,
+        postInfo:     postInfo.reducer,
         routes:       routes.reducer
     },
 });

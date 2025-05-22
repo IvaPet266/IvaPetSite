@@ -20260,7 +20260,7 @@ function formatProdErrorMessage(code) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userData = exports.routes = exports.giveUID = exports.filters = exports.default = exports.configParams = exports.colorThemeSlice = exports.changeUserName = exports.changeParameter = exports.changeFilter = exports.changeColorTheme = exports.back2defaultFilters = exports.back2defaultConfigParamters = exports.back2defaultColorTheme = void 0;
+exports.userData = exports.routes = exports.postInfo = exports.giveUID = exports.filters = exports.default = exports.configParams = exports.colorThemeSlice = exports.changeUserName = exports.changePostInfo = exports.changeParameter = exports.changeFilter = exports.changeColorTheme = exports.back2defaultPostInfo = exports.back2defaultFilters = exports.back2defaultConfigParamters = exports.back2defaultColorTheme = void 0;
 var _toolkit = require("@reduxjs/toolkit");
 function checkWhite(color) {
   var r = parseInt(color.substring(0, 2), 16);
@@ -20391,12 +20391,38 @@ var routes = exports.routes = (0, _toolkit.createSlice)({
   },
   reducers: {}
 });
+var postInfo = exports.postInfo = (0, _toolkit.createSlice)({
+  name: "postInfo",
+  initialState: {
+    image: "",
+    title: "",
+    author: "",
+    category: "",
+    text_content: ""
+  },
+  reducers: {
+    changePostInfo: function changePostInfo(state, parameter) {
+      state[parameter.payload["name"]] = parameter.payload["value"];
+    },
+    back2defaultPostInfo: function back2defaultPostInfo(state) {
+      state.image = "";
+      state.title = "";
+      state.author = "";
+      state.category = "";
+      state.text_content = "";
+    }
+  }
+});
+var _postInfo$actions = postInfo.actions,
+  changePostInfo = exports.changePostInfo = _postInfo$actions.changePostInfo,
+  back2defaultPostInfo = exports.back2defaultPostInfo = _postInfo$actions.back2defaultPostInfo;
 var _default = exports.default = (0, _toolkit.configureStore)({
   reducer: {
     colorTheme: colorThemeSlice.reducer,
     userData: userData.reducer,
     filters: filters.reducer,
     configParams: configParams.reducer,
+    postInfo: postInfo.reducer,
     routes: routes.reducer
   }
 });
@@ -38023,6 +38049,81 @@ var MenuSVG = exports.MenuSVG = function MenuSVG(_ref3) {
     d: d
   }));
 };
+},{"react":"../node_modules/react/index.js"}],"Components/Card/CardContent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = CardContent;
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function CardContent(_ref) {
+  var category = _ref.category,
+    filter = _ref.filter,
+    post = _ref.post,
+    image = _ref.image,
+    text_content = _ref.text_content,
+    textFilter = _ref.textFilter,
+    textStyle = _ref.textStyle;
+  switch (category) {
+    case "ARTWORK":
+      {
+        return /*#__PURE__*/_react.default.createElement("img", {
+          style: {
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center 60%",
+            borderRadius: "20px",
+            transition: "all 300ms ease-out",
+            opacity: 1,
+            pointerEvents: 'none',
+            filter: filter,
+            boxShadow: "none"
+          },
+          src: image
+        });
+      }
+    default:
+      {
+        var textLimit;
+        var text;
+        if (!post) {
+          if (category == "PROSE") textLimit = 340;else textLimit = 237;
+          if (text_content.length > textLimit) text = "".concat(text_content.slice(0, textLimit - 3), "...");else text = text_content;
+        } else text = text_content;
+        return /*#__PURE__*/_react.default.createElement("div", {
+          style: {
+            width: "100%",
+            height: "100%",
+            transition: "all 300ms ease-out",
+            borderRadius: "20px",
+            padding: "2px",
+            opacity: 1,
+            pointerEvents: 'none',
+            display: "flex",
+            alignContent: "center",
+            whiteSpace: "pre-line",
+            textAlign: "center",
+            filter: textFilter
+          }
+        }, /*#__PURE__*/_react.default.createElement("span", {
+          style: _objectSpread({
+            transition: "all 300ms ease-out",
+            alignSelf: "center",
+            textAlign: "center"
+          }, textStyle)
+        }, text));
+      }
+  }
+}
 },{"react":"../node_modules/react/index.js"}],"Components/Card/Card.js":[function(require,module,exports) {
 "use strict";
 
@@ -38034,14 +38135,10 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _reactRouter = require("react-router");
 var _CardMenu = _interopRequireDefault(require("./CardMenu"));
+var _store = require("../../app/store");
+var _CardContent = _interopRequireDefault(require("./CardContent"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -38056,6 +38153,7 @@ function Container(props) {
     category = _props$value.category,
     text_content = _props$value.text_content;
   var navigate = (0, _reactRouter.useNavigate)();
+  var dispatcher = (0, _reactRedux.useDispatch)();
   var _useState = (0, _react.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     focused = _useState2[0],
@@ -38085,6 +38183,30 @@ function Container(props) {
 
   // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
 
+  function clickHandler() {
+    dispatcher((0, _store.back2defaultPostInfo)());
+    dispatcher((0, _store.changePostInfo)({
+      name: "image",
+      value: image
+    }));
+    dispatcher((0, _store.changePostInfo)({
+      name: "title",
+      value: title
+    }));
+    dispatcher((0, _store.changePostInfo)({
+      name: "author",
+      value: author
+    }));
+    dispatcher((0, _store.changePostInfo)({
+      name: "category",
+      value: category
+    }));
+    dispatcher((0, _store.changePostInfo)({
+      name: "text_content",
+      value: text_content
+    }));
+    navigate("posts/".concat(props.id));
+  }
   function handleContainerHover(isEntered) {
     setFocused(isEntered);
     setFilter(isEntered ? 'brightness(30%) saturate(40%)' : 'none');
@@ -38116,8 +38238,8 @@ function Container(props) {
     },
     onMouseOut: function onMouseOut() {
       return handleContainerHover(false);
-    }
-    // onClick     ={ clickHandler }
+    },
+    onClick: clickHandler
   }, /*#__PURE__*/_react.default.createElement(_CardMenu.default, {
     handleContainerHover: handleContainerHover,
     focused: focused,
@@ -38179,53 +38301,18 @@ function Container(props) {
       backgroundColor: "white",
       borderRadius: "25px"
     }
-  })), function () {
-    if (category == "ARTWORK") {
-      return /*#__PURE__*/_react.default.createElement("img", {
-        style: {
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center 60%",
-          borderRadius: "20px",
-          transition: "all 300ms ease-out",
-          opacity: 1,
-          pointerEvents: 'none',
-          filter: filter,
-          boxShadow: "none"
-        },
-        src: image
-      });
-    } else {
-      var textLimit;
-      if (category == "PROSE") textLimit = 340;else textLimit = 237;
-      var text;
-      if (text_content.length > textLimit) text = "".concat(text_content.slice(0, textLimit - 3), "...");else text = text_content;
-      return /*#__PURE__*/_react.default.createElement("div", {
-        style: {
-          width: "95%",
-          height: "100%",
-          transition: "all 300ms ease-out",
-          borderRadius: "20px",
-          padding: "5px",
-          opacity: 1,
-          pointerEvents: 'none',
-          display: "flex",
-          alignContent: "center",
-          whiteSpace: "pre-line",
-          textAlign: "center",
-          filter: textFilter
-        }
-      }, /*#__PURE__*/_react.default.createElement("span", {
-        style: _objectSpread({
-          transition: "all 300ms ease-out"
-        }, textStyle)
-      }, text));
-    }
-  }());
+  })), /*#__PURE__*/_react.default.createElement(_CardContent.default, {
+    filter: filter,
+    image: image,
+    post: false,
+    category: category,
+    text_content: text_content,
+    textFilter: textFilter,
+    textStyle: textStyle
+  }));
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./CardMenu":"Components/Card/CardMenu.js"}],"Components/Feed/Filters.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./CardMenu":"Components/Card/CardMenu.js","../../app/store":"app/store.js","./CardContent":"Components/Card/CardContent.js"}],"Components/Feed/Filters.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38494,6 +38581,7 @@ exports.default = CardScreen;
 var _react = _interopRequireDefault(require("react"));
 var _reactRedux = require("react-redux");
 var _BaseScreen = _interopRequireDefault(require("../BaseScreen"));
+var _CardContent = _interopRequireDefault(require("./CardContent"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function CardScreen(props) {
   var menuBg = (0, _reactRedux.useSelector)(function (state) {
@@ -38508,12 +38596,27 @@ function CardScreen(props) {
   var lines = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.lines;
   });
+  var category = (0, _reactRedux.useSelector)(function (state) {
+    return state.postInfo.category;
+  });
+  var image = (0, _reactRedux.useSelector)(function (state) {
+    return state.postInfo.image;
+  });
+  var author = (0, _reactRedux.useSelector)(function (state) {
+    return state.postInfo.author;
+  });
+  var title = (0, _reactRedux.useSelector)(function (state) {
+    return state.postInfo.title;
+  });
+  var text_content = (0, _reactRedux.useSelector)(function (state) {
+    return state.postInfo.text_content;
+  });
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, /*#__PURE__*/_react.default.createElement("div", {
     id: "card",
     style: {
-      padding: "5px",
+      padding: "0",
       width: "400px",
-      height: "500px",
+      height: category == "ARTWORK" ? "500px" : "700px",
       backgroundColor: "gray",
       position: "absolute",
       top: "25%",
@@ -38521,10 +38624,21 @@ function CardScreen(props) {
       borderRadius: "20px",
       border: "solid 1px ".concat(lines)
     }
-  }, props.children));
+  }, /*#__PURE__*/_react.default.createElement(_CardContent.default, {
+    image: image,
+    filter: "none",
+    text_content: text_content,
+    post: true,
+    category: category,
+    textFilter: "none",
+    textStyle: {
+      color: "black",
+      background: "transparent"
+    }
+  })));
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js","./CardContent":"Components/Card/CardContent.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

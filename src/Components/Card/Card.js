@@ -1,25 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector }                from 'react-redux';
-import { useNavigate, NavLink }       from 'react-router';
-import CardMenu                       from './CardMenu';
+import React, { useEffect, useState }           from 'react';
+import { useDispatch, useSelector }             from 'react-redux';
+import { useNavigate, NavLink }                 from 'react-router';
+import CardMenu                                 from './CardMenu';
+import { back2defaultPostInfo, changePostInfo } from '../../app/store';
+import CardContent                              from './CardContent';
 
 export default function Container( props ) {
 
     const { image, title, author, category, text_content } = props.value;
 
-    let navigate = useNavigate();
+    let navigate     = useNavigate();
+    const dispatcher = useDispatch();
     
     const [ focused, setFocused ]           = useState( false );
     const [ filter, setFilter ]             = useState( "none" );
     const [ textFilter, setTextFilter ]     = useState( "none" );
     const [ textStyle, setTextStyle ]       = useState( { color: "black", background: "transparent" } );
    
-    const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
+    const menuTextColor = useSelector( ( state ) => state.colorTheme.stroke_inactive );
     const lines         = useSelector( ( state ) => state.colorTheme.lines );
 
     const margin = 10;
 
     // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
+
+    function clickHandler() {
+        dispatcher( back2defaultPostInfo() );
+        
+        dispatcher( changePostInfo({ name: "image", value: image }) );
+        dispatcher( changePostInfo({ name: "title", value: title }) );
+        dispatcher( changePostInfo({ name: "author", value: author }) );
+        dispatcher( changePostInfo({ name: "category", value: category }) );
+        dispatcher( changePostInfo({ name: "text_content", value: text_content }) );
+        navigate( `posts/${ props.id }` );
+    }
 
     function handleContainerHover( isEntered ) {
         setFocused( isEntered );
@@ -49,130 +63,80 @@ export default function Container( props ) {
             }} 
             onMouseEnter={() => handleContainerHover( true )}
             onMouseOut  ={() => handleContainerHover( false )}
-            // onClick     ={ clickHandler }
+            onClick     ={ clickHandler }
             >
-            {/* <NavLink key={ props.id } to={ `/posts/${ props.id }` }
-                > */}
-                <CardMenu 
-                    handleContainerHover={ handleContainerHover }
-                    focused             ={ focused }
-                    category            ={ category }
-                    id                  ={ props.id } 
-                    author              ={ author }
-                    src                 ={ image }
-                />
+            <CardMenu 
+                handleContainerHover={ handleContainerHover }
+                focused             ={ focused }
+                category            ={ category }
+                id                  ={ props.id } 
+                author              ={ author }
+                src                 ={ image }
+            />
+            <div 
+                style={{ 
+                    padding:       "2px", 
+                    position:      "absolute",
+                    bottom:        "5px", 
+                    width:         "100%",
+                    zIndex:        1, 
+                    pointerEvents: 'none',
+                    transition:    "opacity 300ms ease-out",
+                    opacity:       Number( focused ),
+                    display:       "flex", 
+                    flexDirection: "row",
+                }}>
                 <div 
-                    style={{ 
-                        padding:       "2px", 
-                        position:      "absolute",
-                        bottom:        "5px", 
-                        width:         "100%",
-                        zIndex:        1, 
-                        pointerEvents: 'none',
-                        transition:    "opacity 300ms ease-out",
-                        opacity:       Number( focused ),
-                        display:       "flex", 
-                        flexDirection: "row",
+                    className='CormorantInfant-serif' 
+                    style    ={{ 
+                        padding: "3px",
+                        width:   "100%"
                     }}>
-                    <div 
-                        className='CormorantInfant-serif' 
-                        style    ={{ 
-                            padding: "3px",
-                            width:   "100%"
-                        }}>
-                        <h5 
-                            style={{ 
-                                margin:       "2px",
-                                width:        "150px", 
-                                position:     "absolute",
-                                textOverflow: "ellipsis",
-                                whiteSpace:   "nowrap",
-                                overflow:     "hidden",
-                                bottom:       "20px",
-                                left:         "7px",
-                                right:        "50px",
-                                color:        "white" 
-                            }}>
-                                { title }
-                        </h5>
-                        <span 
-                            style={{ 
-                                width:        "150px",
-                                position:     "absolute",
-                                textOverflow: "ellipsis",
-                                whiteSpace:   "nowrap",
-                                overflow:     "hidden",
-                                left:         "8px",
-                                bottom:       "5px",
-                                right:        "50px",
-                                color:        "white",
-                            }}>
-                                { author }
-                        </span>
-                    </div>
-                    <img 
+                    <h5 
                         style={{ 
-                            position:        "absolute", 
-                            bottom:          "4px",
-                            right:           "10px",
-                            height:          "30px",
-                            width:           "30px",
-                            backgroundColor: "white", 
-                            borderRadius:    "25px" 
-                        }}/>
-                </div> 
-                { (() => {
-                    if ( category == "ARTWORK" ) {
-                        return (
-                            <img 
-                                style={{
-                                    width:          "100%", 
-                                    height:         "100%",
-                                    objectFit:      "cover", 
-                                    objectPosition: "center 60%",
-                                    borderRadius:   "20px", 
-                                    transition:     "all 300ms ease-out",
-                                    opacity:        1, 
-                                    pointerEvents:  'none', 
-                                    filter:         filter, 
-                                    boxShadow:      "none",
-                                }} 
-                                src  ={ image }/>
-                        )
-                    } else {
-                        let textLimit;
-                        if ( category == "PROSE" ) textLimit = 340
-                        else textLimit = 237;
-
-                        let text;
-                        if ( text_content.length > textLimit ) text = `${ text_content.slice( 0, textLimit-3 ) }...`
-                        else text = text_content;
-                        return (
-                            <div style={{ 
-                                    width:         "95%", 
-                                    height:        "100%",
-                                    transition:    "all 300ms ease-out",
-                                    borderRadius:  "20px", 
-                                    padding:       "5px",
-                                    opacity:       1, 
-                                    pointerEvents: 'none',  
-                                    display:       "flex", 
-                                    alignContent:  "center",  
-                                    whiteSpace:    "pre-line", 
-                                    textAlign:     "center",
-                                    filter:        textFilter
-                                }}>
-                                <span style={{ 
-                                        transition: "all 300ms ease-out", 
-                                        ...textStyle 
-                                    }}>
-                                    { text }
-                                </span>
-                            </div>
-                        )
-                    } 
-                })()}
-            {/* </NavLink> */}
+                            margin:       "2px",
+                            width:        "150px", 
+                            position:     "absolute",
+                            textOverflow: "ellipsis",
+                            whiteSpace:   "nowrap",
+                            overflow:     "hidden",
+                            bottom:       "20px",
+                            left:         "7px",
+                            right:        "50px",
+                            color:        "white" 
+                        }}>
+                            { title }
+                    </h5>
+                    <span 
+                        style={{ 
+                            width:        "150px",
+                            position:     "absolute",
+                            textOverflow: "ellipsis",
+                            whiteSpace:   "nowrap",
+                            overflow:     "hidden",
+                            left:         "8px",
+                            bottom:       "5px",
+                            right:        "50px",
+                            color:        "white",
+                        }}>
+                            { author }
+                    </span>
+                </div>
+                <img 
+                    style={{ 
+                        position:        "absolute", 
+                        bottom:          "4px",
+                        right:           "10px",
+                        height:          "30px",
+                        width:           "30px",
+                        backgroundColor: "white", 
+                        borderRadius:    "25px" 
+                    }}/>
+            </div> 
+            <CardContent 
+                filter={ filter } image={ image } post={ false }
+                category={ category } text_content={ text_content } 
+                textFilter={ textFilter } textStyle={ textStyle }/>
         </div>
     )
 };
