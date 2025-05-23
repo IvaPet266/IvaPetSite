@@ -115,7 +115,8 @@ export default function ScreenProfile( props ) {
             border:        `solid ${ lines } 2px`, 
             display:       "flex", 
             flexDirection: "column", 
-            alignItems:    "center" 
+            alignItems:    "center",
+            userSelect:    "none", 
           }}>
           <h5 style={{ fontSize: "35px", margin: "0px", color: menuTextColor }}>
             <u>Contents</u>

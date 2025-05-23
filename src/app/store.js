@@ -96,7 +96,8 @@ export const configParams = createSlice({
         filters:     false,
         scroll:      0,
         cardsAmount: 0, 
-        cards:       null
+        cards:       null,
+        isDragging:  false,
     },
     reducers: {
         changeParameter: ( state, parameter ) => {

@@ -20355,7 +20355,8 @@ var configParams = exports.configParams = (0, _toolkit.createSlice)({
     filters: false,
     scroll: 0,
     cardsAmount: 0,
-    cards: null
+    cards: null,
+    isDragging: false
   },
   reducers: {
     changeParameter: function changeParameter(state, parameter) {
@@ -37465,7 +37466,8 @@ function Menu(props) {
       padding: "",
       alignItems: "center",
       height: "100px",
-      border: "solid ".concat(lines, " 1px")
+      border: "solid ".concat(lines, " 1px"),
+      userSelect: "none"
     }
   }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouter.NavLink, {
     to: "/"
@@ -37539,6 +37541,7 @@ exports.default = BaseScreen;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _Menu = _interopRequireDefault(require("./Menu"));
+var _store = require("../app/store");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -37567,6 +37570,10 @@ function BaseScreen(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     sliderHeight = _useState4[0],
     setSliderHeight = _useState4[1];
+  var _useState5 = (0, _react.useState)(props.scroll ? 99 : 100),
+    _useState6 = _slicedToArray(_useState5, 2),
+    contentWidth = _useState6[0],
+    setContentWidth = _useState6[1];
   function scrollTo(percent) {
     contentRef.current.scroll(0, percent * contentRef.current.scrollHeight);
   }
@@ -37603,7 +37610,7 @@ function BaseScreen(props) {
     style: {
       display: "flex",
       flexDirection: "column",
-      width: "99%",
+      width: "".concat(contentWidth, "%"),
       height: "100vh"
     }
   }, /*#__PURE__*/_react.default.createElement(_Menu.default, null), /*#__PURE__*/_react.default.createElement("div", {
@@ -37622,10 +37629,19 @@ function BaseScreen(props) {
 function Scrollbar(props) {
   var sliderRef = (0, _react.useRef)(null);
   var blockRef = (0, _react.useRef)(null);
-  var _useState5 = (0, _react.useState)(0),
-    _useState6 = _slicedToArray(_useState5, 2),
-    clickY = _useState6[0],
-    setClickY = _useState6[1];
+  var _useState7 = (0, _react.useState)(0),
+    _useState8 = _slicedToArray(_useState7, 2),
+    clickY = _useState8[0],
+    setClickY = _useState8[1];
+  var _useState9 = (0, _react.useState)("grab"),
+    _useState0 = _slicedToArray(_useState9, 2),
+    cursor = _useState0[0],
+    setCursor = _useState0[1];
+  var _useState1 = (0, _react.useState)(false),
+    _useState10 = _slicedToArray(_useState1, 2),
+    isDragging = _useState10[0],
+    setIsDragging = _useState10[1];
+  var dispatcher = (0, _reactRedux.useDispatch)();
   var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n    ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
 
   //* цвета
@@ -37664,6 +37680,29 @@ function Scrollbar(props) {
       });
     }
   }, [props.deltaY]);
+  function dragHandler(instance) {
+    setIsDragging(!isDragging);
+    setCursor(instance ? "grabbing" : "grab");
+    dispatcher((0, _store.changeParameter)({
+      name: "isDragging",
+      value: isDragging
+    }));
+    if (instance) {
+      document.addEventListener("mousemove", mouseMoveHandler);
+      document.addEventListener("mouseup", function () {
+        return dragHandler(false);
+      });
+    } else {
+      document.removeEventListener("mousemove", mouseMoveHandler);
+      document.removeEventListener("mouseup", function () {
+        return dragHandler(false);
+      });
+    }
+  }
+  ;
+  function mouseMoveHandler(event) {
+    setClickY(event.clientY);
+  }
   return /*#__PURE__*/_react.default.createElement("div", {
     id: "scrollDiv",
     style: {
@@ -37680,7 +37719,14 @@ function Scrollbar(props) {
     },
     ref: blockRef
   }, /*#__PURE__*/_react.default.createElement("div", {
+    id: "slider",
     ref: sliderRef,
+    onMouseDown: function onMouseDown() {
+      return dragHandler(true);
+    },
+    onMouseUp: function onMouseUp() {
+      return dragHandler(false);
+    },
     style: {
       transition: "background 100ms ease-in-out",
       minHeight: "5px",
@@ -37694,11 +37740,12 @@ function Scrollbar(props) {
       background: colorTransitionStyle,
       border: "solid ".concat(scrollbarBoxBorder, " 1px"),
       borderRadius: "10px",
-      boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)"
+      boxShadow: "inset 0 0 8px rgba(0, 0, 0, 0.2)",
+      cursor: cursor
     }
   }));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js","../app/store":"app/store.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38094,7 +38141,8 @@ function CardContent(_ref) {
           style: _objectSpread({
             transition: "all 300ms ease-out",
             alignSelf: "center",
-            textAlign: "center"
+            textAlign: "center",
+            pointerEvents: "none"
           }, textStyle)
         }, text));
       }
@@ -38130,6 +38178,12 @@ function Container(props) {
     text_content = _props$value.text_content;
   var navigate = (0, _reactRouter.useNavigate)();
   var dispatcher = (0, _reactRedux.useDispatch)();
+  var menuTextColor = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_inactive;
+  });
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
   var _useState = (0, _react.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     focused = _useState2[0],
@@ -38149,12 +38203,6 @@ function Container(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     textStyle = _useState8[0],
     setTextStyle = _useState8[1];
-  var menuTextColor = (0, _reactRedux.useSelector)(function (state) {
-    return state.colorTheme.stroke_inactive;
-  });
-  var lines = (0, _reactRedux.useSelector)(function (state) {
-    return state.colorTheme.lines;
-  });
   var margin = 10;
 
   // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
@@ -38200,14 +38248,15 @@ function Container(props) {
       background: "grey",
       overflow: "hidden",
       cursor: "pointer",
-      // width:        `${ props.width - margin }px`,
+      // width:         `${ props.width - margin }px`,
       margin: "".concat(margin * 0.25, "px ").concat(margin * 0.5, "px"),
       minHeihgt: "250px",
       maxHeight: "250px",
       maxWidth: "200px",
       position: "relative",
       border: "solid 1px ".concat(lines),
-      borderRadius: "20px"
+      borderRadius: "20px",
+      userSelect: "none"
     },
     onMouseEnter: function onMouseEnter() {
       return handleContainerHover(true);
@@ -39625,7 +39674,8 @@ function ScreenProfile(props) {
       border: "solid ".concat(lines, " 2px"),
       display: "flex",
       flexDirection: "column",
-      alignItems: "center"
+      alignItems: "center",
+      userSelect: "none"
     }
   }, /*#__PURE__*/_react.default.createElement("h5", {
     style: {

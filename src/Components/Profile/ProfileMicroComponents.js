@@ -99,7 +99,7 @@ export const BaseProfileComponentDiv = ( props ) => (
             display:       "flex", 
             flexDirection: "column", 
             alignItems:    "center", 
-            marginTop:     "5px" 
+            marginTop:     "5px",
         }}>
         { props.children }
     </div>

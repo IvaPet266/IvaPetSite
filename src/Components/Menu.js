@@ -25,7 +25,8 @@ export default function Menu( props ) {
           padding:        "", 
           alignItems:     "center", 
           height:         "100px", 
-          border:         `solid ${ lines } 1px` 
+          border:         `solid ${ lines } 1px`,
+          userSelect:     "none",
         }}>
         <div>
           <NavLink to="/">

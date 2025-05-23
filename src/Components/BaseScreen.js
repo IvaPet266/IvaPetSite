@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { useSelector }                                         from 'react-redux';
+import React, { useState, useRef, useEffect, useLayoutEffect, use } from 'react';
+import { useDispatch, useSelector }                                         from 'react-redux';
 import Menu                                                    from './Menu';
+import { changeParameter } from '../app/store';
 
 const PADDING = 5;
 // const menuHeight = 100;
@@ -13,8 +14,9 @@ export default function BaseScreen( props ) {
   const bg_color = useSelector( ( state ) => state.colorTheme.fill_active );
   const cards    = useSelector( ( state ) => state.configParams.cards );
 
-  const [ deltaY, setDeltaY ]               = useState( null );
-  const [ sliderHeight, setSliderHeight ]   = useState( null );
+  const [ deltaY, setDeltaY ]             = useState( null );
+  const [ sliderHeight, setSliderHeight ] = useState( null );
+  const [ contentWidth, setContentWidth ] = useState( props.scroll ? 99 : 100 );
 
   function scrollTo( percent ) {
     contentRef.current.scroll( 0, percent * contentRef.current.scrollHeight )
@@ -54,7 +56,7 @@ export default function BaseScreen( props ) {
       <div style={{ 
           display:       "flex", 
           flexDirection: "column", 
-          width:         "99%", 
+          width:         `${ contentWidth }%`, 
           height:        "100vh" 
         }}>
         <Menu/>
@@ -81,12 +83,17 @@ export default function BaseScreen( props ) {
   )
 };
 
+
 function Scrollbar( props ) {
 
   const sliderRef = useRef( null );
   const blockRef  = useRef( null );
   
-  const [ clickY, setClickY ] = useState( 0 );
+  const [ clickY, setClickY ]         = useState( 0 );
+  const [ cursor, setCursor ]         = useState( "grab" );
+  const [ isDragging, setIsDragging ] = useState( false );
+
+  const dispatcher = useDispatch();
 
   let colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
     ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
@@ -118,7 +125,25 @@ function Scrollbar( props ) {
       const maxScroll = blockRef.current.clientHeight - props.sliderHeight;
       setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.deltaY * 0.05 ), maxScroll ))
     }
-  }, [ props.deltaY ])
+  }, [ props.deltaY ]);
+
+  function dragHandler( instance ){
+    setIsDragging( !isDragging );
+    setCursor( instance ? "grabbing" : "grab" );
+    dispatcher( changeParameter( { name: "isDragging", value: isDragging } ))
+    if ( instance ) { 
+      document.addEventListener( "mousemove", mouseMoveHandler ); 
+      document.addEventListener( "mouseup", () => dragHandler( false ) );
+    }
+    else {
+      document.removeEventListener( "mousemove", mouseMoveHandler );
+      document.removeEventListener( "mouseup", () => dragHandler( false ) );
+    }
+  };
+
+  function mouseMoveHandler( event ) {
+    setClickY( event.clientY );
+  }
 
   return (
     <div 
@@ -138,8 +163,11 @@ function Scrollbar( props ) {
       ref     ={ blockRef }
       >
       <div 
-        ref        ={ sliderRef }
-        style      ={{ 
+        id          ="slider"
+        ref         ={ sliderRef }
+        onMouseDown ={ () => dragHandler( true ) }
+        onMouseUp   ={ () => dragHandler( false ) }
+        style       ={{ 
           transition:     "background 100ms ease-in-out",
           minHeight:      "5px", 
           maxHeight:      `${ visualViewport.height - 1 }px`,
@@ -153,6 +181,7 @@ function Scrollbar( props ) {
           border:         `solid ${ scrollbarBoxBorder } 1px`,
           borderRadius:   "10px", 
           boxShadow:      "inset 0 0 8px rgba(0, 0, 0, 0.2)",
+          cursor:         cursor
         }}
       />
     </div>

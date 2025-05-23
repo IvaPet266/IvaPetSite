@@ -12,13 +12,13 @@ export default function Container( props ) {
     let navigate     = useNavigate();
     const dispatcher = useDispatch();
     
-    const [ focused, setFocused ]           = useState( false );
-    const [ filter, setFilter ]             = useState( "none" );
-    const [ textFilter, setTextFilter ]     = useState( "none" );
-    const [ textStyle, setTextStyle ]       = useState( { color: "black", background: "transparent" } );
-   
     const menuTextColor = useSelector( ( state ) => state.colorTheme.stroke_inactive );
     const lines         = useSelector( ( state ) => state.colorTheme.lines );
+
+    const [ focused, setFocused ]             = useState( false );
+    const [ filter, setFilter ]               = useState( "none" );
+    const [ textFilter, setTextFilter ]       = useState( "none" );
+    const [ textStyle, setTextStyle ]         = useState( { color: "black", background: "transparent" } );
 
     const margin = 10;
 
@@ -48,18 +48,19 @@ export default function Container( props ) {
     return (
         <div 
             style       ={{
-                display:      "inline-block", /* ? */
-                background:   "grey", 
-                overflow:     "hidden",
-                cursor:       "pointer",
-                // width:        `${ props.width - margin }px`,
-                margin:       `${ margin * 0.25 }px ${ margin * 0.5 }px`,
-                minHeihgt:    "250px", 
-                maxHeight:    "250px",
-                maxWidth:     "200px", 
-                position:     "relative",
-                border:       `solid 1px ${ lines }`,
-                borderRadius: "20px",
+                display:       "inline-block", /* ? */
+                background:    "grey", 
+                overflow:      "hidden",
+                cursor:        "pointer",
+                // width:         `${ props.width - margin }px`,
+                margin:        `${ margin * 0.25 }px ${ margin * 0.5 }px`,
+                minHeihgt:     "250px", 
+                maxHeight:     "250px",
+                maxWidth:      "200px", 
+                position:      "relative",
+                border:        `solid 1px ${ lines }`,
+                borderRadius:  "20px",
+                userSelect:    "none",
             }} 
             onMouseEnter={() => handleContainerHover( true )}
             onMouseOut  ={() => handleContainerHover( false )}
@@ -134,9 +135,10 @@ export default function Container( props ) {
                     }}/>
             </div> 
             <CardContent 
-                filter={ filter } image={ image } post={ false }
-                category={ category } text_content={ text_content } 
-                textFilter={ textFilter } textStyle={ textStyle }/>
+                filter    ={ filter }     image={ image } post={ false }
+                category  ={ category }   text_content={ text_content } 
+                textFilter={ textFilter } textStyle={ textStyle }
+                />
         </div>
     )
 };

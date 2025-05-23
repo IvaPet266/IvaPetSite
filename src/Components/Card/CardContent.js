@@ -3,7 +3,7 @@ import React from 'react'
 export default function CardContent({
     category, filter, post,
     image, text_content, 
-    textFilter, textStyle, 
+    textFilter, textStyle
 }) {
     switch ( category ) {
         case ( "ARTWORK" ): {
@@ -51,10 +51,12 @@ export default function CardContent({
                         textAlign:     "center",
                         filter:        textFilter,
                     }}>
-                    <span style={{ 
-                            transition: "all 300ms ease-out", 
-                            alignSelf:  "center",
-                            textAlign:  "center",
+                    <span 
+                        style={{ 
+                            transition:    "all 300ms ease-out", 
+                            alignSelf:     "center",
+                            textAlign:     "center",
+                            pointerEvents: "none",
                             ...textStyle 
                         }}>
                         { text }
