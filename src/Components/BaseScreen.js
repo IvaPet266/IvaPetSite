@@ -13,48 +13,46 @@ export default function BaseScreen( props ) {
   const bg_color = useSelector( ( state ) => state.colorTheme.fill_active );
   const cards    = useSelector( ( state ) => state.configParams.cards );
 
-  const [ contentWidth, setContentWidth ]       = useState( 99 );
-  const [ scrollbarHeight, setScrollbarHeight ] = useState( 0 );
-  const [ scrollEvent, setScrollEvent ]         = useState( null );
+  const [ deltaY, setDeltaY ]               = useState( null );
+  const [ sliderHeight, setSliderHeight ]   = useState( null );
+  const [ baseRefHeight, setBaseRefHeight ] = useState( null );
 
-  function changeScrollbarSize () {
-    if ( baseRef.current && contentRef.current ) {
-      setScrollbarHeight( baseRef.current.clientHeight / contentRef.current.scrollHeight );
-      if ( scrollbarHeight == visualViewport.height ) setContentWidth( 100 );
+  function scrollTo( percent ) {
+    contentRef.current.scroll( 0, percent * contentRef.current.scrollHeight )
+  }
+
+  function onWheel ( event ) {
+    setDeltaY( event.nativeEvent.deltaY );
+  };
+
+  function onResize () {
+    if ( contentRef.current && baseRef.current ) {
+      setSliderHeight( ( contentRef.current.clientHeight * baseRef.current.clientHeight ) / contentRef.current.scrollHeight )
     }
   };
 
   useEffect(() => {
-    changeScrollbarSize();
-  }, [ visualViewport.width, visualViewport.height, cards, contentRef.current ])
-
-  function onWheel ( event ) {
-    if ( baseRef.current ) {
-      setScrollEvent( event.nativeEvent );
-    };
-  };
-
-  useLayoutEffect( () => {
-    window.addEventListener( "resize", changeScrollbarSize );
-    if ( !props.scroll ) {
-      window.removeEventListener( "resize", changeScrollbarSize );
-      setContentWidth( 100 );
-    };
+    window.addEventListener( "resize", onResize );
+    return () => window.removeEventListener( "resize", onResize )
   });
 
-  function scrollTo ( percent ) {
-    if ( contentRef.current ) {
-      const scrollY = percent * contentRef.current.scrollHeight;
-      contentRef.current.scroll( 0, scrollY >= 440 ? ( scrollY - 440 ) : scrollY );
-    };
-  };
+  useEffect(() => {
+    if ( baseRef.current ) {
+      setBaseRefHeight( baseRef.current.clientHeight );
+    }
+  }, [ baseRef.current, contentRef.current ])
+
+  useLayoutEffect(() => {
+    onResize();
+  });
+
 
   return (
     <div 
       style  ={{ 
         display:         "flex", 
         flexDirection:   "row", 
-        height:          "100vh", 
+        // height:          "100vh", 
         width:           "100vw", 
         backgroundColor: bg_color 
       }}
@@ -63,7 +61,7 @@ export default function BaseScreen( props ) {
       <div style={{ 
           display:       "flex", 
           flexDirection: "column", 
-          width:         `${ contentWidth }%`, 
+          width:         "99%", 
           height:        "100vh" 
         }}>
         <Menu/>
@@ -80,9 +78,10 @@ export default function BaseScreen( props ) {
       { props.scroll && (
         <>
           <Scrollbar 
-            scrollEvent      ={ scrollEvent }
-            scrollbarHeight  ={ scrollbarHeight }
-            scrollTo         ={ scrollTo }
+            deltaY        = { deltaY }
+            sliderHeight  = { sliderHeight }
+            scrollTo      = { scrollTo }
+            baseRefHeight = { baseRefHeight }
           />
         </>
       )}
@@ -95,44 +94,35 @@ function Scrollbar( props ) {
   const sliderRef = useRef( null );
   const blockRef  = useRef( null );
   
-  const [ clickY, setClickY ]             = useState( 0 );
-  const [ cursor, setCursor ]             = useState( "pointer" );
-  const [ sliderHeight, setSliderHeight ] = useState( 5 );
-  const [ percent, setPercent ]           = useState( 0 );
+  const [ clickY, setClickY ] = useState( 0 );
 
+  let colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
+    ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
+
+
+  //* цвета
   const scrollbarBgLight   = useSelector( ( state ) => state.colorTheme.fill_inactive );
   const scrollbarBgDark    = useSelector( ( state ) => state.colorTheme.fill_active );
   const scrollbarBorder    = useSelector( ( state ) => state.colorTheme.lines );
   const scrollbarBoxBorder = useSelector( ( state ) => state.colorTheme.stroke_active );
   
-  const colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
-    ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
-    
-  const blockHeightMsliderHeight = () => {
-    return blockRef.current.clientHeight - sliderRef.current.clientHeight
-  };
 
-  useEffect( () => {
-    if ( props.scrollEvent && blockRef.current && sliderRef.current ){
-      const maxScroll = blockHeightMsliderHeight();
-      setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.scrollEvent.deltaY * 0.1 ), maxScroll ));
-    }
-  }, [ props.scrollEvent ]); 
+  //* градиент ползунка
+  useEffect(() => {
+    colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
+      ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
+  }, [ clickY, window.innerHeight ]);
 
-  useEffect( () => {
-    if ( blockRef.current ) {
-      setSliderHeight( blockRef.current.clientHeight * props.scrollbarHeight  );
-    }
-  }, [ props.scrollbarHeight ]);
+  useEffect(() => {
+    const percent = clickY / props.baseRefHeight;
+    console.log(percent);
+    props.scrollTo(percent)
+  }, [ clickY ]);
 
-  useEffect( () => {
-    if ( blockRef.current && sliderRef.current ) {
-      setPercent( clickY / blockHeightMsliderHeight() );
-      console.log( percent );
-      props.scrollTo( percent )
-    }
-  }, [ clickY, sliderHeight ]);
-
+  useEffect(() => {
+    const maxScroll = props.baseRefHeight - props.sliderHeight;
+    setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.deltaY * 0.05 ), maxScroll ))
+  }, [ props.deltaY ])
 
   return (
     <div 
@@ -142,10 +132,10 @@ function Scrollbar( props ) {
         border:     `solid ${ scrollbarBorder } 1px`, 
         margin:     "0", 
         width:      "1%", 
+        cursor:     "pointer", 
       }} 
       onClick ={( event ) => {
-          console.log( Math.min( Math.max( 0, event.nativeEvent.offsetY ), blockHeightMsliderHeight() ) );
-          setClickY( Math.min( Math.max( 0, event.nativeEvent.offsetY ), blockHeightMsliderHeight() ) )
+          setClickY( Math.min( ( props.baseRefHeight - props.sliderHeight ), event.clientY ))
         }}
       ref     ={ blockRef }
       >
@@ -158,13 +148,12 @@ function Scrollbar( props ) {
           position:       "relative", 
           top:            clickY, 
           right:          0, 
-          height:         `${ sliderHeight }px`, 
+          height:         `${ props.sliderHeight }px`, 
           justifyContent: "center", 
           alignItems:     "center", 
           background:     colorTransitionStyle, 
           border:         `solid ${ scrollbarBoxBorder } 1px`,
           borderRadius:   "10px", 
-          cursor:         cursor, 
           boxShadow:      "inset 0 0 8px rgba(0, 0, 0, 0.2)",
         }}
       />
