@@ -106,19 +106,19 @@ function Scrollbar( props ) {
   const scrollbarBorder    = useSelector( ( state ) => state.colorTheme.lines );
   const scrollbarBoxBorder = useSelector( ( state ) => state.colorTheme.stroke_active );
   
-
   //* градиент ползунка
   useEffect(() => {
     colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
       ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
   }, [ clickY, window.innerHeight ]);
 
+  //* скролл ленты
   useEffect(() => {
     const percent = clickY / props.baseRefHeight;
-    console.log(percent);
-    props.scrollTo(percent)
+    props.scrollTo( percent )
   }, [ clickY ]);
 
+  //* перемещение ползунка
   useEffect(() => {
     const maxScroll = props.baseRefHeight - props.sliderHeight;
     setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.deltaY * 0.05 ), maxScroll ))

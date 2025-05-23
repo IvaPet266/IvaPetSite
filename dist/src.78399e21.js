@@ -37656,11 +37656,14 @@ function Scrollbar(props) {
   (0, _react.useEffect)(function () {
     colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n      ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
   }, [clickY, window.innerHeight]);
+
+  //* скролл ленты
   (0, _react.useEffect)(function () {
     var percent = clickY / props.baseRefHeight;
-    console.log(percent);
     props.scrollTo(percent);
   }, [clickY]);
+
+  //* перемещение ползунка
   (0, _react.useEffect)(function () {
     var maxScroll = props.baseRefHeight - props.sliderHeight;
     setClickY(function (prev) {
