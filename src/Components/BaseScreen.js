@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useSelector }                                         from 'react-redux';
 import Menu                                                    from './Menu';
 
-// const PADDING = 2;
+const PADDING = 5;
 // const menuHeight = 100;
 
 export default function BaseScreen( props ) {
@@ -15,7 +15,6 @@ export default function BaseScreen( props ) {
 
   const [ deltaY, setDeltaY ]               = useState( null );
   const [ sliderHeight, setSliderHeight ]   = useState( null );
-  const [ baseRefHeight, setBaseRefHeight ] = useState( null );
 
   function scrollTo( percent ) {
     contentRef.current.scroll( 0, percent * contentRef.current.scrollHeight )
@@ -35,12 +34,6 @@ export default function BaseScreen( props ) {
     window.addEventListener( "resize", onResize );
     return () => window.removeEventListener( "resize", onResize )
   });
-
-  useEffect(() => {
-    if ( baseRef.current ) {
-      setBaseRefHeight( baseRef.current.clientHeight );
-    }
-  }, [ baseRef.current, contentRef.current ])
 
   useLayoutEffect(() => {
     onResize();
@@ -81,7 +74,6 @@ export default function BaseScreen( props ) {
             deltaY        = { deltaY }
             sliderHeight  = { sliderHeight }
             scrollTo      = { scrollTo }
-            baseRefHeight = { baseRefHeight }
           />
         </>
       )}
@@ -114,14 +106,18 @@ function Scrollbar( props ) {
 
   //* скролл ленты
   useEffect(() => {
-    const percent = clickY / props.baseRefHeight;
-    props.scrollTo( percent )
+    if ( blockRef.current ) {
+      const percent = clickY / blockRef.current.clientHeight;
+      props.scrollTo( percent )
+    }
   }, [ clickY ]);
 
   //* перемещение ползунка
   useEffect(() => {
-    const maxScroll = props.baseRefHeight - props.sliderHeight;
-    setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.deltaY * 0.05 ), maxScroll ))
+    if ( blockRef.current ) {
+      const maxScroll = blockRef.current.clientHeight - props.sliderHeight;
+      setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.deltaY * 0.05 ), maxScroll ))
+    }
   }, [ props.deltaY ])
 
   return (
@@ -135,7 +131,9 @@ function Scrollbar( props ) {
         cursor:     "pointer", 
       }} 
       onClick ={( event ) => {
-          setClickY( Math.min( ( props.baseRefHeight - props.sliderHeight ), event.clientY ))
+        if ( blockRef.current ) {
+          setClickY( Math.min( ( blockRef.current.clientHeight - props.sliderHeight ), event.clientY ))
+        }
         }}
       ref     ={ blockRef }
       >

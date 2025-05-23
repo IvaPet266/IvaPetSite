@@ -37547,7 +37547,7 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-// const PADDING = 2;
+var PADDING = 5;
 // const menuHeight = 100;
 
 function BaseScreen(props) {
@@ -37567,10 +37567,6 @@ function BaseScreen(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     sliderHeight = _useState4[0],
     setSliderHeight = _useState4[1];
-  var _useState5 = (0, _react.useState)(null),
-    _useState6 = _slicedToArray(_useState5, 2),
-    baseRefHeight = _useState6[0],
-    setBaseRefHeight = _useState6[1];
   function scrollTo(percent) {
     contentRef.current.scroll(0, percent * contentRef.current.scrollHeight);
   }
@@ -37590,11 +37586,6 @@ function BaseScreen(props) {
       return window.removeEventListener("resize", onResize);
     };
   });
-  (0, _react.useEffect)(function () {
-    if (baseRef.current) {
-      setBaseRefHeight(baseRef.current.clientHeight);
-    }
-  }, [baseRef.current, contentRef.current]);
   (0, _react.useLayoutEffect)(function () {
     onResize();
   });
@@ -37624,18 +37615,17 @@ function BaseScreen(props) {
   }, props.children)), props.scroll && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(Scrollbar, {
     deltaY: deltaY,
     sliderHeight: sliderHeight,
-    scrollTo: scrollTo,
-    baseRefHeight: baseRefHeight
+    scrollTo: scrollTo
   })));
 }
 ;
 function Scrollbar(props) {
   var sliderRef = (0, _react.useRef)(null);
   var blockRef = (0, _react.useRef)(null);
-  var _useState7 = (0, _react.useState)(0),
-    _useState8 = _slicedToArray(_useState7, 2),
-    clickY = _useState8[0],
-    setClickY = _useState8[1];
+  var _useState5 = (0, _react.useState)(0),
+    _useState6 = _slicedToArray(_useState5, 2),
+    clickY = _useState6[0],
+    setClickY = _useState6[1];
   var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n    ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
 
   //* цвета
@@ -37659,16 +37649,20 @@ function Scrollbar(props) {
 
   //* скролл ленты
   (0, _react.useEffect)(function () {
-    var percent = clickY / props.baseRefHeight;
-    props.scrollTo(percent);
+    if (blockRef.current) {
+      var percent = clickY / blockRef.current.clientHeight;
+      props.scrollTo(percent);
+    }
   }, [clickY]);
 
   //* перемещение ползунка
   (0, _react.useEffect)(function () {
-    var maxScroll = props.baseRefHeight - props.sliderHeight;
-    setClickY(function (prev) {
-      return Math.min(Math.max(0, prev + props.deltaY * 0.05), maxScroll);
-    });
+    if (blockRef.current) {
+      var maxScroll = blockRef.current.clientHeight - props.sliderHeight;
+      setClickY(function (prev) {
+        return Math.min(Math.max(0, prev + props.deltaY * 0.05), maxScroll);
+      });
+    }
   }, [props.deltaY]);
   return /*#__PURE__*/_react.default.createElement("div", {
     id: "scrollDiv",
@@ -37680,7 +37674,9 @@ function Scrollbar(props) {
       cursor: "pointer"
     },
     onClick: function onClick(event) {
-      setClickY(Math.min(props.baseRefHeight - props.sliderHeight, event.clientY));
+      if (blockRef.current) {
+        setClickY(Math.min(blockRef.current.clientHeight - props.sliderHeight, event.clientY));
+      }
     },
     ref: blockRef
   }, /*#__PURE__*/_react.default.createElement("div", {
