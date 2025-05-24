@@ -11,8 +11,9 @@ export default function BaseScreen( props ) {
   const baseRef    = useRef( null );
   const contentRef = useRef( null );
 
-  const bg_color = useSelector( ( state ) => state.colorTheme.fill_active );
-  const cards    = useSelector( ( state ) => state.configParams.cards );
+  const bg_color   = useSelector( ( state ) => state.colorTheme.fill_active );
+  const cards      = useSelector( ( state ) => state.configParams.cards );
+  const isDragging = useSelector( ( state ) => state.configParams.isDragging );
 
   const [ deltaY, setDeltaY ]             = useState( null );
   const [ sliderHeight, setSliderHeight ] = useState( null );
@@ -23,7 +24,7 @@ export default function BaseScreen( props ) {
   }
 
   function onWheel ( event ) {
-    setDeltaY( event.nativeEvent.deltaY );
+    setDeltaY( event.nativeEvent.deltaY + Math.random() );
   };
 
   function onResize () {
@@ -49,7 +50,8 @@ export default function BaseScreen( props ) {
         flexDirection:   "row", 
         // height:          "100vh", 
         width:           "100vw", 
-        backgroundColor: bg_color 
+        backgroundColor: bg_color,
+        cursor:          isDragging ? "grabbing" : "auto"
       }}
       onWheel={ onWheel }
       ref    ={ baseRef }>
@@ -86,12 +88,12 @@ export default function BaseScreen( props ) {
 
 function Scrollbar( props ) {
 
-  const sliderRef = useRef( null );
-  const blockRef  = useRef( null );
+  const sliderRef  = useRef( null );
+  const blockRef   = useRef( null );
+  const isDragging = useRef( false );
   
-  const [ clickY, setClickY ]         = useState( 0 );
-  const [ cursor, setCursor ]         = useState( "grab" );
-  const [ isDragging, setIsDragging ] = useState( false );
+  const [ clickY, setClickY ]       = useState( 0 );
+  const [ cursor, setCursor ]       = useState( "grab" );
 
   const dispatcher = useDispatch();
 
@@ -115,35 +117,53 @@ function Scrollbar( props ) {
   useEffect(() => {
     if ( blockRef.current ) {
       const percent = clickY / blockRef.current.clientHeight;
-      props.scrollTo( percent )
+      props.scrollTo( percent );
     }
   }, [ clickY ]);
 
   //* перемещение ползунка
   useEffect(() => {
     if ( blockRef.current ) {
-      const maxScroll = blockRef.current.clientHeight - props.sliderHeight;
-      setClickY( ( prev ) => Math.min( Math.max( 0, prev + props.deltaY * 0.05 ), maxScroll ))
+      changeClickY( clickY + props.deltaY * 0.15 );
     }
   }, [ props.deltaY ]);
 
-  function dragHandler( instance ){
-    setIsDragging( !isDragging );
-    setCursor( instance ? "grabbing" : "grab" );
-    dispatcher( changeParameter( { name: "isDragging", value: isDragging } ))
-    if ( instance ) { 
-      document.addEventListener( "mousemove", mouseMoveHandler ); 
-      document.addEventListener( "mouseup", () => dragHandler( false ) );
-    }
-    else {
-      document.removeEventListener( "mousemove", mouseMoveHandler );
-      document.removeEventListener( "mouseup", () => dragHandler( false ) );
-    }
+  //* изменение clickY
+  function changeClickY( newValue ) {
+      const maxScroll = blockRef.current.clientHeight - props.sliderHeight;
+      setClickY( Math.min( Math.max( 0, newValue ), maxScroll ))
   };
 
-  function mouseMoveHandler( event ) {
-    setClickY( event.clientY );
-  }
+  //* начало перетаскивания
+  function dragStart() {
+    isDragging.current = true;
+    setCursor( "grabbing" );
+    dispatcher( changeParameter( { name: "isDragging", value: true } ) );
+  };
+  
+  //* конец перетаскивания
+  function dragEnd() {
+    isDragging.current = false;
+    setCursor( "grab" );
+    dispatcher( changeParameter( { name: "isDragging", value: false } ) );
+  };
+  
+  //* процесс перетаскивания
+  function dragging( event ) {
+    if ( isDragging.current ) {
+      changeClickY( event.clientY );
+    };
+  };
+  
+  //* подписки на события
+  useEffect(() => {
+    document.addEventListener( "mousemove", dragging );
+    document.addEventListener( "mouseup", dragEnd );
+    return () => {
+      document.removeEventListener( "mousemove", dragging );
+      document.removeEventListener( "mouseup", dragEnd );
+    }
+  }, [])
 
   return (
     <div 
@@ -155,18 +175,13 @@ function Scrollbar( props ) {
         width:      "1%", 
         cursor:     "pointer", 
       }} 
-      onClick ={( event ) => {
-        if ( blockRef.current ) {
-          setClickY( Math.min( ( blockRef.current.clientHeight - props.sliderHeight ), event.clientY ))
-        }
-        }}
+      onClick ={ ( event ) => changeClickY( event.clientY ) }
       ref     ={ blockRef }
       >
       <div 
         id          ="slider"
         ref         ={ sliderRef }
-        onMouseDown ={ () => dragHandler( true ) }
-        onMouseUp   ={ () => dragHandler( false ) }
+        onMouseDown ={ dragStart }
         style       ={{ 
           transition:     "background 100ms ease-in-out",
           minHeight:      "5px", 

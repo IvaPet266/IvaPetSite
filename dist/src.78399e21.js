@@ -37191,6 +37191,9 @@ function SVGButton(props) {
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
+  var isDragging = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.isDragging;
+  });
   var _useState = (0, _react.useState)(bg_inactive),
     _useState2 = _slicedToArray(_useState, 2),
     bgColor = _useState2[0],
@@ -37232,14 +37235,16 @@ function SVGButton(props) {
       border: "none",
       alignItems: "center",
       alignSelf: "center",
-      cursor: "pointer",
+      cursor: isDragging ? "grabbing" : "pointer",
       padding: "0px"
     }
   }, /*#__PURE__*/_react.default.createElement("svg", {
     onMouseOver: function onMouseOver() {
-      setBgColor(stroke_inactive);
-      setStrokeColor("white");
-      setFillColor(bg_active);
+      if (!isDragging) {
+        setBgColor(stroke_inactive);
+        setStrokeColor("white");
+        setFillColor(bg_active);
+      }
     },
     onMouseOut: function onMouseOut() {
       if (!props.isActive) {
@@ -37285,7 +37290,9 @@ function SVGButton2Paths(props) {
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   }); //! 
-
+  var isDragging = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.isDragging;
+  });
   var _useState7 = (0, _react.useState)(bg_inactive),
     _useState8 = _slicedToArray(_useState7, 2),
     bgColor = _useState8[0],
@@ -37312,12 +37319,14 @@ function SVGButton2Paths(props) {
       transition: "all 300ms ease-out",
       border: "none",
       alignSelf: "center",
-      cursor: "pointer"
+      cursor: isDragging ? "grabbing" : "pointer"
     }
   }, /*#__PURE__*/_react.default.createElement("svg", {
     onMouseOver: function onMouseOver() {
-      setBgColor(stroke_inactive);
-      setStrokeColor("white");
+      if (!isDragging) {
+        setBgColor(stroke_inactive);
+        setStrokeColor("white");
+      }
     },
     onMouseOut: function onMouseOut() {
       if (!props.isActive) {
@@ -37379,6 +37388,9 @@ function Button(props) {
   var bioTextColor = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
+  var isDragging = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.isDragging;
+  });
   var _useState = (0, _react.useState)(menuBg),
     _useState2 = _slicedToArray(_useState, 2),
     backgroundColorInactive = _useState2[0],
@@ -37399,7 +37411,7 @@ function Button(props) {
         fontFamily: "Cormorant Infant, serif",
         margin: "8px",
         whiteSpace: "nowrap",
-        cursor: "pointer"
+        cursor: isDragging ? "grabbing" : "pointer"
       };
       break;
     default:
@@ -37415,15 +37427,17 @@ function Button(props) {
         fontFamily: "Cormorant Infant, serif",
         margin: "8px",
         whiteSpace: "nowrap",
-        cursor: "pointer"
+        cursor: isDragging ? "grabbing" : "pointer"
       };
       break;
   }
   ;
   return /*#__PURE__*/_react.default.createElement("button", {
     onMouseEnter: function onMouseEnter() {
-      setBackgroundColorInactive(menuTextColor);
-      setTextColorInactive(bioTextColor);
+      if (!isDragging) {
+        setBackgroundColorInactive(menuTextColor);
+        setTextColorInactive(bioTextColor);
+      }
     },
     onMouseLeave: function onMouseLeave() {
       setBackgroundColorInactive(menuBg);
@@ -37562,6 +37576,9 @@ function BaseScreen(props) {
   var cards = (0, _reactRedux.useSelector)(function (state) {
     return state.configParams.cards;
   });
+  var isDragging = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.isDragging;
+  });
   var _useState = (0, _react.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     deltaY = _useState2[0],
@@ -37578,7 +37595,7 @@ function BaseScreen(props) {
     contentRef.current.scroll(0, percent * contentRef.current.scrollHeight);
   }
   function onWheel(event) {
-    setDeltaY(event.nativeEvent.deltaY);
+    setDeltaY(event.nativeEvent.deltaY + Math.random());
   }
   ;
   function onResize() {
@@ -37602,7 +37619,8 @@ function BaseScreen(props) {
       flexDirection: "row",
       // height:          "100vh", 
       width: "100vw",
-      backgroundColor: bg_color
+      backgroundColor: bg_color,
+      cursor: isDragging ? "grabbing" : "auto"
     },
     onWheel: onWheel,
     ref: baseRef
@@ -37629,6 +37647,7 @@ function BaseScreen(props) {
 function Scrollbar(props) {
   var sliderRef = (0, _react.useRef)(null);
   var blockRef = (0, _react.useRef)(null);
+  var isDragging = (0, _react.useRef)(false);
   var _useState7 = (0, _react.useState)(0),
     _useState8 = _slicedToArray(_useState7, 2),
     clickY = _useState8[0],
@@ -37637,10 +37656,6 @@ function Scrollbar(props) {
     _useState0 = _slicedToArray(_useState9, 2),
     cursor = _useState0[0],
     setCursor = _useState0[1];
-  var _useState1 = (0, _react.useState)(false),
-    _useState10 = _slicedToArray(_useState1, 2),
-    isDragging = _useState10[0],
-    setIsDragging = _useState10[1];
   var dispatcher = (0, _reactRedux.useDispatch)();
   var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n    ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
 
@@ -37674,35 +37689,57 @@ function Scrollbar(props) {
   //* перемещение ползунка
   (0, _react.useEffect)(function () {
     if (blockRef.current) {
-      var maxScroll = blockRef.current.clientHeight - props.sliderHeight;
-      setClickY(function (prev) {
-        return Math.min(Math.max(0, prev + props.deltaY * 0.05), maxScroll);
-      });
+      changeClickY(clickY + props.deltaY * 0.15);
     }
   }, [props.deltaY]);
-  function dragHandler(instance) {
-    setIsDragging(!isDragging);
-    setCursor(instance ? "grabbing" : "grab");
-    dispatcher((0, _store.changeParameter)({
-      name: "isDragging",
-      value: isDragging
-    }));
-    if (instance) {
-      document.addEventListener("mousemove", mouseMoveHandler);
-      document.addEventListener("mouseup", function () {
-        return dragHandler(false);
-      });
-    } else {
-      document.removeEventListener("mousemove", mouseMoveHandler);
-      document.removeEventListener("mouseup", function () {
-        return dragHandler(false);
-      });
-    }
+
+  //* изменение clickY
+  function changeClickY(newValue) {
+    var maxScroll = blockRef.current.clientHeight - props.sliderHeight;
+    setClickY(Math.min(Math.max(0, newValue), maxScroll));
   }
   ;
-  function mouseMoveHandler(event) {
-    setClickY(event.clientY);
+
+  //* начало перетаскивания
+  function dragStart() {
+    isDragging.current = true;
+    setCursor("grabbing");
+    dispatcher((0, _store.changeParameter)({
+      name: "isDragging",
+      value: true
+    }));
   }
+  ;
+
+  //* конец перетаскивания
+  function dragEnd() {
+    isDragging.current = false;
+    setCursor("grab");
+    dispatcher((0, _store.changeParameter)({
+      name: "isDragging",
+      value: false
+    }));
+  }
+  ;
+
+  //* процесс перетаскивания
+  function dragging(event) {
+    if (isDragging.current) {
+      changeClickY(event.clientY);
+    }
+    ;
+  }
+  ;
+
+  //* подписки на события
+  (0, _react.useEffect)(function () {
+    document.addEventListener("mousemove", dragging);
+    document.addEventListener("mouseup", dragEnd);
+    return function () {
+      document.removeEventListener("mousemove", dragging);
+      document.removeEventListener("mouseup", dragEnd);
+    };
+  }, []);
   return /*#__PURE__*/_react.default.createElement("div", {
     id: "scrollDiv",
     style: {
@@ -37713,20 +37750,13 @@ function Scrollbar(props) {
       cursor: "pointer"
     },
     onClick: function onClick(event) {
-      if (blockRef.current) {
-        setClickY(Math.min(blockRef.current.clientHeight - props.sliderHeight, event.clientY));
-      }
+      return changeClickY(event.clientY);
     },
     ref: blockRef
   }, /*#__PURE__*/_react.default.createElement("div", {
     id: "slider",
     ref: sliderRef,
-    onMouseDown: function onMouseDown() {
-      return dragHandler(true);
-    },
-    onMouseUp: function onMouseUp() {
-      return dragHandler(false);
-    },
+    onMouseDown: dragStart,
     style: {
       transition: "background 100ms ease-in-out",
       minHeight: "5px",
@@ -38184,6 +38214,9 @@ function Container(props) {
   var lines = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.lines;
   });
+  var isDragging = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.isDragging;
+  });
   var _useState = (0, _react.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     focused = _useState2[0],
@@ -38232,13 +38265,15 @@ function Container(props) {
     navigate("posts/".concat(props.id));
   }
   function handleContainerHover(isEntered) {
-    setFocused(isEntered);
-    setFilter(isEntered ? 'brightness(30%) saturate(40%)' : 'none');
-    setTextFilter(isEntered ? 'brightness(30%) contrast(30%)' : 'none');
-    setTextStyle({
-      color: isEntered ? 'lightgrey' : 'black',
-      background: 'transparent'
-    });
+    if (!isDragging) {
+      setFocused(isEntered);
+      setFilter(isEntered ? 'brightness(30%) saturate(40%)' : 'none');
+      setTextFilter(isEntered ? 'brightness(30%) contrast(30%)' : 'none');
+      setTextStyle({
+        color: isEntered ? 'lightgrey' : 'black',
+        background: 'transparent'
+      });
+    }
   }
   ;
   return /*#__PURE__*/_react.default.createElement("div", {
@@ -38247,7 +38282,7 @@ function Container(props) {
       /* ? */
       background: "grey",
       overflow: "hidden",
-      cursor: "pointer",
+      cursor: isDragging ? "grabbing" : "pointer",
       // width:         `${ props.width - margin }px`,
       margin: "".concat(margin * 0.25, "px ").concat(margin * 0.5, "px"),
       minHeihgt: "250px",

@@ -14,6 +14,7 @@ export default function Container( props ) {
     
     const menuTextColor = useSelector( ( state ) => state.colorTheme.stroke_inactive );
     const lines         = useSelector( ( state ) => state.colorTheme.lines );
+    const isDragging    = useSelector( ( state ) => state.configParams.isDragging );
 
     const [ focused, setFocused ]             = useState( false );
     const [ filter, setFilter ]               = useState( "none" );
@@ -36,13 +37,15 @@ export default function Container( props ) {
     }
 
     function handleContainerHover( isEntered ) {
-        setFocused( isEntered );
-        setFilter( isEntered ? 'brightness(30%) saturate(40%)' : 'none' );
-        setTextFilter( isEntered ? 'brightness(30%) contrast(30%)' : 'none' );
-        setTextStyle({
-            color: isEntered ? 'lightgrey' : 'black',
-            background: 'transparent'
-        });
+        if ( !isDragging ) {
+            setFocused( isEntered );
+            setFilter( isEntered ? 'brightness(30%) saturate(40%)' : 'none' );
+            setTextFilter( isEntered ? 'brightness(30%) contrast(30%)' : 'none' );
+            setTextStyle({
+                color: isEntered ? 'lightgrey' : 'black',
+                background: 'transparent'
+            });
+        }
     };
 
     return (
@@ -51,7 +54,7 @@ export default function Container( props ) {
                 display:       "inline-block", /* ? */
                 background:    "grey", 
                 overflow:      "hidden",
-                cursor:        "pointer",
+                cursor:        isDragging ? "grabbing" : "pointer",
                 // width:         `${ props.width - margin }px`,
                 margin:        `${ margin * 0.25 }px ${ margin * 0.5 }px`,
                 minHeihgt:     "250px", 

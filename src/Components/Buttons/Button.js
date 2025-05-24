@@ -7,6 +7,7 @@ export function Button( props ) {
     const menuBg        = useSelector ( ( state ) => state.colorTheme.fill_inactive );
     const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
     const bioTextColor  = useSelector( ( state ) => state.colorTheme.stroke_active );
+    const isDragging    = useSelector( ( state ) => state.configParams.isDragging );
   
     const [ backgroundColorInactive, setBackgroundColorInactive ] = useState( menuBg );
     const [ textColorInactive, setTextColorInactive ]             = useState( menuTextColor );
@@ -24,7 +25,7 @@ export function Button( props ) {
           fontFamily: "Cormorant Infant, serif", 
           margin:     "8px", 
           whiteSpace: "nowrap", 
-          cursor:     "pointer"
+          cursor:     isDragging ? "grabbing" : "pointer"
         }; break;
       default: style={
           background:  backgroundColorInactive, 
@@ -38,15 +39,17 @@ export function Button( props ) {
           fontFamily:  "Cormorant Infant, serif", 
           margin:      "8px", 
           whiteSpace:  "nowrap", 
-          cursor:      "pointer"
+          cursor:      isDragging ? "grabbing" : "pointer"
         }; break;
     };
   
     return (
       <button 
         onMouseEnter={() => {
-          setBackgroundColorInactive( menuTextColor );
-          setTextColorInactive( bioTextColor );
+          if ( !isDragging ) {
+            setBackgroundColorInactive( menuTextColor );
+            setTextColorInactive( bioTextColor );
+          }
         }} 
         onMouseLeave={() => {
           setBackgroundColorInactive( menuBg );

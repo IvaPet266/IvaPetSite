@@ -6,7 +6,8 @@ export default function SVGButton( props ) {
     const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );     
     const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );    
     const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive );           
-    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );         
+    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );  
+    const isDragging      = useSelector( ( state ) => state.configParams.isDragging );       
 
     const [ bgColor, setBgColor ]         = useState( bg_inactive );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
@@ -45,14 +46,16 @@ export default function SVGButton( props ) {
                 border:     "none",
                 alignItems: "center",
                 alignSelf:  "center",
-                cursor:     "pointer", 
+                cursor:     isDragging ? "grabbing" : "pointer",
                 padding:    "0px"
             }}>
             <svg 
                 onMouseOver={() => { 
-                    setBgColor( stroke_inactive ); 
-                    setStrokeColor( "white" );
-                    setFillColor( bg_active );
+                    if ( !isDragging ) {
+                        setBgColor( stroke_inactive ); 
+                        setStrokeColor( "white" );
+                        setFillColor( bg_active );
+                    }
                 }}
                 onMouseOut ={() => { 
                     if ( !props.isActive ) {
@@ -90,6 +93,7 @@ export function SVGButton2Paths ( props ) {
     const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );     //! 
     const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive ); //!
     const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );   //! 
+    const isDragging      = useSelector( ( state ) => state.configParams.isDragging );
 
     const [ bgColor, setBgColor ]         = useState( bg_inactive );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
@@ -110,16 +114,18 @@ export function SVGButton2Paths ( props ) {
         <button
             style={{
                 background: "transparent",
-                margin: "8px",
+                margin:     "8px",
                 transition: "all 300ms ease-out",
-                border: "none",
-                alignSelf: "center",
-                cursor: "pointer"
+                border:     "none",
+                alignSelf:  "center",
+                cursor:     isDragging ? "grabbing" : "pointer"
             }}>
             <svg 
                 onMouseOver={() => { 
-                    setBgColor( stroke_inactive ); 
-                    setStrokeColor( "white" ) 
+                    if ( !isDragging ) {
+                        setBgColor( stroke_inactive ); 
+                        setStrokeColor( "white" ) 
+                    }
                 }} 
                 onMouseOut ={() => { 
                     if ( !props.isActive ) {
