@@ -92,8 +92,8 @@ function Scrollbar( props ) {
   const blockRef   = useRef( null );
   const isDragging = useRef( false );
   
-  const [ clickY, setClickY ]       = useState( 0 );
-  const [ cursor, setCursor ]       = useState( "grab" );
+  const [ clickY, setClickY ] = useState( 0 );
+  const [ cursor, setCursor ] = useState( "grab" );
 
   const dispatcher = useDispatch();
 
@@ -173,7 +173,7 @@ function Scrollbar( props ) {
         border:     `solid ${ scrollbarBorder } 1px`, 
         margin:     "0", 
         width:      "1%", 
-        cursor:     "pointer", 
+        cursor:     isDragging ? "grabbing" : "pointer",
       }} 
       onClick ={ ( event ) => changeClickY( event.clientY ) }
       ref     ={ blockRef }

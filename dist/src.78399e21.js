@@ -37747,7 +37747,7 @@ function Scrollbar(props) {
       border: "solid ".concat(scrollbarBorder, " 1px"),
       margin: "0",
       width: "1%",
-      cursor: "pointer"
+      cursor: isDragging ? "grabbing" : "pointer"
     },
     onClick: function onClick(event) {
       return changeClickY(event.clientY);
@@ -38849,12 +38849,22 @@ function Feed(props) {
         });
       })));
     default:
-      return /*#__PURE__*/_react.default.createElement("p", {
+      return /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: "50%",
+          left: "50%",
+          display: "flex",
+          flexDirection: "column",
+          alignContent: 'center'
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "loader"
+      }), /*#__PURE__*/_react.default.createElement("p", {
         style: {
           color: textColor
         }
-      }, defaultText);
-    //!
+      }, defaultText));
   }
 }
 ;

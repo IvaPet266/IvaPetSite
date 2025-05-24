@@ -95,7 +95,22 @@ export default function Feed( props ) {
                 </>
             )
         default:
-            return <p style={{ color: textColor }}>{ defaultText }</p> //!
+            return (
+                <div 
+                    style={{
+                        position: 'absolute',
+                        top: "50%",
+                        left: "50%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignContent: 'center'
+                    }}
+                    >
+                    <div 
+                        className="loader"/>
+                    <p style={{ color: textColor }}>{ defaultText }</p> 
+                </div>
+                )
     }
 };
 
