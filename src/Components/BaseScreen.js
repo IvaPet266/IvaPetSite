@@ -36,7 +36,9 @@ export default function BaseScreen( props ) {
 
   //* обработка изменения размеров страницы/окна
   function onResize () {
+    console.log( 'onResize' );
     if ( contentRef.current && baseRef.current ) {
+      console.log( contentRef.current.clientHeight );
       setSliderHeight( ( contentRef.current.clientHeight * baseRef.current.clientHeight ) / contentRef.current.scrollHeight )
     }
   };

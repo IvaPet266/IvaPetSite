@@ -48,56 +48,51 @@ export default function CardScreen( props ) {
     const contentRef = useRef( null );
 
     const [ baseHeight, setBaseHeight ] = useState( 200 );
+    const [ baseWidth, setBaseWidth ]   = useState( 200 );
 
     useLayoutEffect(() => {
         if ( contentRef.current ) {
-            setBaseHeight( contentRef.current.clientHeight )
-            if ( contentRef.current.clientHeight ) { 
-                contentRef.current.style.height = visualViewport.height - 150;
-                console.log("height -> ", contentRef.current);
-            } else if ( contentHeight.current.clientWidth ) {
-                contentRef = visualViewport.width - 150;
-                console.log("width -> ", contentRef.current.style);
-            };
+            setBaseHeight( contentRef.current.clientHeight );
+            console.log( baseHeight + 150, baseWidth );
+            setBaseWidth( contentRef.current.clientWidth );
         }
     }); //TODO доделать подгонку размеров картинок, потом только текст
 
     return (
-        <BaseScreen>
+        <BaseScreen scroll={ true }>
             <div 
-                id   ="card" 
                 style={{ 
                     padding:         "0", 
-                    // width:           "400px", 
-                    height:          baseHeight,
                     backgroundColor: "gray",
-                    position:        "absolute", 
-                    top:             "20%", 
-                    left:            "30%", 
                     borderRadius:    "20px",
                     border:          `solid 1px ${ lines }`, 
-                    alignSelf:       "center",
-                    alignContent:    "center",
-                    cx:              "50%",
-                    cy:              "50%"
+                    height:          baseHeight + 150,
+                    width:           baseWidth,
+                    position:        "relative",
+                    display:         "flex",
+                    justifySelf:     "center",
+                    justifyContent:  "center",
+                    alignItems:      "center",
+                    marginTop:       "50px", /* Отступ сверху, равный высоте меню */
+                    marginBottom:    "50px",
                 }}>
                 {
-                    category === "ARTWORK" && 
-                        <img
-                            ref={ contentRef }
-                            style={{
-                                borderRadius: "20px",
-                                border:       `solid 1px ${ lines }`, 
-                                cx:           "50%",
-                                cy:           "50%"
-                            }}
-                            src={ image } 
-                            >
-                        </img>
-
+                    category === "ARTWORK" &&
+                    <img
+                        ref={ contentRef }
+                        style={{
+                            borderRadius: "20px",
+                            border:       `solid 1px ${ lines }`,
+                            maxHeight:    "calc(100vh - 150px)", 
+                            maxWidth:     "calc(100vw - 80px)",
+                            position:     "absolute",
+                            top:          0,
+                            objectFit:    "cover",
+                        }}
+                        src={ image }>
+                    </img>
                 }
             </div>
         </BaseScreen>
     )
 };
-

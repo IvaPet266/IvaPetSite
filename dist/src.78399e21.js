@@ -37619,7 +37619,9 @@ function BaseScreen(props) {
 
   //* обработка изменения размеров страницы/окна
   function onResize() {
+    console.log('onResize');
     if (contentRef.current && baseRef.current) {
+      console.log(contentRef.current.clientHeight);
       setSliderHeight(contentRef.current.clientHeight * baseRef.current.clientHeight / contentRef.current.scrollHeight);
     }
   }
@@ -38684,7 +38686,6 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function CardScreen(props) {
   var menuBg = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
@@ -38746,44 +38747,47 @@ function CardScreen(props) {
     _useState2 = _slicedToArray(_useState, 2),
     baseHeight = _useState2[0],
     setBaseHeight = _useState2[1];
+  var _useState3 = (0, _react.useState)(200),
+    _useState4 = _slicedToArray(_useState3, 2),
+    baseWidth = _useState4[0],
+    setBaseWidth = _useState4[1];
   (0, _react.useLayoutEffect)(function () {
     if (contentRef.current) {
       setBaseHeight(contentRef.current.clientHeight);
-      if (contentRef.current.clientHeight) {
-        contentRef.current.style.height = visualViewport.height - 150;
-        console.log("height -> ", contentRef.current);
-      } else if (contentHeight.current.clientWidth) {
-        visualViewport.width - 150, _readOnlyError("contentRef");
-        console.log("width -> ", contentRef.current.style);
-      }
-      ;
+      console.log(baseHeight + 150, baseWidth);
+      setBaseWidth(contentRef.current.clientWidth);
     }
   }); //TODO доделать подгонку размеров картинок, потом только текст
 
-  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, /*#__PURE__*/_react.default.createElement("div", {
-    id: "card",
+  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
+    scroll: true
+  }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
       padding: "0",
-      // width:           "400px", 
-      height: baseHeight,
       backgroundColor: "gray",
-      position: "absolute",
-      top: "20%",
-      left: "30%",
       borderRadius: "20px",
       border: "solid 1px ".concat(lines),
-      alignSelf: "center",
-      alignContent: "center",
-      cx: "50%",
-      cy: "50%"
+      height: baseHeight + 150,
+      width: baseWidth,
+      position: "relative",
+      display: "flex",
+      justifySelf: "center",
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: "50px",
+      /* Отступ сверху, равный высоте меню */
+      marginBottom: "50px"
     }
   }, category === "ARTWORK" && /*#__PURE__*/_react.default.createElement("img", {
     ref: contentRef,
     style: {
       borderRadius: "20px",
       border: "solid 1px ".concat(lines),
-      cx: "50%",
-      cy: "50%"
+      maxHeight: "calc(100vh - 150px)",
+      maxWidth: "calc(100vw - 80px)",
+      position: "absolute",
+      top: 0,
+      objectFit: "cover"
     },
     src: image
   })));
