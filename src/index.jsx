@@ -5,12 +5,12 @@ import { Provider }                     from 'react-redux';
 import ErrorBoundary                    from "./Components/ErrorBoundry";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import ScreenContests   from "./Screens/ScreenContests";
-import ScreenDiscussion from "./Screens/ScreenDiscussion";
-import ScreenMain       from "./Screens/ScreenMain";
-import ScreenProfile    from "./Screens/ScreenProfile";
-import ScreenNewPost    from "./Screens/ScreenNewPost";
-import ScreenSearch     from "./Screens/ScreenSearch";
+import ScreenContests   from "./MenuScreens/ScreenContests";
+import ScreenDiscussion from "./MenuScreens/ScreenDiscussion";
+import ScreenMain       from "./MenuScreens/ScreenMain";
+import ScreenProfile    from "./MenuScreens/ScreenProfile";
+import ScreenNewPost    from "./MenuScreens/ScreenNewPost";
+import ScreenSearch     from "./MenuScreens/ScreenSearch";
 import CardScreen       from "./Components/Card/CardScreen";
 
 

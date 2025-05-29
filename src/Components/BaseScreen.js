@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, useLayoutEffect, use } from 'react';
-import { useDispatch, useSelector }                                         from 'react-redux';
-import Menu                                                    from './Menu';
-import { changeParameter } from '../app/store';
+import React, { useState, useRef, useEffect, useLayoutEffect, } from 'react';
+import { useDispatch, useSelector }                             from 'react-redux';
+import Menu                                                     from './Menu';
+import { changeParameter }                                      from '../app/store';
 
 const PADDING = 5;
 // const menuHeight = 100;
@@ -16,32 +16,41 @@ export default function BaseScreen( props ) {
   const isDragging = useSelector( ( state ) => state.configParams.isDragging );
 
   const [ deltaY, setDeltaY ]             = useState( null );
-  const [ sliderHeight, setSliderHeight ] = useState( null );
+  const [ sliderHeight, setSliderHeight ] = useState( 5 );
   const [ contentWidth, setContentWidth ] = useState( props.scroll ? 99 : 100 );
 
+  //* прокрутка содержимого страницы
   function scrollTo( percent ) {
-    contentRef.current.scroll( 0, percent * contentRef.current.scrollHeight )
-  }
+    const top = percent * contentRef.current.scrollHeight;
+    
+    contentRef.current.scroll({ 
+      top,
+      behavior: "smooth"
+    })  //TODO криво работает, но скролл теперь плавный 
+  };
 
+  //* обработка прокрутки колёсика
   function onWheel ( event ) {
     setDeltaY( event.nativeEvent.deltaY + Math.random() );
   };
 
+  //* обработка изменения размеров страницы/окна
   function onResize () {
     if ( contentRef.current && baseRef.current ) {
       setSliderHeight( ( contentRef.current.clientHeight * baseRef.current.clientHeight ) / contentRef.current.scrollHeight )
     }
   };
 
+  //* подписка/окна на событие изменения размеров страницы/окна после рендера страницы
   useEffect(() => {
     window.addEventListener( "resize", onResize );
     return () => window.removeEventListener( "resize", onResize )
   });
 
+  //* вызов функции onResize() сразу после рендера страницы, чтобы своевременно изменить размер слайдера
   useLayoutEffect(() => {
     onResize();
   });
-
 
   return (
     <div 
@@ -65,7 +74,8 @@ export default function BaseScreen( props ) {
         <div 
           style={{ 
             backgroundColor: bg_color, 
-            overflow:        "hidden"
+            overflow:        "hidden",
+            transition:      "all 100ms ease"
           }}
           ref  ={ contentRef } 
           >
@@ -95,10 +105,12 @@ function Scrollbar( props ) {
   const [ clickY, setClickY ] = useState( 0 );
   const [ cursor, setCursor ] = useState( "grab" );
 
+  let slider = null;
+
   const dispatcher = useDispatch();
 
   let colorTransitionStyle = `linear-gradient(to bottom, ${ scrollbarBgLight } 0%,
-    ${ scrollbarBgDark } ${ Math.floor(( clickY / window.innerHeight ) * 100) }% )`;
+    ${ scrollbarBgDark } ${ Math.floor( ( clickY / visualViewport.height ) * 100 ) }% )`;
 
 
   //* цвета
@@ -131,7 +143,9 @@ function Scrollbar( props ) {
   //* изменение clickY
   function changeClickY( newValue ) {
       const maxScroll = blockRef.current.clientHeight - props.sliderHeight;
-      setClickY( Math.min( Math.max( 0, newValue ), maxScroll ))
+      const bottomLimit = visualViewport.height - props.sliderHeight;
+      
+      setClickY( Math.min( Math.max( 0, newValue ), Math.min( maxScroll, bottomLimit ) ) );
   };
 
   //* начало перетаскивания
@@ -155,15 +169,16 @@ function Scrollbar( props ) {
     };
   };
   
-  //* подписки на события
+  //* подписки/отписки на/от события(й)
   useEffect(() => {
     document.addEventListener( "mousemove", dragging );
     document.addEventListener( "mouseup", dragEnd );
+    slider = document.getElementById( "slider" );
     return () => {
       document.removeEventListener( "mousemove", dragging );
       document.removeEventListener( "mouseup", dragEnd );
     }
-  }, [])
+  }, []);
 
   return (
     <div 
@@ -183,7 +198,7 @@ function Scrollbar( props ) {
         ref         ={ sliderRef }
         onMouseDown ={ dragStart }
         style       ={{ 
-          transition:     "background 100ms ease-in-out",
+          transition:     "all 100ms ease-in-out",
           minHeight:      "5px", 
           maxHeight:      `${ visualViewport.height - 1 }px`,
           position:       "relative", 

@@ -20361,6 +20361,10 @@ var configParams = exports.configParams = (0, _toolkit.createSlice)({
   reducers: {
     changeParameter: function changeParameter(state, parameter) {
       state[parameter.payload["name"]] = parameter.payload["value"];
+      if (parameter.payload.name === "cards" && parameter.payload.newCards === undefined) {
+        localStorage.setItem("cards", JSON.stringify(state.cards));
+      }
+      ;
     },
     back2defaultConfigParamters: function back2defaultConfigParamters(state) {
       state.filters = false;
@@ -20399,11 +20403,16 @@ var postInfo = exports.postInfo = (0, _toolkit.createSlice)({
     title: "",
     author: "",
     category: "",
-    text_content: ""
+    text_content: "",
+    postId: null
   },
   reducers: {
     changePostInfo: function changePostInfo(state, parameter) {
       state[parameter.payload["name"]] = parameter.payload["value"];
+      if (parameter.payload.name === "postId") {
+        localStorage.setItem("postId", JSON.stringify(state.postId));
+      }
+      ;
     },
     back2defaultPostInfo: function back2defaultPostInfo(state) {
       state.image = "";
@@ -37583,7 +37592,7 @@ function BaseScreen(props) {
     _useState2 = _slicedToArray(_useState, 2),
     deltaY = _useState2[0],
     setDeltaY = _useState2[1];
-  var _useState3 = (0, _react.useState)(null),
+  var _useState3 = (0, _react.useState)(5),
     _useState4 = _slicedToArray(_useState3, 2),
     sliderHeight = _useState4[0],
     setSliderHeight = _useState4[1];
@@ -37591,25 +37600,40 @@ function BaseScreen(props) {
     _useState6 = _slicedToArray(_useState5, 2),
     contentWidth = _useState6[0],
     setContentWidth = _useState6[1];
+
+  //* прокрутка содержимого страницы
   function scrollTo(percent) {
-    contentRef.current.scroll(0, percent * contentRef.current.scrollHeight);
+    var top = percent * contentRef.current.scrollHeight;
+    contentRef.current.scroll({
+      top: top,
+      behavior: "smooth"
+    }); //TODO криво работает, но скролл теперь плавный 
   }
+  ;
+
+  //* обработка прокрутки колёсика
   function onWheel(event) {
     setDeltaY(event.nativeEvent.deltaY + Math.random());
   }
   ;
+
+  //* обработка изменения размеров страницы/окна
   function onResize() {
     if (contentRef.current && baseRef.current) {
       setSliderHeight(contentRef.current.clientHeight * baseRef.current.clientHeight / contentRef.current.scrollHeight);
     }
   }
   ;
+
+  //* подписка/окна на событие изменения размеров страницы/окна после рендера страницы
   (0, _react.useEffect)(function () {
     window.addEventListener("resize", onResize);
     return function () {
       return window.removeEventListener("resize", onResize);
     };
   });
+
+  //* вызов функции onResize() сразу после рендера страницы, чтобы своевременно изменить размер слайдера
   (0, _react.useLayoutEffect)(function () {
     onResize();
   });
@@ -37634,7 +37658,8 @@ function BaseScreen(props) {
   }, /*#__PURE__*/_react.default.createElement(_Menu.default, null), /*#__PURE__*/_react.default.createElement("div", {
     style: {
       backgroundColor: bg_color,
-      overflow: "hidden"
+      overflow: "hidden",
+      transition: "all 100ms ease"
     },
     ref: contentRef
   }, props.children)), props.scroll && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(Scrollbar, {
@@ -37656,8 +37681,9 @@ function Scrollbar(props) {
     _useState0 = _slicedToArray(_useState9, 2),
     cursor = _useState0[0],
     setCursor = _useState0[1];
+  var slider = null;
   var dispatcher = (0, _reactRedux.useDispatch)();
-  var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n    ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / window.innerHeight * 100), "% )");
+  var colorTransitionStyle = "linear-gradient(to bottom, ".concat(scrollbarBgLight, " 0%,\n    ").concat(scrollbarBgDark, " ").concat(Math.floor(clickY / visualViewport.height * 100), "% )");
 
   //* цвета
   var scrollbarBgLight = (0, _reactRedux.useSelector)(function (state) {
@@ -37696,7 +37722,8 @@ function Scrollbar(props) {
   //* изменение clickY
   function changeClickY(newValue) {
     var maxScroll = blockRef.current.clientHeight - props.sliderHeight;
-    setClickY(Math.min(Math.max(0, newValue), maxScroll));
+    var bottomLimit = visualViewport.height - props.sliderHeight;
+    setClickY(Math.min(Math.max(0, newValue), Math.min(maxScroll, bottomLimit)));
   }
   ;
 
@@ -37731,10 +37758,11 @@ function Scrollbar(props) {
   }
   ;
 
-  //* подписки на события
+  //* подписки/отписки на/от события(й)
   (0, _react.useEffect)(function () {
     document.addEventListener("mousemove", dragging);
     document.addEventListener("mouseup", dragEnd);
+    slider = document.getElementById("slider");
     return function () {
       document.removeEventListener("mousemove", dragging);
       document.removeEventListener("mouseup", dragEnd);
@@ -37758,7 +37786,7 @@ function Scrollbar(props) {
     ref: sliderRef,
     onMouseDown: dragStart,
     style: {
-      transition: "background 100ms ease-in-out",
+      transition: "all 100ms ease-in-out",
       minHeight: "5px",
       maxHeight: "".concat(visualViewport.height - 1, "px"),
       position: "relative",
@@ -37775,7 +37803,7 @@ function Scrollbar(props) {
     }
   }));
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js","../app/store":"app/store.js"}],"Screens/ScreenContests.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js","../app/store":"app/store.js"}],"MenuScreens/ScreenContests.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37793,7 +37821,7 @@ function ScreenContests(props) {
   }, "ScreenContests"));
 }
 ;
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Screens/ScreenDiscussion.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"MenuScreens/ScreenDiscussion.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38243,6 +38271,10 @@ function Container(props) {
   function clickHandler() {
     dispatcher((0, _store.back2defaultPostInfo)());
     dispatcher((0, _store.changePostInfo)({
+      name: "postId",
+      value: props.id
+    }));
+    dispatcher((0, _store.changePostInfo)({
       name: "image",
       value: image
     }));
@@ -38638,11 +38670,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = CardScreen;
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _BaseScreen = _interopRequireDefault(require("../BaseScreen"));
 var _CardContent = _interopRequireDefault(require("./CardContent"));
+var _reactRouter = require("react-router");
+var _store = require("../../app/store");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function CardScreen(props) {
   var menuBg = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
@@ -38656,6 +38698,34 @@ function CardScreen(props) {
   var lines = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.lines;
   });
+  var navigate = (0, _reactRouter.useNavigate)();
+  var dispatcher = (0, _reactRedux.useDispatch)();
+
+  // useEffect( () => { 
+  //     if ( localStorage.length === 0 ) {
+  //         navigate( '/' );
+  //     } else if ( useSelector( ( state ) => state.postInfo.category ) === "" ) {
+  //         const postId = JSON.parse( localStorage.getItem( "postId" ) );
+  //         dispatcher( changePostInfo( { name: "postId", value: postId } ) );
+
+  //         dispatcher( changeParameter( { name: "cards", value: JSON.parse( localStorage.getItem( "cards" ) ), newCards: true } ) );
+  //         const cards = useSelector( ( state ) => state.configParams.cards );
+  //         console.log(  postId  );
+  //         const { image, title, author, category, text_content } =  cards[ postId ];
+
+  //         dispatcher( changePostInfo( { name: "image", value: image } ) );
+  //         dispatcher( changePostInfo( { name: "title", value: title } ) );
+  //         dispatcher( changePostInfo( { name: "author", value: author } ) );
+  //         dispatcher( changePostInfo( { name: "category", value: category } ) );
+  //         dispatcher( changePostInfo( { name: "text_content", value: text_content } ) );
+  //         navigate( `posts/${ props.id }` );
+  //     };
+  // }); 
+  //TODO
+  //* вызов списка постов из localStorage и нахождение конкретного 
+  //* поста в случае перезагрузки страницы на адресе '/posts/{номер поста}',
+  //* чтобы содержимое отображалось корректно
+
   var category = (0, _reactRedux.useSelector)(function (state) {
     return state.postInfo.category;
   });
@@ -38671,34 +38741,55 @@ function CardScreen(props) {
   var text_content = (0, _reactRedux.useSelector)(function (state) {
     return state.postInfo.text_content;
   });
+  var contentRef = (0, _react.useRef)(null);
+  var _useState = (0, _react.useState)(200),
+    _useState2 = _slicedToArray(_useState, 2),
+    baseHeight = _useState2[0],
+    setBaseHeight = _useState2[1];
+  (0, _react.useLayoutEffect)(function () {
+    if (contentRef.current) {
+      setBaseHeight(contentRef.current.clientHeight);
+      if (contentRef.current.clientHeight) {
+        contentRef.current.style.height = visualViewport.height - 150;
+        console.log("height -> ", contentRef.current);
+      } else if (contentHeight.current.clientWidth) {
+        visualViewport.width - 150, _readOnlyError("contentRef");
+        console.log("width -> ", contentRef.current.style);
+      }
+      ;
+    }
+  }); //TODO доделать подгонку размеров картинок, потом только текст
+
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, /*#__PURE__*/_react.default.createElement("div", {
     id: "card",
     style: {
       padding: "0",
-      width: "400px",
-      height: category == "ARTWORK" ? "500px" : "700px",
+      // width:           "400px", 
+      height: baseHeight,
       backgroundColor: "gray",
       position: "absolute",
-      top: "25%",
-      left: "25%",
+      top: "20%",
+      left: "30%",
       borderRadius: "20px",
-      border: "solid 1px ".concat(lines)
+      border: "solid 1px ".concat(lines),
+      alignSelf: "center",
+      alignContent: "center",
+      cx: "50%",
+      cy: "50%"
     }
-  }, /*#__PURE__*/_react.default.createElement(_CardContent.default, {
-    image: image,
-    filter: "none",
-    text_content: text_content,
-    post: true,
-    category: category,
-    textFilter: "none",
-    textStyle: {
-      color: "black",
-      background: "transparent"
-    }
+  }, category === "ARTWORK" && /*#__PURE__*/_react.default.createElement("img", {
+    ref: contentRef,
+    style: {
+      borderRadius: "20px",
+      border: "solid 1px ".concat(lines),
+      cx: "50%",
+      cy: "50%"
+    },
+    src: image
   })));
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js","./CardContent":"Components/Card/CardContent.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js","./CardContent":"Components/Card/CardContent.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../../app/store":"app/store.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38874,7 +38965,7 @@ function checkFilters(a, a1) {
   return ax;
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../Card/Card":"Components/Card/Card.js","../../app/store":"app/store.js","./Filters":"Components/Feed/Filters.js","../Card/CardScreen":"Components/Card/CardScreen.js"}],"Screens/ScreenMain.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../Card/Card":"Components/Card/Card.js","../../app/store":"app/store.js","./Filters":"Components/Feed/Filters.js","../Card/CardScreen":"Components/Card/CardScreen.js"}],"MenuScreens/ScreenMain.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39539,7 +39630,7 @@ var ColorInput = function ColorInput(_ref2) {
     }
   }));
 };
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./ProfileMicroComponents":"Components/Profile/ProfileMicroComponents.js","../Buttons/SVGButtons":"Components/Buttons/SVGButtons.js","../../app/store":"app/store.js"}],"Screens/ScreenProfile.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./ProfileMicroComponents":"Components/Profile/ProfileMicroComponents.js","../Buttons/SVGButtons":"Components/Buttons/SVGButtons.js","../../app/store":"app/store.js"}],"MenuScreens/ScreenProfile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39941,7 +40032,7 @@ function ScreenProfile(props) {
     d: "M9.125 22.625H4.625C4.02826 22.625 3.45597 22.3879 3.03401 21.966C2.61205 21.544 2.375 20.9717 2.375 20.375V4.625C2.375 4.02826 2.61205 3.45597 3.03401 3.03401C3.45597 2.61205 4.02826 2.375 4.625 2.375H9.125M17 18.125L22.625 12.5M22.625 12.5L17 6.875M22.625 12.5H9.125"
   }))));
 }
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/Profile/ProfileContents":"Components/Profile/ProfileContents.js","../Components/ProviderScreen":"Components/ProviderScreen.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../Components/Profile/MainProfileDiv":"Components/Profile/MainProfileDiv.js"}],"Screens/ScreenNewPost.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/Profile/ProfileContents":"Components/Profile/ProfileContents.js","../Components/ProviderScreen":"Components/ProviderScreen.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../Components/Profile/MainProfileDiv":"Components/Profile/MainProfileDiv.js"}],"MenuScreens/ScreenNewPost.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39959,7 +40050,7 @@ function ScreenNewPost(props) {
   }, "ScreenNewPost"));
 }
 ;
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Screens/ScreenSearch.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"MenuScreens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39985,12 +40076,12 @@ var _store = _interopRequireDefault(require("./app/store"));
 var _reactRedux = require("react-redux");
 var _ErrorBoundry = _interopRequireDefault(require("./Components/ErrorBoundry"));
 var _reactRouter = require("react-router");
-var _ScreenContests = _interopRequireDefault(require("./Screens/ScreenContests"));
-var _ScreenDiscussion = _interopRequireDefault(require("./Screens/ScreenDiscussion"));
-var _ScreenMain = _interopRequireDefault(require("./Screens/ScreenMain"));
-var _ScreenProfile = _interopRequireDefault(require("./Screens/ScreenProfile"));
-var _ScreenNewPost = _interopRequireDefault(require("./Screens/ScreenNewPost"));
-var _ScreenSearch = _interopRequireDefault(require("./Screens/ScreenSearch"));
+var _ScreenContests = _interopRequireDefault(require("./MenuScreens/ScreenContests"));
+var _ScreenDiscussion = _interopRequireDefault(require("./MenuScreens/ScreenDiscussion"));
+var _ScreenMain = _interopRequireDefault(require("./MenuScreens/ScreenMain"));
+var _ScreenProfile = _interopRequireDefault(require("./MenuScreens/ScreenProfile"));
+var _ScreenNewPost = _interopRequireDefault(require("./MenuScreens/ScreenNewPost"));
+var _ScreenSearch = _interopRequireDefault(require("./MenuScreens/ScreenSearch"));
 var _CardScreen = _interopRequireDefault(require("./Components/Card/CardScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_react.default.createElement(_ErrorBoundry.default, null, /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
@@ -40029,5 +40120,5 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
   path: "posts/:postId",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Screens/ScreenContests":"Screens/ScreenContests.js","./Screens/ScreenDiscussion":"Screens/ScreenDiscussion.js","./Screens/ScreenMain":"Screens/ScreenMain.js","./Screens/ScreenProfile":"Screens/ScreenProfile.js","./Screens/ScreenNewPost":"Screens/ScreenNewPost.js","./Screens/ScreenSearch":"Screens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js"}]},{},["index.jsx"], null)
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./MenuScreens/ScreenContests":"MenuScreens/ScreenContests.js","./MenuScreens/ScreenDiscussion":"MenuScreens/ScreenDiscussion.js","./MenuScreens/ScreenMain":"MenuScreens/ScreenMain.js","./MenuScreens/ScreenProfile":"MenuScreens/ScreenProfile.js","./MenuScreens/ScreenNewPost":"MenuScreens/ScreenNewPost.js","./MenuScreens/ScreenSearch":"MenuScreens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js"}]},{},["index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

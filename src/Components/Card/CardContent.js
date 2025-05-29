@@ -1,8 +1,8 @@
 import React from 'react'
 
 export default function CardContent({
-    category, filter, post,
-    image, text_content, 
+    category,   filter, post,
+    image,      text_content, 
     textFilter, textStyle
 }) {
     switch ( category ) {

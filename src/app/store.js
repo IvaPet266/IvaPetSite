@@ -102,6 +102,9 @@ export const configParams = createSlice({
     reducers: {
         changeParameter: ( state, parameter ) => {
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
+            if ( parameter.payload.name === "cards" && parameter.payload.newCards === undefined ) {
+                localStorage.setItem("cards", JSON.stringify( state.cards ) );
+            };
         },
         back2defaultConfigParamters: ( state ) => {
             state.filters = false;
@@ -142,11 +145,15 @@ export const postInfo = createSlice({
         title:        "", 
         author:       "", 
         category:     "", 
-        text_content: ""
+        text_content: "",
+        postId:       null
     },
     reducers: {
         changePostInfo: ( state, parameter ) => {
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
+            if ( parameter.payload.name === "postId" ) {
+                localStorage.setItem("postId", JSON.stringify( state.postId ) );
+            };
         },
         back2defaultPostInfo: ( state ) => {
             state.image        = "";    

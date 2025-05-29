@@ -28,11 +28,12 @@ export default function Container( props ) {
     function clickHandler() {
         dispatcher( back2defaultPostInfo() );
         
-        dispatcher( changePostInfo({ name: "image", value: image }) );
-        dispatcher( changePostInfo({ name: "title", value: title }) );
-        dispatcher( changePostInfo({ name: "author", value: author }) );
-        dispatcher( changePostInfo({ name: "category", value: category }) );
-        dispatcher( changePostInfo({ name: "text_content", value: text_content }) );
+        dispatcher( changePostInfo( { name: "postId", value: props.id } ) );
+        dispatcher( changePostInfo( { name: "image", value: image } ) );
+        dispatcher( changePostInfo( { name: "title", value: title } ) );
+        dispatcher( changePostInfo( { name: "author", value: author } ) );
+        dispatcher( changePostInfo( { name: "category", value: category } ) );
+        dispatcher( changePostInfo( { name: "text_content", value: text_content } ) );
         navigate( `posts/${ props.id }` );
     }
 
