@@ -11,6 +11,9 @@ export default function BaseScreen( props ) {
   const baseRef    = useRef( null );
   const contentRef = useRef( null );
 
+  const top        = useRef( 0 );
+  const topCurrent = useRef( 0 );
+
   const bg_color   = useSelector( ( state ) => state.colorTheme.fill_active );
   const cards      = useSelector( ( state ) => state.configParams.cards );
   const isDragging = useSelector( ( state ) => state.configParams.isDragging );
@@ -19,14 +22,30 @@ export default function BaseScreen( props ) {
   const [ sliderHeight, setSliderHeight ] = useState( 5 );
   const [ contentWidth, setContentWidth ] = useState( props.scroll ? 99 : 100 );
 
+
+  function scrollWrapper() {
+    const delta    = topCurrent.current - top.current;
+    const deltaAbs = Math.abs( delta );
+    
+    if ( delta > 0 ) {
+      topCurrent.current = Math.max( topCurrent.current - ( deltaAbs / 300 ) + 1, top.current );
+    } else {
+      topCurrent.current = Math.min( topCurrent.current + ( deltaAbs / 300 ) + 1, top.current );
+    };
+
+    contentRef.current.scroll( 0, topCurrent.current );
+
+    if ( topCurrent.current != top.current ) {
+      requestAnimationFrame( scrollWrapper );
+    };
+  };
+
   //* прокрутка содержимого страницы
   function scrollTo( percent ) {
-    const top = percent * contentRef.current.scrollHeight;
+    top.current = percent * contentRef.current.scrollHeight;
     
-    contentRef.current.scroll({ 
-      top,
-      behavior: "smooth"
-    })  //TODO криво работает, но скролл теперь плавный 
+    // scrollWrapper(); 
+    contentRef.current.scroll(0, top.current)   
   };
 
   //* обработка прокрутки колёсика

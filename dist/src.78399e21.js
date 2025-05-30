@@ -20260,7 +20260,7 @@ function formatProdErrorMessage(code) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userData = exports.routes = exports.postInfo = exports.giveUID = exports.filters = exports.default = exports.configParams = exports.colorThemeSlice = exports.changeUserName = exports.changePostInfo = exports.changeParameter = exports.changeFilter = exports.changeColorTheme = exports.back2defaultPostInfo = exports.back2defaultFilters = exports.back2defaultConfigParamters = exports.back2defaultColorTheme = void 0;
+exports.userData = exports.routes = exports.giveUID = exports.filters = exports.default = exports.configParams = exports.colorThemeSlice = exports.changeUserName = exports.changeParameter = exports.changeFilter = exports.changeColorTheme = exports.back2defaultFilters = exports.back2defaultConfigParamters = exports.back2defaultColorTheme = void 0;
 var _toolkit = require("@reduxjs/toolkit");
 function checkWhite(color) {
   var r = parseInt(color.substring(0, 2), 16);
@@ -20396,43 +20396,12 @@ var routes = exports.routes = (0, _toolkit.createSlice)({
   },
   reducers: {}
 });
-var postInfo = exports.postInfo = (0, _toolkit.createSlice)({
-  name: "postInfo",
-  initialState: {
-    image: "",
-    title: "",
-    author: "",
-    category: "",
-    text_content: "",
-    postId: null
-  },
-  reducers: {
-    changePostInfo: function changePostInfo(state, parameter) {
-      state[parameter.payload["name"]] = parameter.payload["value"];
-      if (parameter.payload.name === "postId") {
-        localStorage.setItem("postId", JSON.stringify(state.postId));
-      }
-      ;
-    },
-    back2defaultPostInfo: function back2defaultPostInfo(state) {
-      state.image = "";
-      state.title = "";
-      state.author = "";
-      state.category = "";
-      state.text_content = "";
-    }
-  }
-});
-var _postInfo$actions = postInfo.actions,
-  changePostInfo = exports.changePostInfo = _postInfo$actions.changePostInfo,
-  back2defaultPostInfo = exports.back2defaultPostInfo = _postInfo$actions.back2defaultPostInfo;
 var _default = exports.default = (0, _toolkit.configureStore)({
   reducer: {
     colorTheme: colorThemeSlice.reducer,
     userData: userData.reducer,
     filters: filters.reducer,
     configParams: configParams.reducer,
-    postInfo: postInfo.reducer,
     routes: routes.reducer
   }
 });
@@ -37579,6 +37548,8 @@ var PADDING = 5;
 function BaseScreen(props) {
   var baseRef = (0, _react.useRef)(null);
   var contentRef = (0, _react.useRef)(null);
+  var top = (0, _react.useRef)(0);
+  var topCurrent = (0, _react.useRef)(0);
   var bg_color = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
   });
@@ -37600,14 +37571,29 @@ function BaseScreen(props) {
     _useState6 = _slicedToArray(_useState5, 2),
     contentWidth = _useState6[0],
     setContentWidth = _useState6[1];
+  function scrollWrapper() {
+    var delta = topCurrent.current - top.current;
+    var deltaAbs = Math.abs(delta);
+    if (delta > 0) {
+      topCurrent.current = Math.max(topCurrent.current - deltaAbs / 300 + 1, top.current);
+    } else {
+      topCurrent.current = Math.min(topCurrent.current + deltaAbs / 300 + 1, top.current);
+    }
+    ;
+    contentRef.current.scroll(0, topCurrent.current);
+    if (topCurrent.current != top.current) {
+      requestAnimationFrame(scrollWrapper);
+    }
+    ;
+  }
+  ;
 
   //* прокрутка содержимого страницы
   function scrollTo(percent) {
-    var top = percent * contentRef.current.scrollHeight;
-    contentRef.current.scroll({
-      top: top,
-      behavior: "smooth"
-    }); //TODO криво работает, но скролл теперь плавный 
+    top.current = percent * contentRef.current.scrollHeight;
+
+    // scrollWrapper(); 
+    contentRef.current.scroll(0, top.current);
   }
   ;
 
@@ -38220,7 +38206,6 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _reactRouter = require("react-router");
 var _CardMenu = _interopRequireDefault(require("./CardMenu"));
-var _store = require("../../app/store");
 var _CardContent = _interopRequireDefault(require("./CardContent"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
@@ -38238,7 +38223,6 @@ function Container(props) {
     category = _props$value.category,
     text_content = _props$value.text_content;
   var navigate = (0, _reactRouter.useNavigate)();
-  var dispatcher = (0, _reactRedux.useDispatch)();
   var menuTextColor = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_inactive;
   });
@@ -38272,31 +38256,12 @@ function Container(props) {
   // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
 
   function clickHandler() {
-    dispatcher((0, _store.back2defaultPostInfo)());
-    dispatcher((0, _store.changePostInfo)({
-      name: "postId",
-      value: props.id
-    }));
-    dispatcher((0, _store.changePostInfo)({
-      name: "image",
-      value: image
-    }));
-    dispatcher((0, _store.changePostInfo)({
-      name: "title",
-      value: title
-    }));
-    dispatcher((0, _store.changePostInfo)({
-      name: "author",
-      value: author
-    }));
-    dispatcher((0, _store.changePostInfo)({
-      name: "category",
-      value: category
-    }));
-    dispatcher((0, _store.changePostInfo)({
-      name: "text_content",
-      value: text_content
-    }));
+    localStorage.setItem("postId", props.id);
+    localStorage.setItem("image", image);
+    localStorage.setItem("title", title);
+    localStorage.setItem("author", author);
+    localStorage.setItem("category", category);
+    localStorage.setItem("text_content", text_content);
     navigate("posts/".concat(props.id));
   }
   function handleContainerHover(isEntered) {
@@ -38407,7 +38372,7 @@ function Container(props) {
   }));
 }
 ;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./CardMenu":"Components/Card/CardMenu.js","../../app/store":"app/store.js","./CardContent":"Components/Card/CardContent.js"}],"Components/Feed/Filters.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./CardMenu":"Components/Card/CardMenu.js","./CardContent":"Components/Card/CardContent.js"}],"Components/Feed/Filters.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38700,49 +38665,6 @@ function CardScreen(props) {
   var lines = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.lines;
   });
-  var navigate = (0, _reactRouter.useNavigate)();
-  var dispatcher = (0, _reactRedux.useDispatch)();
-
-  // useEffect( () => { 
-  //     if ( localStorage.length === 0 ) {
-  //         navigate( '/' );
-  //     } else if ( useSelector( ( state ) => state.postInfo.category ) === "" ) {
-  //         const postId = JSON.parse( localStorage.getItem( "postId" ) );
-  //         dispatcher( changePostInfo( { name: "postId", value: postId } ) );
-
-  //         dispatcher( changeParameter( { name: "cards", value: JSON.parse( localStorage.getItem( "cards" ) ), newCards: true } ) );
-  //         const cards = useSelector( ( state ) => state.configParams.cards );
-  //         console.log(  postId  );
-  //         const { image, title, author, category, text_content } =  cards[ postId ];
-
-  //         dispatcher( changePostInfo( { name: "image", value: image } ) );
-  //         dispatcher( changePostInfo( { name: "title", value: title } ) );
-  //         dispatcher( changePostInfo( { name: "author", value: author } ) );
-  //         dispatcher( changePostInfo( { name: "category", value: category } ) );
-  //         dispatcher( changePostInfo( { name: "text_content", value: text_content } ) );
-  //         navigate( `posts/${ props.id }` );
-  //     };
-  // }); 
-  //TODO
-  //? вызов списка постов из localStorage и нахождение конкретного 
-  //? поста в случае перезагрузки страницы на адресе '/posts/{номер поста}',
-  //? чтобы содержимое отображалось корректно
-
-  var category = (0, _reactRedux.useSelector)(function (state) {
-    return state.postInfo.category;
-  });
-  var image = (0, _reactRedux.useSelector)(function (state) {
-    return state.postInfo.image;
-  });
-  var author = (0, _reactRedux.useSelector)(function (state) {
-    return state.postInfo.author;
-  });
-  var title = (0, _reactRedux.useSelector)(function (state) {
-    return state.postInfo.title;
-  });
-  var text_content = (0, _reactRedux.useSelector)(function (state) {
-    return state.postInfo.text_content;
-  });
   var imageRef = (0, _react.useRef)(null);
   var spanRef = (0, _react.useRef)(null);
   var _useState = (0, _react.useState)(450),
@@ -38753,6 +38675,24 @@ function CardScreen(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     baseWidth = _useState4[0],
     setBaseWidth = _useState4[1];
+  var _useState5 = (0, _react.useState)("Wait a second!"),
+    _useState6 = _slicedToArray(_useState5, 2),
+    defaultText = _useState6[0],
+    setDefaultText = _useState6[1];
+  var _useState7 = (0, _react.useState)(null),
+    _useState8 = _slicedToArray(_useState7, 2),
+    data = _useState8[0],
+    setData = _useState8[1];
+  (0, _react.useEffect)(function () {
+    var data = {};
+    data.postId = localStorage.getItem("postId");
+    data.category = localStorage.getItem("category");
+    data.image = localStorage.getItem("image");
+    data.author = localStorage.getItem("author");
+    data.title = localStorage.getItem("title");
+    data.text_content = localStorage.getItem("text_content");
+    setData(data);
+  }, []);
   (0, _react.useLayoutEffect)(function () {
     if (imageRef.current) {
       setBaseHeight(imageRef.current.clientHeight);
@@ -38761,118 +38701,142 @@ function CardScreen(props) {
       setBaseHeight(spanRef.current.clientHeight);
     }
     ;
-  }); //TODO доделать подгонку размеров картинок, потом только текст
-
-  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
-    scroll: true
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      padding: "0",
-      backgroundColor: "gray",
-      borderRadius: "20px",
-      border: "solid 1px ".concat(lines),
-      height: baseHeight + 50,
-      width: baseWidth,
-      position: "relative",
-      display: "flex",
-      justifySelf: "center",
-      justifyContent: "center",
-      alignItems: "center",
-      marginTop: "50px",
-      /* Отступ сверху, равный высоте меню */
-      marginBottom: "50px"
-    }
-  }, category === "ARTWORK" && /*#__PURE__*/_react.default.createElement("img", {
-    ref: imageRef,
-    style: {
-      borderRadius: "20px",
-      border: "solid 1px ".concat(lines),
-      maxHeight: "calc(100vh - 150px)",
-      maxWidth: "calc(100vw - 80px)",
-      position: "absolute",
-      top: 0,
-      objectFit: "cover",
-      zIndex: 2
-    },
-    src: image
-  }) || (category === "PROSE" || category === "POEM") && /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      width: "100%",
-      height: "calc(100% - 50px)",
-      position: "absolute",
-      top: 0,
-      borderRadius: "20px",
-      zIndex: 2,
-      pointerEvents: 'none',
-      display: "flex",
-      alignContent: "center",
-      justifyContent: "center",
-      whiteSpace: "pre-line",
-      textAlign: "center",
-      background: bioTextColor
-    }
-  }, /*#__PURE__*/_react.default.createElement("span", {
-    ref: spanRef,
-    style: {
-      transition: "all 300ms ease-out",
-      alignSelf: "center",
-      textAlign: "center",
-      pointerEvents: "none",
-      color: lines,
-      background: "transparent"
-    }
-  }, text_content)), /*#__PURE__*/_react.default.createElement("div", {
-    style: {
-      background: "grey",
-      width: "100%",
-      height: "70px",
-      borderBottomRightRadius: "20px",
-      borderBottomLeftRadius: "20px",
-      position: "absolute",
-      bottom: 0
-    }
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "CormorantInfant-serif",
-    style: {
-      padding: "3px",
-      width: "100%"
-    }
-  }, /*#__PURE__*/_react.default.createElement("h5", {
-    style: {
-      margin: "2px",
-      width: "150px",
-      position: "absolute",
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      bottom: "20px",
-      left: "7px",
-      right: "50px",
-      color: bioTextColor
-    }
-  }, title), /*#__PURE__*/_react.default.createElement("span", {
-    style: {
-      width: "150px",
-      position: "absolute",
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      left: "8px",
-      bottom: "5px",
-      right: "50px",
-      color: bioTextColor
-    }
-  }, author)), /*#__PURE__*/_react.default.createElement("img", {
-    style: {
-      position: "absolute",
-      bottom: "4px",
-      right: "10px",
-      height: "30px",
-      width: "30px",
-      backgroundColor: bioTextColor,
-      borderRadius: "25px"
-    }
-  }))));
+  });
+  switch (data) {
+    case null:
+      return /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          position: 'absolute',
+          top: "50%",
+          left: "50%",
+          display: "flex",
+          flexDirection: "column",
+          alignContent: 'center'
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "loader"
+      }), /*#__PURE__*/_react.default.createElement("p", {
+        style: {
+          color: menuTextColor
+        }
+      }, defaultText));
+    default:
+      var category = data.category,
+        image = data.image,
+        author = data.author,
+        title = data.title,
+        text_content = data.text_content;
+      return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
+        scroll: true
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          padding: "0",
+          backgroundColor: "gray",
+          borderRadius: "20px",
+          border: "solid 1px ".concat(lines),
+          height: baseHeight + 50,
+          width: baseWidth,
+          position: "relative",
+          display: "flex",
+          justifySelf: "center",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "50px",
+          /* Отступ сверху, равный высоте меню */
+          marginBottom: "50px"
+        }
+      }, category === "ARTWORK" && /*#__PURE__*/_react.default.createElement("img", {
+        ref: imageRef,
+        style: {
+          borderRadius: "20px",
+          border: "solid 1px ".concat(lines),
+          maxHeight: "calc(100vh - 150px)",
+          maxWidth: "calc(100vw - 80px)",
+          position: "absolute",
+          top: 0,
+          objectFit: "cover",
+          zIndex: 2
+        },
+        src: image
+      }) || (category === "PROSE" || category === "POEM") && /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          width: "100%",
+          height: "calc(100% - 50px)",
+          position: "absolute",
+          top: 0,
+          borderRadius: "20px",
+          zIndex: 2,
+          pointerEvents: 'none',
+          display: "flex",
+          alignContent: "center",
+          justifyContent: "center",
+          whiteSpace: "pre-line",
+          textAlign: "center",
+          background: bioTextColor
+        }
+      }, /*#__PURE__*/_react.default.createElement("span", {
+        ref: spanRef,
+        style: {
+          transition: "all 300ms ease-out",
+          alignSelf: "center",
+          textAlign: "center",
+          pointerEvents: "none",
+          color: lines,
+          background: "transparent"
+        }
+      }, text_content)), /*#__PURE__*/_react.default.createElement("div", {
+        style: {
+          background: "grey",
+          width: "100%",
+          height: "70px",
+          borderBottomRightRadius: "20px",
+          borderBottomLeftRadius: "20px",
+          position: "absolute",
+          bottom: 0
+        }
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "CormorantInfant-serif",
+        style: {
+          padding: "3px",
+          width: "100%"
+        }
+      }, /*#__PURE__*/_react.default.createElement("h5", {
+        style: {
+          margin: "2px",
+          width: "150px",
+          position: "absolute",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          bottom: "20px",
+          left: "7px",
+          right: "50px",
+          color: bioTextColor
+        }
+      }, title), /*#__PURE__*/_react.default.createElement("span", {
+        style: {
+          width: "150px",
+          position: "absolute",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          left: "8px",
+          bottom: "5px",
+          right: "50px",
+          color: bioTextColor
+        }
+      }, author)), /*#__PURE__*/_react.default.createElement("img", {
+        style: {
+          position: "absolute",
+          bottom: "4px",
+          right: "10px",
+          height: "30px",
+          width: "30px",
+          backgroundColor: bioTextColor,
+          borderRadius: "25px"
+        }
+      }))));
+  }
+  ;
 }
-;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js","./CardContent":"Components/Card/CardContent.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../../app/store":"app/store.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
 "use strict";
 
@@ -38965,34 +38929,41 @@ function Feed(props) {
     };
   }, []);
   (0, _react.useEffect)(function () {
-    _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var response;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return fetch("https://storage.yandexcloud.net/sharetemp/artworks_data.json");
-          case 3:
-            response = _context.sent;
-            _context.next = 6;
-            return response.json();
-          case 6:
-            return _context.abrupt("return", _context.sent);
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](0);
-            console.warn(_context.t0);
-          case 12:
-            ;
-          case 13:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee, null, [[0, 9]]);
-    }))().then(function (data) {
-      setCARDS(Object.values(data));
-    });
+    localStorage.clear();
+    try {
+      fetch("https://storage.yandexcloud.net/sharetemp/artworks_data.json").then(/*#__PURE__*/function () {
+        var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(response) {
+          var data;
+          return _regeneratorRuntime().wrap(function _callee$(_context) {
+            while (1) switch (_context.prev = _context.next) {
+              case 0:
+                if (!response.ok) {
+                  _context.next = 7;
+                  break;
+                }
+                _context.next = 3;
+                return response.json();
+              case 3:
+                data = _context.sent;
+                setCARDS(Object.values(data));
+                _context.next = 8;
+                break;
+              case 7:
+                console.warn(response.status);
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }, _callee);
+        }));
+        return function (_x) {
+          return _ref.apply(this, arguments);
+        };
+      }());
+    } catch (error) {
+      console.warn(error);
+    }
+    ;
   }, []);
   (0, _react.useEffect)(function () {
     console.log(CARDS);

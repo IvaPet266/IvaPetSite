@@ -1,16 +1,14 @@
-import React, { useEffect, useState }           from 'react';
-import { useDispatch, useSelector }             from 'react-redux';
-import { useNavigate, NavLink }                 from 'react-router';
-import CardMenu                                 from './CardMenu';
-import { back2defaultPostInfo, changePostInfo } from '../../app/store';
-import CardContent                              from './CardContent';
+import React, { useEffect, useState } from 'react';
+import { useSelector }                from 'react-redux';
+import { useNavigate }                from 'react-router';
+import CardMenu                       from './CardMenu';
+import CardContent                    from './CardContent';
 
 export default function Container( props ) {
 
     const { image, title, author, category, text_content } = props.value;
 
     let navigate     = useNavigate();
-    const dispatcher = useDispatch();
     
     const menuTextColor = useSelector( ( state ) => state.colorTheme.stroke_inactive );
     const lines         = useSelector( ( state ) => state.colorTheme.lines );
@@ -26,14 +24,12 @@ export default function Container( props ) {
     // const title = props.title.length < 25 ? props.title : `${ props.title.slice( 0, 27 ) }...`
 
     function clickHandler() {
-        dispatcher( back2defaultPostInfo() );
-        
-        dispatcher( changePostInfo( { name: "postId",       value: props.id     } ) );
-        dispatcher( changePostInfo( { name: "image",        value: image        } ) );
-        dispatcher( changePostInfo( { name: "title",        value: title        } ) );
-        dispatcher( changePostInfo( { name: "author",       value: author       } ) );
-        dispatcher( changePostInfo( { name: "category",     value: category     } ) );
-        dispatcher( changePostInfo( { name: "text_content", value: text_content } ) );
+        localStorage.setItem( "postId",       props.id     );
+        localStorage.setItem( "image",        image        );
+        localStorage.setItem( "title",        title        );
+        localStorage.setItem( "author",       author       );
+        localStorage.setItem( "category",     category     );
+        localStorage.setItem( "text_content", text_content );
         navigate( `posts/${ props.id }` );
     }
 

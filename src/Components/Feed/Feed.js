@@ -47,16 +47,22 @@ export default function Feed( props ) {
         }
     }, []);
 
-    useEffect(() => {(
-        async () => {
-            try {
-                const response = await fetch( "https://storage.yandexcloud.net/sharetemp/artworks_data.json" );
-                return await response.json()
-            } catch ( error ) { console.warn( error ); };
-        })().then( data => {
-            setCARDS( Object.values( data ) );
-        }
-        )}, []
+    useEffect(() => {
+        localStorage.clear();
+
+        try {
+            fetch( "https://storage.yandexcloud.net/sharetemp/artworks_data.json" ).then(
+                async ( response  ) => {
+                    if ( response.ok ) {
+                        const data = await response.json();
+                        setCARDS( Object.values( data ) );
+                    } else {
+                        console.warn( response.status );
+                    }
+                } 
+            )  
+        } catch ( error ) { console.warn( error ); };
+        }, []
     );
 
     useEffect( () => {
