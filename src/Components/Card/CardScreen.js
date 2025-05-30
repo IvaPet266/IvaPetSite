@@ -106,7 +106,7 @@ export default function CardScreen( props ) {
                                 position:       "absolute",
                                 top:            0,
                                 borderRadius:   "20px",
-                                zIndex:         10,
+                                zIndex:         2,
                                 pointerEvents:  'none',  
                                 display:        "flex", 
                                 alignContent:   "center",  
