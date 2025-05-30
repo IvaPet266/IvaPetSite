@@ -7,9 +7,9 @@
 }
 
 .loader {
-  --b: 15px;  /* border thickness */
-  --n: 20;    /* number of dashes*/
-  --g: 10deg; /* gap  between dashes*/
+  --b: 15px;        /* border thickness */
+  --n: 20;          /* number of dashes*/
+  --g: 10deg;       /* gap  between dashes*/
   --c: #DBC1FF;   /* the color */
   
   width: 100px; /* size */

@@ -5,6 +5,7 @@ import CardContent                                             from './CardConte
 import { useNavigate }                                         from 'react-router';
 import { changeParameter, changePostInfo }                     from '../../app/store';
 
+
 export default function CardScreen( props ) {
     const menuBg        = useSelector ( ( state ) => state.colorTheme.fill_inactive );
     const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
@@ -35,9 +36,10 @@ export default function CardScreen( props ) {
     //     };
     // }); 
            //TODO
-           //* вызов списка постов из localStorage и нахождение конкретного 
-           //* поста в случае перезагрузки страницы на адресе '/posts/{номер поста}',
-           //* чтобы содержимое отображалось корректно
+           //? вызов списка постов из localStorage и нахождение конкретного 
+           //? поста в случае перезагрузки страницы на адресе '/posts/{номер поста}',
+           //? чтобы содержимое отображалось корректно
+           
 
     const category     = useSelector( ( state ) => state.postInfo.category );
     const image        = useSelector( ( state ) => state.postInfo.image );
@@ -45,17 +47,19 @@ export default function CardScreen( props ) {
     const title        = useSelector( ( state ) => state.postInfo.title );
     const text_content = useSelector( ( state ) => state.postInfo.text_content );
     
-    const contentRef = useRef( null );
+    const imageRef = useRef( null );
+    const spanRef  = useRef( null );
 
-    const [ baseHeight, setBaseHeight ] = useState( 200 );
-    const [ baseWidth, setBaseWidth ]   = useState( 200 );
+    const [ baseHeight, setBaseHeight ] = useState( 450 );
+    const [ baseWidth, setBaseWidth ]   = useState( 400 );
 
     useLayoutEffect(() => {
-        if ( contentRef.current ) {
-            setBaseHeight( contentRef.current.clientHeight );
-            console.log( baseHeight + 150, baseWidth );
-            setBaseWidth( contentRef.current.clientWidth );
-        }
+        if ( imageRef.current ) {
+            setBaseHeight( imageRef.current.clientHeight );
+            setBaseWidth(  imageRef.current.clientWidth  );
+        } else if ( spanRef.current ) {
+            setBaseHeight( spanRef.current.clientHeight );
+        };
     }); //TODO доделать подгонку размеров картинок, потом только текст
 
     return (
@@ -66,7 +70,7 @@ export default function CardScreen( props ) {
                     backgroundColor: "gray",
                     borderRadius:    "20px",
                     border:          `solid 1px ${ lines }`, 
-                    height:          baseHeight + 150,
+                    height:          baseHeight + 50,
                     width:           baseWidth,
                     position:        "relative",
                     display:         "flex",
@@ -77,22 +81,113 @@ export default function CardScreen( props ) {
                     marginBottom:    "50px",
                 }}>
                 {
-                    category === "ARTWORK" &&
-                    <img
-                        ref={ contentRef }
-                        style={{
-                            borderRadius: "20px",
-                            border:       `solid 1px ${ lines }`,
-                            maxHeight:    "calc(100vh - 150px)", 
-                            maxWidth:     "calc(100vw - 80px)",
-                            position:     "absolute",
-                            top:          0,
-                            objectFit:    "cover",
-                        }}
-                        src={ image }>
-                    </img>
+                    (
+                        category === "ARTWORK" &&
+                        <img
+                            ref  ={ imageRef }
+                            style={{
+                                borderRadius: "20px",
+                                border:       `solid 1px ${ lines }`,
+                                maxHeight:    "calc(100vh - 150px)", 
+                                maxWidth:     "calc(100vw - 80px)",
+                                position:     "absolute",
+                                top:          0,
+                                objectFit:    "cover",
+                                zIndex:       2
+                            }}
+                            src  ={ image }>
+                        </img>
+                    ) || (
+                        ( category === "PROSE" || category === "POEM" ) &&
+                        <div
+                            style={{ 
+                                width:          "100%", 
+                                height:         "calc(100% - 50px)",
+                                position:       "absolute",
+                                top:            0,
+                                borderRadius:   "20px",
+                                zIndex:         10,
+                                pointerEvents:  'none',  
+                                display:        "flex", 
+                                alignContent:   "center",  
+                                justifyContent: "center",
+                                whiteSpace:     "pre-line", 
+                                textAlign:      "center",
+                                background:     bioTextColor,
+                            }}>
+                            <span 
+                                ref  ={ spanRef }
+                                style={{ 
+                                    transition:    "all 300ms ease-out", 
+                                    alignSelf:     "center",
+                                    textAlign:     "center",
+                                    pointerEvents: "none",
+                                    color:         lines,
+                                    background:    "transparent",
+                                }}>
+                                { text_content }
+                            </span>
+                        </div>
+                    )
                 }
+                <div
+                    style={{
+                        background:              "grey",
+                        width:                   "100%",
+                        height:                  "70px", 
+                        borderBottomRightRadius: "20px",
+                        borderBottomLeftRadius:  "20px",
+                        position:                "absolute",
+                        bottom:                  0,
+                    }}
+                    >
+                    <div 
+                        className='CormorantInfant-serif' 
+                        style    ={{ 
+                            padding: "3px",
+                            width:   "100%"
+                        }}>
+                        <h5 
+                            style={{ 
+                                margin:       "2px",
+                                width:        "150px", 
+                                position:     "absolute",
+                                whiteSpace:   "nowrap",
+                                overflow:     "hidden",
+                                bottom:       "20px",
+                                left:         "7px",
+                                right:        "50px",
+                                color:        bioTextColor,
+                            }}>
+                                { title }
+                        </h5>
+                        <span 
+                            style={{ 
+                                width:        "150px",
+                                position:     "absolute",
+                                whiteSpace:   "nowrap",
+                                overflow:     "hidden",
+                                left:         "8px",
+                                bottom:       "5px",
+                                right:        "50px",
+                                color:        bioTextColor
+                            }}>
+                                { author }
+                        </span>
+                    </div>
+                    <img 
+                        style={{ 
+                            position:        "absolute", 
+                            bottom:          "4px",
+                            right:           "10px",
+                            height:          "30px",
+                            width:           "30px",
+                            backgroundColor: bioTextColor, 
+                            borderRadius:    "25px" 
+                        }}/>
+                </div>
             </div>
         </BaseScreen>
     )
 };
+

@@ -38179,7 +38179,7 @@ function CardContent(_ref) {
         var textLimit;
         var text;
         if (!post) {
-          if (category == "PROSE") textLimit = 340;else textLimit = 237;
+          if (category == "PROSE") textLimit = 400;else textLimit = 300;
           if (text_content.length > textLimit) text = "".concat(text_content.slice(0, textLimit - 3), "...");else text = text_content;
         } else text = text_content;
         return /*#__PURE__*/_react.default.createElement("div", {
@@ -38188,19 +38188,20 @@ function CardContent(_ref) {
             height: "100%",
             transition: "all 300ms ease-out",
             borderRadius: "20px",
-            padding: "2px",
+            // padding:        "2px",
             opacity: 1,
             pointerEvents: 'none',
             display: "flex",
             alignContent: "center",
             whiteSpace: "pre-line",
             textAlign: "center",
-            filter: textFilter
+            filter: textFilter,
+            justifyContent: "center"
           }
         }, /*#__PURE__*/_react.default.createElement("span", {
           style: _objectSpread({
             transition: "all 300ms ease-out",
-            alignSelf: "center",
+            // alignSelf:     "center",
             textAlign: "center",
             pointerEvents: "none"
           }, textStyle)
@@ -38301,8 +38302,8 @@ function Container(props) {
   function handleContainerHover(isEntered) {
     if (!isDragging) {
       setFocused(isEntered);
-      setFilter(isEntered ? 'brightness(30%) saturate(40%)' : 'none');
-      setTextFilter(isEntered ? 'brightness(30%) contrast(30%)' : 'none');
+      setFilter(isEntered ? 'brightness( 30% ) saturate( 40% )' : 'none');
+      setTextFilter(isEntered ? 'brightness( 30% ) contrast( 30% )' : 'none');
       setTextStyle({
         color: isEntered ? 'lightgrey' : 'black',
         background: 'transparent'
@@ -38723,9 +38724,9 @@ function CardScreen(props) {
   //     };
   // }); 
   //TODO
-  //* вызов списка постов из localStorage и нахождение конкретного 
-  //* поста в случае перезагрузки страницы на адресе '/posts/{номер поста}',
-  //* чтобы содержимое отображалось корректно
+  //? вызов списка постов из localStorage и нахождение конкретного 
+  //? поста в случае перезагрузки страницы на адресе '/posts/{номер поста}',
+  //? чтобы содержимое отображалось корректно
 
   var category = (0, _reactRedux.useSelector)(function (state) {
     return state.postInfo.category;
@@ -38742,21 +38743,24 @@ function CardScreen(props) {
   var text_content = (0, _reactRedux.useSelector)(function (state) {
     return state.postInfo.text_content;
   });
-  var contentRef = (0, _react.useRef)(null);
-  var _useState = (0, _react.useState)(200),
+  var imageRef = (0, _react.useRef)(null);
+  var spanRef = (0, _react.useRef)(null);
+  var _useState = (0, _react.useState)(450),
     _useState2 = _slicedToArray(_useState, 2),
     baseHeight = _useState2[0],
     setBaseHeight = _useState2[1];
-  var _useState3 = (0, _react.useState)(200),
+  var _useState3 = (0, _react.useState)(400),
     _useState4 = _slicedToArray(_useState3, 2),
     baseWidth = _useState4[0],
     setBaseWidth = _useState4[1];
   (0, _react.useLayoutEffect)(function () {
-    if (contentRef.current) {
-      setBaseHeight(contentRef.current.clientHeight);
-      console.log(baseHeight + 150, baseWidth);
-      setBaseWidth(contentRef.current.clientWidth);
+    if (imageRef.current) {
+      setBaseHeight(imageRef.current.clientHeight);
+      setBaseWidth(imageRef.current.clientWidth);
+    } else if (spanRef.current) {
+      setBaseHeight(spanRef.current.clientHeight);
     }
+    ;
   }); //TODO доделать подгонку размеров картинок, потом только текст
 
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, {
@@ -38767,7 +38771,7 @@ function CardScreen(props) {
       backgroundColor: "gray",
       borderRadius: "20px",
       border: "solid 1px ".concat(lines),
-      height: baseHeight + 150,
+      height: baseHeight + 50,
       width: baseWidth,
       position: "relative",
       display: "flex",
@@ -38779,7 +38783,7 @@ function CardScreen(props) {
       marginBottom: "50px"
     }
   }, category === "ARTWORK" && /*#__PURE__*/_react.default.createElement("img", {
-    ref: contentRef,
+    ref: imageRef,
     style: {
       borderRadius: "20px",
       border: "solid 1px ".concat(lines),
@@ -38787,10 +38791,86 @@ function CardScreen(props) {
       maxWidth: "calc(100vw - 80px)",
       position: "absolute",
       top: 0,
-      objectFit: "cover"
+      objectFit: "cover",
+      zIndex: 2
     },
     src: image
-  })));
+  }) || (category === "PROSE" || category === "POEM") && /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      width: "100%",
+      height: "calc(100% - 50px)",
+      position: "absolute",
+      top: 0,
+      borderRadius: "20px",
+      zIndex: 10,
+      pointerEvents: 'none',
+      display: "flex",
+      alignContent: "center",
+      justifyContent: "center",
+      whiteSpace: "pre-line",
+      textAlign: "center",
+      background: bioTextColor
+    }
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    ref: spanRef,
+    style: {
+      transition: "all 300ms ease-out",
+      alignSelf: "center",
+      textAlign: "center",
+      pointerEvents: "none",
+      color: lines,
+      background: "transparent"
+    }
+  }, text_content)), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      background: "grey",
+      width: "100%",
+      height: "70px",
+      borderBottomRightRadius: "20px",
+      borderBottomLeftRadius: "20px",
+      position: "absolute",
+      bottom: 0
+    }
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "CormorantInfant-serif",
+    style: {
+      padding: "3px",
+      width: "100%"
+    }
+  }, /*#__PURE__*/_react.default.createElement("h5", {
+    style: {
+      margin: "2px",
+      width: "150px",
+      position: "absolute",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      bottom: "20px",
+      left: "7px",
+      right: "50px",
+      color: bioTextColor
+    }
+  }, title), /*#__PURE__*/_react.default.createElement("span", {
+    style: {
+      width: "150px",
+      position: "absolute",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      left: "8px",
+      bottom: "5px",
+      right: "50px",
+      color: bioTextColor
+    }
+  }, author)), /*#__PURE__*/_react.default.createElement("img", {
+    style: {
+      position: "absolute",
+      bottom: "4px",
+      right: "10px",
+      height: "30px",
+      width: "30px",
+      backgroundColor: bioTextColor,
+      borderRadius: "25px"
+    }
+  }))));
 }
 ;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js","./CardContent":"Components/Card/CardContent.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../../app/store":"app/store.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
@@ -38915,6 +38995,7 @@ function Feed(props) {
     });
   }, []);
   (0, _react.useEffect)(function () {
+    console.log(CARDS);
     dispatcher((0, _store.changeParameter)({
       "name": "cards",
       "value": CARDS

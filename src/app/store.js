@@ -141,12 +141,12 @@ export const routes = createSlice({
 export const postInfo = createSlice({
     name: "postInfo",
     initialState: {
-        image:        "", 
-        title:        "", 
-        author:       "", 
-        category:     "", 
-        text_content: "",
-        postId:       null
+        image:          "", 
+        title:          "", 
+        author:         "", 
+        category:       "", 
+        text_content:   "",
+        postId:         null,
     },
     reducers: {
         changePostInfo: ( state, parameter ) => {

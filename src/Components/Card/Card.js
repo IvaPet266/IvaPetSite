@@ -16,10 +16,10 @@ export default function Container( props ) {
     const lines         = useSelector( ( state ) => state.colorTheme.lines );
     const isDragging    = useSelector( ( state ) => state.configParams.isDragging );
 
-    const [ focused, setFocused ]             = useState( false );
-    const [ filter, setFilter ]               = useState( "none" );
-    const [ textFilter, setTextFilter ]       = useState( "none" );
-    const [ textStyle, setTextStyle ]         = useState( { color: "black", background: "transparent" } );
+    const [ focused, setFocused ]       = useState( false );
+    const [ filter, setFilter ]         = useState( "none" );
+    const [ textFilter, setTextFilter ] = useState( "none" );
+    const [ textStyle, setTextStyle ]   = useState( { color: "black", background: "transparent" } );
 
     const margin = 10;
 
@@ -28,20 +28,20 @@ export default function Container( props ) {
     function clickHandler() {
         dispatcher( back2defaultPostInfo() );
         
-        dispatcher( changePostInfo( { name: "postId", value: props.id } ) );
-        dispatcher( changePostInfo( { name: "image", value: image } ) );
-        dispatcher( changePostInfo( { name: "title", value: title } ) );
-        dispatcher( changePostInfo( { name: "author", value: author } ) );
-        dispatcher( changePostInfo( { name: "category", value: category } ) );
+        dispatcher( changePostInfo( { name: "postId",       value: props.id     } ) );
+        dispatcher( changePostInfo( { name: "image",        value: image        } ) );
+        dispatcher( changePostInfo( { name: "title",        value: title        } ) );
+        dispatcher( changePostInfo( { name: "author",       value: author       } ) );
+        dispatcher( changePostInfo( { name: "category",     value: category     } ) );
         dispatcher( changePostInfo( { name: "text_content", value: text_content } ) );
         navigate( `posts/${ props.id }` );
     }
 
     function handleContainerHover( isEntered ) {
         if ( !isDragging ) {
-            setFocused( isEntered );
-            setFilter( isEntered ? 'brightness(30%) saturate(40%)' : 'none' );
-            setTextFilter( isEntered ? 'brightness(30%) contrast(30%)' : 'none' );
+            setFocused(    isEntered );
+            setFilter(     isEntered ? 'brightness( 30% ) saturate( 40% )' : 'none' );
+            setTextFilter( isEntered ? 'brightness( 30% ) contrast( 30% )' : 'none' );
             setTextStyle({
                 color: isEntered ? 'lightgrey' : 'black',
                 background: 'transparent'
