@@ -42,8 +42,8 @@ export default function BaseScreen( props ) {
 
   //* прокрутка содержимого страницы
   function scrollTo( percent ) {
-    console.log(percent);
-    top.current = percent * contentRef.current.scrollHeight;
+    
+    top.current = ( Math.round( percent * 1000 ) / 1000 )* contentRef.current.scrollHeight;
     
     scrollWrapper(); 
     // contentRef.current.scroll(0, top.current)   
