@@ -4,6 +4,7 @@ import { useNavigate }                from 'react-router';
 import CardMenu                       from './CardMenu';
 import CardContent                    from './CardContent';
 
+
 export default function Container( props ) {
 
     const { image, title, author, category, text_content } = props.value;
@@ -31,18 +32,18 @@ export default function Container( props ) {
         localStorage.setItem( "category",     category     );
         localStorage.setItem( "text_content", text_content );
         navigate( `posts/${ props.id }` );
-    }
+    };
 
     function handleContainerHover( isEntered ) {
         if ( !isDragging ) {
-            setFocused(    isEntered );
-            setFilter(     isEntered ? 'brightness( 30% ) saturate( 40% )' : 'none' );
+            setFocused( isEntered                                                   );
+            setFilter( isEntered ? 'brightness( 30% ) saturate( 40% )' : 'none'     );
             setTextFilter( isEntered ? 'brightness( 30% ) contrast( 30% )' : 'none' );
             setTextStyle({
                 color: isEntered ? 'lightgrey' : 'black',
                 background: 'transparent'
             });
-        }
+        };
     };
 
     return (
@@ -62,8 +63,8 @@ export default function Container( props ) {
                 borderRadius:  "20px",
                 userSelect:    "none",
             }} 
-            onMouseEnter={() => handleContainerHover( true )}
-            onMouseOut  ={() => handleContainerHover( false )}
+            onMouseEnter={ () => handleContainerHover( true )  }
+            onMouseOut  ={ () => handleContainerHover( false ) }
             onClick     ={ clickHandler }
             >
             <CardMenu 
@@ -140,5 +141,5 @@ export default function Container( props ) {
                 textFilter={ textFilter } textStyle={ textStyle }
                 />
         </div>
-    )
+    );
 };

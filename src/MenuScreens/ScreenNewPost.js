@@ -7,5 +7,5 @@ export default function ScreenNewPost( props ) {
       { props.children }
       <div style={{ background:"red" }}>ScreenNewPost</div>
     </BaseScreen>
-  )
+  );
 };

@@ -7,5 +7,5 @@ export default function ScreenSearch( props ) {
       { props.children }
       <div style={{ background: "midnightblue" }}>ScreenSearch</div>
     </BaseScreen>
-  )
+  );
 }

@@ -57,7 +57,8 @@ export function MainProfileDiv ({
             placeholderState = true;
         } else {
             setText( userBio );
-    }}, []);
+        };
+    }, []);
   
     switch ( instance ) {
         case "Settings": {
@@ -208,8 +209,8 @@ export function MainProfileDiv ({
                                     } else {
                                         setText( userBio.slice( 0, 56 ) );
                                         setPlaceholder( 'show more' );
-                                    }
-                                }
+                                    };
+                                };
                             }}>
                                 { placeholder }
                         </button>

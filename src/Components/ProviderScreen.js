@@ -13,5 +13,5 @@ export default function ProviderScreen( props ) {
         <screenContext.Provider value={{ screen, setScreen }}>
             { props.children }
         </screenContext.Provider>
-    )
+    );
 };

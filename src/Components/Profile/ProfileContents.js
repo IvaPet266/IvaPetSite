@@ -57,7 +57,7 @@ export const ProfileContents = ( props ) => (
                 props.setMenuSection( props.text );
             } else {
                 console.log(`Liked post №${ props.postId }`);
-            }
+            };
         }}>
         {( props.fill === false || props.link !== "none" ) && (
             <ProfileLink

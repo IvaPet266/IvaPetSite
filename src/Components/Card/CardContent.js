@@ -23,7 +23,7 @@ export default function CardContent({
                     }} 
                     src  ={ image }
                 />
-            )
+            );
         } 
         default: {
             let textLimit;
@@ -65,7 +65,7 @@ export default function CardContent({
                         { text }
                     </span>
                 </div>
-            )
+            );
         }
-  }
-}
+    };
+};

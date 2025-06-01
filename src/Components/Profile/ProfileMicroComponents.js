@@ -3,7 +3,8 @@ import React from "react";
 export const ProfileContentsPath = ({
     contentsColor,
     d
-}) => <path 
+}) => (
+    <path 
         style={{
             transition:     "stroke 300ms ease-out",
             stroke:         contentsColor, 
@@ -12,6 +13,7 @@ export const ProfileContentsPath = ({
             strokeLinejoin: "round"
         }}
         d    ={ d }/>
+);
 
 export const ProfileContentsSVG = ({
     w, 
@@ -37,11 +39,13 @@ export const ProfileContentsSVG = ({
         xmlns  ="http://www.w3.org/2000/svg">
         <ProfileContentsPath contentsColor={ contentsColor } d={ d }/>
         { d1 && <ProfileContentsPath contentsColor={ contentsColor } d={ d1 }/> }
-    </svg>)
+    </svg>
+);
 
 export const LinesHR = ({
     bg,
-}) => <hr 
+}) => (
+    <hr 
         style={{ 
             border:          "none", 
             margin:          "2.5px", 
@@ -49,13 +53,16 @@ export const LinesHR = ({
             backgroundColor: bg 
         }} 
         size ="3"/>
+);
      
 export const Lines = ( 
     props 
-) => <div style={{ width: "40%", display: "flex", flexDirection: "column" }}>
+) => (
+    <div style={{ width: "40%", display: "flex", flexDirection: "column" }}>
         <LinesHR bg={ props.bg }/>
         <LinesHR bg={ props.bg }/>
-     </div>
+    </div>
+);
 
 export const LinkSpan = ({
     objColor,

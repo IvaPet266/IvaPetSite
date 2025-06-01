@@ -9,5 +9,5 @@ export default function ScreenMain( props ) {
       { props.children }
       <Feed/>
     </BaseScreen>
-  )
+  );
 };

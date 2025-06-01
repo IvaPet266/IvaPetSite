@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector }     from "react-redux";
 
 
 export function Button( props ) {
 
-    const menuBg        = useSelector ( ( state ) => state.colorTheme.fill_inactive );
-    const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
-    const bioTextColor  = useSelector( ( state ) => state.colorTheme.stroke_active );
-    const isDragging    = useSelector( ( state ) => state.configParams.isDragging );
+    const menuBg        = useSelector( ( state ) => state.colorTheme.fill_inactive   );
+    const menuTextColor = useSelector( ( state ) => state.colorTheme.stroke_inactive );
+    const bioTextColor  = useSelector( ( state ) => state.colorTheme.stroke_active   );
+    const isDragging    = useSelector( ( state ) => state.configParams.isDragging    );
   
-    const [ backgroundColorInactive, setBackgroundColorInactive ] = useState( menuBg );
-    const [ textColorInactive, setTextColorInactive ]             = useState( menuTextColor );
+    const [ backgroundColorInactive, setBackgroundColorInactive ] = useState( menuBg        );
+    const [ textColorInactive,       setTextColorInactive       ] = useState( menuTextColor );
     
     let style;
   
@@ -27,7 +27,8 @@ export function Button( props ) {
           whiteSpace: "nowrap", 
           cursor:     isDragging ? "grabbing" : "pointer"
         }; break;
-      default: style={
+      default: 
+        style={
           background:  backgroundColorInactive, 
           color:       textColorInactive, 
           borderColor: backgroundColorInactive, 
@@ -48,15 +49,15 @@ export function Button( props ) {
         onMouseEnter={() => {
           if ( !isDragging ) {
             setBackgroundColorInactive( menuTextColor );
-            setTextColorInactive( bioTextColor );
-          }
+            setTextColorInactive( bioTextColor        );
+          };
         }} 
         onMouseLeave={() => {
-          setBackgroundColorInactive( menuBg );
+          setBackgroundColorInactive( menuBg  );
           setTextColorInactive( menuTextColor );
         }}
         style       ={ style }>
           { props.children }
       </button>
-    )
-  };
+    );
+};

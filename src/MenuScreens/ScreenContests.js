@@ -7,5 +7,5 @@ export default function ScreenContests( props ) {
       { props.children }
       <div style={{ background: "grey" }}>ScreenContests</div>
     </BaseScreen>
-  )
+  );
 };

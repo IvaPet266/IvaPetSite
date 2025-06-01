@@ -1,9 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector }                            from 'react-redux';
 import BaseScreen                                              from '../BaseScreen';
-import CardContent                                             from './CardContent';
-import { useNavigate }                                         from 'react-router';
-import { changeParameter, changePostInfo }                     from '../../app/store';
 
 
 export default function CardScreen( props ) {
@@ -196,4 +193,4 @@ export default function CardScreen( props ) {
                 </BaseScreen>
             )
     }; 
-}        
+};       

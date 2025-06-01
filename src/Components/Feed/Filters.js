@@ -13,24 +13,24 @@ const filters = {
 
 export function Filters() {
     const filtersBg    = useSelector( ( state ) => state.colorTheme.fill_inactive ); 
-    const menuBg       = useSelector( ( state ) => state.colorTheme.fill_active );
-    const lines        = useSelector( ( state ) => state.colorTheme.lines ); 
-    const storeFilters = useSelector( ( state ) => state.configParams.filters ); 
+    const menuBg       = useSelector( ( state ) => state.colorTheme.fill_active   );
+    const lines        = useSelector( ( state ) => state.colorTheme.lines         ); 
+    const storeFilters = useSelector( ( state ) => state.configParams.filters     ); 
 
     const dispatch = useDispatch();
 
-    const [ filtersBtnText, setFiltersBtnText ]           = useState( '>>' );
-    const [ filtersBtnColor, setFiltersBtnColor ]         = useState( filtersBg );
-    const [ filtersBorder, setFiltersBorder ]             = useState( "none" );
-    const [ filtersBtnTextColor, setFiltersBtnTextColor ] = useState( menuBg );
+    const [ filtersBtnText,      setFiltersBtnText      ] = useState( '>>'      );
+    const [ filtersBtnColor,     setFiltersBtnColor     ] = useState( filtersBg );
+    const [ filtersBorder,       setFiltersBorder       ] = useState( "none"    );
+    const [ filtersBtnTextColor, setFiltersBtnTextColor ] = useState( menuBg    );
 
-    const [ resetBgColor, setResetBgColor ]               = useState( menuBg );
-    const [ resetColor, setResetColor ]                   = useState( filtersBg );
-    const [ resetBorder, setResetBorder ]                 = useState( "none" );
+    const [ resetBgColor, setResetBgColor ] = useState( menuBg    );
+    const [ resetColor,   setResetColor   ] = useState( filtersBg );
+    const [ resetBorder,  setResetBorder  ] = useState( "none"    );
 
-    const [ confirmColor, setConfirmColor ]               = useState( filtersBg );
-    const [ confirmBgColor, setConfirmBgColor ]           = useState( menuBg );
-    const [ confirmBorder, setConfirmBorder ]             = useState( "none" );
+    const [ confirmColor,   setConfirmColor   ] = useState( filtersBg );
+    const [ confirmBgColor, setConfirmBgColor ] = useState( menuBg    );
+    const [ confirmBorder,  setConfirmBorder  ] = useState( "none"    );
     
     switch ( storeFilters ) {
         case true: 
@@ -73,14 +73,14 @@ export function Filters() {
                             };
                         }} 
                         onMouseEnter={() => {
-                            setResetBgColor( filtersBg );
-                            setResetColor( menuBg );
+                            setResetBgColor( filtersBg             );
+                            setResetColor( menuBg                  );
                             setResetBorder( `solid 1px ${ menuBg }`);
                         }} 
                         onMouseLeave={() => {
-                            setResetBgColor( menuBg );
+                            setResetBgColor( menuBg  );
                             setResetColor( filtersBg );
-                            setResetBorder( "none" );
+                            setResetBorder( "none"   );
                         }} 
                         value       ="Reset"/>
                     <button 
@@ -92,14 +92,14 @@ export function Filters() {
                             cursor:          "pointer" 
                         }} 
                         onMouseEnter={() => {
-                            setConfirmBgColor( filtersBg );
-                            setConfirmColor( menuBg );
+                            setConfirmBgColor( filtersBg             );
+                            setConfirmColor( menuBg                  );
                             setConfirmBorder( `solid 1px ${ menuBg }`);
                         }} 
                         onMouseLeave={() => {
-                            setConfirmBgColor( menuBg );
+                            setConfirmBgColor( menuBg  );
                             setConfirmColor( filtersBg );
-                            setConfirmBorder( "none" );
+                            setConfirmBorder( "none"   );
                         }} 
                         onClick     ={() => {
                             for ( const filter of [ "likes", "repostsFilter", "saves", "author", "category", "hashtags" ] ) {
@@ -117,13 +117,13 @@ export function Filters() {
                             cursor:     "pointer" 
                         }} 
                         onMouseEnter={() => {
-                            setFiltersBtnColor( filtersBg );
+                            setFiltersBtnColor( filtersBg             );
                             setFiltersBorder( `solid 1px ${ menuBg }` );
-                            setFiltersBtnTextColor( menuBg );
+                            setFiltersBtnTextColor( menuBg            );
                         }}
                         onMouseLeave={() => {
-                            setFiltersBtnColor( menuBg );
-                            setFiltersBorder( "none" );
+                            setFiltersBtnColor( menuBg        );
+                            setFiltersBorder( "none"          );
                             setFiltersBtnTextColor( filtersBg );
                         }}
                         onClick     ={() => {
@@ -133,7 +133,7 @@ export function Filters() {
                             { filtersBtnText }
                     </button> 
                 </div>
-            )
+            );
         default: 
             return (
                 <button 
@@ -146,13 +146,13 @@ export function Filters() {
                         cursor:     "pointer" 
                     }} 
                     onMouseEnter={() => {
-                        setFiltersBtnColor( menuBg );
+                        setFiltersBtnColor( menuBg                   );
                         setFiltersBorder( `solid 1px ${ filtersBg }` );
-                        setFiltersBtnTextColor( filtersBg );
+                        setFiltersBtnTextColor( filtersBg            );
                     }}
                     onMouseLeave={() => {
-                        setFiltersBtnColor( filtersBg );
-                        setFiltersBorder( "none" );
+                        setFiltersBtnColor( filtersBg  );
+                        setFiltersBorder( "none"       );
                         setFiltersBtnTextColor( menuBg );
                     }}
                     onClick     ={() => {
@@ -161,12 +161,12 @@ export function Filters() {
                     }}>
                         { filtersBtnText }
                 </button> 
-            )
+            );
     };
 };
 
 export function FilterDiv( props ) {
-    const filter = useSelector( ( state ) => state.filters[ props.name.toLowerCase() ])
+    const filter = useSelector( ( state ) => state.filters[ props.name.toLowerCase() ]);
     return (
         <div 
             id   ={ `${ props.name }Filter` } 
@@ -184,5 +184,5 @@ export function FilterDiv( props ) {
                     filters[ props.name.toLowerCase() ] = state.target.value ;
                 }}/>
         </div>
-    )
+    );
 };

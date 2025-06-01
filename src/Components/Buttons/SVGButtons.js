@@ -3,15 +3,15 @@ import { useSelector }                from 'react-redux';
 
 export default function SVGButton( props ) {
 
-    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );     
-    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );    
+    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive   );     
+    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active     );    
     const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive );           
-    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );  
-    const isDragging      = useSelector( ( state ) => state.configParams.isDragging );       
+    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active   );  
+    const isDragging      = useSelector( ( state ) => state.configParams.isDragging    );       
 
-    const [ bgColor, setBgColor ]         = useState( bg_inactive );
+    const [ bgColor,     setBgColor     ] = useState( bg_inactive     );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
-    const [ fillColor, setFillColor ]     = useState( bg_inactive );
+    const [ fillColor,   setFillColor   ] = useState( bg_inactive     );
     
     const border = props.border ? `solid 3px ${ bg_active }` : "none";
     const margin = props.border ? "0 0 5px 5px"  : "8px";
@@ -22,15 +22,14 @@ export default function SVGButton( props ) {
     useEffect(() => {
         if ( props.isActive == true ) {
             setBgColor( stroke_inactive ); 
-            setStrokeColor( "white" );
-            setFillColor( bg_active );
+            setStrokeColor( "white"     );
+            setFillColor( bg_active     );
         } else {
-            setBgColor( bg_inactive ); 
+            setBgColor( bg_inactive         ); 
             setStrokeColor( stroke_inactive );
-            setFillColor( bg_inactive ); 
+            setFillColor( bg_inactive       ); 
         };
-        }, [ props.isActive ]
-    );
+    }, [ props.isActive ]);
 
     return (
         <button
@@ -53,15 +52,15 @@ export default function SVGButton( props ) {
                 onMouseOver={() => { 
                     if ( !isDragging ) {
                         setBgColor( stroke_inactive ); 
-                        setStrokeColor( "white" );
-                        setFillColor( bg_active );
-                    }
+                        setStrokeColor( "white"     );
+                        setFillColor( bg_active     );
+                    };
                 }}
                 onMouseOut ={() => { 
                     if ( !props.isActive ) {
-                        setBgColor( bg_inactive ); 
+                        setBgColor( bg_inactive         ); 
                         setStrokeColor( stroke_inactive );
-                        setFillColor( bg_inactive ); 
+                        setFillColor( bg_inactive       ); 
                     };
                 }}
                 style      ={{ transition: "all 300ms ease-out", border, fill }}
@@ -84,31 +83,30 @@ export default function SVGButton( props ) {
                     { props.children }
             </svg>
         </button>
-    )
+    );
 };
 
 export function SVGButton2Paths ( props ) {
 
-    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive );   //! 
-    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active );     //! 
-    const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive ); //!
-    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active );   //! 
-    const isDragging      = useSelector( ( state ) => state.configParams.isDragging );
+    const bg_inactive     = useSelector( ( state ) => state.colorTheme.fill_inactive   ); 
+    const bg_active       = useSelector( ( state ) => state.colorTheme.fill_active     ); 
+    const stroke_inactive = useSelector( ( state ) => state.colorTheme.stroke_inactive );
+    const stroke_active   = useSelector( ( state ) => state.colorTheme.stroke_active   ); 
+    const isDragging      = useSelector( ( state ) => state.configParams.isDragging    );
 
-    const [ bgColor, setBgColor ]         = useState( bg_inactive );
+    const [ bgColor,     setBgColor     ] = useState( bg_inactive     );
     const [ strokeColor, setStrokeColor ] = useState( stroke_inactive );
 
     useEffect(() => {
         if ( props.isActive == true ) {
             setBgColor( stroke_inactive ); 
-            setStrokeColor( "white" );
+            setStrokeColor( "white"     );
             console.log("newpost"); 
         } else {
-            setBgColor( bg_inactive ); 
+            setBgColor( bg_inactive         ); 
             setStrokeColor( stroke_inactive );
-            };
-        }, [ props.isActive ]
-    );
+        };
+    }, [ props.isActive ]);
 
     return (
         <button
@@ -124,14 +122,14 @@ export function SVGButton2Paths ( props ) {
                 onMouseOver={() => { 
                     if ( !isDragging ) {
                         setBgColor( stroke_inactive ); 
-                        setStrokeColor( "white" ) 
-                    }
+                        setStrokeColor( "white"     ); 
+                    };
                 }} 
                 onMouseOut ={() => { 
                     if ( !props.isActive ) {
-                        setBgColor( bg_inactive ); 
-                        setStrokeColor( stroke_inactive ) 
-                    }
+                        setBgColor( bg_inactive         ); 
+                        setStrokeColor( stroke_inactive );
+                    };
                 }} 
                 style      ={{ transition: "all 300ms ease-out" }} 
                 width      ="70" 
@@ -158,5 +156,5 @@ export function SVGButton2Paths ( props ) {
                         d    ={ props.d2 }/>
             </svg>
         </button>
-    )
+    );
 };

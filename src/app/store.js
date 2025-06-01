@@ -27,7 +27,7 @@ export const colorThemeSlice = createSlice({
         
         changeColorTheme: ( state, parameter ) => {
             state[ parameter.payload[ "name" ] ] = parameter.payload[ "value" ];
-            console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] )
+            console.log( parameter.payload[ "name" ], '->', state[ parameter.payload[ "name" ] ] );
 
             if ( parameter.payload[ "name" ] !== "lines" ) state.lines = checkWhite( state.fill_inactive ) ? "black" : "white";
         },

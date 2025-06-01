@@ -57,14 +57,14 @@ export default function BaseScreen( props ) {
   //* обработка изменения размеров страницы/окна
   function onResize () {
     if ( contentRef.current && baseRef.current ) {
-      setSliderHeight( ( contentRef.current.clientHeight * baseRef.current.clientHeight ) / contentRef.current.scrollHeight )
-    }
+      setSliderHeight( ( contentRef.current.clientHeight * baseRef.current.clientHeight ) / contentRef.current.scrollHeight );
+    };
   };
 
   //* подписка/окна на событие изменения размеров страницы/окна после рендера страницы
   useEffect(() => {
     window.addEventListener( "resize", onResize );
-    return () => window.removeEventListener( "resize", onResize )
+    return () => window.removeEventListener( "resize", onResize );
   });
 
   //* вызов функции onResize() сразу после рендера страницы, чтобы своевременно изменить размер слайдера
@@ -112,17 +112,17 @@ export default function BaseScreen( props ) {
         </>
       )}
     </div>
-  )
+  );
 };
 
 
 function Scrollbar( props ) {
 
-  const sliderRef  = useRef( null );
-  const blockRef   = useRef( null );
+  const sliderRef  = useRef( null  );
+  const blockRef   = useRef( null  );
   const isDragging = useRef( false );
   
-  const [ clickY, setClickY ] = useState( 0 );
+  const [ clickY, setClickY ] = useState( 0      );
   const [ cursor, setCursor ] = useState( "grab" );
 
   let slider = null;
@@ -135,8 +135,8 @@ function Scrollbar( props ) {
 
   //* цвета
   const scrollbarBgLight   = useSelector( ( state ) => state.colorTheme.fill_inactive );
-  const scrollbarBgDark    = useSelector( ( state ) => state.colorTheme.fill_active );
-  const scrollbarBorder    = useSelector( ( state ) => state.colorTheme.lines );
+  const scrollbarBgDark    = useSelector( ( state ) => state.colorTheme.fill_active   );
+  const scrollbarBorder    = useSelector( ( state ) => state.colorTheme.lines         );
   const scrollbarBoxBorder = useSelector( ( state ) => state.colorTheme.stroke_active );
   
   //* градиент ползунка
@@ -150,14 +150,14 @@ function Scrollbar( props ) {
     if ( blockRef.current ) {
       const percent = clickY / blockRef.current.clientHeight;
       props.scrollTo( percent );
-    }
+    };
   }, [ clickY ]);
 
   //* перемещение ползунка
   useEffect(() => {
     if ( blockRef.current ) {
       changeClickY( clickY + props.deltaY * 0.15 );
-    }
+    };
   }, [ props.deltaY ]);
 
   //* изменение clickY
@@ -197,7 +197,7 @@ function Scrollbar( props ) {
     return () => {
       document.removeEventListener( "mousemove", dragging );
       document.removeEventListener( "mouseup", dragEnd );
-    }
+    };
   }, []);
 
   return (
@@ -235,5 +235,5 @@ function Scrollbar( props ) {
         }}
       />
     </div>
-  )
-}
+  );
+};

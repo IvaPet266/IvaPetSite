@@ -37223,6 +37223,7 @@ function SVGButton(props) {
         setStrokeColor("white");
         setFillColor(bg_active);
       }
+      ;
     },
     onMouseOut: function onMouseOut() {
       if (!props.isActive) {
@@ -37258,16 +37259,16 @@ function SVGButton(props) {
 function SVGButton2Paths(props) {
   var bg_inactive = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_inactive;
-  }); //! 
+  });
   var bg_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
-  }); //! 
+  });
   var stroke_inactive = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_inactive;
-  }); //!
+  });
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
-  }); //! 
+  });
   var isDragging = (0, _reactRedux.useSelector)(function (state) {
     return state.configParams.isDragging;
   });
@@ -37305,12 +37306,14 @@ function SVGButton2Paths(props) {
         setBgColor(stroke_inactive);
         setStrokeColor("white");
       }
+      ;
     },
     onMouseOut: function onMouseOut() {
       if (!props.isActive) {
         setBgColor(bg_inactive);
         setStrokeColor(stroke_inactive);
       }
+      ;
     },
     style: {
       transition: "all 300ms ease-out"
@@ -37416,6 +37419,7 @@ function Button(props) {
         setBackgroundColorInactive(menuTextColor);
         setTextColorInactive(bioTextColor);
       }
+      ;
     },
     onMouseLeave: function onMouseLeave() {
       setBackgroundColorInactive(menuBg);
@@ -37606,6 +37610,7 @@ function BaseScreen(props) {
     if (contentRef.current && baseRef.current) {
       setSliderHeight(contentRef.current.clientHeight * baseRef.current.clientHeight / contentRef.current.scrollHeight);
     }
+    ;
   }
   ;
 
@@ -37694,6 +37699,7 @@ function Scrollbar(props) {
       var percent = clickY / blockRef.current.clientHeight;
       props.scrollTo(percent);
     }
+    ;
   }, [clickY]);
 
   //* перемещение ползунка
@@ -37701,6 +37707,7 @@ function Scrollbar(props) {
     if (blockRef.current) {
       changeClickY(clickY + props.deltaY * 0.15);
     }
+    ;
   }, [props.deltaY]);
 
   //* изменение clickY
@@ -37787,6 +37794,7 @@ function Scrollbar(props) {
     }
   }));
 }
+;
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Menu":"Components/Menu.js","../app/store":"app/store.js"}],"MenuScreens/ScreenContests.js":[function(require,module,exports) {
 "use strict";
 
@@ -37897,14 +37905,14 @@ function CardMenu(_ref) {
     _useState20 = _slicedToArray(_useState19, 2),
     downloadState = _useState20[0],
     setDownloadState = _useState20[1];
-  var _useState21 = (0, _react.useState)("M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"),
+  var _useState21 = (0, _react.useState)(false),
     _useState22 = _slicedToArray(_useState21, 2),
-    downloadD = _useState22[0],
-    setDownloadD = _useState22[1];
-  var _useState23 = (0, _react.useState)(false),
+    shareState = _useState22[0],
+    setShareState = _useState22[1];
+  var _useState23 = (0, _react.useState)("M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"),
     _useState24 = _slicedToArray(_useState23, 2),
-    shareState = _useState24[0],
-    setShareState = _useState24[1];
+    downloadD = _useState24[0],
+    setDownloadD = _useState24[1];
   var filename = "".concat(author, "-").concat(id, ".jpg");
   (0, _react.useEffect)(function () {
     if (focused === false) {
@@ -37918,6 +37926,7 @@ function CardMenu(_ref) {
       setTranslateY(maxTranslateY);
       setRotateDegree(180);
     }
+    ;
   }, [focused]);
   function clickHandler(event) {
     setIsActive(!isActive);
@@ -38190,7 +38199,9 @@ function CardContent(_ref) {
         }, text));
       }
   }
+  ;
 }
+;
 },{"react":"../node_modules/react/index.js"}],"Components/Card/Card.js":[function(require,module,exports) {
 "use strict";
 
@@ -38260,6 +38271,7 @@ function Container(props) {
     localStorage.setItem("text_content", text_content);
     navigate("posts/".concat(props.id));
   }
+  ;
   function handleContainerHover(isEntered) {
     if (!isDragging) {
       setFocused(isEntered);
@@ -38270,6 +38282,7 @@ function Container(props) {
         background: 'transparent'
       });
     }
+    ;
   }
   ;
   return /*#__PURE__*/_react.default.createElement("div", {
@@ -38637,9 +38650,6 @@ exports.default = CardScreen;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _BaseScreen = _interopRequireDefault(require("../BaseScreen"));
-var _CardContent = _interopRequireDefault(require("./CardContent"));
-var _reactRouter = require("react-router");
-var _store = require("../../app/store");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -38833,7 +38843,8 @@ function CardScreen(props) {
   }
   ;
 }
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js","./CardContent":"Components/Card/CardContent.js","react-router":"../node_modules/react-router/dist/development/index.mjs","../../app/store":"app/store.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
+;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../BaseScreen":"Components/BaseScreen.js"}],"Components/Feed/Feed.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38947,6 +38958,8 @@ function Feed(props) {
               case 7:
                 console.warn(response.status);
               case 8:
+                ;
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -38984,11 +38997,14 @@ function Feed(props) {
         var author = checkFilters(authorFilter, value["author"]);
         var category = checkFilters(categoryFilter, value["category"]);
         params.cardId = index;
-        if (value["likes_amount"] >= likesFilter && author && category) return /*#__PURE__*/_react.default.createElement(_Card.default, {
-          key: index,
-          id: index,
-          value: value
-        });
+        if (value["likes_amount"] >= likesFilter && author && category) {
+          return /*#__PURE__*/_react.default.createElement(_Card.default, {
+            key: index,
+            id: index,
+            value: value
+          });
+        }
+        ;
       })));
     default:
       return /*#__PURE__*/_react.default.createElement("div", {
@@ -39008,6 +39024,7 @@ function Feed(props) {
         }
       }, defaultText));
   }
+  ;
 }
 ;
 function checkFilters(a, a1) {
@@ -39220,6 +39237,7 @@ var ProfileContents = exports.ProfileContents = function ProfileContents(props) 
       } else {
         console.log("Liked post \u2116".concat(props.postId));
       }
+      ;
     }
   }, (props.fill === false || props.link !== "none") && /*#__PURE__*/_react.default.createElement(ProfileLink, {
     link: props.link,
@@ -39408,6 +39426,7 @@ function MainProfileDiv(_ref) {
     } else {
       setText(userBio);
     }
+    ;
   }, []);
   switch (instance) {
     case "Settings":
@@ -39578,7 +39597,9 @@ function MainProfileDiv(_ref) {
                 setText(userBio.slice(0, 56));
                 setPlaceholder('show more');
               }
+              ;
             }
+            ;
           }
         }, placeholder)), /*#__PURE__*/_react.default.createElement("div", {
           style: {

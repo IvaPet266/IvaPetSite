@@ -7,5 +7,5 @@ export default function ScreenDiscussion( props ) {
       { props.children }
       <div style={{ background:"orange" }}>ScreenDiscussion</div>
     </BaseScreen>
-  )
+  );
 };

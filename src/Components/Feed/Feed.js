@@ -8,9 +8,9 @@ import CardScreen                                              from '../Card/Car
 
 
 export default function Feed( props ) {
-    const [ cardWidth, setCardWidth ]     = useState( "200px" );
-    const [ padding, setPadding ]         = useState( null );
-    const [ CARDS, setCARDS ]             = useState( null );
+    const [ cardWidth,   setCardWidth   ] = useState( "200px"          );
+    const [ padding,     setPadding     ] = useState( null             );
+    const [ CARDS,       setCARDS       ] = useState( null             );
     const [ defaultText, setDefaultText ] = useState( "Wait a second!" );
 
     // use__
@@ -20,13 +20,13 @@ export default function Feed( props ) {
     const location   = useLocation();
 
     const textColor  = useSelector( ( state ) => state.colorTheme.fill_inactive );
-    const lines      = useSelector( ( state ) => state.colorTheme.lines );
-    const scrollPosY = useSelector( ( state ) => state.configParams.scroll );
+    const lines      = useSelector( ( state ) => state.colorTheme.lines         );
+    const scrollPosY = useSelector( ( state ) => state.configParams.scroll      );
 
-    const likesFilter    = useSelector( ( state ) => state.filters.likes );
-    const repostsFilter  = useSelector( ( state ) => state.filters.reposts );
-    const savesFilter    = useSelector( ( state ) => state.filters.saves );
-    const authorFilter   = useSelector( ( state ) => state.filters.author );
+    const likesFilter    = useSelector( ( state ) => state.filters.likes    );
+    const repostsFilter  = useSelector( ( state ) => state.filters.reposts  );
+    const savesFilter    = useSelector( ( state ) => state.filters.saves    );
+    const authorFilter   = useSelector( ( state ) => state.filters.author   );
     const categoryFilter = useSelector( ( state ) => state.filters.category );
     const hashtagsFilter = useSelector( ( state ) => state.filters.hashtags );
 
@@ -44,7 +44,7 @@ export default function Feed( props ) {
         window.visualViewport.addEventListener( "resize", zoomHandle );
         return () => {
             window.visualViewport.removeEventListener( "resize", zoomHandle );
-        }
+        };
     }, []);
 
     useEffect(() => {
@@ -58,12 +58,11 @@ export default function Feed( props ) {
                         setCARDS( Object.values( data ) );
                     } else {
                         console.warn( response.status );
-                    }
-                } 
-            )  
+                    };
+                }
+            );
         } catch ( error ) { console.warn( error ); };
-        }, []
-    );
+    }, []);
 
     useEffect( () => {
         dispatcher( changeParameter( { "name": "cards", "value": CARDS }) );
@@ -85,21 +84,24 @@ export default function Feed( props ) {
                             top:            scrollPosY,
                         }} 
                         id   ="scroll">
-                        { CARDS.map( ( value, index ) => {
-                            const author   = checkFilters( authorFilter, value[ "author" ] );
-                            const category = checkFilters( categoryFilter, value[ "category" ] );
-                            params.cardId  = index;
-                            if ( value[ "likes_amount" ] >= likesFilter && author && category )
-                                return (
-                                    <Container 
-                                        key  ={ index } 
-                                        id   ={ index }
-                                        value={ value }/>
-                                )
-                            })}
+                        { 
+                            CARDS.map( ( value, index ) => {
+                                const author   = checkFilters( authorFilter,   value[ "author" ]   );
+                                const category = checkFilters( categoryFilter, value[ "category" ] );
+                                params.cardId  = index;
+                                if ( value[ "likes_amount" ] >= likesFilter && author && category ) {
+                                    return (
+                                        <Container 
+                                            key  ={ index } 
+                                            id   ={ index }
+                                            value={ value }/>
+                                    );
+                                };
+                            })
+                        }
                     </div>
                 </>
-            )
+            );
         default:
             return (
                 <div 
@@ -116,8 +118,8 @@ export default function Feed( props ) {
                         className="loader"/>
                     <p style={{ color: textColor }}>{ defaultText }</p> 
                 </div>
-                )
-    }
+            );
+    };
 };
 
 function checkFilters( a, a1 ) {
