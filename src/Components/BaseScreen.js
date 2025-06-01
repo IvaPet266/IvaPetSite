@@ -3,8 +3,8 @@ import { useDispatch, useSelector }                             from 'react-redu
 import Menu                                                     from './Menu';
 import { changeParameter }                                      from '../app/store';
 
-const PADDING = 5;
-// const menuHeight = 100;
+// const PADDING = 5;
+const menuHeight = 100;
 
 export default function BaseScreen( props ) {
 
@@ -14,12 +14,12 @@ export default function BaseScreen( props ) {
   const top        = useRef( 0 );
   const topCurrent = useRef( 0 );
 
-  const bg_color   = useSelector( ( state ) => state.colorTheme.fill_active );
-  const cards      = useSelector( ( state ) => state.configParams.cards );
+  const bg_color   = useSelector( ( state ) => state.colorTheme.fill_active  );
+  const cards      = useSelector( ( state ) => state.configParams.cards      );
   const isDragging = useSelector( ( state ) => state.configParams.isDragging );
 
-  const [ deltaY, setDeltaY ]             = useState( null );
-  const [ sliderHeight, setSliderHeight ] = useState( 5 );
+  const [ deltaY,       setDeltaY       ] = useState( null                    );
+  const [ sliderHeight, setSliderHeight ] = useState( 5                       );
   const [ contentWidth, setContentWidth ] = useState( props.scroll ? 99 : 100 );
 
 
@@ -28,7 +28,7 @@ export default function BaseScreen( props ) {
     const deltaAbs = Math.abs( delta );
     
     if ( delta > 0 ) {
-      topCurrent.current = Math.max( topCurrent.current - ( deltaAbs / 300 ) + 1, top.current );
+      topCurrent.current = Math.max( topCurrent.current - ( deltaAbs / 300 ) + 1 - menuHeight, top.current );
     } else {
       topCurrent.current = Math.min( topCurrent.current + ( deltaAbs / 300 ) + 1, top.current );
     };
@@ -42,10 +42,11 @@ export default function BaseScreen( props ) {
 
   //* прокрутка содержимого страницы
   function scrollTo( percent ) {
+    console.log(percent);
     top.current = percent * contentRef.current.scrollHeight;
     
-    // scrollWrapper(); 
-    contentRef.current.scroll(0, top.current)   
+    scrollWrapper(); 
+    // contentRef.current.scroll(0, top.current)   
   };
 
   //* обработка прокрутки колёсика
@@ -55,9 +56,7 @@ export default function BaseScreen( props ) {
 
   //* обработка изменения размеров страницы/окна
   function onResize () {
-    console.log( 'onResize' );
     if ( contentRef.current && baseRef.current ) {
-      console.log( contentRef.current.clientHeight );
       setSliderHeight( ( contentRef.current.clientHeight * baseRef.current.clientHeight ) / contentRef.current.scrollHeight )
     }
   };
@@ -219,7 +218,7 @@ function Scrollbar( props ) {
         ref         ={ sliderRef }
         onMouseDown ={ dragStart }
         style       ={{ 
-          transition:     "all 100ms ease-in-out",
+          transition:     "background 100ms ease-in-out",
           minHeight:      "5px", 
           maxHeight:      `${ visualViewport.height - 1 }px`,
           position:       "relative", 

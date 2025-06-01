@@ -49,6 +49,10 @@ export const ProfileContents = ( props ) => (
                 window.open( 'https://2048game.com/ru/', '_blank' );
             } else if ( props.text === 'Log Out' ) {
                 console.log('Log Out');
+            } else if ( props.link === "support" ) {
+                props.setMenuSection( "Support" );
+            } else if ( props.link === "settings" ) {
+                props.setMenuSection( "Settings" );
             } else if ( props.link !== 'none' ) {
                 props.setMenuSection( props.text );
             } else {

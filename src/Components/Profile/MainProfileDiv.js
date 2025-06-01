@@ -1,48 +1,51 @@
-import React, { useState, useEffect }              from "react";
-import { useDispatch, useSelector }                from "react-redux";
+import React, 
+       { useState,                useEffect      } from "react";
+import { useDispatch,             useSelector    } from "react-redux";
 import { BaseProfileComponentDiv, Lines, LinesHR } from "./ProfileMicroComponents";
+import { changeColorTheme                        } from "../../app/store";
 import SVGButton                                   from "../Buttons/SVGButtons";
-import { changeColorTheme }                        from "../../app/store";
 
 
-export function MainProfileDiv ( props ) {
+export function MainProfileDiv ({
+    instance
+}) {
     
-    const userName     = useSelector( ( state ) => state.userData.userName );
-    const userBio      = useSelector ( ( state ) => state.userData.userBio );
-    const menuBg       = useSelector ( ( state ) => state.colorTheme.fill_inactive );
-    const divBg        = useSelector ( ( state ) => state.colorTheme.fill_active );
+    const userName     = useSelector( ( state ) => state.userData.userName        );
+    const userBio      = useSelector( ( state ) => state.userData.userBio         );
+    const menuBg       = useSelector( ( state ) => state.colorTheme.fill_inactive );
+    const divBg        = useSelector( ( state ) => state.colorTheme.fill_active   );
     const bioTextColor = useSelector( ( state ) => state.colorTheme.stroke_active );
-    const lines        = useSelector( ( state ) => state.colorTheme.lines );
+    const lines        = useSelector( ( state ) => state.colorTheme.lines         );
     
-    const [ textColor, setTextColor ]         = useState( "white" );
-    const [ fontSize, setFontSize ]           = useState( "12px" );
-    const [ text, setText ]                   = useState( '' );
-    const [ placeholder, setPlaceholder ]     = useState( '' );
-    const [ confirmColor, setConfirmColor ]   = useState( menuBg );
-    const [ confirmColor2, setConfirmColor2 ] = useState( menuBg );
+    const [ textColor,     setTextColor     ] = useState( "white" );
+    const [ fontSize,      setFontSize      ] = useState( "12px"  );
+    const [ text,          setText          ] = useState( ''      );
+    const [ placeholder,   setPlaceholder   ] = useState( ''      );
+    const [ confirmColor,  setConfirmColor  ] = useState( menuBg  );
+    const [ confirmColor2, setConfirmColor2 ] = useState( menuBg  );
   
-    const [ extendedSettingsState, setExtendedSettingsState ] = useState( false );
-    const [ extnddStngsColor, setExtnddStngsColor ]           = useState( menuBg );
+    const [ extendedSettingsState, setExtendedSettingsState ] = useState( false  );
+    const [ extnddStngsColor,      setExtnddStngsColor      ] = useState( menuBg );
 
-    const [ inputValue, setInputValue ]   = useState( '#aaaacc' ); 
-    const [ inputValue2, setInputValue2 ] = useState( menuBg );
-    const [ inputValue3, setInputValue3 ] = useState( divBg );
+    const [ inputValue, setInputValue   ] = useState( '#aaaacc'    ); 
+    const [ inputValue2, setInputValue2 ] = useState( menuBg       );
+    const [ inputValue3, setInputValue3 ] = useState( divBg        );
     const [ inputValue4, setInputValue4 ] = useState( bioTextColor );
-    const [ inputValue5, setInputValue5 ] = useState( lines );
+    const [ inputValue5, setInputValue5 ] = useState( lines        );
 
     const dispatcher = useDispatch();
   
-    const handleConfirmClick = ( instance ) => {
-        if ( instance ) {
-            dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue.slice( 1 ) }` } ), {} );
+    const handleConfirmClick = ( inst ) => {
+        if ( inst ) {
+            dispatcher( changeColorTheme({ name: "fill_inactive",   value: `#${ inputValue.slice( 1 ) }` } ), {} );
             const value = `#${ Math.abs( parseInt( inputValue.replace( '#', '0x' ), 16 ) - parseInt( "#7D8276".replace( '#', '0x' ), 16 ) ).toString( 16 ) }`;
-            dispatcher( changeColorTheme({ "name": "fill_active", "value": value } ), {} );
-            dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": value } ), {} );
+            dispatcher( changeColorTheme({ name: "fill_active",     value: value } ), {} );
+            dispatcher( changeColorTheme({ name: "stroke_inactive", value: value } ), {} );
         } else {
-            dispatcher( changeColorTheme({ "name": "fill_inactive", "value": `#${ inputValue2.slice( 1 ) }` } ), {} );
-            dispatcher( changeColorTheme({ "name": "fill_active", "value": `#${ inputValue3.slice( 1 ) }` } ), {} );
-            dispatcher( changeColorTheme({ "name": "stroke_inactive", "value": `#${ inputValue4.slice( 1 ) }` } ), {} );
-            dispatcher( changeColorTheme({ "name": "lines", "value": `#${ inputValue5.slice( 1 ) }` } ), {} );
+            dispatcher( changeColorTheme({ name: "fill_inactive",   value: `#${ inputValue2.slice( 1 ) }` } ), {} );
+            dispatcher( changeColorTheme({ name: "fill_active",     value: `#${ inputValue3.slice( 1 ) }` } ), {} );
+            dispatcher( changeColorTheme({ name: "stroke_inactive", value: `#${ inputValue4.slice( 1 ) }` } ), {} );
+            dispatcher( changeColorTheme({ name: "lines",           value: `#${ inputValue5.slice( 1 ) }` } ), {} );
         };
     };
     
@@ -56,7 +59,7 @@ export function MainProfileDiv ( props ) {
             setText( userBio );
     }}, []);
   
-    switch ( props.instance ) {
+    switch ( instance ) {
         case "Settings": {
             return (
                 <BaseProfileComponentDiv>
@@ -103,7 +106,7 @@ export function MainProfileDiv ( props ) {
                 </BaseProfileComponentDiv>
             )
         }
-        case "Support Service": return (
+        case "Support": return (
             <div 
                 style={{ 
                     width:           "80%", 
@@ -222,7 +225,7 @@ export function MainProfileDiv ( props ) {
                                 lineHeight: "35px", 
                                 margin:     "0px 0px 0px 3px" 
                             }}>
-                            { props.instance }
+                            { instance }
                         </h5>
                         <Lines bg={ bioTextColor }/>
                     </div>

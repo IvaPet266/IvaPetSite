@@ -21531,67 +21531,7 @@ var useSelector = exports.useSelector = /* @__PURE__ */createSelectorHook();
 
 // src/exports.ts
 var batch = exports.batch = defaultNoopBatch;
-},{"react":"../node_modules/react/index.js","use-sync-external-store/with-selector.js":"../node_modules/use-sync-external-store/with-selector.js"}],"Components/ErrorBoundry.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _react = _interopRequireDefault(require("react"));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
-function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
-function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
-function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
-function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-var ErrorBoundary = exports.default = /*#__PURE__*/function (_React$Component) {
-  function ErrorBoundary(props) {
-    var _this;
-    _classCallCheck(this, ErrorBoundary);
-    _this = _callSuper(this, ErrorBoundary, [props]);
-    _this.state = {
-      hasError: false
-    };
-    return _this;
-  }
-  _inherits(ErrorBoundary, _React$Component);
-  return _createClass(ErrorBoundary, [{
-    key: "componentDidCatch",
-    value: function componentDidCatch(error, info) {
-      // Логируем ошибку
-      console.error('Uncaught error:', error, info);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.state.hasError) {
-        // Отображаем альтернативный UI
-        return /*#__PURE__*/_react.default.createElement("h1", null, "Something went wrong.");
-      }
-      ;
-      return this.props.children;
-    }
-  }], [{
-    key: "getDerivedStateFromError",
-    value: function getDerivedStateFromError(error) {
-      // Обновляем состояние с ошибкой
-      return {
-        hasError: true
-      };
-    }
-  }]);
-}(_react.default.Component);
-;
-},{"react":"../node_modules/react/index.js"}],"../node_modules/cookie/dist/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","use-sync-external-store/with-selector.js":"../node_modules/use-sync-external-store/with-selector.js"}],"../node_modules/cookie/dist/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37139,7 +37079,67 @@ Object.defineProperty(exports, "useViewTransitionState", {
   }
 });
 var _chunkD4RADZKF = require("./chunk-D4RADZKF.mjs");
-},{"./chunk-D4RADZKF.mjs":"../node_modules/react-router/dist/development/chunk-D4RADZKF.mjs"}],"Components/Buttons/SVGButtons.js":[function(require,module,exports) {
+},{"./chunk-D4RADZKF.mjs":"../node_modules/react-router/dist/development/chunk-D4RADZKF.mjs"}],"Components/ErrorBoundry.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+var ErrorBoundary = exports.default = /*#__PURE__*/function (_React$Component) {
+  function ErrorBoundary(props) {
+    var _this;
+    _classCallCheck(this, ErrorBoundary);
+    _this = _callSuper(this, ErrorBoundary, [props]);
+    _this.state = {
+      hasError: false
+    };
+    return _this;
+  }
+  _inherits(ErrorBoundary, _React$Component);
+  return _createClass(ErrorBoundary, [{
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, info) {
+      // Логируем ошибку
+      console.error('Uncaught error:', error, info);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.hasError) {
+        // Отображаем альтернативный UI
+        return /*#__PURE__*/_react.default.createElement("h1", null, "Something went wrong.");
+      }
+      ;
+      return this.props.children;
+    }
+  }], [{
+    key: "getDerivedStateFromError",
+    value: function getDerivedStateFromError(error) {
+      // Обновляем состояние с ошибкой
+      return {
+        hasError: true
+      };
+    }
+  }]);
+}(_react.default.Component);
+;
+},{"react":"../node_modules/react/index.js"}],"Components/Buttons/SVGButtons.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37542,9 +37542,8 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-var PADDING = 5;
-// const menuHeight = 100;
-
+// const PADDING = 5;
+var menuHeight = 100;
 function BaseScreen(props) {
   var baseRef = (0, _react.useRef)(null);
   var contentRef = (0, _react.useRef)(null);
@@ -37575,7 +37574,7 @@ function BaseScreen(props) {
     var delta = topCurrent.current - top.current;
     var deltaAbs = Math.abs(delta);
     if (delta > 0) {
-      topCurrent.current = Math.max(topCurrent.current - deltaAbs / 300 + 1, top.current);
+      topCurrent.current = Math.max(topCurrent.current - deltaAbs / 300 + 1 - menuHeight, top.current);
     } else {
       topCurrent.current = Math.min(topCurrent.current + deltaAbs / 300 + 1, top.current);
     }
@@ -37590,10 +37589,10 @@ function BaseScreen(props) {
 
   //* прокрутка содержимого страницы
   function scrollTo(percent) {
+    console.log(percent);
     top.current = percent * contentRef.current.scrollHeight;
-
-    // scrollWrapper(); 
-    contentRef.current.scroll(0, top.current);
+    scrollWrapper();
+    // contentRef.current.scroll(0, top.current)   
   }
   ;
 
@@ -37605,9 +37604,7 @@ function BaseScreen(props) {
 
   //* обработка изменения размеров страницы/окна
   function onResize() {
-    console.log('onResize');
     if (contentRef.current && baseRef.current) {
-      console.log(contentRef.current.clientHeight);
       setSliderHeight(contentRef.current.clientHeight * baseRef.current.clientHeight / contentRef.current.scrollHeight);
     }
   }
@@ -37774,7 +37771,7 @@ function Scrollbar(props) {
     ref: sliderRef,
     onMouseDown: dragStart,
     style: {
-      transition: "all 100ms ease-in-out",
+      transition: "background 100ms ease-in-out",
       minHeight: "5px",
       maxHeight: "".concat(visualViewport.height - 1, "px"),
       position: "relative",
@@ -38966,7 +38963,6 @@ function Feed(props) {
     ;
   }, []);
   (0, _react.useEffect)(function () {
-    console.log(CARDS);
     dispatcher((0, _store.changeParameter)({
       "name": "cards",
       "value": CARDS
@@ -39216,6 +39212,10 @@ var ProfileContents = exports.ProfileContents = function ProfileContents(props) 
         window.open('https://2048game.com/ru/', '_blank');
       } else if (props.text === 'Log Out') {
         console.log('Log Out');
+      } else if (props.link === "support") {
+        props.setMenuSection("Support");
+      } else if (props.link === "settings") {
+        props.setMenuSection("Settings");
       } else if (props.link !== 'none') {
         props.setMenuSection(props.text);
       } else {
@@ -39282,8 +39282,8 @@ exports.MainProfileDiv = MainProfileDiv;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _ProfileMicroComponents = require("./ProfileMicroComponents");
-var _SVGButtons = _interopRequireDefault(require("../Buttons/SVGButtons"));
 var _store = require("../../app/store");
+var _SVGButtons = _interopRequireDefault(require("../Buttons/SVGButtons"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -39292,7 +39292,8 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function MainProfileDiv(props) {
+function MainProfileDiv(_ref) {
+  var instance = _ref.instance;
   var userName = (0, _reactRedux.useSelector)(function (state) {
     return state.userData.userName;
   });
@@ -39364,37 +39365,37 @@ function MainProfileDiv(props) {
     inputValue5 = _useState24[0],
     setInputValue5 = _useState24[1];
   var dispatcher = (0, _reactRedux.useDispatch)();
-  var handleConfirmClick = function handleConfirmClick(instance) {
-    if (instance) {
+  var handleConfirmClick = function handleConfirmClick(inst) {
+    if (inst) {
       dispatcher((0, _store.changeColorTheme)({
-        "name": "fill_inactive",
-        "value": "#".concat(inputValue.slice(1))
+        name: "fill_inactive",
+        value: "#".concat(inputValue.slice(1))
       }), {});
       var value = "#".concat(Math.abs(parseInt(inputValue.replace('#', '0x'), 16) - parseInt("#7D8276".replace('#', '0x'), 16)).toString(16));
       dispatcher((0, _store.changeColorTheme)({
-        "name": "fill_active",
-        "value": value
+        name: "fill_active",
+        value: value
       }), {});
       dispatcher((0, _store.changeColorTheme)({
-        "name": "stroke_inactive",
-        "value": value
+        name: "stroke_inactive",
+        value: value
       }), {});
     } else {
       dispatcher((0, _store.changeColorTheme)({
-        "name": "fill_inactive",
-        "value": "#".concat(inputValue2.slice(1))
+        name: "fill_inactive",
+        value: "#".concat(inputValue2.slice(1))
       }), {});
       dispatcher((0, _store.changeColorTheme)({
-        "name": "fill_active",
-        "value": "#".concat(inputValue3.slice(1))
+        name: "fill_active",
+        value: "#".concat(inputValue3.slice(1))
       }), {});
       dispatcher((0, _store.changeColorTheme)({
-        "name": "stroke_inactive",
-        "value": "#".concat(inputValue4.slice(1))
+        name: "stroke_inactive",
+        value: "#".concat(inputValue4.slice(1))
       }), {});
       dispatcher((0, _store.changeColorTheme)({
-        "name": "lines",
-        "value": "#".concat(inputValue5.slice(1))
+        name: "lines",
+        value: "#".concat(inputValue5.slice(1))
       }), {});
     }
     ;
@@ -39409,7 +39410,7 @@ function MainProfileDiv(props) {
       setText(userBio);
     }
   }, []);
-  switch (props.instance) {
+  switch (instance) {
     case "Settings":
       {
         return /*#__PURE__*/_react.default.createElement(_ProfileMicroComponents.BaseProfileComponentDiv, null, /*#__PURE__*/_react.default.createElement("h2", {
@@ -39474,7 +39475,7 @@ function MainProfileDiv(props) {
           state: extendedSettingsState
         }));
       }
-    case "Support Service":
+    case "Support":
       return /*#__PURE__*/_react.default.createElement("div", {
         style: {
           width: "80%",
@@ -39598,7 +39599,7 @@ function MainProfileDiv(props) {
             lineHeight: "35px",
             margin: "0px 0px 0px 3px"
           }
-        }, props.instance), /*#__PURE__*/_react.default.createElement(_ProfileMicroComponents.Lines, {
+        }, instance), /*#__PURE__*/_react.default.createElement(_ProfileMicroComponents.Lines, {
           bg: bioTextColor
         })));
       }
@@ -39607,18 +39608,18 @@ function MainProfileDiv(props) {
   ;
 }
 ;
-var SettingsButton = function SettingsButton(_ref) {
-  var color = _ref.color,
-    setColor = _ref.setColor,
-    bioTextColor = _ref.bioTextColor,
-    menuBg = _ref.menuBg,
-    text = _ref.text,
-    _ref$state = _ref.state,
-    state = _ref$state === void 0 ? null : _ref$state,
-    _ref$setState = _ref.setState,
-    setState = _ref$setState === void 0 ? null : _ref$setState,
-    _ref$func = _ref.func,
-    func = _ref$func === void 0 ? null : _ref$func;
+var SettingsButton = function SettingsButton(_ref2) {
+  var color = _ref2.color,
+    setColor = _ref2.setColor,
+    bioTextColor = _ref2.bioTextColor,
+    menuBg = _ref2.menuBg,
+    text = _ref2.text,
+    _ref2$state = _ref2.state,
+    state = _ref2$state === void 0 ? null : _ref2$state,
+    _ref2$setState = _ref2.setState,
+    setState = _ref2$setState === void 0 ? null : _ref2$setState,
+    _ref2$func = _ref2.func,
+    func = _ref2$func === void 0 ? null : _ref2$func;
   return /*#__PURE__*/_react.default.createElement("button", {
     style: {
       transition: "all 300ms ease-out",
@@ -39642,11 +39643,11 @@ var SettingsButton = function SettingsButton(_ref) {
     }
   }, text);
 };
-var ColorInput = function ColorInput(_ref2) {
-  var text = _ref2.text,
-    menuBg = _ref2.menuBg,
-    inputValue = _ref2.inputValue,
-    setInputValue = _ref2.setInputValue;
+var ColorInput = function ColorInput(_ref3) {
+  var text = _ref3.text,
+    menuBg = _ref3.menuBg,
+    inputValue = _ref3.inputValue,
+    setInputValue = _ref3.setInputValue;
   return /*#__PURE__*/_react.default.createElement("div", {
     style: {
       width: "80%",
@@ -39686,7 +39687,7 @@ var ColorInput = function ColorInput(_ref2) {
     }
   }));
 };
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./ProfileMicroComponents":"Components/Profile/ProfileMicroComponents.js","../Buttons/SVGButtons":"Components/Buttons/SVGButtons.js","../../app/store":"app/store.js"}],"MenuScreens/ScreenProfile.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./ProfileMicroComponents":"Components/Profile/ProfileMicroComponents.js","../../app/store":"app/store.js","../Buttons/SVGButtons":"Components/Buttons/SVGButtons.js"}],"MenuScreens/ScreenProfile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40130,8 +40131,8 @@ var _react = _interopRequireDefault(require("react"));
 var _client = _interopRequireDefault(require("react-dom/client"));
 var _store = _interopRequireDefault(require("./app/store"));
 var _reactRedux = require("react-redux");
-var _ErrorBoundry = _interopRequireDefault(require("./Components/ErrorBoundry"));
 var _reactRouter = require("react-router");
+var _ErrorBoundry = _interopRequireDefault(require("./Components/ErrorBoundry"));
 var _ScreenContests = _interopRequireDefault(require("./MenuScreens/ScreenContests"));
 var _ScreenDiscussion = _interopRequireDefault(require("./MenuScreens/ScreenDiscussion"));
 var _ScreenMain = _interopRequireDefault(require("./MenuScreens/ScreenMain"));
@@ -40154,7 +40155,7 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "newpost",
   element: /*#__PURE__*/_react.default.createElement(_ScreenNewPost.default, null)
-}), "``", /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
+}), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "search",
   element: /*#__PURE__*/_react.default.createElement(_ScreenSearch.default, null)
 }), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
@@ -40176,5 +40177,5 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
   path: "posts/:postId",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
 }))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","./Components/ErrorBoundry":"Components/ErrorBoundry.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./MenuScreens/ScreenContests":"MenuScreens/ScreenContests.js","./MenuScreens/ScreenDiscussion":"MenuScreens/ScreenDiscussion.js","./MenuScreens/ScreenMain":"MenuScreens/ScreenMain.js","./MenuScreens/ScreenProfile":"MenuScreens/ScreenProfile.js","./MenuScreens/ScreenNewPost":"MenuScreens/ScreenNewPost.js","./MenuScreens/ScreenSearch":"MenuScreens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js"}]},{},["index.jsx"], null)
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Components/ErrorBoundry":"Components/ErrorBoundry.js","./MenuScreens/ScreenContests":"MenuScreens/ScreenContests.js","./MenuScreens/ScreenDiscussion":"MenuScreens/ScreenDiscussion.js","./MenuScreens/ScreenMain":"MenuScreens/ScreenMain.js","./MenuScreens/ScreenProfile":"MenuScreens/ScreenProfile.js","./MenuScreens/ScreenNewPost":"MenuScreens/ScreenNewPost.js","./MenuScreens/ScreenSearch":"MenuScreens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js"}]},{},["index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

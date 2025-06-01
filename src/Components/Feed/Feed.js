@@ -66,7 +66,6 @@ export default function Feed( props ) {
     );
 
     useEffect( () => {
-        console.log( CARDS );
         dispatcher( changeParameter( { "name": "cards", "value": CARDS }) );
     }, [ CARDS ]);
 
