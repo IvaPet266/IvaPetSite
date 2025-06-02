@@ -38960,8 +38960,9 @@ function Feed(props) {
   }, []);
   (0, _react.useEffect)(function () {
     localStorage.clear();
+    var link = "https://storage.yandexcloud.net/sharetemp/artworks_data.json";
     try {
-      fetch("https://storage.yandexcloud.net/sharetemp/artworks_data.json").then(/*#__PURE__*/function () {
+      fetch("https://storage.yandexcloud.net/ivacite/server/posts.json").then(/*#__PURE__*/function () {
         var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(response) {
           var data;
           return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -40138,6 +40139,7 @@ function ScreenProfile(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.TextInput = exports.NewPostTextInput = void 0;
 exports.default = ScreenNewPost;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
@@ -40165,6 +40167,14 @@ function ScreenNewPost(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     droppedFile = _useState4[0],
     setDroppedFile = _useState4[1];
+  var _useState5 = (0, _react.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    titleWarning = _useState6[0],
+    setTitleWarning = _useState6[1];
+  var _useState7 = (0, _react.useState)(null),
+    _useState8 = _slicedToArray(_useState7, 2),
+    textContentWarning = _useState8[0],
+    setTextContentWarning = _useState8[1];
   var imageRef = (0, _react.useRef)(null);
   function fileInput() {
     var dropZone = document.getElementById('dropZone');
@@ -40200,6 +40210,10 @@ function ScreenNewPost(props) {
     reader.readAsDataURL(files[0]);
   }
   ;
+  function uploadPost(event) {
+    var funct = "https://functions.yandexcloud.net/d4eg75tmlqest0cq7buv";
+  }
+  ;
   (0, _react.useEffect)(function () {
     document.addEventListener('DOMContentLoaded', fileInput);
     return document.removeEventListener('DOMContentLoaded', fileInput);
@@ -40220,12 +40234,19 @@ function ScreenNewPost(props) {
       // pointerEvents: "none",
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: "row",
+      height: "50%",
+      width: "100%"
+    }
+  }, /*#__PURE__*/_react.default.createElement("div", {
     id: "dropZone",
     style: {
       transition: "all 300ms ease-out",
       background: "grey",
-      height: "50%",
-      width: "45%",
+      height: "100%",
+      width: "55%",
       border: "2px dashed ".concat(dropZoneBorderColor),
       borderRadius: "20px",
       display: "flex",
@@ -40259,6 +40280,7 @@ function ScreenNewPost(props) {
   })), /*#__PURE__*/_react.default.createElement("input", {
     type: "file",
     id: "fileInput",
+    accept: "jpg,jpeg,webm",
     style: {
       display: "none",
       height: "100%",
@@ -40268,9 +40290,100 @@ function ScreenNewPost(props) {
       console.log("change");
       handleFiles(fileInput.files); // обрабатываем выбранные файлы
     }
-  })));
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      padding: "5px",
+      alignItems: "center",
+      justifyContent: 'center',
+      position: "absolute",
+      maxWidth: "35%",
+      top: "5px",
+      right: "5px"
+    }
+  }, /*#__PURE__*/_react.default.createElement(NewPostTextInput, {
+    text: "Title",
+    warning: titleWarning,
+    setWarning: setTitleWarning,
+    textLengthQuota: 70
+  }), /*#__PURE__*/_react.default.createElement(NewPostTextInput, {
+    text: "Text Content",
+    warning: textContentWarning,
+    setWarning: setTextContentWarning,
+    textLengthQuota: 10000
+  })))));
 }
 ;
+var NewPostTextInput = exports.NewPostTextInput = function NewPostTextInput(_ref) {
+  var text = _ref.text,
+    warning = _ref.warning,
+    setWarning = _ref.setWarning,
+    textLengthQuota = _ref.textLengthQuota;
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", {
+    className: "CormorantInfant-serif",
+    style: {
+      color: "white",
+      fontWeight: "bold",
+      fontSize: "25px",
+      margin: 0,
+      marginBottom: "5px"
+    }
+  }, text), /*#__PURE__*/_react.default.createElement(TextInput, {
+    text: text,
+    setWarning: setWarning,
+    textLengthQuota: textLengthQuota
+  }), warning && /*#__PURE__*/_react.default.createElement("p", {
+    className: "CormorantInfant-serif",
+    style: {
+      color: "red",
+      margin: 0,
+      marginTop: "5px"
+    }
+  }, warning.toLowerCase()));
+};
+var TextInput = exports.TextInput = function TextInput(_ref2) {
+  var text = _ref2.text,
+    setWarning = _ref2.setWarning,
+    textLengthQuota = _ref2.textLengthQuota;
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  var stroke_active = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_active;
+  });
+  var _useState9 = (0, _react.useState)(stroke_active),
+    _useState0 = _slicedToArray(_useState9, 2),
+    borderColor = _useState0[0],
+    setBorderColor = _useState0[1];
+  var inputRef = (0, _react.useRef)(null);
+  return /*#__PURE__*/_react.default.createElement("textarea", {
+    className: "CormorantInfant-serif",
+    ref: inputRef,
+    onChange: function onChange() {
+      if (inputRef.current.value.length >= textLengthQuota) {
+        inputRef.current.value = inputRef.current.value.slice(0, textLengthQuota);
+        setWarning("".concat(text, " is too long!"));
+      } else setWarning(null);
+    },
+    name: "comment",
+    rows: textLengthQuota === 70 ? "2" : "10",
+    cols: "45",
+    style: {
+      border: "solid ".concat(borderColor, " 1px"),
+      borderRadius: "20px",
+      minHeight: "20px",
+      width: "95%",
+      backgroundColor: "grey",
+      color: "white",
+      resize: "none",
+      paddingTop: "2px",
+      paddingBottom: "2px",
+      paddingLeft: "5px",
+      paddingRight: "5px"
+    }
+  });
+};
 },{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"MenuScreens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
 

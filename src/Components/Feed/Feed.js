@@ -49,9 +49,9 @@ export default function Feed( props ) {
 
     useEffect(() => {
         localStorage.clear();
-
+        const link = "https://storage.yandexcloud.net/sharetemp/artworks_data.json";
         try {
-            fetch( "https://storage.yandexcloud.net/sharetemp/artworks_data.json" ).then(
+            fetch( "https://storage.yandexcloud.net/ivacite/server/posts.json" ).then(
                 async ( response  ) => {
                     if ( response.ok ) {
                         const data = await response.json();

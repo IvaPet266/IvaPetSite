@@ -4,10 +4,10 @@ import BaseScreen                                              from '../BaseScre
 
 
 export default function CardScreen( props ) {
-    const menuBg        = useSelector ( ( state ) => state.colorTheme.fill_inactive );
-    const menuTextColor = useSelector ( ( state ) => state.colorTheme.stroke_inactive );
-    const bioTextColor  = useSelector( ( state ) => state.colorTheme.stroke_active );
-    const lines         = useSelector( ( state ) => state.colorTheme.lines );
+    const menuBg        = useSelector( ( state ) => state.colorTheme.fill_inactive   );
+    const menuTextColor = useSelector( ( state ) => state.colorTheme.stroke_inactive );
+    const bioTextColor  = useSelector( ( state ) => state.colorTheme.stroke_active   );
+    const lines         = useSelector( ( state ) => state.colorTheme.lines           );
     
     const imageRef = useRef( null );
     const spanRef  = useRef( null );
