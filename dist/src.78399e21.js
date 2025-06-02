@@ -37613,12 +37613,21 @@ function BaseScreen(props) {
     ;
   }
   ;
+  function stopDropFiles(event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  ;
 
   //* подписка/окна на событие изменения размеров страницы/окна после рендера страницы
   (0, _react.useEffect)(function () {
     window.addEventListener("resize", onResize);
+    document.addEventListener('dragover', stopDropFiles, false);
+    document.addEventListener('drop', stopDropFiles, false);
     return function () {
-      return window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", onResize);
+      document.removeEventListener('dragover', stopDropFiles, false);
+      document.removeEventListener('drop', stopDropFiles, false);
     };
   });
 
@@ -37636,7 +37645,21 @@ function BaseScreen(props) {
       cursor: isDragging ? "grabbing" : "auto"
     },
     onWheel: onWheel,
-    ref: baseRef
+    ref: baseRef,
+    onDrop: function onDrop() {
+      return false;
+    },
+    onDragStart: function onDragStart() {
+      return false;
+    },
+    onDragEnter: function onDragEnter(event) {
+      event.preventDefault();
+      return false;
+    },
+    onDragOver: function onDragOver(event) {
+      event.preventDefault();
+      return false;
+    }
   }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "flex",
@@ -40116,18 +40139,139 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = ScreenNewPost;
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
+var _reactRedux = require("react-redux");
 var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function ScreenNewPost(props) {
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  var stroke_active = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_active;
+  });
+  var _useState = (0, _react.useState)(stroke_active),
+    _useState2 = _slicedToArray(_useState, 2),
+    dropZoneBorderColor = _useState2[0],
+    setDropZoneBorderColor = _useState2[1];
+  var _useState3 = (0, _react.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    droppedFile = _useState4[0],
+    setDroppedFile = _useState4[1];
+  var imageRef = (0, _react.useRef)(null);
+  function fileInput() {
+    var dropZone = document.getElementById('dropZone');
+    var fileInput = document.getElementById('fileInput');
+    console.log("DOMContentLoaded");
+
+    // Клик по зоне загрузки открывает окно выбора файлов
+    dropZone.addEventListener('click', function () {
+      console.log("click");
+      fileInput.click(); // показываем скрытый input для выбора файлов
+    });
+  }
+  ;
+
+  // Функция обработки загруженных файлов
+  function handleFiles(files) {
+    setDroppedFile(true);
+    console.log(files.length, files[0].type);
+    if (!files.length || !files[0].type.startsWith("image/")) {
+      console.log("return");
+      return;
+    }
+    for (var i = 0; i < files.length; i++) {
+      console.log("\u0424\u0430\u0439\u043B ".concat(i + 1, ":"), files[i].name);
+    }
+    ;
+    var reader = new FileReader();
+    reader.onload = function () {
+      console.log("reader.onload()");
+      var imgUrl = reader.result;
+      imageRef.current.src = imgUrl;
+    };
+    reader.readAsDataURL(files[0]);
+  }
+  ;
+  (0, _react.useEffect)(function () {
+    document.addEventListener('DOMContentLoaded', fileInput);
+    return document.removeEventListener('DOMContentLoaded', fileInput);
+  });
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      background: "red"
+      display: "flex",
+      flexDirection: "column",
+      width: "80%",
+      position: "absolute",
+      top: "calc( 100px + ( 100vh - 100px ) * 0.05 )",
+      bottom: "calc( ( 100vh - 100px ) * 0.05 )",
+      left: "calc( 100vw - 90% )",
+      border: "solid ".concat(stroke_active, " 2px"),
+      borderRadius: "20px",
+      padding: "5px",
+      background: "darkgrey"
+      // pointerEvents: "none",
     }
-  }, "ScreenNewPost"));
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    id: "dropZone",
+    style: {
+      transition: "all 300ms ease-out",
+      background: "grey",
+      height: "50%",
+      width: "45%",
+      border: "2px dashed ".concat(dropZoneBorderColor),
+      borderRadius: "20px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "18px",
+      color: stroke_active,
+      cursor: "pointer",
+      zIndex: 3
+    },
+    onDrop: function onDrop(event) {
+      console.log("drop");
+      event.preventDefault();
+      setDropZoneBorderColor(stroke_active); // возвращаем исходный вид рамки
+      handleFiles(event.dataTransfer.files);
+    },
+    onDragLeave: function onDragLeave() {
+      setDropZoneBorderColor(stroke_active);
+    },
+    onDragOver: function onDragOver(event) {
+      console.log("dragover");
+      event.preventDefault();
+      setDropZoneBorderColor(lines);
+    }
+  }, droppedFile && /*#__PURE__*/_react.default.createElement("img", {
+    ref: imageRef,
+    style: {
+      height: "100%",
+      width: "auto"
+    }
+  })), /*#__PURE__*/_react.default.createElement("input", {
+    type: "file",
+    id: "fileInput",
+    style: {
+      display: "none",
+      height: "100%",
+      width: "100%"
+    },
+    onChange: function onChange() {
+      console.log("change");
+      handleFiles(fileInput.files); // обрабатываем выбранные файлы
+    }
+  })));
 }
 ;
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"MenuScreens/ScreenSearch.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"MenuScreens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

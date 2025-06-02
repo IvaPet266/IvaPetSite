@@ -61,10 +61,22 @@ export default function BaseScreen( props ) {
     };
   };
 
+  function stopDropFiles( event ) {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   //* подписка/окна на событие изменения размеров страницы/окна после рендера страницы
   useEffect(() => {
-    window.addEventListener( "resize", onResize );
-    return () => window.removeEventListener( "resize", onResize );
+    window.addEventListener( "resize", onResize                 );
+    document.addEventListener( 'dragover', stopDropFiles, false );
+    document.addEventListener( 'drop', stopDropFiles, false     );
+    
+    return () => {
+      window.removeEventListener( "resize", onResize                 );
+      document.removeEventListener( 'dragover', stopDropFiles, false );
+      document.removeEventListener( 'drop', stopDropFiles, false     );
+    };
   });
 
   //* вызов функции onResize() сразу после рендера страницы, чтобы своевременно изменить размер слайдера
@@ -83,7 +95,18 @@ export default function BaseScreen( props ) {
         cursor:          isDragging ? "grabbing" : "auto"
       }}
       onWheel={ onWheel }
-      ref    ={ baseRef }>
+      ref    ={ baseRef }
+      onDrop     ={() => false }
+      onDragStart={() => false }
+      onDragEnter={( event ) => {
+        event.preventDefault(); 
+        return false;
+      }}
+      onDragOver ={( event ) => {
+        event.preventDefault(); 
+        return false; 
+      }}
+      >
       <div style={{ 
           display:       "flex", 
           flexDirection: "column", 

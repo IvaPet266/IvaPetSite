@@ -14,10 +14,16 @@
                 margin: 0;
                 padding: 0;
                 overflow: hidden; 
+                /* -webkit-user-drag: none;
+                user-select: none; */
             }
         </style>
     </head>
     <body>
+        <!-- ondrop     ="return false;" 
+        ondragstart="return false;" 
+        ondragenter="event.preventDefault(); return false;" 
+        ondragover ="event.preventDefault(); return false;"> -->
         <div id="app"></div>
         <script type="module" src="index.jsx"></script>
     </body>
