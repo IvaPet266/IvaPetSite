@@ -54,6 +54,7 @@ export default function ScreenNewPost( props ) {
       const imgUrl = reader.result;
       imageRef.current.src = imgUrl;
     };
+    
     reader.readAsDataURL( files[ 0 ] );
   };
 
