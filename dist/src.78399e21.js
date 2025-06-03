@@ -20356,7 +20356,8 @@ var configParams = exports.configParams = (0, _toolkit.createSlice)({
     scroll: 0,
     cardsAmount: 0,
     cards: null,
-    isDragging: false
+    isDragging: false,
+    isAuthorized: false
   },
   reducers: {
     changeParameter: function changeParameter(state, parameter) {
@@ -40144,6 +40145,7 @@ exports.default = ScreenNewPost;
 var _react = _interopRequireWildcard(require("react"));
 var _reactRedux = require("react-redux");
 var _BaseScreen = _interopRequireDefault(require("../Components/BaseScreen"));
+var _reactRouter = require("react-router");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
@@ -40159,6 +40161,10 @@ function ScreenNewPost(props) {
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
+  var isAuthorized = (0, _reactRedux.useSelector)(function (state) {
+    return state.configParams.isAuthorized;
+  });
+  var navigate = (0, _reactRouter.useNavigate)();
   var _useState = (0, _react.useState)(stroke_active),
     _useState2 = _slicedToArray(_useState, 2),
     dropZoneBorderColor = _useState2[0],
@@ -40175,7 +40181,14 @@ function ScreenNewPost(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     textContentWarning = _useState8[0],
     setTextContentWarning = _useState8[1];
+  var _useState9 = (0, _react.useState)("ARTWORK"),
+    _useState0 = _slicedToArray(_useState9, 2),
+    category = _useState0[0],
+    setCategory = _useState0[1];
   var imageRef = (0, _react.useRef)(null);
+  var selectRef = (0, _react.useRef)(null);
+  var uploadDivRef = (0, _react.useRef)(null);
+  var uploadDivWidth = (0, _react.useRef)("100%");
   function fileInput() {
     var dropZone = document.getElementById('dropZone');
     var fileInput = document.getElementById('fileInput');
@@ -40211,17 +40224,24 @@ function ScreenNewPost(props) {
   }
   ;
   function uploadPost(event) {
-    var funct = "https://functions.yandexcloud.net/d4eg75tmlqest0cq7buv";
+    var func = "https://functions.yandexcloud.net/d4eg75tmlqest0cq7buv";
   }
   ;
   (0, _react.useEffect)(function () {
     document.addEventListener('DOMContentLoaded', fileInput);
+    if (!isAuthorized) {
+      navigate("/auth");
+    }
+    ;
     return document.removeEventListener('DOMContentLoaded', fileInput);
   });
+  (0, _react.useEffect)(function () {
+    uploadDivWidth.current = uploadDivRef.current.clientWidth;
+  }, [category]);
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
     style: {
       display: "flex",
-      flexDirection: "column",
+      flexDirection: "row",
       width: "80%",
       position: "absolute",
       top: "calc( 100px + ( 100vh - 100px ) * 0.05 )",
@@ -40235,18 +40255,20 @@ function ScreenNewPost(props) {
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
+      transition: "all 300ms ease-out",
       display: 'flex',
-      flexDirection: "row",
-      height: "50%",
-      width: "100%"
-    }
-  }, /*#__PURE__*/_react.default.createElement("div", {
+      flexDirection: "column",
+      height: "100%",
+      width: category === "ARTWORK" ? "55%" : "30%"
+    },
+    ref: uploadDivRef
+  }, category === "ARTWORK" && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     id: "dropZone",
     style: {
       transition: "all 300ms ease-out",
       background: "grey",
-      height: "100%",
-      width: "55%",
+      height: "50%",
+      width: "".concat(uploadDivWidth.current - 4, "px"),
       border: "2px dashed ".concat(dropZoneBorderColor),
       borderRadius: "20px",
       display: "flex",
@@ -40290,15 +40312,59 @@ function ScreenNewPost(props) {
       console.log("change");
       handleFiles(fileInput.files); // обрабатываем выбранные файлы
     }
-  }), /*#__PURE__*/_react.default.createElement("div", {
+  })), /*#__PURE__*/_react.default.createElement("div", {
     style: {
+      transition: "all 300ms ease-out",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "".concat(uploadDivWidth.current, "px")
+    }
+  }, /*#__PURE__*/_react.default.createElement("h3", {
+    className: "CormorantInfant-serif",
+    style: {
+      color: "white",
+      fontWeight: "bold",
+      fontSize: "20px",
+      margin: 0,
+      marginBottom: "5px"
+    }
+  }, "Choose post category"), /*#__PURE__*/_react.default.createElement("select", {
+    id: "categories",
+    name: "category",
+    style: {
+      background: "grey",
+      border: "solid white 1px",
+      borderRadius: "20px",
+      width: "100%"
+    },
+    ref: selectRef,
+    onChange: function onChange() {
+      setCategory(["ARTWORK", "PROSE", "POEM"][selectRef.current.selectedIndex]);
+      if (selectRef.current.selectedIndex == 1 || selectRef.current.selectedIndex == 2) {
+        setDroppedFile(false);
+      }
+      ;
+    }
+  }, /*#__PURE__*/_react.default.createElement("option", {
+    value: "ARTWORK"
+  }, "Artwork"), /*#__PURE__*/_react.default.createElement("option", {
+    value: "PROSE"
+  }, "Prose  "), /*#__PURE__*/_react.default.createElement("option", {
+    value: "POEM"
+  }, "Poetry ")))), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      transition: "all 300ms ease-out",
       display: "flex",
       flexDirection: "column",
       padding: "5px",
       alignItems: "center",
       justifyContent: 'center',
       position: "absolute",
-      maxWidth: "35%",
+      width: category === "ARTWORK" ? "35%" : "60%",
+      height: "95%",
+      // maxWidth:       "35%",
       top: "5px",
       right: "5px"
     }
@@ -40307,12 +40373,12 @@ function ScreenNewPost(props) {
     warning: titleWarning,
     setWarning: setTitleWarning,
     textLengthQuota: 70
-  }), /*#__PURE__*/_react.default.createElement(NewPostTextInput, {
+  }), category !== "ARTWORK" && /*#__PURE__*/_react.default.createElement(NewPostTextInput, {
     text: "Text Content",
     warning: textContentWarning,
     setWarning: setTextContentWarning,
     textLengthQuota: 10000
-  })))));
+  }))));
 }
 ;
 var NewPostTextInput = exports.NewPostTextInput = function NewPostTextInput(_ref) {
@@ -40338,7 +40404,7 @@ var NewPostTextInput = exports.NewPostTextInput = function NewPostTextInput(_ref
     style: {
       color: "red",
       margin: 0,
-      marginTop: "5px"
+      marginTop: "2px"
     }
   }, warning.toLowerCase()));
 };
@@ -40352,10 +40418,10 @@ var TextInput = exports.TextInput = function TextInput(_ref2) {
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
-  var _useState9 = (0, _react.useState)(stroke_active),
-    _useState0 = _slicedToArray(_useState9, 2),
-    borderColor = _useState0[0],
-    setBorderColor = _useState0[1];
+  var _useState1 = (0, _react.useState)(stroke_active),
+    _useState10 = _slicedToArray(_useState1, 2),
+    borderColor = _useState10[0],
+    setBorderColor = _useState10[1];
   var inputRef = (0, _react.useRef)(null);
   return /*#__PURE__*/_react.default.createElement("textarea", {
     className: "CormorantInfant-serif",
@@ -40367,12 +40433,12 @@ var TextInput = exports.TextInput = function TextInput(_ref2) {
       } else setWarning(null);
     },
     name: "comment",
-    rows: textLengthQuota === 70 ? "2" : "10",
     cols: "45",
     style: {
       border: "solid ".concat(borderColor, " 1px"),
       borderRadius: "20px",
       minHeight: "20px",
+      height: textLengthQuota === 70 ? "32px" : "60%",
       width: "95%",
       backgroundColor: "grey",
       color: "white",
@@ -40384,7 +40450,7 @@ var TextInput = exports.TextInput = function TextInput(_ref2) {
     }
   });
 };
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"MenuScreens/ScreenSearch.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","../Components/BaseScreen":"Components/BaseScreen.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"MenuScreens/ScreenSearch.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40401,7 +40467,20 @@ function ScreenSearch(props) {
     }
   }, "ScreenSearch"));
 }
-},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"index.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../Components/BaseScreen":"Components/BaseScreen.js"}],"Components/AuthScreen.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AuthScreen;
+var _react = _interopRequireDefault(require("react"));
+var _BaseScreen = _interopRequireDefault(require("./BaseScreen"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function AuthScreen(props) {
+  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, "AuthScreen");
+}
+},{"react":"../node_modules/react/index.js","./BaseScreen":"Components/BaseScreen.js"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -40417,6 +40496,7 @@ var _ScreenProfile = _interopRequireDefault(require("./MenuScreens/ScreenProfile
 var _ScreenNewPost = _interopRequireDefault(require("./MenuScreens/ScreenNewPost"));
 var _ScreenSearch = _interopRequireDefault(require("./MenuScreens/ScreenSearch"));
 var _CardScreen = _interopRequireDefault(require("./Components/Card/CardScreen"));
+var _AuthScreen = _interopRequireDefault(require("./Components/AuthScreen"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_react.default.createElement(_ErrorBoundry.default, null, /*#__PURE__*/_react.default.createElement(_reactRedux.Provider, {
   store: _store.default
@@ -40453,6 +40533,9 @@ _client.default.createRoot(document.getElementById("app")).render(/*#__PURE__*/_
 })), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
   path: "posts/:postId",
   element: /*#__PURE__*/_react.default.createElement(_CardScreen.default, null)
+}), /*#__PURE__*/_react.default.createElement(_reactRouter.Route, {
+  path: "auth",
+  element: /*#__PURE__*/_react.default.createElement(_AuthScreen.default, null)
 }))))));
-},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Components/ErrorBoundry":"Components/ErrorBoundry.js","./MenuScreens/ScreenContests":"MenuScreens/ScreenContests.js","./MenuScreens/ScreenDiscussion":"MenuScreens/ScreenDiscussion.js","./MenuScreens/ScreenMain":"MenuScreens/ScreenMain.js","./MenuScreens/ScreenProfile":"MenuScreens/ScreenProfile.js","./MenuScreens/ScreenNewPost":"MenuScreens/ScreenNewPost.js","./MenuScreens/ScreenSearch":"MenuScreens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js"}]},{},["index.jsx"], null)
+},{"react":"../node_modules/react/index.js","react-dom/client":"../node_modules/react-dom/client.js","./app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs","./Components/ErrorBoundry":"Components/ErrorBoundry.js","./MenuScreens/ScreenContests":"MenuScreens/ScreenContests.js","./MenuScreens/ScreenDiscussion":"MenuScreens/ScreenDiscussion.js","./MenuScreens/ScreenMain":"MenuScreens/ScreenMain.js","./MenuScreens/ScreenProfile":"MenuScreens/ScreenProfile.js","./MenuScreens/ScreenNewPost":"MenuScreens/ScreenNewPost.js","./MenuScreens/ScreenSearch":"MenuScreens/ScreenSearch.js","./Components/Card/CardScreen":"Components/Card/CardScreen.js","./Components/AuthScreen":"Components/AuthScreen.js"}]},{},["index.jsx"], null)
 //# sourceMappingURL=/src.78399e21.js.map

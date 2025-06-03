@@ -93,11 +93,12 @@ export const { changeFilter, back2defaultFilters } = filters.actions;
 export const configParams = createSlice({
     name: "configParams",
     initialState: {
-        filters:     false,
-        scroll:      0,
-        cardsAmount: 0, 
-        cards:       null,
-        isDragging:  false,
+        filters:      false,
+        scroll:       0,
+        cardsAmount:  0, 
+        cards:        null,
+        isDragging:   false,
+        isAuthorized: false
     },
     reducers: {
         changeParameter: ( state, parameter ) => {

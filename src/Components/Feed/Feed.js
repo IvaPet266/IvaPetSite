@@ -63,7 +63,7 @@ export default function Feed( props ) {
             );
         } catch ( error ) { console.warn( error ); };
     }, []);
-
+        
     useEffect( () => {
         dispatcher( changeParameter( { "name": "cards", "value": CARDS }) );
     }, [ CARDS ]);

@@ -12,6 +12,7 @@ import ScreenProfile    from "./MenuScreens/ScreenProfile";
 import ScreenNewPost    from "./MenuScreens/ScreenNewPost";
 import ScreenSearch     from "./MenuScreens/ScreenSearch";
 import CardScreen       from "./Components/Card/CardScreen";
+import AuthScreen       from "./Components/AuthScreen";
 
 
 ReactDOM.createRoot( document.getElementById( "app" ) ).render( 
@@ -34,6 +35,7 @@ ReactDOM.createRoot( document.getElementById( "app" ) ).render(
                             <Route path="support"    />
                         </Route>
                         <Route path="posts/:postId" element={ <CardScreen/> }/>
+                        <Route path="auth"          element={ <AuthScreen/> }/>
                     </Routes>
                 </BrowserRouter>
         </Provider>
