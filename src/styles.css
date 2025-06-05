@@ -29,3 +29,7 @@
   animation: load 1s infinite steps(var(--n));
 }
 @keyframes load {to{transform: rotate(1turn)}}
+
+p {
+  
+}

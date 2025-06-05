@@ -40161,6 +40161,12 @@ function ScreenNewPost(props) {
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
+  var fill_inactive = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var fill_active = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_active;
+  });
   var isAuthorized = (0, _reactRedux.useSelector)(function (state) {
     return state.configParams.isAuthorized;
   });
@@ -40230,6 +40236,7 @@ function ScreenNewPost(props) {
   (0, _react.useEffect)(function () {
     document.addEventListener('DOMContentLoaded', fileInput);
     if (!isAuthorized) {
+      alert("You are not authorized!");
       navigate("/auth");
     }
     ;
@@ -40250,7 +40257,7 @@ function ScreenNewPost(props) {
       border: "solid ".concat(stroke_active, " 2px"),
       borderRadius: "20px",
       padding: "5px",
-      background: "darkgrey"
+      background: fill_inactive
       // pointerEvents: "none",
     }
   }, /*#__PURE__*/_react.default.createElement("div", {
@@ -40266,7 +40273,7 @@ function ScreenNewPost(props) {
     id: "dropZone",
     style: {
       transition: "all 300ms ease-out",
-      background: "grey",
+      background: fill_active,
       height: "50%",
       width: "".concat(uploadDivWidth.current - 4, "px"),
       border: "2px dashed ".concat(dropZoneBorderColor),
@@ -40324,7 +40331,7 @@ function ScreenNewPost(props) {
   }, /*#__PURE__*/_react.default.createElement("h3", {
     className: "CormorantInfant-serif",
     style: {
-      color: "white",
+      color: fill_active,
       fontWeight: "bold",
       fontSize: "20px",
       margin: 0,
@@ -40333,11 +40340,13 @@ function ScreenNewPost(props) {
   }, "Choose post category"), /*#__PURE__*/_react.default.createElement("select", {
     id: "categories",
     name: "category",
+    className: "CormorantInfant-serif",
     style: {
-      background: "grey",
-      border: "solid white 1px",
+      background: fill_active,
+      border: "solid ".concat(stroke_active, " 1px"),
       borderRadius: "20px",
-      width: "100%"
+      width: "100%",
+      color: stroke_active
     },
     ref: selectRef,
     onChange: function onChange() {
@@ -40371,11 +40380,13 @@ function ScreenNewPost(props) {
   }, /*#__PURE__*/_react.default.createElement(NewPostTextInput, {
     text: "Title",
     warning: titleWarning,
+    textColor: fill_active,
     setWarning: setTitleWarning,
     textLengthQuota: 70
   }), category !== "ARTWORK" && /*#__PURE__*/_react.default.createElement(NewPostTextInput, {
     text: "Text Content",
     warning: textContentWarning,
+    textColor: fill_active,
     setWarning: setTextContentWarning,
     textLengthQuota: 10000
   }))));
@@ -40384,12 +40395,13 @@ function ScreenNewPost(props) {
 var NewPostTextInput = exports.NewPostTextInput = function NewPostTextInput(_ref) {
   var text = _ref.text,
     warning = _ref.warning,
+    textColor = _ref.textColor,
     setWarning = _ref.setWarning,
     textLengthQuota = _ref.textLengthQuota;
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", {
     className: "CormorantInfant-serif",
     style: {
-      color: "white",
+      color: textColor,
       fontWeight: "bold",
       fontSize: "25px",
       margin: 0,
@@ -40418,6 +40430,12 @@ var TextInput = exports.TextInput = function TextInput(_ref2) {
   var stroke_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.stroke_active;
   });
+  var fill_inactive = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var fill_active = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_active;
+  });
   var _useState1 = (0, _react.useState)(stroke_active),
     _useState10 = _slicedToArray(_useState1, 2),
     borderColor = _useState10[0],
@@ -40440,8 +40458,8 @@ var TextInput = exports.TextInput = function TextInput(_ref2) {
       minHeight: "20px",
       height: textLengthQuota === 70 ? "32px" : "60%",
       width: "95%",
-      backgroundColor: "grey",
-      color: "white",
+      backgroundColor: fill_active,
+      color: stroke_active,
       resize: "none",
       paddingTop: "2px",
       paddingBottom: "2px",
@@ -40474,13 +40492,143 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = AuthScreen;
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 var _BaseScreen = _interopRequireDefault(require("./BaseScreen"));
+var _store = require("../app/store");
+var _reactRedux = require("react-redux");
+var _reactRouter = require("react-router");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _interopRequireWildcard(e, t) { if ("function" == typeof WeakMap) var r = new WeakMap(), n = new WeakMap(); return (_interopRequireWildcard = function (e, t) { if (!t && e && e.__esModule) return e; var o, i, f = { __proto__: null, default: e }; if (null === e || "object" != typeof e && "function" != typeof e) return f; if (o = t ? n : r) { if (o.has(e)) return o.get(e); o.set(e, f); } for (const t in e) "default" !== t && {}.hasOwnProperty.call(e, t) && ((i = (o = Object.defineProperty) && Object.getOwnPropertyDescriptor(e, t)) && (i.get || i.set) ? o(f, t, i) : f[t] = e[t]); return f; })(e, t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function AuthScreen(props) {
-  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, "AuthScreen");
+  var lines = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.lines;
+  });
+  var stroke_active = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.stroke_active;
+  });
+  var fill_inactive = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_inactive;
+  });
+  var fill_active = (0, _reactRedux.useSelector)(function (state) {
+    return state.colorTheme.fill_active;
+  });
+  var _useState = (0, _react.useState)(1),
+    _useState2 = _slicedToArray(_useState, 2),
+    registerFocus = _useState2[0],
+    setRegisterFocus = _useState2[1];
+  var _useState3 = (0, _react.useState)(0.5),
+    _useState4 = _slicedToArray(_useState3, 2),
+    loginFocus = _useState4[0],
+    setLoginFocus = _useState4[1];
+  var _useState5 = (0, _react.useState)("register"),
+    _useState6 = _slicedToArray(_useState5, 2),
+    registerLoginState = _useState6[0],
+    setRegisterLoginState = _useState6[1];
+  var navigate = (0, _reactRouter.useNavigate)();
+  var dispatcher = (0, _reactRedux.useDispatch)();
+  return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "CormorantInfant-serif",
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      width: "30%",
+      position: "absolute",
+      top: "calc( 100px + ( 100vh - 100px ) * 0.05 )",
+      bottom: "calc( ( 100vh - 100px ) * 0.05 )",
+      left: "calc( 100vw - 65% )",
+      border: "solid ".concat(stroke_active, " 2px"),
+      borderRadius: "20px",
+      padding: "5px",
+      backgroundColor: fill_inactive,
+      color: fill_active,
+      // justifyContent:  "center",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/_react.default.createElement("h3", {
+    style: {
+      fontSize: "28px",
+      margin: 0,
+      marginTop: "10px",
+      height: "10%"
+    }
+  }, "Authorization"), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      height: "5%",
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/_react.default.createElement("h3", {
+    style: {
+      transition: "opacity 300ms ease-out",
+      cursor: "pointer",
+      opacity: registerFocus,
+      marginRight: "5px",
+      marginTop: "5px"
+    },
+    onMouseEnter: function onMouseEnter() {
+      if (registerLoginState !== "register") {
+        setRegisterFocus(0.9);
+      }
+      ;
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (registerLoginState !== "register") {
+        setRegisterFocus(0.5);
+      }
+      ;
+    },
+    onClick: function onClick() {
+      setRegisterLoginState("register");
+      setRegisterFocus(1);
+      setLoginFocus(0.5);
+    }
+  }, "register"), /*#__PURE__*/_react.default.createElement("h3", {
+    style: {
+      transition: "opacity 300ms ease-out",
+      cursor: "pointer",
+      opacity: loginFocus,
+      marginLeft: "5px",
+      marginTop: "5px"
+    },
+    onMouseEnter: function onMouseEnter() {
+      if (registerLoginState !== "login") {
+        setLoginFocus(0.9);
+      }
+      ;
+    },
+    onMouseLeave: function onMouseLeave() {
+      if (registerLoginState !== "login") {
+        setLoginFocus(0.5);
+      }
+      ;
+    },
+    onClick: function onClick() {
+      setRegisterLoginState("login");
+      setLoginFocus(1);
+      setRegisterFocus(0.5);
+    }
+  }, "log in")), /*#__PURE__*/_react.default.createElement("button", {
+    style: {
+      position: "absolute",
+      bottom: "10px"
+    },
+    onClick: function onClick() {
+      dispatcher((0, _store.changeParameter)({
+        name: "isAuthorized",
+        value: true
+      }));
+      navigate("/newpost");
+    }
+  }, "TEST BUTTON")));
 }
-},{"react":"../node_modules/react/index.js","./BaseScreen":"Components/BaseScreen.js"}],"index.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./BaseScreen":"Components/BaseScreen.js","../app/store":"app/store.js","react-redux":"../node_modules/react-redux/dist/react-redux.legacy-esm.js","react-router":"../node_modules/react-router/dist/development/index.mjs"}],"index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));

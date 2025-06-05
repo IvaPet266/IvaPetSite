@@ -7,6 +7,8 @@ export default function ScreenNewPost( props ) {
 
   const lines         = useSelector( ( state ) => state.colorTheme.lines         );
   const stroke_active = useSelector( ( state ) => state.colorTheme.stroke_active );
+  const fill_inactive = useSelector( ( state ) => state.colorTheme.fill_inactive );
+  const fill_active   = useSelector( ( state ) => state.colorTheme.fill_active   );
 
   const isAuthorized  = useSelector( ( state ) => state.configParams.isAuthorized );
 
@@ -65,6 +67,7 @@ export default function ScreenNewPost( props ) {
   useEffect(() => {
     document.addEventListener( 'DOMContentLoaded', fileInput );
     if ( !isAuthorized ) {
+      alert( "You are not authorized!" );
       navigate( "/auth" );
     };
     return document.removeEventListener( 'DOMContentLoaded', fileInput );
@@ -89,7 +92,7 @@ export default function ScreenNewPost( props ) {
           border:        `solid ${ stroke_active } 2px`,
           borderRadius:  "20px",
           padding:       "5px",
-          background:    "darkgrey", 
+          background:    fill_inactive,
           // pointerEvents: "none",
         }}>
         <div
@@ -110,7 +113,7 @@ export default function ScreenNewPost( props ) {
                   id   ="dropZone"
                   style={{
                     transition:     "all 300ms ease-out",
-                    background:     "grey",
+                    background:     fill_active,
                     height:         "50%",
                     width:          `${ uploadDivWidth.current - 4 }px`,
                     border:         `2px dashed ${ dropZoneBorderColor }`,
@@ -182,7 +185,7 @@ export default function ScreenNewPost( props ) {
             <h3
               className='CormorantInfant-serif'
               style={{
-                color:        "white",
+                color:        fill_active,
                 fontWeight:   "bold",
                 fontSize:     "20px",
                 margin:       0,
@@ -192,13 +195,15 @@ export default function ScreenNewPost( props ) {
                 Choose post category
             </h3>
             <select 
-              id  ="categories" 
-              name='category'
+              id       ="categories" 
+              name     ='category'
+              className='CormorantInfant-serif'
               style={{
-                background:   "grey",
-                border:       `solid white 1px`,
+                background:   fill_active,
+                border:       `solid ${ stroke_active } 1px`,
                 borderRadius: "20px",
-                width:        "100%"
+                width:        "100%",
+                color:        stroke_active
               }}
               ref={ selectRef }
               onChange={() => {
@@ -234,6 +239,7 @@ export default function ScreenNewPost( props ) {
           <NewPostTextInput 
             text           ="Title" 
             warning        ={ titleWarning } 
+            textColor      ={ fill_active }
             setWarning     ={ setTitleWarning } 
             textLengthQuota={ 70 }
             />
@@ -242,6 +248,7 @@ export default function ScreenNewPost( props ) {
             <NewPostTextInput 
               text           ="Text Content" 
               warning        ={ textContentWarning } 
+              textColor      ={ fill_active }
               setWarning     ={ setTextContentWarning } 
               textLengthQuota={ 10000 }
               />
@@ -255,14 +262,15 @@ export default function ScreenNewPost( props ) {
 export const NewPostTextInput = ({
   text,
   warning,
+  textColor,
   setWarning,
-  textLengthQuota
+  textLengthQuota,
 }) => (
   <>
     <h3
       className='CormorantInfant-serif'
       style={{
-        color:        "white",
+        color:        textColor,
         fontWeight:   "bold",
         fontSize:     "25px",
         margin:       0,
@@ -294,6 +302,8 @@ export const TextInput = ({
 }) => {
   const lines         = useSelector( ( state ) => state.colorTheme.lines         );
   const stroke_active = useSelector( ( state ) => state.colorTheme.stroke_active );
+  const fill_inactive = useSelector( ( state ) => state.colorTheme.fill_inactive );
+  const fill_active   = useSelector( ( state ) => state.colorTheme.fill_active   );
 
   const [ borderColor, setBorderColor ] = useState( stroke_active );
 
@@ -317,8 +327,8 @@ export const TextInput = ({
         minHeight:       "20px",
         height:          textLengthQuota === 70 ? "32px" : "60%",
         width:           "95%",
-        backgroundColor: "grey",
-        color:           "white", 
+        backgroundColor: fill_active,
+        color:           stroke_active, 
         resize:          "none",
         paddingTop:      "2px",
         paddingBottom:   "2px",
