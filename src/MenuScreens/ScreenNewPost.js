@@ -19,12 +19,14 @@ export default function ScreenNewPost( props ) {
   const [ titleWarning,        setTitleWarning        ] = useState( null          );
   const [ textContentWarning,  setTextContentWarning  ] = useState( null          );
   const [ category,            setCategory            ] = useState( "ARTWORK"     );
+  const [ categoryWidth,       setCategoryWidth       ] = useState( "55%"         );
+  const [ textInputWidth,      setTextInputWidth      ] = useState( "55%"         );
   
   const imageRef     = useRef( null );
   const selectRef    = useRef( null );
   const uploadDivRef = useRef( null );
   
-  const uploadDivWidth = useRef( "100%"    );
+  const uploadDivWidth = useRef( "100%" );
 
   function fileInput() {
     const dropZone  = document.getElementById( 'dropZone'  );
@@ -44,7 +46,7 @@ export default function ScreenNewPost( props ) {
     setDroppedFile( true );
     console.log( files.length, files[ 0 ].type );
     if ( !files.length || !files[ 0 ].type.startsWith( "image/" ) ) {
-      console.log("return"); 
+      alert( "Incorrect file format" );
       return;
     }
     for( let i = 0; i < files.length; i++ ) {
@@ -71,10 +73,12 @@ export default function ScreenNewPost( props ) {
       navigate( "/auth" );
     };
     return document.removeEventListener( 'DOMContentLoaded', fileInput );
-  });
+  }, []);
 
   useEffect( () => {
-    uploadDivWidth.current = uploadDivRef.current.clientWidth;
+    console.log(category);
+    setCategoryWidth(  category === "ARTWORK" ? "55%" : "30%" );
+    setTextInputWidth( category === "ARTWORK" ? "35%" : "60%" );
   }, [ category ] );
   
   return (
@@ -101,7 +105,11 @@ export default function ScreenNewPost( props ) {
             display:       'flex',
             flexDirection: "column",
             height:        "100%",
-            width:         category === "ARTWORK" ? "55%" : "30%"
+            width:         categoryWidth,
+            position:      "absolute",
+            left:          "5px",
+            top:           "5px",
+            bottom:        "5px",
           }}
           ref  ={ uploadDivRef }
           >
@@ -126,7 +134,7 @@ export default function ScreenNewPost( props ) {
                     cursor:         "pointer",
                     zIndex:         3
                   }}
-                  onDrop={( event ) => {
+                  onDrop     ={( event ) => {
                     console.log("drop");
                     event.preventDefault();
                     setDropZoneBorderColor( stroke_active ); // возвращаем исходный вид рамки
@@ -135,7 +143,7 @@ export default function ScreenNewPost( props ) {
                   onDragLeave={() => {
                     setDropZoneBorderColor( stroke_active );
                   }}
-                  onDragOver={( event ) => {
+                  onDragOver ={( event ) => {
                     console.log("dragover");
                     event.preventDefault();
                     setDropZoneBorderColor( lines );
@@ -145,14 +153,14 @@ export default function ScreenNewPost( props ) {
                       droppedFile && 
                       (
                         <img
-                        ref  ={ imageRef }
-                        style={{
-                          height: "100%",
-                          width:  "auto",
-                        }}
+                          ref  ={ imageRef }
+                          style={{
+                            height: "100%",
+                            width:  "auto",
+                          }}
                         />
-                        )
-                      }
+                      )
+                    }
                 </div>
                 <input 
                   type ="file"
@@ -172,13 +180,15 @@ export default function ScreenNewPost( props ) {
             )
           }
           <div
+            id="selectionDiv"
             style={{
               transition:     "all 300ms ease-out",
               display:        "flex",
               flexDirection:  "column",
               justifyContent: "center",
               alignItems:     "center",
-              width:          `${ uploadDivWidth.current }px`
+              width: "100%",
+              // width:          `${ uploadDivWidth.current }px`
             }}
             >
             {/* <input type="checkbox" value="jjjj"/> */}
@@ -208,8 +218,10 @@ export default function ScreenNewPost( props ) {
               ref={ selectRef }
               onChange={() => {
                 setCategory( [ "ARTWORK", "PROSE", "POEM" ][ selectRef.current.selectedIndex ] );
-
-                if ( selectRef.current.selectedIndex == 1 || selectRef.current.selectedIndex == 2 ) {
+                if ( selectRef.current.selectedIndex !== 0 ) {
+                  if ( droppedFile ) {
+                    alert( "Are you sure you want to unselect the chozen photo?" );
+                  };
                   setDroppedFile( false );
                 };
               }}
@@ -229,10 +241,11 @@ export default function ScreenNewPost( props ) {
             alignItems:     "center",
             justifyContent: 'center',
             position:       "absolute",
-            width:          category === "ARTWORK" ? "35%" : "60%",
+            width:          textInputWidth,
             height:         "95%",
             // maxWidth:       "35%",
             top:            "5px",
+            bottom:         "5px",
             right:          "5px",
           }}
           >

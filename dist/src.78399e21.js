@@ -40191,6 +40191,14 @@ function ScreenNewPost(props) {
     _useState0 = _slicedToArray(_useState9, 2),
     category = _useState0[0],
     setCategory = _useState0[1];
+  var _useState1 = (0, _react.useState)("55%"),
+    _useState10 = _slicedToArray(_useState1, 2),
+    categoryWidth = _useState10[0],
+    setCategoryWidth = _useState10[1];
+  var _useState11 = (0, _react.useState)("55%"),
+    _useState12 = _slicedToArray(_useState11, 2),
+    textInputWidth = _useState12[0],
+    setTextInputWidth = _useState12[1];
   var imageRef = (0, _react.useRef)(null);
   var selectRef = (0, _react.useRef)(null);
   var uploadDivRef = (0, _react.useRef)(null);
@@ -40213,7 +40221,7 @@ function ScreenNewPost(props) {
     setDroppedFile(true);
     console.log(files.length, files[0].type);
     if (!files.length || !files[0].type.startsWith("image/")) {
-      console.log("return");
+      alert("Incorrect file format");
       return;
     }
     for (var i = 0; i < files.length; i++) {
@@ -40241,9 +40249,11 @@ function ScreenNewPost(props) {
     }
     ;
     return document.removeEventListener('DOMContentLoaded', fileInput);
-  });
+  }, []);
   (0, _react.useEffect)(function () {
-    uploadDivWidth.current = uploadDivRef.current.clientWidth;
+    console.log(category);
+    setCategoryWidth(category === "ARTWORK" ? "55%" : "30%");
+    setTextInputWidth(category === "ARTWORK" ? "35%" : "60%");
   }, [category]);
   return /*#__PURE__*/_react.default.createElement(_BaseScreen.default, null, props.children, /*#__PURE__*/_react.default.createElement("div", {
     style: {
@@ -40266,7 +40276,11 @@ function ScreenNewPost(props) {
       display: 'flex',
       flexDirection: "column",
       height: "100%",
-      width: category === "ARTWORK" ? "55%" : "30%"
+      width: categoryWidth,
+      position: "absolute",
+      left: "5px",
+      top: "5px",
+      bottom: "5px"
     },
     ref: uploadDivRef
   }, category === "ARTWORK" && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
@@ -40320,13 +40334,15 @@ function ScreenNewPost(props) {
       handleFiles(fileInput.files); // обрабатываем выбранные файлы
     }
   })), /*#__PURE__*/_react.default.createElement("div", {
+    id: "selectionDiv",
     style: {
       transition: "all 300ms ease-out",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      width: "".concat(uploadDivWidth.current, "px")
+      width: "100%"
+      // width:          `${ uploadDivWidth.current }px`
     }
   }, /*#__PURE__*/_react.default.createElement("h3", {
     className: "CormorantInfant-serif",
@@ -40351,7 +40367,11 @@ function ScreenNewPost(props) {
     ref: selectRef,
     onChange: function onChange() {
       setCategory(["ARTWORK", "PROSE", "POEM"][selectRef.current.selectedIndex]);
-      if (selectRef.current.selectedIndex == 1 || selectRef.current.selectedIndex == 2) {
+      if (selectRef.current.selectedIndex !== 0) {
+        if (droppedFile) {
+          alert("Are you sure you want to unselect the chozen photo?");
+        }
+        ;
         setDroppedFile(false);
       }
       ;
@@ -40371,10 +40391,11 @@ function ScreenNewPost(props) {
       alignItems: "center",
       justifyContent: 'center',
       position: "absolute",
-      width: category === "ARTWORK" ? "35%" : "60%",
+      width: textInputWidth,
       height: "95%",
       // maxWidth:       "35%",
       top: "5px",
+      bottom: "5px",
       right: "5px"
     }
   }, /*#__PURE__*/_react.default.createElement(NewPostTextInput, {
@@ -40436,10 +40457,10 @@ var TextInput = exports.TextInput = function TextInput(_ref2) {
   var fill_active = (0, _reactRedux.useSelector)(function (state) {
     return state.colorTheme.fill_active;
   });
-  var _useState1 = (0, _react.useState)(stroke_active),
-    _useState10 = _slicedToArray(_useState1, 2),
-    borderColor = _useState10[0],
-    setBorderColor = _useState10[1];
+  var _useState13 = (0, _react.useState)(stroke_active),
+    _useState14 = _slicedToArray(_useState13, 2),
+    borderColor = _useState14[0],
+    setBorderColor = _useState14[1];
   var inputRef = (0, _react.useRef)(null);
   return /*#__PURE__*/_react.default.createElement("textarea", {
     className: "CormorantInfant-serif",
