@@ -1,5 +1,7 @@
 import React                              from "react";
-import { NavLink }                        from "react-router";
+import { NavLink                        } from "react-router";
+import { useDispatch                    } from "react-redux";
+import { changeParameter                } from '../../app/store';
 import { LinkButton, ProfileContentsSVG } from "./ProfileMicroComponents";
 
 export function ProfileLink( props ) {
@@ -23,53 +25,58 @@ export function ProfileLink( props ) {
     };
 };
 
-export const ProfileContents = ( props ) => (
-    <div 
-        style       ={{ 
-            width:          "100%", 
-            display:        "flex", 
-            flexDirection:  "row", 
-            padding:        "0px", 
-            justifyContent: "space-between",
-        }} 
-        onMouseEnter={ () => {
-            props.setObjColor( props.activeContentsColor );
-            props.fill && props.setObjFillSVG( props.activeContentsColor );
-            props.setObjStrokeSVG( props.fill ? props.lines : props.activeContentsColor );
-        }}
-        onMouseLeave={ () => {
-            if ( props.menuSection != props.text ) {
-                props.setObjColor( props.inactiveContentsColor );
-                props.fill && props.setObjFillSVG( "none" );
-                props.setObjStrokeSVG( props.inactiveContentsColor );
-            };
-        }}
-        onClick={ () => {
-            if ( props.text === 'Privacy Policy' ) {
-                window.open( 'https://2048game.com/ru/', '_blank' );
-            } else if ( props.text === 'Log Out' ) {
-                console.log('Log Out');
-            } else if ( props.link === "support" ) {
-                props.setMenuSection( "Support" );
-            } else if ( props.link === "settings" ) {
-                props.setMenuSection( "Settings" );
-            } else if ( props.link !== 'none' ) {
-                props.setMenuSection( props.text );
-            } else {
-                console.log(`Liked post №${ props.postId }`);
-            };
-        }}>
-        {( props.fill === false || props.link !== "none" ) && (
-            <ProfileLink
-                link     = { props.link }
-                text     = { props.text }
-                objColor = { props.objColor }
-            />
-        )}
-        <ProfileContentsSVG
-            w={ props.w } h ={ props.h } 
-            d={ props.d } d1={ props.d1 }
-            contentsColor={ props.contentsColor }
-            objFillSVG   ={ props.fill ? props.objFillSVG : "none" }/>
-    </div>
-);
+export const ProfileContents = ( props ) => {
+    const dispatcher = useDispatch();
+
+    return (
+        <div 
+            style       ={{ 
+                width:          "100%", 
+                display:        "flex", 
+                flexDirection:  "row", 
+                padding:        "0px", 
+                justifyContent: "space-between",
+            }} 
+            onMouseEnter={ () => {
+                props.setObjColor( props.activeContentsColor );
+                props.fill && props.setObjFillSVG( props.activeContentsColor );
+                props.setObjStrokeSVG( props.fill ? props.lines : props.activeContentsColor );
+            }}
+            onMouseLeave={ () => {
+                if ( props.menuSection != props.text ) {
+                    props.setObjColor( props.inactiveContentsColor );
+                    props.fill && props.setObjFillSVG( "none" );
+                    props.setObjStrokeSVG( props.inactiveContentsColor );
+                };
+            }}
+            onClick={ () => {
+                if ( props.text === 'Privacy Policy' ) {
+                    window.open( 'https://2048game.com/ru/', '_blank' );
+                } else if ( props.text === 'Log Out' ) {
+                    console.log('Log Out');
+                    dispatcher( changeParameter( { name: "isAuthorized", value: false } ) );
+                } else if ( props.link === "support" ) {
+                    props.setMenuSection( "Support" );
+                } else if ( props.link === "settings" ) {
+                    props.setMenuSection( "Settings" );
+                } else if ( props.link !== 'none' ) {
+                    props.setMenuSection( props.text );
+                } else {
+                    console.log(`Liked post №${ props.postId }`);
+                };
+            }}>
+            {( props.fill === false || props.link !== "none" ) && (
+                <ProfileLink
+                    link     = { props.link }
+                    text     = { props.text }
+                    objColor = { props.objColor }
+                />
+            )}
+            <ProfileContentsSVG
+                w={ props.w } h ={ props.h } 
+                d={ props.d } d1={ props.d1 }
+                contentsColor={ props.contentsColor }
+                objFillSVG   ={ props.fill ? props.objFillSVG : "none" }/>
+        </div>
+    )
+}
